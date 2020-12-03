@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/img_loginfrg_logo" />
 
     <TextView
-        android:id="@+id/tv_registerfrg_fullname"
+        android:id="@+id/tv_loginfrg_fullname"
         style="@style/TextView_MaterialInput"
         android:layout_marginTop="50dp"
         android:text="@string/email"
@@ -43,7 +43,7 @@
         style="@style/MaterialField_TextInputLayout"
         android:hint="@string/input_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_registerfrg_fullname">
+        app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_fullname">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/MaterialField_EditText" />
@@ -51,7 +51,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tv_registerfrg_password"
+        android:id="@+id/tv_loginfrg_password"
         style="@style/TextView_MaterialInput"
         android:layout_marginTop="8dp"
         android:text="@string/password"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_email" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/it_registerfrg_password"
+        android:id="@+id/it_loginfrg_password"
         style="@style/MaterialField_TextInputLayout"
         android:hint="@string/input_password"
         app:endIconMode="password_toggle"
@@ -68,7 +68,7 @@
         app:helperTextEnabled="true"
         app:helperTextTextColor="#99FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_registerfrg_password">
+        app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_password">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/MaterialField_EditText"
@@ -84,10 +84,10 @@
         android:text="@string/forgot_password"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/it_registerfrg_password" />
+        app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_registerfrg_login"
+        android:id="@+id/btn_loginfrg_login"
         style="@style/MaterialButton"
         android:layout_marginHorizontal="0dp"
         android:layout_marginTop="32dp"
@@ -107,7 +107,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_registerfrg_login" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_loginfrg_login" />
 
     <TextView
         android:id="@+id/tv_loginfrg_register_here"

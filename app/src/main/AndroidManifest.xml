@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_gohipe_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GoHipeAndroidApp">
-        <activity android:name=".activities.MainScreenActivity"></activity>
+        <activity android:name=".activities.ProfileScreenActivity"></activity>
+        <activity android:name=".activities.MainScreenActivity" />
         <activity android:name=".activities.IntroScreenActivity" />
         <activity
             android:name=".activities.SplashScreenActivity"

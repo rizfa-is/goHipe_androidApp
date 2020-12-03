@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        android:background="@color/theme_green"
-        tools:context=".fragments.LoginScreenFragment">
+        android:background="@color/theme_green" >
 
         <ImageView
             android:id="@+id/img_registerfrg_back"

@@ -22,4 +22,15 @@
     <string name="confirm_password">Confirm password</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="login_here">Login here</string>
+    <string name="enter_email_you_have_registered_below">Enter email you have been registered before.</string>
+    <string name="send_reset_password_mail">Send reset password mail</string>
+    <string name="forgot_password_screen">Forgot Password</string>
+    <string name="update_your_password_with_unique_characters">Update your password with unique characters.</string>
+    <string name="new_password">New password</string>
+    <string name="input_new_password">Input new password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="location">Fuusha Village, East Blue</string>
+    <string name="job">Android Developer</string>
+    <string name="name">Mugiwara Monkey D. Luffy</string>
 </resources>
