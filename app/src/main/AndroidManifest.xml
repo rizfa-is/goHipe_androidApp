@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_gohipe_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GoHipeAndroidApp">
-        <activity android:name=".IntroActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".activities.MainScreenActivity"></activity>
+        <activity android:name=".activities.IntroScreenActivity" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".activities.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

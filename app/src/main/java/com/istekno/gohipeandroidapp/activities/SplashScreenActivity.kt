@@ -1,10 +1,11 @@
-package com.istekno.gohipeandroidapp
+package com.istekno.gohipeandroidapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import com.istekno.gohipeandroidapp.R
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(mainLooper).postDelayed(
             {
-                startActivity(Intent(this, IntroActivity::class.java))
+                startActivity(Intent(this, IntroScreenActivity::class.java))
                 finish()
             }, 4000
         )
