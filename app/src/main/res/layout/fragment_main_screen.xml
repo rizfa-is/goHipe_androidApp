@@ -19,20 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/img_mainfrg_green"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/theme_green_translucent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <ImageView
         android:id="@+id/img_mainfrg_logo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        style="@style/Logo_GoHipe"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/img_gohipe_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,24 +31,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/mainscr_msg"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_mainfrg_logo" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_mainfrg_engineer"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_mainfrg_engineer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        style="@style/MaterialButton"
         android:layout_marginBottom="8dp"
         android:text="@string/log_in_engineer"
-        android:textAllCaps="false"
-        android:textColor="@color/theme_green"
-        app:backgroundTint="@android:color/white"
+        app:backgroundTint="@color/theme_orange"
         app:layout_constraintBottom_toTopOf="@+id/vw_mainfrg_line1"
         app:layout_constraintStart_toEndOf="@+id/img_mainfrg_bg" />
 
@@ -103,16 +89,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_mainfrg_company"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        style="@style/MaterialButton"
         android:layout_marginBottom="48dp"
         android:text="@string/log_in_company"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:backgroundTint="@android:color/transparent"
-        app:strokeColor="@android:color/white"
-        app:strokeWidth="2dp"
+        app:backgroundTint="@color/theme_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_mainfrg_bg" />
 

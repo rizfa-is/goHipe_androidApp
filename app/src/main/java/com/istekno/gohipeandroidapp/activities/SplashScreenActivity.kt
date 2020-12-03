@@ -11,8 +11,14 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+        )
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+        )
 
         Handler(mainLooper).postDelayed(
             {

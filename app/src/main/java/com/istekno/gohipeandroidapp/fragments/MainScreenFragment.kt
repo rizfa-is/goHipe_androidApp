@@ -24,14 +24,11 @@ class MainScreenFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val newActivity = activity as AppCompatActivity
-        newActivity.supportActionBar?.hide()
-        newActivity.window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         btn_mainfrg_engineer.setOnClickListener(this)
         btn_mainfrg_company.setOnClickListener(this)
     }
-
+    
     override fun onClick(v: View) {
         val mFragmentManager = fragmentManager
         var mFragment : Fragment

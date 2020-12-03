@@ -3,6 +3,7 @@ package com.istekno.gohipeandroidapp.activities
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
@@ -12,6 +13,15 @@ import com.istekno.gohipeandroidapp.R
 class IntroScreenActivity : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+        )
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+        )
 
         addSlide(AppIntroFragment.newInstance(
                 title = "Material Design",
