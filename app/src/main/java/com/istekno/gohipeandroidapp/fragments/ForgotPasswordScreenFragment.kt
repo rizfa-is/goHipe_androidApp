@@ -30,5 +30,12 @@ class ForgotPasswordScreenFragment : Fragment() {
                 commit()
             }
         }
+        img_forgotpassfrg_back.setOnClickListener {
+            mFragment = LoginScreenFragment()
+            mFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.frame_container, mFragment, LoginScreenFragment::class.java.simpleName)
+                commit()
+            }
+        }
     }
 }
