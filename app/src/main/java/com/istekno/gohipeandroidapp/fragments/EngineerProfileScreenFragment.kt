@@ -1,12 +1,16 @@
 package com.istekno.gohipeandroidapp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
 import kotlinx.android.synthetic.main.fragment_engineer_profile_screen.*
 
 class EngineerProfileScreenFragment : Fragment() {
@@ -24,10 +28,16 @@ class EngineerProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val newActivity = activity as AppCompatActivity
+        newActivity.supportActionBar?.elevation = 0F
+
+        val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(context as Context, fragmentManager as FragmentManager)
+        vp_engprofiact.adapter = enginerProfilePagerAdapter
+        tl_engprofiact.setupWithViewPager(vp_engprofiact)
 
         for (i in 0 until listAbility.size) {
             val chip = Chip(view.context)
-            chip.chipCornerRadius = 20F
+            chip.chipCornerRadius = 30F
             chip.chipBackgroundColor = resources.getColorStateList(R.color.theme_green)
             chip.text = listAbility[i].toString()
             chip.setTextColor(resources.getColor(R.color.white))
@@ -40,5 +50,4 @@ class EngineerProfileScreenFragment : Fragment() {
             activity?.onBackPressed()
         }
     }
-
 }

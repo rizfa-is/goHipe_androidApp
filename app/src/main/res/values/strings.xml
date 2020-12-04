@@ -33,4 +33,9 @@
     <string name="location">Fuusha Village, East Blue</string>
     <string name="job">Android Developer</string>
     <string name="name">Mugiwara Monkey D. Luffy</string>
+    <string name="github">monkluff97</string>
+    <string name="gitlab">monkluff97_glab</string>
+    <string name="instagram">monkdluff.official</string>
+    <string name="portfolio_tab_title">Portfolio</string>
+    <string name="experience_tab_title">Experience</string>
 </resources>
