@@ -38,7 +38,7 @@ class EngineerProfileScreenFragment : Fragment() {
         for (i in 0 until listAbility.size) {
             val chip = Chip(view.context)
             chip.chipCornerRadius = 30F
-            chip.chipBackgroundColor = resources.getColorStateList(R.color.theme_green)
+            chip.chipBackgroundColor = resources.getColorStateList(R.color.theme_orange)
             chip.text = listAbility[i].toString()
             chip.setTextColor(resources.getColor(R.color.white))
             chip.chipIcon = resources.getDrawable(listDrawable[i])
@@ -46,6 +46,15 @@ class EngineerProfileScreenFragment : Fragment() {
             cg_enprofifrg_ability.addView(chip)
         }
 
+        img_enprofifrg_favorite.setOnClickListener {
+            if (!it.isSelected) {
+                img_enprofifrg_favorite.setImageResource(R.drawable.ic_favorite_checked)
+                img_enprofifrg_favorite.isSelected = true
+            } else {
+                img_enprofifrg_favorite.setImageResource(R.drawable.ic_favorite_unchecked)
+                img_enprofifrg_favorite.isSelected = false
+            }
+        }
         img_enprofifrg_back.setOnClickListener {
             activity?.onBackPressed()
         }

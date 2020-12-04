@@ -9,6 +9,7 @@
         android:id="@+id/tv_experifrg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment Experience" />
+        android:text="Fragment Experience \nGood \nGood \nGood \nGood \nGood \nGood \nGood"
+        android:textSize="50dp"/>
 
 </FrameLayout>

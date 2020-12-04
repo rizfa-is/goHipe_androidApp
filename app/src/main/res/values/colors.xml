@@ -12,4 +12,5 @@
     <color name="background_grey">#f6f7f8</color>
     <color name="text">#606060</color>
     <color name="text_loc">#afafaf</color>
+    <color name="color_favorite">#F51A51</color>
 </resources>

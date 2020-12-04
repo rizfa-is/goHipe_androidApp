@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,182 +8,223 @@
     android:background="@color/background_grey"
     tools:context=".fragments.EngineerProfileScreenFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/vw_engprofifrg_bottombar"
+        android:background="@color/background_grey">
 
-        <ImageView
-            android:id="@+id/img_enprofifrg_shape1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:src="@drawable/shape_profile_big"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/img_enprofifrg_shape2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/shape_profile_small"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/img_enprofifrg_shape1"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:src="@drawable/shape_profile_big"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/img_enprofifrg_back"
-            style="@style/Button_Back"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/img_enprofifrg_shape2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/shape_profile_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_enprofifrg_avatar"
-            android:layout_width="115dp"
-            android:layout_height="115dp"
-            android:layout_marginTop="115dp"
-            android:elevation="3dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_mainscreen_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/circleImage" />
+            <ImageView
+                android:id="@+id/img_enprofifrg_back"
+                style="@style/Button_Back"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout_engprofifrg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:paddingHorizontal="24dp"
-            android:background="@drawable/shape_profile_background1"
-            android:orientation="vertical"
-            android:elevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_enprofifrg_avatar">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_enprofifrg_avatar"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="115dp"
+                android:elevation="3dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_mainscreen_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/circleImage" />
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout_engprofifrg"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="24dp"
+                android:background="@drawable/shape_profile_background1"
+                android:orientation="vertical"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_enprofifrg_avatar">
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/name"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/job"
+                    android:textColor="@color/text" />
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_location"
+                    android:drawablePadding="5dp"
+                    android:text="@string/location"
+                    android:textColor="@color/text_loc" />
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="16dp"
+                    android:lineSpacingExtra="7dp"
+                    android:text="@string/description"
+                    android:textColor="@color/text"
+                    android:textAlignment="inherit" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cg_enprofifrg_ability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:text="monkdluff97@gmail.com"
+                    app:drawableStartCompat="@drawable/ic_email" />
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_ig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/instagram"
+                    app:drawableStartCompat="@drawable/ic_instagram" />
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_github"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/github"
+                    app:drawableStartCompat="@drawable/ic_github" />
+
+                <TextView
+                    android:id="@+id/tv_enprofifrg_gitlab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/gitlab"
+                    app:drawableStartCompat="@drawable/ic_gitlab" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/linearLayout2_engprofifrg"
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/name"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout_engprofifrg"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout_engprofifrg"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_engprofifrg">
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_job"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="@string/job"
-                android:textColor="@color/text" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_engprofiact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="1dp"
+                    app:tabBackground="@drawable/background_profile_tab_selector"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabTextColor="@color/theme_green" />
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_location"
-                android:drawablePadding="5dp"
-                android:text="@string/location"
-                android:textColor="@color/text_loc" />
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp_engprofiact"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="45dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_profile_tablayout_bottom"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="16dp"
-                android:lineSpacingExtra="7dp"
-                android:text="@string/description"
-                android:textColor="@color/text"
-                android:textAlignment="inherit" />
+            </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/cg_enprofifrg_ability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:text="monkdluff97@gmail.com"
-                app:drawableStartCompat="@drawable/ic_email" />
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_ig"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:drawablePadding="10dp"
-                android:text="@string/instagram"
-                app:drawableStartCompat="@drawable/ic_instagram" />
+    <View
+        android:id="@+id/vw_engprofifrg_bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:paddingHorizontal="8dp"
+        android:elevation="2dp"
+        android:background="@drawable/shape_profile_bg_bottombar"/>
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_github"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:drawablePadding="10dp"
-                android:text="@string/github"
-                app:drawableStartCompat="@drawable/ic_github" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_engprofifrg_hire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginBottom="3.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/img_enprofifrg_favorite"
+        android:text="@string/hire_talent"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/theme_orange"
+        app:icon="@drawable/ic_briefcase"/>
 
-            <TextView
-                android:id="@+id/tv_enprofifrg_gitlab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="24dp"
-                android:drawablePadding="10dp"
-                android:text="@string/gitlab"
-                app:drawableStartCompat="@drawable/ic_gitlab" />
+    <ImageView
+        android:id="@+id/img_enprofifrg_favorite"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp"
+        android:src="@drawable/ic_favorite_unchecked"/>
 
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/linearLayout2_engprofifrg"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
-            android:orientation="vertical"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout_engprofifrg"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout_engprofifrg"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout_engprofifrg">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tl_engprofiact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="1dp"
-                app:tabBackground="@drawable/background_profile_tab_selector"
-                app:tabSelectedTextColor="@color/white"
-                app:tabIndicatorColor="@color/white"
-                app:tabTextColor="@color/theme_green" />
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/vp_engprofiact"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                android:padding="8dp"
-                android:background="@drawable/shape_profile_tablayout_bottom"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-        </androidx.cardview.widget.CardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>
