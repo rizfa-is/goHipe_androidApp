@@ -28,9 +28,6 @@ class EngineerProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val newActivity = activity as AppCompatActivity
-        newActivity.supportActionBar?.elevation = 0F
-
         val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(context as Context, fragmentManager as FragmentManager)
         vp_engprofiact.adapter = enginerProfilePagerAdapter
         tl_engprofiact.setupWithViewPager(vp_engprofiact)
@@ -54,9 +51,6 @@ class EngineerProfileScreenFragment : Fragment() {
                 img_enprofifrg_favorite.setImageResource(R.drawable.ic_favorite_unchecked)
                 img_enprofifrg_favorite.isSelected = false
             }
-        }
-        topAppBar_engprofifrg.setNavigationOnClickListener {
-            activity?.onBackPressed()
         }
     }
 }

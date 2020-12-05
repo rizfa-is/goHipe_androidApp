@@ -25,20 +25,17 @@ class LoginScreenFragment : Fragment() {
         val mFragmentManager = fragmentManager
         var mFragment : Fragment
 
-        btn_loginfrg_login.setOnClickListener {
-            startActivity(Intent(context, ProfileScreenActivity::class.java))
-        }
         tv_loginfrg_forgot_password.setOnClickListener {
             mFragment = ForgotPasswordScreenFragment()
             mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container, mFragment, ForgotPasswordScreenFragment::class.java.simpleName)
+                replace(R.id.frame_container_logregact, mFragment, ForgotPasswordScreenFragment::class.java.simpleName)
                 commit()
             }
         }
         tv_loginfrg_register_here.setOnClickListener {
             mFragment = SelectRoleFragment()
             mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container, mFragment, SelectRoleFragment::class.java.simpleName)
+                replace(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
                 commit()
             }
         }

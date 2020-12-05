@@ -20,7 +20,7 @@ class ResetPasswordScreenFragment : Fragment() {
             override fun handleOnBackPressed() {
                 mFragment = ForgotPasswordScreenFragment()
                 mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container, mFragment, ForgotPasswordScreenFragment::class.java.simpleName)
+                    replace(R.id.frame_container_logregact, mFragment, ForgotPasswordScreenFragment::class.java.simpleName)
                     commit()
                 }
             }

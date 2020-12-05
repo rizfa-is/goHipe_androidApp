@@ -8,19 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
+import com.istekno.gohipeandroidapp.data.GoHipeDatabases
 import com.istekno.gohipeandroidapp.data.Portfolio
 import kotlinx.android.synthetic.main.fragment_portfolio.*
 
 class PortfolioFragment : Fragment() {
 
     private val listPortfolio = ArrayList<Portfolio>()
-    private val portfolio = intArrayOf(
-        R.drawable.img_porto1,
-        R.drawable.img_porto2,
-        R.drawable.img_porto3,
-        R.drawable.img_porto4,
-        R.drawable.img_porto5
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +26,7 @@ class PortfolioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val portfolio = GoHipeDatabases.porto
         for (i in 0 until portfolio.size) {
             val porto = Portfolio(
                 portfolio[i]

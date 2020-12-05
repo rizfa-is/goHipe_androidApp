@@ -14,12 +14,10 @@ import kotlinx.android.synthetic.main.item_row_portfolio.view.*
 class ListPortfolioRecycleViewAdapter(private val listPortfolio: ArrayList<Portfolio>) : RecyclerView.Adapter<ListPortfolioRecycleViewAdapter.ListViewHolder>() {
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val image : ImageView = itemView.findViewById(R.id.img_item_row_portfolio)
-
         fun bind(portfolio: Portfolio) {
             Glide.with(itemView.context)
                 .load(portfolio.image)
-                .apply(RequestOptions().override(700, 300))
+                .apply(RequestOptions().override(900, 400))
                 .into(itemView.img_item_row_portfolio)
         }
     }

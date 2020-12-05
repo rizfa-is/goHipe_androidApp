@@ -41,6 +41,15 @@
     <string name="hire_talent">Hire Talent</string>
     <string name="register_now">Register Now</string>
     <string name="select_role">Select Role</string>
-    <string name="company">Company</string>
     <string name="engineer">Engineer</string>
+    <string name="chat_now">Chat Now</string>
+    <string name="engineer_register">Engineer Register</string>
+    <string name="company">Company</string>
+    <string name="input_company">Input company</string>
+    <string name="position">Position</string>
+    <string name="input_position">Input position</string>
+    <string name="junior_android_developer">Junior Android Developer</string>
+    <string name="gohipe_teknologi">GoHipe Teknologi</string>
+    <string name="february_2021_oktober_2022">February 2021 - Oktober 2022</string>
+    <string name="total_months">20 months</string>
 </resources>

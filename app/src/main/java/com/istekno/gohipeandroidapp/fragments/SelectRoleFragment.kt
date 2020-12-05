@@ -35,14 +35,28 @@ class SelectRoleFragment : Fragment(), View.OnClickListener {
             R.id.img_rolefrg_engineer -> {
                 mFragment = EngineerRegisterScreenFragment()
                 mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container, mFragment, EngineerRegisterScreenFragment::class.java.simpleName)
+                    replace(R.id.frame_container_logregact, mFragment, EngineerRegisterScreenFragment::class.java.simpleName)
                     commit()
                 }
             }
             R.id.tv_rolefrg_engineer -> {
                 mFragment = EngineerRegisterScreenFragment()
                 mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container, mFragment, EngineerRegisterScreenFragment::class.java.simpleName)
+                    replace(R.id.frame_container_logregact, mFragment, EngineerRegisterScreenFragment::class.java.simpleName)
+                    commit()
+                }
+            }
+            R.id.img_rolefrg_company -> {
+                mFragment = CompanyRegisterScreenFragment()
+                mFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.frame_container_logregact, mFragment, CompanyRegisterScreenFragment::class.java.simpleName)
+                    commit()
+                }
+            }
+            R.id.tv_rolefrg_company -> {
+                mFragment = CompanyRegisterScreenFragment()
+                mFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.frame_container_logregact, mFragment, CompanyRegisterScreenFragment::class.java.simpleName)
                     commit()
                 }
             }

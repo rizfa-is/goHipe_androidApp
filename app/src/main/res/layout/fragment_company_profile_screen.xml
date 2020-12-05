@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_grey"
     android:elevation="4dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:context=".fragments.CompanyProfileScreenFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_enprofifrg_shape1"
+                android:id="@+id/img_comprofifrg_shape1"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:src="@drawable/shape_profile_big"
@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_enprofifrg_shape2"
+                android:id="@+id/img_comprofifrg_shape2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/shape_profile_small"
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_enprofifrg_avatar"
+                android:id="@+id/img_comprofifrg_avatar"
                 android:layout_width="115dp"
                 android:layout_height="115dp"
                 android:layout_marginTop="100dp"
@@ -61,10 +61,10 @@
                 android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_enprofifrg_avatar">
+                app:layout_constraintTop_toBottomOf="@+id/img_comprofifrg_avatar">
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_name"
+                    android:id="@+id/tv_comprofifrg_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -75,7 +75,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_job"
+                    android:id="@+id/tv_comprofifrg_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -84,7 +84,7 @@
                     android:textColor="@color/text" />
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_location"
+                    android:id="@+id/tv_comprofifrg_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -95,7 +95,7 @@
                     android:textColor="@color/text_loc" />
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_description"
+                    android:id="@+id/tv_comprofifrg_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -105,14 +105,8 @@
                     android:textColor="@color/text"
                     android:textAlignment="inherit" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/cg_enprofifrg_ability"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"/>
-
                 <TextView
-                    android:id="@+id/tv_enprofifrg_email"
+                    android:id="@+id/tv_comprofifrg_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
@@ -120,7 +114,7 @@
                     app:drawableStartCompat="@drawable/ic_email" />
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_ig"
+                    android:id="@+id/tv_comprofifrg_ig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -129,7 +123,7 @@
                     app:drawableStartCompat="@drawable/ic_instagram" />
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_github"
+                    android:id="@+id/tv_comprofifrg_github"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -138,7 +132,7 @@
                     app:drawableStartCompat="@drawable/ic_github" />
 
                 <TextView
-                    android:id="@+id/tv_enprofifrg_gitlab"
+                    android:id="@+id/tv_comprofifrg_gitlab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -149,48 +143,12 @@
 
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/linearLayout2_engprofifrg"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="700dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="15dp"
-                android:orientation="vertical"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout_engprofifrg"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout_engprofifrg"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout_engprofifrg">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tl_engprofiact"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:elevation="1dp"
-                        app:tabBackground="@drawable/background_profile_tab_selector"
-                        app:tabSelectedTextColor="@color/white"
-                        app:tabIndicatorColor="@color/white"
-                        app:tabIndicatorHeight="2dp"
-                        app:tabIndicatorFullWidth="true"
-                        app:tabTextColor="@color/theme_green" />
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/vp_engprofiact"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="8dp"
-                        android:background="@drawable/shape_profile_tablayout_bottom"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+                android:layout_height="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_engprofifrg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -212,15 +170,15 @@
         android:layout_marginHorizontal="28dp"
         android:layout_marginBottom="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@id/img_enprofifrg_favorite"
-        android:text="@string/hire_talent"
+        android:layout_toStartOf="@id/img_comprofifrg_favorite"
+        android:text="@string/chat_now"
         android:textAllCaps="false"
         android:backgroundTint="@color/theme_orange"
         app:cornerRadius="20dp"
-        app:icon="@drawable/ic_briefcase"/>
+        app:icon="@drawable/ic_chat"/>
 
     <ImageView
-        android:id="@+id/img_enprofifrg_favorite"
+        android:id="@+id/img_comprofifrg_favorite"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="48dp"

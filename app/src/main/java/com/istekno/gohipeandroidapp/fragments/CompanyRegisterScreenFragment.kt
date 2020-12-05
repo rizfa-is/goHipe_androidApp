@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.istekno.gohipeandroidapp.R
-import kotlinx.android.synthetic.main.fragment_forgot_password_screen.*
+import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
+import kotlinx.android.synthetic.main.fragment_company_register_screen.*
+import kotlinx.android.synthetic.main.fragment_engineer_register_screen.*
 
-class ForgotPasswordScreenFragment : Fragment() {
+class CompanyRegisterScreenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,9 +21,9 @@ class ForgotPasswordScreenFragment : Fragment() {
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                mFragment = LoginScreenFragment()
+                mFragment = SelectRoleFragment()
                 mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container_logregact, mFragment, LoginScreenFragment::class.java.simpleName)
+                    replace(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
                     commit()
                 }
             }
@@ -32,7 +35,7 @@ class ForgotPasswordScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forgot_password_screen, container, false)
+        return inflater.inflate(R.layout.fragment_company_register_screen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,12 +43,17 @@ class ForgotPasswordScreenFragment : Fragment() {
         val mFragmentManager = fragmentManager
         var mFragment : Fragment
 
-        btn_forgotpassfrg_sendmail.setOnClickListener {
-            mFragment = ResetPasswordScreenFragment()
+        tv_comregisterfrg_login_here.setOnClickListener {
+            mFragment = LoginScreenFragment()
             mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container_logregact, mFragment, ResetPasswordScreenFragment::class.java.simpleName)
+                replace(R.id.frame_container_logregact, mFragment, LoginScreenFragment::class.java.simpleName)
                 commit()
             }
+        }
+        btn_comregisterfrg_register.setOnClickListener {
+            val intent = Intent(context, ProfileScreenActivity::class.java)
+            intent.putExtra("Codename Profile", 1)
+            startActivity(intent)
         }
     }
 }

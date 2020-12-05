@@ -30,12 +30,12 @@ class MainScreenActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.btn_mainact_login -> {
                 val intent = Intent(this, LoginRegisterActivity::class.java)
-                intent.putExtra("Codename", 0)
+                intent.putExtra("Codename Logreg", 0)
                 startActivity(intent)
             }
             R.id.btn_mainact_register -> {
                 val intent = Intent(this, LoginRegisterActivity::class.java)
-                intent.putExtra("Codename", 1)
+                intent.putExtra("Codename Logreg", 1)
                 startActivity(intent)
             }
         }

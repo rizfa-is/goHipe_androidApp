@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.EngineerRegisterScreenFragment">
+    tools:context=".fragments.CompanyRegisterScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,34 +14,34 @@
         android:background="@color/theme_green" >
 
         <ImageView
-            android:id="@+id/img_engregisterfrg_logo"
+            android:id="@+id/img_comregisterfrg_logo"
             style="@style/Logo_GoHipe"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_register"
+            android:id="@+id/tv_comregisterfrg_register"
             style="@style/TextView_Account"
             android:layout_marginTop="24dp"
-            android:text="@string/engineer_register"
+            android:text="Company Register"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_engregisterfrg_logo" />
+            app:layout_constraintTop_toBottomOf="@+id/img_comregisterfrg_logo" />
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_fullname"
+            android:id="@+id/tv_comregisterfrg_fullname"
             style="@style/TextView_MaterialInput"
             android:layout_marginTop="50dp"
             android:text="@string/fullname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_register" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_register" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_engregisterfrg_fullname"
+            android:id="@+id/it_comregisterfrg_fullname"
             style="@style/MaterialField_TextInputLayout"
             android:hint="@string/input_fullname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_fullname">
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_fullname">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MaterialField_EditText" />
@@ -49,38 +49,76 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_email"
+            android:id="@+id/tv_comregisterfrg_email"
             style="@style/TextView_MaterialInput"
             android:layout_marginTop="8dp"
             android:text="@string/email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_engregisterfrg_fullname" />
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_fullname" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_engregisterfrg_email"
+            android:id="@+id/it_comregisterfrg_email"
             style="@style/MaterialField_TextInputLayout"
             android:hint="@string/input_email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_email">
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MaterialField_EditText" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_phone"
+            android:id="@+id/tv_comregisterfrg_company"
+            style="@style/TextView_MaterialInput"
+            android:layout_marginTop="8dp"
+            android:text="@string/company"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_email" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/it_comregisterfrg_company"
+            style="@style/MaterialField_TextInputLayout"
+            android:hint="@string/input_company"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_company">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/MaterialField_EditText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_comregisterfrg_position"
+            style="@style/TextView_MaterialInput"
+            android:layout_marginTop="8dp"
+            android:text="@string/position"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_company" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/it_comregisterfrg_position"
+            style="@style/MaterialField_TextInputLayout"
+            android:hint="@string/input_position"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_position">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/MaterialField_EditText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_comregisterfrg_phone"
             style="@style/TextView_MaterialInput"
             android:layout_marginTop="8dp"
             android:text="@string/phone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_engregisterfrg_email" />
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_position" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_engregisterfrg_phone"
+            android:id="@+id/it_comregisterfrg_phone"
             style="@style/MaterialField_TextInputLayout"
             android:hint="@string/input_phone_number"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_phone">
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_phone">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MaterialField_EditText"
@@ -88,15 +126,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_password"
+            android:id="@+id/tv_comregisterfrg_password"
             style="@style/TextView_MaterialInput"
             android:layout_marginTop="8dp"
             android:text="@string/password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_engregisterfrg_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_phone" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_engregisterfrg_password"
+            android:id="@+id/it_comregisterfrg_password"
             style="@style/MaterialField_TextInputLayout"
             android:hint="@string/input_password"
             app:endIconMode="password_toggle"
@@ -105,7 +143,7 @@
             app:helperTextEnabled="true"
             app:helperTextTextColor="#99FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_password">
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_password">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MaterialField_EditText"
@@ -113,22 +151,22 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_confirm_password"
+            android:id="@+id/tv_comregisterfrg_confirm_password"
             style="@style/TextView_MaterialInput"
             android:layout_marginTop="8dp"
             android:text="@string/confirm_password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_engregisterfrg_password" />
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_password" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_engregisterfrg_confirm_password"
+            android:id="@+id/it_comregisterfrg_confirm_password"
             style="@style/MaterialField_TextInputLayout"
             android:hint="@string/confirm_password"
             app:endIconMode="password_toggle"
             app:errorEnabled="true"
             app:helperTextTextColor="#99FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_confirm_password">
+            app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_confirm_password">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MaterialField_EditText"
@@ -137,17 +175,17 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_engregisterfrg_register"
+            android:id="@+id/btn_comregisterfrg_register"
             style="@style/MaterialButton"
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/theme_orange"
             android:text="@string/register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_engregisterfrg_confirm_password" />
+            app:layout_constraintTop_toBottomOf="@+id/it_comregisterfrg_confirm_password" />
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_already_have_account"
+            android:id="@+id/tv_comregisterfrg_already_have_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -156,10 +194,10 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_engregisterfrg_register" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_comregisterfrg_register" />
 
         <TextView
-            android:id="@+id/tv_engregisterfrg_login_here"
+            android:id="@+id/tv_comregisterfrg_login_here"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
@@ -169,7 +207,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_engregisterfrg_already_have_account" />
+            app:layout_constraintTop_toTopOf="@+id/tv_comregisterfrg_already_have_account" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

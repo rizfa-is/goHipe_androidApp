@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import kotlinx.android.synthetic.main.fragment_engineer_register_screen.*
 
 
@@ -21,7 +23,7 @@ class EngineerRegisterScreenFragment : Fragment() {
             override fun handleOnBackPressed() {
                 mFragment = SelectRoleFragment()
                 mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container, mFragment, SelectRoleFragment::class.java.simpleName)
+                    replace(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
                     commit()
                 }
             }
@@ -41,12 +43,17 @@ class EngineerRegisterScreenFragment : Fragment() {
         val mFragmentManager = fragmentManager
         var mFragment : Fragment
 
-        tv_registerfrg_login_here.setOnClickListener {
+        tv_engregisterfrg_login_here.setOnClickListener {
             mFragment = LoginScreenFragment()
             mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container, mFragment, LoginScreenFragment::class.java.simpleName)
+                replace(R.id.frame_container_logregact, mFragment, LoginScreenFragment::class.java.simpleName)
                 commit()
             }
+        }
+        btn_engregisterfrg_register.setOnClickListener {
+            val intent = Intent(context, ProfileScreenActivity::class.java)
+            intent.putExtra("Codename Profile", 0)
+            startActivity(intent)
         }
     }
 }

@@ -22,7 +22,7 @@ class LoginRegisterActivity : AppCompatActivity() {
 
         bindFragment()
 
-        topAppBar_mainlogact.setNavigationOnClickListener {
+        topAppBar_logregact.setNavigationOnClickListener {
             onBackPressed()
         }
     }
@@ -30,7 +30,7 @@ class LoginRegisterActivity : AppCompatActivity() {
     private fun bindFragment() {
         val mFragmentManager = supportFragmentManager
         val mFragment : Fragment
-        val role = intent.getIntExtra("Codename", -1)
+        val role = intent.getIntExtra("Codename Logreg", -1)
 
         when (role) {
             0 -> {
@@ -38,7 +38,7 @@ class LoginRegisterActivity : AppCompatActivity() {
                 mFragment = LoginScreenFragment()
                 if (fragment !is LoginScreenFragment) {
                     mFragmentManager.beginTransaction().apply {
-                        add(R.id.frame_container, mFragment, LoginScreenFragment::class.java.simpleName)
+                        add(R.id.frame_container_logregact, mFragment, LoginScreenFragment::class.java.simpleName)
                         commit()
                     }
                 }
@@ -48,7 +48,7 @@ class LoginRegisterActivity : AppCompatActivity() {
                 mFragment = SelectRoleFragment()
                 if (fragment !is SelectRoleFragment) {
                     mFragmentManager.beginTransaction().apply {
-                        add(R.id.frame_container, mFragment, SelectRoleFragment::class.java.simpleName)
+                        add(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
                         commit()
                     }
                 }
