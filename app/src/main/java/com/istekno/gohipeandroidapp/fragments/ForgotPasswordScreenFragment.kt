@@ -5,10 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import com.istekno.gohipeandroidapp.R
 import kotlinx.android.synthetic.main.fragment_forgot_password_screen.*
 
 class ForgotPasswordScreenFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val mFragmentManager = fragmentManager
+        var mFragment : Fragment
+
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                mFragment = LoginScreenFragment()
+                mFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.frame_container, mFragment, LoginScreenFragment::class.java.simpleName)
+                    commit()
+                }
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +44,6 @@ class ForgotPasswordScreenFragment : Fragment() {
             mFragment = ResetPasswordScreenFragment()
             mFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.frame_container, mFragment, ResetPasswordScreenFragment::class.java.simpleName)
-                commit()
-            }
-        }
-        img_forgotpassfrg_back.setOnClickListener {
-            mFragment = LoginScreenFragment()
-            mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container, mFragment, LoginScreenFragment::class.java.simpleName)
                 commit()
             }
         }

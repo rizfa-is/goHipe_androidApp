@@ -6,29 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.MainScreenActivity
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import kotlinx.android.synthetic.main.fragment_login_screen.*
 
 class LoginScreenFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val mFragmentManager = fragmentManager
-        var mFragment : Fragment
-
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                mFragment = MainScreenFragment()
-                mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container, mFragment, MainScreenFragment::class.java.simpleName)
-                    commit()
-                }
-            }
-        })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,13 +25,6 @@ class LoginScreenFragment : Fragment() {
         val mFragmentManager = fragmentManager
         var mFragment : Fragment
 
-        img_loginfrg_back.setOnClickListener {
-            mFragment = MainScreenFragment()
-            mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container, mFragment, MainScreenFragment::class.java.simpleName)
-                commit()
-            }
-        }
         btn_loginfrg_login.setOnClickListener {
             startActivity(Intent(context, ProfileScreenActivity::class.java))
         }
@@ -61,9 +36,9 @@ class LoginScreenFragment : Fragment() {
             }
         }
         tv_loginfrg_register_here.setOnClickListener {
-            mFragment = RegisterScreenFragment()
+            mFragment = SelectRoleFragment()
             mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container, mFragment, RegisterScreenFragment::class.java.simpleName)
+                replace(R.id.frame_container, mFragment, SelectRoleFragment::class.java.simpleName)
                 commit()
             }
         }

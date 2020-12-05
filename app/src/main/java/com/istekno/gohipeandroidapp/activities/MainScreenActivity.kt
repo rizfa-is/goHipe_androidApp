@@ -1,17 +1,14 @@
 package com.istekno.gohipeandroidapp.activities
 
-import android.os.Bundle
-import android.view.WindowManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.fragments.MainScreenFragment
+import kotlinx.android.synthetic.main.activity_main_screen.*
 
-class MainScreenActivity : AppCompatActivity() {
-
-    private val mFragmentManager = supportFragmentManager
-    private val mFragment = MainScreenFragment()
-    private val fragment = mFragmentManager.findFragmentByTag(MainScreenFragment::class.java.simpleName)
-
+class MainScreenActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
@@ -25,10 +22,21 @@ class MainScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
 
-        if (fragment !is MainScreenFragment) {
-            mFragmentManager.beginTransaction().apply {
-                add(R.id.frame_container, mFragment, MainScreenFragment::class.java.simpleName)
-                commit()
+        btn_mainact_login.setOnClickListener(this)
+        btn_mainact_register.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btn_mainact_login -> {
+                val intent = Intent(this, LoginRegisterActivity::class.java)
+                intent.putExtra("Codename", 0)
+                startActivity(intent)
+            }
+            R.id.btn_mainact_register -> {
+                val intent = Intent(this, LoginRegisterActivity::class.java)
+                intent.putExtra("Codename", 1)
+                startActivity(intent)
             }
         }
     }

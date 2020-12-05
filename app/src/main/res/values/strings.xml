@@ -39,4 +39,8 @@
     <string name="portfolio_tab_title">Portfolio</string>
     <string name="experience_tab_title">Experience</string>
     <string name="hire_talent">Hire Talent</string>
+    <string name="register_now">Register Now</string>
+    <string name="select_role">Select Role</string>
+    <string name="company">Company</string>
+    <string name="engineer">Engineer</string>
 </resources>

@@ -10,17 +10,11 @@
     tools:context=".fragments.LoginScreenFragment">
 
     <ImageView
-        android:id="@+id/img_loginfrg_back"
-        style="@style/Button_Back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
         android:id="@+id/img_loginfrg_logo"
         style="@style/Logo_GoHipe"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_loginfrg_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_loginfrg_login"

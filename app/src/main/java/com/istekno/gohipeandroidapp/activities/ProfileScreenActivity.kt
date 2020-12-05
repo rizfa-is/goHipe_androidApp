@@ -16,10 +16,6 @@ class ProfileScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_screen)
         supportActionBar?.hide()
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-        )
 
         if (fragment !is EngineerProfileScreenFragment) {
             mFragmentManager.beginTransaction().apply {

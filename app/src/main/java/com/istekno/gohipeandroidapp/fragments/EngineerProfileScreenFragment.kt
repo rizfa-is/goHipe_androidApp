@@ -55,7 +55,7 @@ class EngineerProfileScreenFragment : Fragment() {
                 img_enprofifrg_favorite.isSelected = false
             }
         }
-        img_enprofifrg_back.setOnClickListener {
+        topAppBar_engprofifrg.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
     }

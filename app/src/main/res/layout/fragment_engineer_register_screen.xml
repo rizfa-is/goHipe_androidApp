@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.RegisterScreenFragment">
+    tools:context=".fragments.EngineerRegisterScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,17 +14,11 @@
         android:background="@color/theme_green" >
 
         <ImageView
-            android:id="@+id/img_registerfrg_back"
-            style="@style/Button_Back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/img_registerfrg_logo"
             style="@style/Logo_GoHipe"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_registerfrg_back" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_registerfrg_register"

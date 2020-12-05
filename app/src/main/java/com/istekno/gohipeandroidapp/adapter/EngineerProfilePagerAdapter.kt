@@ -18,12 +18,12 @@ class EngineerProfilePagerAdapter(private val mContext: Context, fragmentManager
     override fun getCount(): Int = tabTitles.size
 
     override fun getItem(position: Int): Fragment {
-        var fragment : Fragment = PortfolioFragment()
+        var fragment : Fragment? = null
         when (position) {
-            0 -> PortfolioFragment()
-            1 -> ExperienceFragment()
+            0 -> fragment  = PortfolioFragment()
+            1 -> fragment = ExperienceFragment()
         }
-        return fragment
+        return fragment as Fragment
     }
 
     @Nullable
