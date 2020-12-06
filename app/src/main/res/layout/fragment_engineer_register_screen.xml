@@ -44,6 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_fullname">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_engregisterfrg_fullname"
                 style="@style/MaterialField_EditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_engregisterfrg_email"
                 style="@style/MaterialField_EditText" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_phone">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_engregisterfrg_phone"
                 style="@style/MaterialField_EditText"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -108,6 +111,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_engregisterfrg_password"
                 style="@style/MaterialField_EditText"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -131,6 +135,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_confirm_password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_engregisterfrg_confirm_password"
                 style="@style/MaterialField_EditText"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>

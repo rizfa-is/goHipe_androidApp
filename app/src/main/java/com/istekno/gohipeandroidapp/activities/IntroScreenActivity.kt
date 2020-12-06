@@ -18,10 +18,6 @@ class IntroScreenActivity : AppIntro() {
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
         )
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-        )
 
         addSlide(AppIntroFragment.newInstance(
                 title = "Material Design",

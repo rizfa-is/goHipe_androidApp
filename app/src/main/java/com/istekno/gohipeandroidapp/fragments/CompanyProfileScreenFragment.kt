@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.istekno.gohipeandroidapp.R
 import kotlinx.android.synthetic.main.fragment_company_profile_screen.*
+import kotlinx.android.synthetic.main.fragment_engineer_profile_screen.*
 
-class CompanyProfileScreenFragment : Fragment() {
+class CompanyProfileScreenFragment(
+    private val email : String? = null,
+    private val password : String? = null
+    ) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +25,7 @@ class CompanyProfileScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        changeText(email, password)
         img_comprofifrg_favorite.setOnClickListener {
             if (!it.isSelected) {
                 img_comprofifrg_favorite.setImageResource(R.drawable.ic_favorite_checked)
@@ -30,5 +35,9 @@ class CompanyProfileScreenFragment : Fragment() {
                 img_comprofifrg_favorite.isSelected = false
             }
         }
+    }
+
+    private fun changeText(emailNew: String?, passwordNew: String?) {
+        tv_comprofifrg_email.text = emailNew
     }
 }

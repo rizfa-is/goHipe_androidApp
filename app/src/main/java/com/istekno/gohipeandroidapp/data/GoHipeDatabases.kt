@@ -75,4 +75,44 @@ object GoHipeDatabases {
         }
         return expers
     }
+
+    //ENGINEER
+
+    private val emailEng = arrayOf(
+        "rosyidrosadi15@gmail.com"
+    )
+
+    val loginEmailEngineer : Array<String>
+    get() {
+        return emailEng
+    }
+
+    private val passwordEng = arrayOf(
+        "qwer1234"
+    )
+
+    val loginPasswordEngineer : Array<String>
+    get() {
+        return passwordEng
+    }
+
+    //COMPANY
+
+    private val emailComp = arrayOf(
+        "siosin15@gmail.com"
+    )
+
+    val loginEmailCompany : Array<String>
+        get() {
+            return emailComp
+        }
+
+    private val passwordComp = arrayOf(
+        "asdf1234"
+    )
+
+    val loginPasswordCompany : Array<String>
+        get() {
+            return passwordComp
+        }
 }

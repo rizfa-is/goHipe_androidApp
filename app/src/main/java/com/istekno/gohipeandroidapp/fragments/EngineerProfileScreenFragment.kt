@@ -11,9 +11,13 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
+import kotlinx.android.synthetic.main.fragment_company_profile_screen.*
 import kotlinx.android.synthetic.main.fragment_engineer_profile_screen.*
 
-class EngineerProfileScreenFragment : Fragment() {
+class EngineerProfileScreenFragment(
+    private val email : String? = null,
+    private val password : String? = null
+    ) : Fragment() {
 
     private val listAbility = arrayOf<String>("Android", "108 MP", "Creativity", "Route")
     private val listDrawable = listOf<Int>(R.drawable.ic_android, R.drawable.ic_camera, R.drawable.ic_idea, R.drawable.ic_location_track)
@@ -43,6 +47,8 @@ class EngineerProfileScreenFragment : Fragment() {
             cg_enprofifrg_ability.addView(chip)
         }
 
+        changeText(email, password)
+
         img_enprofifrg_favorite.setOnClickListener {
             if (!it.isSelected) {
                 img_enprofifrg_favorite.setImageResource(R.drawable.ic_favorite_checked)
@@ -52,5 +58,9 @@ class EngineerProfileScreenFragment : Fragment() {
                 img_enprofifrg_favorite.isSelected = false
             }
         }
+    }
+
+    private fun changeText(emailNew: String?, passwordNew: String?) {
+        tv_enprofifrg_email.text = emailNew
     }
 }

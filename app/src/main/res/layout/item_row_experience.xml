@@ -11,6 +11,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@mipmap/ic_gohipe_round"
+        android:scaleType="centerCrop"
         app:shapeAppearance="@style/circleImage_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -40,6 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_fullname">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_loginfrg_email"
             style="@style/MaterialField_EditText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_password">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_loginfrg_password"
             style="@style/MaterialField_EditText"
             android:inputType="textPassword" />
 

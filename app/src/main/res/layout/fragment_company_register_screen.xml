@@ -44,6 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_fullname">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_fullname"
                 style="@style/MaterialField_EditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,7 +65,9 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_email"
                 style="@style/MaterialField_EditText" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -83,7 +86,9 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_company">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_company"
                 style="@style/MaterialField_EditText" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -102,7 +107,9 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_position">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_position"
                 style="@style/MaterialField_EditText" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -121,8 +128,10 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_phone">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_phone"
                 style="@style/MaterialField_EditText"
                 android:inputType="number" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -146,8 +155,10 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_password"
                 style="@style/MaterialField_EditText"
                 android:inputType="textPassword" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -169,8 +180,10 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_confirm_password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_comregisterfrg_confirm_password"
                 style="@style/MaterialField_EditText"
                 android:inputType="textPassword" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
