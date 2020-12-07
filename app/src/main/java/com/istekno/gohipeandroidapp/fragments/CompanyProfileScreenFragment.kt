@@ -41,6 +41,10 @@ class CompanyProfileScreenFragment(
     private fun changeText(fullname: String?, emailNew: String?, positon: String?, passwordNew: String?) {
         tv_comprofifrg_email.text = emailNew
         tv_comprofifrg_name.text = fullname
-        tv_comprofifrg_job.text = positon
+        if (positon != null) {
+            tv_comprofifrg_job.text = positon
+        } else {
+            tv_comprofifrg_job.text = "Android Developer"
+        }
     }
 }

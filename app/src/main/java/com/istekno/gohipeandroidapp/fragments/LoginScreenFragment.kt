@@ -41,26 +41,7 @@ class LoginScreenFragment : Fragment() {
         }
 
         btn_loginfrg_login.setOnClickListener {
-            val listEmailENG = GoHipeDatabases.loginEmailEngineer
-            val listPasswordENG = GoHipeDatabases.loginPasswordEngineer
-            val listEmailCOMP = GoHipeDatabases.loginEmailCompany
-            val listPasswordCOMP = GoHipeDatabases.loginPasswordCompany
-
-            val inputEmail = et_loginfrg_email.text.toString()
-            val inputPassword = et_loginfrg_password.text.toString()
-            val intent = Intent(view.context, ProfileScreenActivity::class.java)
-            intent.putExtra(CODENAME1, inputEmail)
-            intent.putExtra(CODENAME2, inputPassword)
-
-            if (listEmailENG.contains(inputEmail) && listPasswordENG.contains(inputPassword)) {
-                startActivity(intent)
-            } else if (listEmailCOMP.contains(inputEmail) && listPasswordCOMP.contains(inputPassword)) {
-                startActivity(intent)
-            } else if (inputEmail == "" || inputPassword == "") {
-                Toast.makeText(view.context, "Please, input email & password", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(view.context, "Account haven't registered", Toast.LENGTH_LONG).show()
-            }
+            login(view)
         }
 
         tv_loginfrg_register_here.setOnClickListener {
@@ -69,6 +50,31 @@ class LoginScreenFragment : Fragment() {
                 replace(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
                 commit()
             }
+        }
+    }
+
+    private fun login(view: View) {
+        val listEmailENG = GoHipeDatabases.loginEmailEngineer
+        val listPasswordENG = GoHipeDatabases.loginPasswordEngineer
+        val listEmailCOMP = GoHipeDatabases.loginEmailCompany
+        val listPasswordCOMP = GoHipeDatabases.loginPasswordCompany
+
+        val inputEmail = et_loginfrg_email.text.toString()
+        val inputPassword = et_loginfrg_password.text.toString()
+        val intent = Intent(view.context, ProfileScreenActivity::class.java)
+        intent.putExtra(CODENAME1, inputEmail)
+        intent.putExtra(CODENAME2, inputPassword)
+
+        if (listEmailENG.contains(inputEmail) && listPasswordENG.contains(inputPassword)) {
+            startActivity(intent)
+            activity?.finish()
+        } else if (listEmailCOMP.contains(inputEmail) && listPasswordCOMP.contains(inputPassword)) {
+            startActivity(intent)
+            activity?.finish()
+        } else if (inputEmail == "" || inputPassword == "") {
+            Toast.makeText(view.context, "Please, input email & password", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(view.context, "Account haven't registered", Toast.LENGTH_LONG).show()
         }
     }
 }
