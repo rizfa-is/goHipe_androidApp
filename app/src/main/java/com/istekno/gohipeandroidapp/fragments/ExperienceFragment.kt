@@ -1,19 +1,16 @@
 package com.istekno.gohipeandroidapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListExperienceRecycleViewAdapter
-import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
 import com.istekno.gohipeandroidapp.data.Experience
 import com.istekno.gohipeandroidapp.data.GoHipeDatabases
-import com.istekno.gohipeandroidapp.data.Portfolio
 import kotlinx.android.synthetic.main.fragment_experience.*
-import kotlinx.android.synthetic.main.fragment_portfolio.*
 
 class ExperienceFragment : Fragment() {
 

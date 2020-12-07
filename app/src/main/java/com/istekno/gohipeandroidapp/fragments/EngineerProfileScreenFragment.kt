@@ -5,22 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
-import kotlinx.android.synthetic.main.fragment_company_profile_screen.*
+import com.istekno.gohipeandroidapp.data.GoHipeDatabases
 import kotlinx.android.synthetic.main.fragment_engineer_profile_screen.*
 
 class EngineerProfileScreenFragment(
-    private val email : String? = null,
-    private val password : String? = null
+        private val fullname : String? = null,
+        private val email : String? = null,
+        private val password : String? = null
     ) : Fragment() {
 
-    private val listAbility = arrayOf<String>("Android", "108 MP", "Creativity", "Route")
-    private val listDrawable = listOf<Int>(R.drawable.ic_android, R.drawable.ic_camera, R.drawable.ic_idea, R.drawable.ic_location_track)
+    private val listAbility = GoHipeDatabases.ability
+    private val listDrawable = GoHipeDatabases.iconAbility
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,7 @@ class EngineerProfileScreenFragment(
             cg_enprofifrg_ability.addView(chip)
         }
 
-        changeText(email, password)
+        changeText(email, password, fullname)
 
         img_enprofifrg_favorite.setOnClickListener {
             if (!it.isSelected) {
@@ -60,7 +60,8 @@ class EngineerProfileScreenFragment(
         }
     }
 
-    private fun changeText(emailNew: String?, passwordNew: String?) {
+    private fun changeText(emailNew: String?, passwordNew: String?, fullname: String?) {
         tv_enprofifrg_email.text = emailNew
+        tv_enprofifrg_name.text = fullname
     }
 }

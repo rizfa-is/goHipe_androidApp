@@ -52,7 +52,6 @@ object GoHipeDatabases {
         str
     )
 
-
     val porto : IntArray
     get() {
         val portos = portfolio
@@ -76,6 +75,32 @@ object GoHipeDatabases {
         return expers
     }
 
+
+    private val abilities = arrayOf(
+            "Android",
+            "108 MP",
+            "Creativity",
+            "Route"
+    )
+
+    val ability : Array<String>
+    get() {
+        return abilities
+    }
+
+    private val iconAbilities = intArrayOf(
+            R.drawable.ic_android,
+            R.drawable.ic_camera,
+            R.drawable.ic_idea,
+            R.drawable.ic_location_track
+    )
+
+    val iconAbility : IntArray
+        get() {
+            return iconAbilities
+        }
+
+    //LOGIN
     //ENGINEER
 
     private val emailEng = arrayOf(
