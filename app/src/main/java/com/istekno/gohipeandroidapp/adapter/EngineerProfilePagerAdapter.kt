@@ -1,14 +1,12 @@
 package com.istekno.gohipeandroidapp.adapter
 
 import android.content.Context
-import androidx.annotation.Nullable
-import androidx.annotation.StyleRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.fragments.ExperienceFragment
-import com.istekno.gohipeandroidapp.fragments.PortfolioFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.ExperienceFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.PortfolioFragment
 
 class EngineerProfilePagerAdapter(private val mContext: Context, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

@@ -1,6 +1,7 @@
-package com.istekno.gohipeandroidapp.data
+package com.istekno.gohipeandroidapp.databases
 
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.models.Experience
 
 object GoHipeDatabases {
     private val portfolio = intArrayOf(

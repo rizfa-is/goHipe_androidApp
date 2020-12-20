@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.company
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,23 +8,22 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.databinding.ActivityMainContentBinding
-import com.istekno.gohipeandroidapp.databinding.FragmentHomeBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentCompanyChatScreenBinding
 
-class HomeFragment(private val toolbar: MaterialToolbar) : Fragment() {
+class CompanyChatScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentCompanyChatScreenBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         setToolbar(toolbar)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_chat_screen, container, false)
         return binding.root
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
+        toolbar.title = "Chat"
     }
-
 }

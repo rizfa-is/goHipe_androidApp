@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListExperienceRecycleViewAdapter
-import com.istekno.gohipeandroidapp.data.Experience
-import com.istekno.gohipeandroidapp.data.GoHipeDatabases
+import com.istekno.gohipeandroidapp.models.Experience
+import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentExperienceBinding
 
 class ExperienceFragment : Fragment() {

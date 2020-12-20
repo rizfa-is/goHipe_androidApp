@@ -25,6 +25,8 @@
                     android:id="@+id/topAppBar_maincontent_activity"
                     android:layout_width="match_parent"
                     android:layout_height="?android:actionBarSize"
+                    app:title="Home"
+                    app:titleTextColor="@color/white"
                     app:menu="@menu/menu_maincontent_toolbar"/>
 
             </com.google.android.material.appbar.AppBarLayout>

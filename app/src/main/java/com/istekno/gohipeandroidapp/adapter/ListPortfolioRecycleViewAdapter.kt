@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.data.Portfolio
+import com.istekno.gohipeandroidapp.models.Portfolio
 
 class ListPortfolioRecycleViewAdapter(private val listPortfolio: ArrayList<Portfolio>) : RecyclerView.Adapter<ListPortfolioRecycleViewAdapter.ListViewHolder>() {
 

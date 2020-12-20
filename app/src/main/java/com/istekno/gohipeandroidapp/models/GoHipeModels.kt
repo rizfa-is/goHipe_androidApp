@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.data
+package com.istekno.gohipeandroidapp.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -16,6 +16,13 @@ data class Experience(
     val period : String,
     val totalMonth: String,
     val description : String
+) : Parcelable
+
+@Parcelize
+data class User(
+        val name : String,
+        val job : String,
+        val image: Int
 ) : Parcelable
 
 @Parcelize

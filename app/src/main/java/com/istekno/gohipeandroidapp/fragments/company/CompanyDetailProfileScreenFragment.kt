@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.company
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,6 +25,10 @@ class CompanyDetailProfileScreenFragment(private val fullname : String? = null, 
 
         favoriteState()
         changeText(fullname, email, position, password)
+
+        binding.tvComprofifrgGithub.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_profileact, CompanyWebViewFragment())?.commit()
+        }
     }
 
     private fun favoriteState() {

@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +11,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainContentActivity
-import com.istekno.gohipeandroidapp.data.CompanyModel
+import com.istekno.gohipeandroidapp.models.CompanyModel
 import com.istekno.gohipeandroidapp.databases.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBinding
+import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
+import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class CompanyRegisterScreenFragment : Fragment() {
 
+    companion object {
+        const val REGISTRATION_AUTH_KEY = "registration_auth_key"
+
+        const val FIELD_REQUIRED = "Field tidak boleh kosong"
+        const val FIELD_DIGITS_ONLY = "Hanya boleh berisi numerik"
+        const val FIELD_IS_NOT_VALID = "Email tidak valid"
+        const val FIELD_MUST_MATCH = "Password harus sama"
+    }
+    
     private lateinit var binding: FragmentCompanyRegisterScreenBinding
     private lateinit var companyModel: CompanyModel
     private lateinit var dialog: Dialog
@@ -49,61 +60,70 @@ class CompanyRegisterScreenFragment : Fragment() {
         }
 
         binding.btnComregisterfrgRegister.setOnClickListener {
-            registration(view)
+            registration()
         }
     }
 
-    private fun registration(view: View) {
+    private fun registration() {
         val inputFullname = binding.etComregisterfrgFullname.text.toString()
         val inputEmail = binding.etComregisterfrgEmail.text.toString()
         val inputPhone = binding.etComregisterfrgPhone.text.toString()
         val inputCompany = binding.etComregisterfrgCompany.text.toString()
         val inputPosition = binding.etComregisterfrgPosition.text.toString()
         val inputPassword = binding.etComregisterfrgPassword.text.toString()
-        val inputConfirmPass = binding.etComregisterfrgConfirmPassword.text.toString()
+        val inputConfirmPassword = binding.etComregisterfrgConfirmPassword.text.toString()
 
         if (inputFullname.isEmpty()) {
-            binding.etComregisterfrgFullname.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etComregisterfrgFullname.error = FIELD_REQUIRED
             return
         }
 
         if (inputEmail.isEmpty()) {
-            binding.etComregisterfrgEmail.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            binding.etComregisterfrgEmail.error = FIELD_IS_NOT_VALID
             return
         }
 
         if (inputPassword.isEmpty()) {
-            binding.etComregisterfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etComregisterfrgPassword.error = FIELD_REQUIRED
             return
         }
 
         if (inputCompany.isEmpty()) {
-            binding.etComregisterfrgCompany.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etComregisterfrgCompany.error = FIELD_REQUIRED
             return
         }
 
         if (inputPosition.isEmpty()) {
-            binding.etComregisterfrgPosition.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etComregisterfrgPosition.error = FIELD_REQUIRED
             return
         }
 
-        if (inputConfirmPass.isEmpty()) {
-            binding.etComregisterfrgConfirmPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+        if (inputConfirmPassword.isEmpty()) {
+            binding.etComregisterfrgConfirmPassword.error = FIELD_REQUIRED
             return
         }
 
         if (inputPhone.isEmpty()) {
-            binding.etComregisterfrgPhone.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etComregisterfrgPhone.error = FIELD_REQUIRED
             return
         }
 
         if (!TextUtils.isDigitsOnly(inputPhone)) {
-            binding.etComregisterfrgPhone.error = EngineerRegisterScreenFragment.FIELD_DIGITS_ONLY
+            binding.etComregisterfrgPhone.error = FIELD_DIGITS_ONLY
             return
         }
 
+        if (inputPassword != inputConfirmPassword) {
+            binding.etComregisterfrgConfirmPassword.error = FIELD_MUST_MATCH
+            return
+        }
+        
         saveData(inputFullname, inputEmail, inputPassword, inputCompany, inputPosition, inputPhone, true)
-        dialog.dialog(context, "Register Successful") { startActivity(Intent(context, MainContentActivity::class.java)) }
+        dialog.dialog(context, "Register Successful") {
+            val sendIntent = Intent(context, MainContentActivity::class.java)
+            sendIntent.putExtra(REGISTRATION_AUTH_KEY, 1)
+            startActivity(sendIntent)
+        }
     }
 
     private fun saveData(name: String, email: String, password: String, company: String, position: String, phone: String, isLogin: Boolean) {

@@ -11,15 +11,13 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:liftOnScroll="true">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar_profileact"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_back"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
         </com.google.android.material.appbar.AppBarLayout>

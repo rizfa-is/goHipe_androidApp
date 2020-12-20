@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
-import com.istekno.gohipeandroidapp.data.GoHipeDatabases
+import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProfileScreenBinding
 
 class EngineerDetailProfileScreenFragment(private val fullname : String? = null, private val email : String? = null, private val password : String? = null) : Fragment() {

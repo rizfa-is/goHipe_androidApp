@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.data.Experience
+import com.istekno.gohipeandroidapp.models.Experience
 import kotlin.collections.ArrayList
 
 class ListExperienceRecycleViewAdapter(private val listExperience: ArrayList<Experience>) : RecyclerView.Adapter<ListExperienceRecycleViewAdapter.ListViewHolder>() {

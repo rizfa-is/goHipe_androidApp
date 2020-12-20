@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
-import com.istekno.gohipeandroidapp.data.GoHipeDatabases
-import com.istekno.gohipeandroidapp.data.Portfolio
+import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
+import com.istekno.gohipeandroidapp.models.Portfolio
 import com.istekno.gohipeandroidapp.databinding.FragmentPortfolioBinding
 
 class PortfolioFragment : Fragment() {

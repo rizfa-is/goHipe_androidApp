@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments
+package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +12,14 @@ import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
-import com.istekno.gohipeandroidapp.data.GoHipeDatabases
+import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
 
 class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
+
+    companion object {
+        const val SETTING_AUTH_KEY = "setting_auth_key"
+    }
 
     private lateinit var binding: FragmentEngineerAccountScreenBinding
 
@@ -34,7 +38,9 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Frag
 
         toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.mn_maincontent_toolbar_setting) {
-                startActivity(Intent(context, SettingScreenActivity::class.java))
+                val sendIntent = Intent(context, SettingScreenActivity::class.java)
+                sendIntent.putExtra(SETTING_AUTH_KEY, 0)
+                startActivity(sendIntent)
             }
             false
         }
@@ -45,6 +51,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Frag
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
+        toolbar.title = "My Account"
     }
 
     private fun setViewPager(view: View) {

@@ -1,20 +1,30 @@
 package com.istekno.gohipeandroidapp.activities
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.utility.Dialog
 
 class IntroScreenActivity : AppIntro() {
+
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        dialog = Dialog()
+
+        connectionCheck(this)
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -62,5 +72,14 @@ class IntroScreenActivity : AppIntro() {
         super.onDonePressed(currentFragment)
         startActivity(Intent(this, MainScreenActivity::class.java))
         finish()
+    }
+
+    private fun connectionCheck(context: Context) {
+        val connectManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val checkNetwork = connectManager.activeNetworkInfo
+
+        if (checkNetwork == null || !checkNetwork.isConnected || !checkNetwork.isAvailable) {
+            dialog.dialogCheckInternet(this, this)
+        }
     }
 }

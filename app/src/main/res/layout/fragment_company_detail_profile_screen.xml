@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.CompanyDetailProfileScreenFragment">
+    tools:context=".fragments.company.CompanyDetailProfileScreenFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,32 +11,26 @@
         android:background="@color/background_grey"
         android:elevation="4dp">
 
+        <ImageView
+            android:id="@+id/img_comprofifrg_shape1"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:src="@drawable/shape_profile_big" />
+
+        <ImageView
+            android:id="@+id/img_comprofifrg_shape2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/shape_profile_small" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/vw_comprofifrg_bottombar"
-            android:background="@color/background_grey">
+            android:layout_above="@+id/vw_comprofifrg_bottombar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/img_comprofifrg_shape1"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:src="@drawable/shape_profile_big"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/img_comprofifrg_shape2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/shape_profile_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/img_comprofifrg_avatar"
@@ -71,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
-                        android:text="@string/name"
+                        android:text="@string/issog_corp"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -82,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
-                        android:text="@string/job"
+                        android:text="Product Manager"
                         android:textColor="@color/text" />
 
                     <TextView

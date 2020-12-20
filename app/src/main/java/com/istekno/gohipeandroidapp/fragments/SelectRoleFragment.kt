@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.FragmentSelectRoleBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyRegisterScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerRegisterScreenFragment
 
 class SelectRoleFragment : Fragment(), View.OnClickListener {
 

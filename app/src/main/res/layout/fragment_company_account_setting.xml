@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.engineer.EngineerAccountSettingFragment">
+    tools:context=".fragments.company.CompanyAccountSettingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:paddingHorizontal="16dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_engsetfrg_logout"
+            android:id="@+id/btn_compsetfrg_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"

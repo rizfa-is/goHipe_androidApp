@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,25 +10,26 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainContentActivity
-import com.istekno.gohipeandroidapp.data.EngineerModel
+import com.istekno.gohipeandroidapp.models.EngineerModel
 import com.istekno.gohipeandroidapp.databases.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentLoginScreenBinding
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerRegisterScreenFragment
+import com.istekno.gohipeandroidapp.models.CompanyModel
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class LoginScreenFragment : Fragment() {
 
     companion object {
-        const val CODENAME1 = "loginEmail"
-        const val CODENAME2 = "loginPassword"
+        const val LOGIN_AUTH_KEY = "login_auth_key"
     }
 
     private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var engineerModel: EngineerModel
+    private lateinit var companyModel: CompanyModel
     private lateinit var dialog: Dialog
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login_screen, container, false)
         return binding.root
@@ -56,6 +58,7 @@ class LoginScreenFragment : Fragment() {
 
         goHipePreferences = GoHipePreferences(view.context)
         engineerModel = goHipePreferences.getEngineerPreference()
+        companyModel = goHipePreferences.getCompanyPreference()
 
         if (email.isEmpty()) {
             binding.etLoginfrgEmail.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
@@ -71,10 +74,24 @@ class LoginScreenFragment : Fragment() {
             engineerModel.isLogin = true
             goHipePreferences.setEngineerPreference(engineerModel)
 
-            dialog.dialog(context, "Register Successful") {
-                startActivity(Intent(context, MainContentActivity::class.java))
+            dialog.dialog(context, "Login Successful") {
+                val sendIntent = Intent(context, MainContentActivity::class.java)
+                sendIntent.putExtra(LOGIN_AUTH_KEY, 0)
+                startActivity(sendIntent)
                 activity?.finish()
             }
+        } else if (companyModel.email!!.contains(email) && companyModel.password!!.contains(password)) {
+            companyModel.isLogin = true
+            goHipePreferences.setCompanyPreference(companyModel)
+
+            dialog.dialog(context, "Login Successful") {
+                val sendIntent = Intent(context, MainContentActivity::class.java)
+                sendIntent.putExtra(LOGIN_AUTH_KEY, 1)
+                startActivity(sendIntent)
+                activity?.finish()
+            }
+        } else {
+            dialog.dialogCancel(context, "Email haven't registered")
         }
     }
 }

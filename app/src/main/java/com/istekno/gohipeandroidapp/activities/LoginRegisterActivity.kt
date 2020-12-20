@@ -1,27 +1,35 @@
 package com.istekno.gohipeandroidapp.activities
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityLoginRegisterBinding
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
+import com.istekno.gohipeandroidapp.utility.Dialog
 
 class LoginRegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginRegisterBinding
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login_register)
+        dialog = Dialog()
         supportActionBar?.hide()
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
 
+
+        connectionCheck(this)
         binding.topAppBarLogregact.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -44,6 +52,15 @@ class LoginRegisterActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().add(R.id.frame_container_logregact, SelectRoleFragment()).commit()
                 }
             }
+        }
+    }
+
+    private fun connectionCheck(context: Context) {
+        val connectManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val checkNetwork = connectManager.activeNetworkInfo
+
+        if (checkNetwork == null || !checkNetwork.isConnected || !checkNetwork.isAvailable) {
+            dialog.dialogCheckInternet(this, this)
         }
     }
 }

@@ -1,14 +1,15 @@
 package com.istekno.gohipeandroidapp.databases
 
 import android.content.Context
-import com.istekno.gohipeandroidapp.data.CompanyModel
-import com.istekno.gohipeandroidapp.data.EngineerModel
+import com.istekno.gohipeandroidapp.models.CompanyModel
+import com.istekno.gohipeandroidapp.models.EngineerModel
 
 class GoHipePreferences(context: Context) {
 
     companion object {
         private const val ENG_PREF_NAME = "eng_pref"
         private const val COMP_PREF_NAME = "comp_pref"
+
         private const val EMAIL = "email"
         private const val PASSWORD = "password"
         private const val PHONE = "phone"
