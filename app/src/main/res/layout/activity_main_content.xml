@@ -24,7 +24,8 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/topAppBar_maincontent_activity"
                     android:layout_width="match_parent"
-                    android:layout_height="?android:actionBarSize"/>
+                    android:layout_height="?android:actionBarSize"
+                    app:menu="@menu/menu_maincontent_toolbar"/>
 
             </com.google.android.material.appbar.AppBarLayout>
 

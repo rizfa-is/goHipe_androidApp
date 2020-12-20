@@ -4,18 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityMainContentBinding
 import com.istekno.gohipeandroidapp.fragments.ChatFragment
 import com.istekno.gohipeandroidapp.fragments.EngineerAccountScreenFragment
 import com.istekno.gohipeandroidapp.fragments.HomeFragment
 import com.istekno.gohipeandroidapp.fragments.SearchFragment
-import kotlinx.android.synthetic.main.activity_main_content.*
 
 class MainContentActivity : AppCompatActivity() {
 
@@ -25,13 +19,9 @@ class MainContentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_content)
         setSupportActionBar(binding.topAppBarMaincontentActivity)
+
         supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, HomeFragment(binding.topAppBarMaincontentActivity)).commit()
-        setHomeScreenByRole()
         changeFragmentScreen()
-    }
-
-    private fun setHomeScreenByRole() {
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,7 +45,7 @@ class MainContentActivity : AppCompatActivity() {
                     true
                 }
                 R.id.mn_item_maincontent_account -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity)).commit()
                     true
                 }
                 else -> true

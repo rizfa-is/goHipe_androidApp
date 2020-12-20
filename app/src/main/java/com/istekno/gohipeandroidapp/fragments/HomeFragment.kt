@@ -15,15 +15,16 @@ class HomeFragment(private val toolbar: MaterialToolbar) : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+        setToolbar(toolbar)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        // Inflate the layout for this fragment
         return binding.root
     }
 
+    private fun setToolbar(toolbar: MaterialToolbar) {
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
+    }
 
 }

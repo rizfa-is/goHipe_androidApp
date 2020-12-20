@@ -11,6 +11,7 @@ import com.github.appintro.AppIntroPageTransformerType
 import com.istekno.gohipeandroidapp.R
 
 class IntroScreenActivity : AppIntro() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()

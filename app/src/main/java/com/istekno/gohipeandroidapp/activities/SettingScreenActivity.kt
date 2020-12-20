@@ -9,12 +9,12 @@ import com.istekno.gohipeandroidapp.fragments.EngineerAccountSettingFragment
 
 class SettingScreenActivity : AppCompatActivity() {
 
-    private lateinit var settingScreenBinding: ActivitySettingScreenBinding
+    private lateinit var binding: ActivitySettingScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        settingScreenBinding = DataBindingUtil.setContentView(this, R.layout.activity_setting_screen)
-        setSupportActionBar(settingScreenBinding.topAppBarSetact)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_setting_screen)
+        setSupportActionBar(binding.topAppBarSetact)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

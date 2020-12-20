@@ -3,19 +3,18 @@ package com.istekno.gohipeandroidapp.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainContentActivity
-import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.data.EngineerModel
 import com.istekno.gohipeandroidapp.databases.GoHipePreferences
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerRegisterScreenBinding
 import com.istekno.gohipeandroidapp.utility.Dialog
-import kotlinx.android.synthetic.main.fragment_engineer_register_screen.*
 
 
 class EngineerRegisterScreenFragment : Fragment() {
@@ -26,6 +25,7 @@ class EngineerRegisterScreenFragment : Fragment() {
         const val FIELD_IS_NOT_VALID = "Email tidak valid"
     }
 
+    private lateinit var binding: FragmentEngineerRegisterScreenBinding
     private lateinit var engineerModel: EngineerModel
     private lateinit var dialog: Dialog
 
@@ -39,12 +39,11 @@ class EngineerRegisterScreenFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_engineer_register_screen, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_register_screen, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,48 +51,48 @@ class EngineerRegisterScreenFragment : Fragment() {
         engineerModel = EngineerModel()
         dialog = Dialog()
 
-        tv_engregisterfrg_login_here.setOnClickListener {
+        binding.tvEngregisterfrgLoginHere.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
         }
-        btn_engregisterfrg_register.setOnClickListener {
+        binding.btnEngregisterfrgRegister.setOnClickListener {
             registration()
         }
     }
 
     private fun registration() {
-        val inputFullname = et_engregisterfrg_fullname.text.toString()
-        val inputEmail = et_engregisterfrg_email.text.toString()
-        val inputPhone = et_engregisterfrg_phone.text.toString()
-        val inputPassword = et_engregisterfrg_password.text.toString()
+        val inputFullname = binding.etEngregisterfrgFullname.text.toString()
+        val inputEmail = binding.etEngregisterfrgEmail.text.toString()
+        val inputPhone = binding.etEngregisterfrgPhone.text.toString()
+        val inputPassword = binding.etEngregisterfrgPassword.text.toString()
+        val inputConfirmPassword = binding.etEngregisterfrgConfirmPassword.text.toString()
 
         if (inputFullname.isEmpty()) {
-            et_engregisterfrg_fullname.error = FIELD_REQUIRED
+            binding.etEngregisterfrgFullname.error = FIELD_REQUIRED
             return
         }
 
         if (inputEmail.isEmpty()) {
-            et_engregisterfrg_email.error = FIELD_IS_NOT_VALID
+            binding.etEngregisterfrgEmail.error = FIELD_IS_NOT_VALID
             return
         }
 
         if (inputPassword.isEmpty()) {
-            et_engregisterfrg_password.error = FIELD_REQUIRED
+            binding.etEngregisterfrgPassword.error = FIELD_REQUIRED
             return
         }
 
         if (inputPhone.isEmpty()) {
-            et_engregisterfrg_phone.error = FIELD_REQUIRED
+            binding.etEngregisterfrgPhone.error = FIELD_REQUIRED
             return
         }
 
         if (!TextUtils.isDigitsOnly(inputPhone)) {
-            et_engregisterfrg_phone.error = FIELD_DIGITS_ONLY
+            binding.etEngregisterfrgPhone.error = FIELD_DIGITS_ONLY
             return
         }
 
         saveData(inputFullname, inputEmail, inputPassword, inputPhone, true)
-        startActivity(Intent(context, MainContentActivity::class.java))
-        dialog.dialog(context, "Register Successful")
+        dialog.dialog(context, "Register Successful") { startActivity(Intent(context, MainContentActivity::class.java)) }
     }
 
     private fun saveData(name: String, email: String, password: String, phone: String, isLogin: Boolean) {

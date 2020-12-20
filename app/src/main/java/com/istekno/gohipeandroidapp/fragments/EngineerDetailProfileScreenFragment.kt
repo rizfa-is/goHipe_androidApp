@@ -1,42 +1,46 @@
 package com.istekno.gohipeandroidapp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
 import com.istekno.gohipeandroidapp.data.GoHipeDatabases
-import kotlinx.android.synthetic.main.fragment_engineer_profile_screen.*
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProfileScreenBinding
 
-class EngineerDetailProfileScreenFragment(
-        private val fullname : String? = null,
-        private val email : String? = null,
-        private val password : String? = null
-    ) : Fragment() {
+class EngineerDetailProfileScreenFragment(private val fullname : String? = null, private val email : String? = null, private val password : String? = null) : Fragment() {
+
+    private lateinit var binding: FragmentEngineerDetailProfileScreenBinding
 
     private val listAbility = GoHipeDatabases.ability
-    private val listDrawable = GoHipeDatabases.iconAbility
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_engineer_profile_screen, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_detail_profile_screen, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(view.context, childFragmentManager)
-        vp_engprofiact.adapter = enginerProfilePagerAdapter
-        tl_engprofiact.setupWithViewPager(vp_engprofiact)
+        setViewPager(view)
+        chipViewInit(view)
+        changeText(email, fullname)
+        favoriteState()
+    }
 
+    private fun setViewPager(view: View) {
+        val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(view.context, childFragmentManager)
+        binding.vpEngprofiact.adapter = enginerProfilePagerAdapter
+        binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
+    }
+
+    private fun chipViewInit(view: View) {
         for (i in 0 until listAbility.size) {
             val chip = Chip(view.context)
             chip.chipCornerRadius = 30F
@@ -44,24 +48,24 @@ class EngineerDetailProfileScreenFragment(
             chip.text = listAbility[i].toString()
             chip.setTextColor(resources.getColor(R.color.white))
 
-            cg_enprofifrg_ability.addView(chip)
+            binding.cgEnprofifrgAbility.addView(chip)
         }
+    }
 
-        changeText(email, password, fullname)
-
-        img_enprofifrg_favorite.setOnClickListener {
+    private fun favoriteState() {
+        binding.imgEnprofifrgFavorite.setOnClickListener {
             if (!it.isSelected) {
-                img_enprofifrg_favorite.setImageResource(R.drawable.ic_favorite_checked)
-                img_enprofifrg_favorite.isSelected = true
+                binding.imgEnprofifrgFavorite.setImageResource(R.drawable.ic_favorite_checked)
+                binding.imgEnprofifrgFavorite.isSelected = true
             } else {
-                img_enprofifrg_favorite.setImageResource(R.drawable.ic_favorite_unchecked)
-                img_enprofifrg_favorite.isSelected = false
+                binding.imgEnprofifrgFavorite.setImageResource(R.drawable.ic_favorite_unchecked)
+                binding.imgEnprofifrgFavorite.isSelected = false
             }
         }
     }
 
-    private fun changeText(emailNew: String?, passwordNew: String?, fullname: String?) {
-        tv_enprofifrg_email.text = emailNew
-        tv_enprofifrg_name.text = fullname
+    private fun changeText(emailNew: String?, fullname: String?) {
+        binding.tvEnprofifrgEmail.text = emailNew
+        binding.tvEnprofifrgName.text = fullname
     }
 }

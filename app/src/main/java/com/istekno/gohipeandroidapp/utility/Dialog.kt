@@ -4,12 +4,13 @@ import android.app.AlertDialog
 import android.content.Context
 
 class Dialog {
-    fun dialog(context: Context?, message: String) {
+    fun dialog(context: Context?, message: String, listAction: () -> Unit) {
         val dialog = AlertDialog.Builder(context).apply {
             setTitle("Notice")
             setMessage(message)
+            setCancelable(false)
             setPositiveButton("OK") { dialogInterface, i ->
-                dialogInterface.dismiss()
+                listAction()
             }
         }
         dialog.show()

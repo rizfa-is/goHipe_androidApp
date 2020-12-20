@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".activities.LoginRegisterActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar_logregact"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:paddingTop="25dp"
-            app:navigationIcon="@drawable/ic_back"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar_logregact"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingTop="25dp"
+                app:navigationIcon="@drawable/ic_back"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
-    <FrameLayout
-        android:id="@+id/frame_container_logregact"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="4dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_container_logregact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="4dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
+

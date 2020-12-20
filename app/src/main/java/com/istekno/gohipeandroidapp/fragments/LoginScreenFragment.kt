@@ -2,22 +2,17 @@ package com.istekno.gohipeandroidapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainContentActivity
-import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.data.EngineerModel
-import com.istekno.gohipeandroidapp.data.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databases.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentLoginScreenBinding
-import kotlinx.android.synthetic.main.fragment_engineer_register_screen.*
-import kotlinx.android.synthetic.main.fragment_login_screen.*
+import com.istekno.gohipeandroidapp.utility.Dialog
 
 class LoginScreenFragment : Fragment() {
 
@@ -26,69 +21,60 @@ class LoginScreenFragment : Fragment() {
         const val CODENAME2 = "loginPassword"
     }
 
-    private lateinit var loginScreenBinding: FragmentLoginScreenBinding
+    private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var engineerModel: EngineerModel
+    private lateinit var dialog: Dialog
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        loginScreenBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login_screen, container, false)
-        // Inflate the layout for this fragment
-        return loginScreenBinding.root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login_screen, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mFragmentManager = fragmentManager
-        var mFragment : Fragment
+        dialog = Dialog()
 
-        loginScreenBinding.tvLoginfrgForgotPassword.setOnClickListener {
-            mFragment = ForgotPasswordScreenFragment()
-            mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container_logregact, mFragment, ForgotPasswordScreenFragment::class.java.simpleName)
-                commit()
-            }
+        binding.tvLoginfrgForgotPassword.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, ForgotPasswordScreenFragment())?.commit()
         }
 
-        loginScreenBinding.btnLoginfrgLogin.setOnClickListener {
+        binding.btnLoginfrgLogin.setOnClickListener {
             login(view)
         }
 
-        loginScreenBinding.tvLoginfrgRegisterHere.setOnClickListener {
-            mFragment = SelectRoleFragment()
-            mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
-                commit()
-            }
+        binding.tvLoginfrgRegisterHere.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, SelectRoleFragment())?.commit()
         }
     }
 
     private fun login(view: View) {
-        val email = loginScreenBinding.etLoginfrgEmail.text.toString()
-        val password = loginScreenBinding.etLoginfrgPassword.text.toString()
+        val email = binding.etLoginfrgEmail.text.toString()
+        val password = binding.etLoginfrgPassword.text.toString()
 
         goHipePreferences = GoHipePreferences(view.context)
         engineerModel = goHipePreferences.getEngineerPreference()
 
-        Log.d("PREF : ", engineerModel.email.toString())
-
         if (email.isEmpty()) {
-            loginScreenBinding.etLoginfrgEmail.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etLoginfrgEmail.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
             return
         }
 
         if (password.isEmpty()) {
-            loginScreenBinding.etLoginfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            binding.etLoginfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
             return
         }
 
         if (engineerModel.email!!.contains(email) && engineerModel.password!!.contains(password)) {
             engineerModel.isLogin = true
             goHipePreferences.setEngineerPreference(engineerModel)
-            startActivity(Intent(context, MainContentActivity::class.java))
-            activity?.finish()
+
+            dialog.dialog(context, "Register Successful") {
+                startActivity(Intent(context, MainContentActivity::class.java))
+                activity?.finish()
+            }
         }
     }
 }

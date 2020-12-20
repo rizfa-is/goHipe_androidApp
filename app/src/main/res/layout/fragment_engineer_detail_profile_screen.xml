@@ -3,23 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.EngineerAccountScreenFragment">
+    tools:context=".fragments.EngineerDetailProfileScreenFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_grey"
-        android:elevation="4dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/img_enaccfrg_shape1"
+            android:id="@+id/img_enprofifrg_shape1"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:src="@drawable/shape_profile_big" />
 
         <ImageView
-            android:id="@+id/img_enaccfrg_shape2"
+            android:id="@+id/img_enprofifrg_shape2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/shape_profile_small" />
@@ -34,7 +33,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img_enaccfrg_avatar"
+                    android:id="@+id/img_enprofifrg_avatar"
                     android:layout_width="115dp"
                     android:layout_height="115dp"
                     android:layout_marginTop="100dp"
@@ -58,10 +57,10 @@
                     android:elevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_enaccfrg_avatar">
+                    app:layout_constraintTop_toBottomOf="@+id/img_enprofifrg_avatar">
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_name"
+                        android:id="@+id/tv_enprofifrg_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -72,7 +71,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_job"
+                        android:id="@+id/tv_enprofifrg_job"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -81,7 +80,7 @@
                         android:textColor="@color/text" />
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_location"
+                        android:id="@+id/tv_enprofifrg_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -92,13 +91,13 @@
                         android:textColor="@color/text_loc" />
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/cg_enaccfrg_ability"
+                        android:id="@+id/cg_enprofifrg_ability"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="16dp"/>
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_description"
+                        android:id="@+id/tv_enprofifrg_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -109,7 +108,7 @@
                         android:textAlignment="inherit" />
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_email"
+                        android:id="@+id/tv_enprofifrg_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -118,7 +117,7 @@
                         app:drawableStartCompat="@drawable/ic_email" />
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_ig"
+                        android:id="@+id/tv_enprofifrg_ig"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
@@ -127,7 +126,7 @@
                         app:drawableStartCompat="@drawable/ic_instagram" />
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_github"
+                        android:id="@+id/tv_enprofifrg_github"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
@@ -136,23 +135,14 @@
                         app:drawableStartCompat="@drawable/ic_github" />
 
                     <TextView
-                        android:id="@+id/tv_enaccfrg_gitlab"
+                        android:id="@+id/tv_enprofifrg_gitlab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="24dp"
                         android:drawablePadding="10dp"
                         android:text="@string/gitlab"
                         app:drawableStartCompat="@drawable/ic_gitlab" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_enaccfrg_editprofile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="Edit Profile"
-                        android:textAllCaps="false"
-                        android:backgroundTint="@color/theme_orange"/>
 
                 </LinearLayout>
 
@@ -201,6 +191,40 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/vw_engprofifrg_bottombar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:paddingHorizontal="8dp"
+            android:elevation="2dp"
+            android:background="@drawable/shape_profile_bg_bottombar"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_engprofifrg_hire"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginBottom="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@id/img_enprofifrg_favorite"
+            android:text="@string/hire_talent"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/theme_orange"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/ic_briefcase"/>
+
+        <ImageView
+            android:id="@+id/img_enprofifrg_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:elevation="2dp"
+            android:src="@drawable/ic_favorite_unchecked"/>
 
     </RelativeLayout>
 

@@ -1,69 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/theme_green"
     tools:context=".fragments.SelectRoleFragment">
 
-    <TextView
-        android:id="@+id/tv_rolefrg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:text="@string/select_role"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_green">
 
-    <ImageView
-        android:id="@+id/img_rolefrg_engineer"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="46dp"
-        android:src="@drawable/ilustration_role1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rolefrg" />
+        <TextView
+            android:id="@+id/tv_rolefrg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:text="@string/select_role"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_rolefrg_engineer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/engineer"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/img_rolefrg_engineer"
-        app:layout_constraintStart_toStartOf="@+id/img_rolefrg_engineer"
-        app:layout_constraintTop_toBottomOf="@+id/img_rolefrg_engineer" />
+        <ImageView
+            android:id="@+id/img_rolefrg_engineer"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="46dp"
+            android:src="@drawable/ilustration_role1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rolefrg" />
 
-    <ImageView
-        android:id="@+id/img_rolefrg_company"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginEnd="46dp"
-        android:src="@drawable/ilustration_role2"
-        app:layout_constraintBottom_toBottomOf="@+id/img_rolefrg_engineer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_rolefrg_engineer" />
+        <TextView
+            android:id="@+id/tv_rolefrg_engineer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/engineer"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/img_rolefrg_engineer"
+            app:layout_constraintStart_toStartOf="@+id/img_rolefrg_engineer"
+            app:layout_constraintTop_toBottomOf="@+id/img_rolefrg_engineer" />
 
-    <TextView
-        android:id="@+id/tv_rolefrg_company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/company"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/img_rolefrg_company"
-        app:layout_constraintStart_toStartOf="@+id/img_rolefrg_company"
-        app:layout_constraintTop_toBottomOf="@+id/img_rolefrg_company" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/img_rolefrg_company"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginEnd="46dp"
+            android:src="@drawable/ilustration_role2"
+            app:layout_constraintBottom_toBottomOf="@+id/img_rolefrg_engineer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_rolefrg_engineer" />
+
+        <TextView
+            android:id="@+id/tv_rolefrg_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/company"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/img_rolefrg_company"
+            app:layout_constraintStart_toStartOf="@+id/img_rolefrg_company"
+            app:layout_constraintTop_toBottomOf="@+id/img_rolefrg_company" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

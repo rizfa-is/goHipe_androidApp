@@ -5,40 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
 import com.istekno.gohipeandroidapp.data.GoHipeDatabases
 import com.istekno.gohipeandroidapp.data.Portfolio
-import kotlinx.android.synthetic.main.fragment_portfolio.*
+import com.istekno.gohipeandroidapp.databinding.FragmentPortfolioBinding
 
 class PortfolioFragment : Fragment() {
 
+    private lateinit var binding: FragmentPortfolioBinding
+
     private val listPortfolio = ArrayList<Portfolio>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_portfolio, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_portfolio, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val portfolio = GoHipeDatabases.porto
+
         for (i in 0 until portfolio.size) {
             val porto = Portfolio(
                 portfolio[i]
             )
             listPortfolio.add(porto)
         }
-        showRecycleList()
+        showRecycleList(view)
     }
 
-    private fun showRecycleList() {
-        rv_portofrg.apply {
-            layoutManager = LinearLayoutManager(view?.context)
+    private fun showRecycleList(view: View) {
+        binding.rvPortofrg.apply {
+            layoutManager = LinearLayoutManager(view.context)
             adapter = ListPortfolioRecycleViewAdapter(listPortfolio)
         }
     }

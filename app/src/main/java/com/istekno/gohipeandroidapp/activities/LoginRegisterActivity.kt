@@ -3,54 +3,45 @@ package com.istekno.gohipeandroidapp.activities
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.databinding.ActivityLoginRegisterBinding
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
-import kotlinx.android.synthetic.main.activity_login_register.*
 
 class LoginRegisterActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_register)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login_register)
         supportActionBar?.hide()
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
 
-        bindFragment()
-
-        topAppBar_logregact.setNavigationOnClickListener {
+        binding.topAppBarLogregact.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        bindFragment()
     }
 
     private fun bindFragment() {
-        val mFragmentManager = supportFragmentManager
-        val mFragment : Fragment
-        val role = intent.getIntExtra("Codename Logreg", -1)
 
-        when (role) {
+        when (intent.getIntExtra("Codename Logreg", -1)) {
             0 -> {
-                val fragment = mFragmentManager.findFragmentByTag(LoginScreenFragment::class.java.simpleName)
-                mFragment = LoginScreenFragment()
+                val fragment = supportFragmentManager.findFragmentByTag(LoginScreenFragment::class.java.simpleName)
                 if (fragment !is LoginScreenFragment) {
-                    mFragmentManager.beginTransaction().apply {
-                        add(R.id.frame_container_logregact, mFragment, LoginScreenFragment::class.java.simpleName)
-                        commit()
-                    }
+                    supportFragmentManager.beginTransaction().add(R.id.frame_container_logregact, LoginScreenFragment()).commit()
                 }
             }
             1 -> {
-                val fragment = mFragmentManager.findFragmentByTag(SelectRoleFragment::class.java.simpleName)
-                mFragment = SelectRoleFragment()
+                val fragment = supportFragmentManager.findFragmentByTag(SelectRoleFragment::class.java.simpleName)
                 if (fragment !is SelectRoleFragment) {
-                    mFragmentManager.beginTransaction().apply {
-                        add(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
-                        commit()
-                    }
+                    supportFragmentManager.beginTransaction().add(R.id.frame_container_logregact, SelectRoleFragment()).commit()
                 }
             }
         }

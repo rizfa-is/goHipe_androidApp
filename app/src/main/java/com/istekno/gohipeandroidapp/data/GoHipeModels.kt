@@ -33,7 +33,7 @@ data class CompanyModel(
     var email: String? = null,
     var company: String? = null,
     var position: String? = null,
-    var phone: Int = 0,
+    var phone: Long = 0,
     var password: String? = null,
     var isLogin: Boolean = false
 ) : Parcelable

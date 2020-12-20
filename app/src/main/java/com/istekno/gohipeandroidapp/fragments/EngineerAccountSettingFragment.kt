@@ -24,11 +24,9 @@ class EngineerAccountSettingFragment: Fragment() {
     private lateinit var engineerModel: EngineerModel
     private lateinit var goHipePreferences: GoHipePreferences
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_account_setting, container, false)
         return binding.root
     }

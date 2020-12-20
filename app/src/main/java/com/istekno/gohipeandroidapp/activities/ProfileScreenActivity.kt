@@ -1,30 +1,29 @@
 package com.istekno.gohipeandroidapp.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.data.GoHipeDatabases
+import com.istekno.gohipeandroidapp.databinding.ActivityProfileScreenBinding
 import com.istekno.gohipeandroidapp.fragments.CompanyDetailProfileScreenFragment
-import com.istekno.gohipeandroidapp.fragments.CompanyRegisterScreenFragment.Companion.CODENAME1_COMP_REG_FULLNAME
-import com.istekno.gohipeandroidapp.fragments.CompanyRegisterScreenFragment.Companion.CODENAME2_COMP_REG_EMAIL
-import com.istekno.gohipeandroidapp.fragments.CompanyRegisterScreenFragment.Companion.CODENAME6_COMP_REG_POSITION
 import com.istekno.gohipeandroidapp.fragments.EngineerDetailProfileScreenFragment
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment.Companion.CODENAME1
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment.Companion.CODENAME2
-import kotlinx.android.synthetic.main.activity_profile_screen.*
 
 class ProfileScreenActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityProfileScreenBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_screen)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_screen)
         supportActionBar?.hide()
 
 //        bindFragment()
         authentication()
 
-        topAppBar_profileact.setNavigationOnClickListener {
+        binding.topAppBarProfileact.setNavigationOnClickListener {
             onBackPressed()
         }
     }
@@ -74,26 +73,15 @@ class ProfileScreenActivity : AppCompatActivity() {
         val email = intent.getStringExtra(CODENAME1)
         val password = intent.getStringExtra(CODENAME2)
 
-        val mFragmentManager = supportFragmentManager
-        val mFragment : Fragment
-
         if (listEmailENG.contains(email) && listPasswordENG.contains(password)) {
-            val fragment = mFragmentManager.findFragmentByTag(EngineerDetailProfileScreenFragment::class.java.simpleName)
-            mFragment = EngineerDetailProfileScreenFragment(email, password)
+            val fragment = supportFragmentManager.findFragmentByTag(EngineerDetailProfileScreenFragment::class.java.simpleName)
             if (fragment !is EngineerDetailProfileScreenFragment) {
-                mFragmentManager.beginTransaction().apply {
-                    add(R.id.frame_container_profileact, mFragment, EngineerDetailProfileScreenFragment::class.java.simpleName)
-                    commit()
-                }
+                supportFragmentManager.beginTransaction().add(R.id.frame_container_profileact, EngineerDetailProfileScreenFragment(email, password)).commit()
             }
         } else if (listEmailCOMP.contains(email) && listPasswordCOMP.contains(password)) {
-            val fragment = mFragmentManager.findFragmentByTag(CompanyDetailProfileScreenFragment::class.java.simpleName)
-            mFragment = CompanyDetailProfileScreenFragment(email, password)
+            val fragment = supportFragmentManager.findFragmentByTag(CompanyDetailProfileScreenFragment::class.java.simpleName)
             if (fragment !is CompanyDetailProfileScreenFragment) {
-                mFragmentManager.beginTransaction().apply {
-                    add(R.id.frame_container_profileact, mFragment, CompanyDetailProfileScreenFragment::class.java.simpleName)
-                    commit()
-                }
+                supportFragmentManager.beginTransaction().add(R.id.frame_container_profileact, CompanyDetailProfileScreenFragment(email, password)).commit()
             }
         }
 

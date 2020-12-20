@@ -45,7 +45,7 @@ class GoHipePreferences(context: Context) {
         editor.putString(PASSWORD, value.password)
         editor.putString(COMPANY, value.company)
         editor.putString(POSITION, value.position)
-        editor.putInt(PHONE, value.phone)
+        editor.putLong(PHONE, value.phone)
         editor.putBoolean(LOGIN, value.isLogin)
         editor.apply()
     }
@@ -56,7 +56,7 @@ class GoHipePreferences(context: Context) {
         model.password = companyPreferences.getString(PASSWORD, "")
         model.company = companyPreferences.getString(COMPANY, "")
         model.position = companyPreferences.getString(POSITION, "")
-        model.phone = companyPreferences.getInt(PHONE, 0)
+        model.phone = companyPreferences.getLong(PHONE, 0)
         model.isLogin = companyPreferences.getBoolean(LOGIN, false)
 
         return model

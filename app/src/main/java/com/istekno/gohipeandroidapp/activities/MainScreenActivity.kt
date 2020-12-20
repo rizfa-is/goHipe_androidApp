@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
-import kotlinx.android.synthetic.main.activity_main_screen.*
+import com.istekno.gohipeandroidapp.databinding.ActivityMainScreenBinding
 
 class MainScreenActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityMainScreenBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_screen)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_screen)
         supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -22,8 +26,8 @@ class MainScreenActivity : AppCompatActivity(), View.OnClickListener {
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         )
 
-        btn_mainact_login.setOnClickListener(this)
-        btn_mainact_register.setOnClickListener(this)
+        binding.btnMainactLogin.setOnClickListener(this)
+        binding.btnMainactRegister.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {

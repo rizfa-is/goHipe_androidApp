@@ -2,93 +2,121 @@ package com.istekno.gohipeandroidapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
-import kotlinx.android.synthetic.main.fragment_company_register_screen.*
+import com.istekno.gohipeandroidapp.activities.MainContentActivity
+import com.istekno.gohipeandroidapp.data.CompanyModel
+import com.istekno.gohipeandroidapp.databases.GoHipePreferences
+import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBinding
+import com.istekno.gohipeandroidapp.utility.Dialog
 
 class CompanyRegisterScreenFragment : Fragment() {
 
-    companion object {
-        val CODENAME1_COMP_REG_FULLNAME = "company_reg_fullname"
-        val CODENAME2_COMP_REG_EMAIL = "company_reg_email"
-        val CODENAME3_COMP_REG_PHONE = "company_reg_phone"
-        val CODENAME4_COMP_REG_PASSWORD = "company_reg_password"
-        val CODENAME5_COMP_REG_COMPANY = "company_reg_company"
-        val CODENAME6_COMP_REG_POSITION = "company_reg_position"
-    }
+    private lateinit var binding: FragmentCompanyRegisterScreenBinding
+    private lateinit var companyModel: CompanyModel
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mFragmentManager = fragmentManager
-        var mFragment : Fragment
 
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                mFragment = SelectRoleFragment()
-                mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container_logregact, mFragment, SelectRoleFragment::class.java.simpleName)
-                    commit()
-                }
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, SelectRoleFragment(), SelectRoleFragment::class.java.simpleName)?.commit()
             }
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_company_register_screen, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_register_screen, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mFragmentManager = fragmentManager
-        var mFragment : Fragment
+        companyModel = CompanyModel()
+        dialog = Dialog()
 
-        tv_comregisterfrg_login_here.setOnClickListener {
-            mFragment = LoginScreenFragment()
-            mFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.frame_container_logregact, mFragment, LoginScreenFragment::class.java.simpleName)
-                commit()
-            }
+        binding.tvComregisterfrgLoginHere.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment(), LoginScreenFragment::class.java.simpleName)?.commit()
         }
-        btn_comregisterfrg_register.setOnClickListener {
+
+        binding.btnComregisterfrgRegister.setOnClickListener {
             registration(view)
         }
     }
 
     private fun registration(view: View) {
-        val inputFullname = et_comregisterfrg_fullname.text.toString()
-        val inputEmail = et_comregisterfrg_email.text.toString()
-        val inputPhone = et_comregisterfrg_phone.text.toString()
-        val inputCompany = et_comregisterfrg_company.text.toString()
-        val inputPosition = et_comregisterfrg_position.text.toString()
-        val inputPassword = et_comregisterfrg_password.text.toString()
-        val inputConfirmPass = et_comregisterfrg_confirm_password.text.toString()
+        val inputFullname = binding.etComregisterfrgFullname.text.toString()
+        val inputEmail = binding.etComregisterfrgEmail.text.toString()
+        val inputPhone = binding.etComregisterfrgPhone.text.toString()
+        val inputCompany = binding.etComregisterfrgCompany.text.toString()
+        val inputPosition = binding.etComregisterfrgPosition.text.toString()
+        val inputPassword = binding.etComregisterfrgPassword.text.toString()
+        val inputConfirmPass = binding.etComregisterfrgConfirmPassword.text.toString()
 
-        val intent = Intent(context, ProfileScreenActivity::class.java)
-        intent.putExtra("Codename Profile", 1)
-        intent.putExtra(CODENAME1_COMP_REG_FULLNAME, inputFullname)
-        intent.putExtra(CODENAME2_COMP_REG_EMAIL, inputEmail)
-        intent.putExtra(CODENAME3_COMP_REG_PHONE, inputPhone)
-        intent.putExtra(CODENAME4_COMP_REG_PASSWORD, inputPassword)
-        intent.putExtra(CODENAME5_COMP_REG_COMPANY, inputCompany)
-        intent.putExtra(CODENAME6_COMP_REG_POSITION, inputPosition)
-
-        if (inputFullname == "" || inputEmail == "" || inputPhone == "" || inputPassword == "") {
-            Toast.makeText(view.context, "Please, all form must be filled", Toast.LENGTH_LONG).show()
-        } else if (inputPassword != inputConfirmPass) {
-            Toast.makeText(view.context, "Make sure you inputed right password", Toast.LENGTH_LONG).show()
-        } else {
-            startActivity(intent)
-            activity?.finish()
+        if (inputFullname.isEmpty()) {
+            binding.etComregisterfrgFullname.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            return
         }
+
+        if (inputEmail.isEmpty()) {
+            binding.etComregisterfrgEmail.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            return
+        }
+
+        if (inputPassword.isEmpty()) {
+            binding.etComregisterfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            return
+        }
+
+        if (inputCompany.isEmpty()) {
+            binding.etComregisterfrgCompany.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            return
+        }
+
+        if (inputPosition.isEmpty()) {
+            binding.etComregisterfrgPosition.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            return
+        }
+
+        if (inputConfirmPass.isEmpty()) {
+            binding.etComregisterfrgConfirmPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            return
+        }
+
+        if (inputPhone.isEmpty()) {
+            binding.etComregisterfrgPhone.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            return
+        }
+
+        if (!TextUtils.isDigitsOnly(inputPhone)) {
+            binding.etComregisterfrgPhone.error = EngineerRegisterScreenFragment.FIELD_DIGITS_ONLY
+            return
+        }
+
+        saveData(inputFullname, inputEmail, inputPassword, inputCompany, inputPosition, inputPhone, true)
+        dialog.dialog(context, "Register Successful") { startActivity(Intent(context, MainContentActivity::class.java)) }
+    }
+
+    private fun saveData(name: String, email: String, password: String, company: String, position: String, phone: String, isLogin: Boolean) {
+        val userPreference = GoHipePreferences(context!!)
+
+        companyModel.name = name
+        companyModel.email = email
+        companyModel.password = password
+        companyModel.company = company
+        companyModel.position = position
+        companyModel.phone = phone.toLong()
+        companyModel.isLogin = isLogin
+
+        userPreference.setCompanyPreference(companyModel)
     }
 }

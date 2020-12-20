@@ -1,64 +1,47 @@
 package com.istekno.gohipeandroidapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
-import kotlinx.android.synthetic.main.fragment_select_role.*
+import com.istekno.gohipeandroidapp.databinding.FragmentSelectRoleBinding
 
 class SelectRoleFragment : Fragment(), View.OnClickListener {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_role, container, false)
+    private lateinit var binding: FragmentSelectRoleBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_select_role, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        img_rolefrg_engineer.setOnClickListener(this)
-        tv_rolefrg_engineer.setOnClickListener(this)
-        img_rolefrg_company.setOnClickListener(this)
-        tv_rolefrg_company.setOnClickListener(this)
+        binding.imgRolefrgEngineer.setOnClickListener(this)
+        binding.tvRolefrgEngineer.setOnClickListener(this)
+        binding.imgRolefrgCompany.setOnClickListener(this)
+        binding.tvRolefrgCompany.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
-        val mFragmentManager = fragmentManager
-        val mFragment : Fragment
-
         when (v.id) {
             R.id.img_rolefrg_engineer -> {
-                mFragment = EngineerRegisterScreenFragment()
-                mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container_logregact, mFragment, EngineerRegisterScreenFragment::class.java.simpleName)
-                    commit()
-                }
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, EngineerRegisterScreenFragment())?.commit()
             }
             R.id.tv_rolefrg_engineer -> {
-                mFragment = EngineerRegisterScreenFragment()
-                mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container_logregact, mFragment, EngineerRegisterScreenFragment::class.java.simpleName)
-                    commit()
-                }
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, EngineerRegisterScreenFragment())?.commit()
             }
             R.id.img_rolefrg_company -> {
-                mFragment = CompanyRegisterScreenFragment()
-                mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container_logregact, mFragment, CompanyRegisterScreenFragment::class.java.simpleName)
-                    commit()
-                }
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, CompanyRegisterScreenFragment())?.commit()
             }
             R.id.tv_rolefrg_company -> {
-                mFragment = CompanyRegisterScreenFragment()
-                mFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.frame_container_logregact, mFragment, CompanyRegisterScreenFragment::class.java.simpleName)
-                    commit()
-                }
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, CompanyRegisterScreenFragment())?.commit()
             }
         }
     }
