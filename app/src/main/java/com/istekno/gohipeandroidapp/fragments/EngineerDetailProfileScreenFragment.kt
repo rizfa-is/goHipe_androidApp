@@ -13,7 +13,7 @@ import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
 import com.istekno.gohipeandroidapp.data.GoHipeDatabases
 import kotlinx.android.synthetic.main.fragment_engineer_profile_screen.*
 
-class EngineerProfileScreenFragment(
+class EngineerDetailProfileScreenFragment(
         private val fullname : String? = null,
         private val email : String? = null,
         private val password : String? = null
@@ -32,7 +32,8 @@ class EngineerProfileScreenFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(context as Context, fragmentManager as FragmentManager)
+
+        val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(view.context, childFragmentManager)
         vp_engprofiact.adapter = enginerProfilePagerAdapter
         tl_engprofiact.setupWithViewPager(vp_engprofiact)
 
@@ -42,7 +43,6 @@ class EngineerProfileScreenFragment(
             chip.chipBackgroundColor = resources.getColorStateList(R.color.theme_orange)
             chip.text = listAbility[i].toString()
             chip.setTextColor(resources.getColor(R.color.white))
-            chip.chipIcon = resources.getDrawable(listDrawable[i])
 
             cg_enprofifrg_ability.addView(chip)
         }

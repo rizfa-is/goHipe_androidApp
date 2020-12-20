@@ -1,120 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
-    android:background="@color/theme_green"
     tools:context=".fragments.LoginScreenFragment">
 
-    <ImageView
-        android:id="@+id/img_loginfrg_logo"
-        style="@style/Logo_GoHipe"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:background="@color/theme_green">
 
-    <TextView
-        android:id="@+id/tv_loginfrg_login"
-        style="@style/TextView_Account"
-        android:layout_marginTop="24dp"
-        android:text="@string/login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_loginfrg_logo" />
+        <ImageView
+            android:id="@+id/img_loginfrg_logo"
+            style="@style/Logo_GoHipe"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_loginfrg_fullname"
-        style="@style/TextView_MaterialInput"
-        android:layout_marginTop="50dp"
-        android:text="@string/email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_login" />
+        <TextView
+            android:id="@+id/tv_loginfrg_login"
+            style="@style/TextView_Account"
+            android:layout_marginTop="24dp"
+            android:text="@string/login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_loginfrg_logo" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/it_loginfrg_email"
-        style="@style/MaterialField_TextInputLayout"
-        android:hint="@string/input_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_fullname">
+        <TextView
+            android:id="@+id/tv_loginfrg_fullname"
+            style="@style/TextView_MaterialInput"
+            android:layout_marginTop="50dp"
+            android:text="@string/email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_login" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_loginfrg_email"
-            style="@style/MaterialField_EditText" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/it_loginfrg_email"
+            style="@style/MaterialField_TextInputLayout"
+            android:hint="@string/input_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_fullname">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_loginfrg_email"
+                style="@style/MaterialField_EditText" />
 
-    <TextView
-        android:id="@+id/tv_loginfrg_password"
-        style="@style/TextView_MaterialInput"
-        android:layout_marginTop="8dp"
-        android:text="@string/password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_email" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/it_loginfrg_password"
-        style="@style/MaterialField_TextInputLayout"
-        android:hint="@string/input_password"
-        app:endIconMode="password_toggle"
-        app:errorEnabled="true"
-        app:helperText="min. length 8 characters"
-        app:helperTextEnabled="true"
-        app:helperTextTextColor="#99FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_password">
+        <TextView
+            android:id="@+id/tv_loginfrg_password"
+            style="@style/TextView_MaterialInput"
+            android:layout_marginTop="8dp"
+            android:text="@string/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_email" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_loginfrg_password"
-            style="@style/MaterialField_EditText"
-            android:inputType="textPassword" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/it_loginfrg_password"
+            style="@style/MaterialField_TextInputLayout"
+            android:hint="@string/input_password"
+            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
+            app:helperText="min. length 8 characters"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="#99FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_password">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_loginfrg_password"
+                style="@style/MaterialField_EditText"
+                android:inputType="textPassword" />
 
-    <TextView
-        android:id="@+id/tv_loginfrg_forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/forgot_password"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_password" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_loginfrg_login"
-        style="@style/MaterialButton"
-        android:layout_marginHorizontal="0dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/theme_orange"
-        android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_forgot_password" />
+        <TextView
+            android:id="@+id/tv_loginfrg_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/forgot_password"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_password" />
 
-    <TextView
-        android:id="@+id/tv_loginfrg_dont_have_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="90dp"
-        android:text="@string/dont_have_an_account"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_loginfrg_login" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loginfrg_login"
+            style="@style/MaterialButton"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/theme_orange"
+            android:text="@string/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_forgot_password" />
 
-    <TextView
-        android:id="@+id/tv_loginfrg_register_here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:text="@string/register_here"
-        android:textColor="@color/theme_orange"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_loginfrg_dont_have_account" />
+        <TextView
+            android:id="@+id/tv_loginfrg_dont_have_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="90dp"
+            android:text="@string/dont_have_an_account"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_loginfrg_login" />
 
+        <TextView
+            android:id="@+id/tv_loginfrg_register_here"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:text="@string/register_here"
+            android:textColor="@color/theme_orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_loginfrg_dont_have_account" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

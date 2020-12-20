@@ -49,7 +49,6 @@ class IntroScreenActivity : AppIntro() {
                 imageParallaxFactor = -1.0,
                 descriptionParallaxFactor = 20.0
         ))
-        setImmersiveMode()
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {

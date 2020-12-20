@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.istekno.gohipeandroidapp.R
 import kotlinx.android.synthetic.main.fragment_company_profile_screen.*
 
-class CompanyProfileScreenFragment(
+class CompanyDetailProfileScreenFragment(
         private val fullname : String? = null,
         private val email : String? = null,
         private val position : String? = null,

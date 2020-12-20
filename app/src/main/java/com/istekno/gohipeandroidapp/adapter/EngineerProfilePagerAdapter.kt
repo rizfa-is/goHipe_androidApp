@@ -12,7 +12,6 @@ import com.istekno.gohipeandroidapp.fragments.PortfolioFragment
 
 class EngineerProfilePagerAdapter(private val mContext: Context, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    @StyleRes
     private val tabTitles = intArrayOf(R.string.portfolio_tab_title, R.string.experience_tab_title)
 
     override fun getCount(): Int = tabTitles.size
@@ -26,7 +25,6 @@ class EngineerProfilePagerAdapter(private val mContext: Context, fragmentManager
         return fragment as Fragment
     }
 
-    @Nullable
     override fun getPageTitle(position: Int): CharSequence? {
         return mContext.resources.getString(tabTitles[position])
     }

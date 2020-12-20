@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/mn_item_maincontent_home"
-        android:title="Home"
-        android:icon="@drawable/ic_home"/>
+        android:title="@string/home"
+        android:icon="@drawable/ic_bottom_nav_home_unchecked"/>
+    <item
+        android:id="@+id/mn_item_maincontent_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_bottom_nav_search_unchecked"/>
+    <item
+        android:id="@+id/mn_item_maincontent_chat"
+        android:title="@string/chat"
+        android:icon="@drawable/ic_bottom_nav_chat_unchecked"/>
+    <item
+        android:id="@+id/mn_item_maincontent_account"
+        android:title="@string/account"
+        android:icon="@drawable/ic_bottom_nav_account_unchecked"/>
 </menu>

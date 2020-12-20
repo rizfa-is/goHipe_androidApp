@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_bottom"
+    app:startDestination="@id/mn_item_maincontent_home">
+
+    <fragment
+        android:id="@+id/mn_item_maincontent_home"
+        android:name="com.istekno.gohipeandroidapp.fragments.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/mn_item_maincontent_search"
+        android:name="com.istekno.gohipeandroidapp.fragments.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/mn_item_maincontent_chat"
+        android:name="com.istekno.gohipeandroidapp.fragments.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/mn_item_maincontent_account"
+        android:name="com.istekno.gohipeandroidapp.fragments.EngineerAccountScreenFragment"
+        android:label="@string/account"
+        tools:layout="@layout/fragment_engineer_account_screen" />
+
+</navigation>

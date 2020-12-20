@@ -52,4 +52,8 @@
     <string name="gohipe_teknologi">GoHipe Teknologi</string>
     <string name="february_2021_oktober_2022">February 2021 - Oktober 2022</string>
     <string name="total_months">20 months</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="chat">Chat</string>
+    <string name="account">Account</string>
 </resources>

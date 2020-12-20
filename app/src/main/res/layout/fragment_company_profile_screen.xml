@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     android:background="@color/background_grey"
     android:elevation="4dp"
-    tools:context=".fragments.CompanyProfileScreenFragment">
+    tools:context=".fragments.CompanyDetailProfileScreenFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/vw_engprofifrg_bottombar"
+        android:layout_above="@+id/vw_comprofifrg_bottombar"
         android:background="@color/background_grey">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -155,7 +155,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <View
-        android:id="@+id/vw_engprofifrg_bottombar"
+        android:id="@+id/vw_comprofifrg_bottombar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
@@ -164,7 +164,7 @@
         android:background="@drawable/shape_profile_bg_bottombar"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_engprofifrg_hire"
+        android:id="@+id/btn_comprofifrg_hire"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginHorizontal="28dp"
