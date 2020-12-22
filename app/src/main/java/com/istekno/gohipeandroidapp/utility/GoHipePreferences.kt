@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.databases
+package com.istekno.gohipeandroidapp.utility
 
 import android.content.Context
 import com.istekno.gohipeandroidapp.models.CompanyModel

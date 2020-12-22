@@ -1,28 +1,21 @@
 package com.istekno.gohipeandroidapp.activities
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.models.EngineerModel
-import com.istekno.gohipeandroidapp.databases.GoHipePreferences
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.ActivitySplashScreenBinding
 import com.istekno.gohipeandroidapp.models.CompanyModel
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class SplashScreenActivity : AppCompatActivity() {
-
-    companion object {
-        const val SPLASH_AUTH_KEY = "splash_auth_key"
-    }
 
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var engineerModel: EngineerModel
@@ -60,13 +53,11 @@ class SplashScreenActivity : AppCompatActivity() {
             Handler(mainLooper).postDelayed(
                 {
                     if (engineerModel.isLogin) {
-                        val sendIntent = Intent(this, MainContentActivity::class.java)
-                        sendIntent.putExtra(SPLASH_AUTH_KEY, 0)
+                        val sendIntent = Intent(this, EngineerMainContentActivity::class.java)
                         startActivity(sendIntent)
                         finish()
                     } else if (companyModel.isLogin) {
-                        val sendIntent = Intent(this, MainContentActivity::class.java)
-                        sendIntent.putExtra(SPLASH_AUTH_KEY, 1)
+                        val sendIntent = Intent(this, CompanyMainContentActivity::class.java)
                         startActivity(sendIntent)
                         finish()
                     } else {
@@ -75,8 +66,6 @@ class SplashScreenActivity : AppCompatActivity() {
                     }
                 }, 4000
             )
-
-            Toast.makeText(context, "Internet connection OK", Toast.LENGTH_LONG).show()
         }
     }
 }

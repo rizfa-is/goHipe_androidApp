@@ -49,11 +49,6 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Frag
         chipViewInit(view)
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
-        toolbar.title = "My Account"
-    }
-
     private fun setViewPager(view: View) {
         val enginerAccountPagerAdapter = EngineerProfilePagerAdapter(view.context, childFragmentManager)
         binding.vpEngprofiact.adapter = enginerAccountPagerAdapter
@@ -70,5 +65,14 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Frag
 
             binding.cgEnaccfrgAbility.addView(chip)
         }
+    }
+
+    private fun setToolbar(toolbar: MaterialToolbar) {
+        toolbar.visibility = View.VISIBLE
+        toolbar.title = "My Account"
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = true
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = false
     }
 }

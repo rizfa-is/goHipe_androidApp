@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/img_comprofifrg_shape1"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:src="@drawable/shape_profile_big" />
 
         <ImageView
@@ -36,7 +36,7 @@
                     android:id="@+id/img_comprofifrg_avatar"
                     android:layout_width="115dp"
                     android:layout_height="115dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="40dp"
                     android:elevation="3dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_mainscreen_background"

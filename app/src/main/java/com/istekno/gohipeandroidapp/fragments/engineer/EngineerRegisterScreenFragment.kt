@@ -10,9 +10,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.MainContentActivity
+import com.istekno.gohipeandroidapp.activities.EngineerMainContentActivity
 import com.istekno.gohipeandroidapp.models.EngineerModel
-import com.istekno.gohipeandroidapp.databases.GoHipePreferences
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerRegisterScreenBinding
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
@@ -22,8 +22,6 @@ import com.istekno.gohipeandroidapp.utility.Dialog
 class EngineerRegisterScreenFragment : Fragment() {
 
     companion object {
-        const val REGISTRATION_AUTH_KEY = "registration_auth_key"
-
         const val FIELD_REQUIRED = "Field tidak boleh kosong"
         const val FIELD_DIGITS_ONLY = "Hanya boleh berisi numerik"
         const val FIELD_IS_NOT_VALID = "Email tidak valid"
@@ -104,8 +102,7 @@ class EngineerRegisterScreenFragment : Fragment() {
         saveData(inputFullname, inputEmail, inputPassword, inputPhone, true)
 
         dialog.dialog(context, "Register Successful") {
-            val sendIntent = Intent(context, MainContentActivity::class.java)
-            sendIntent.putExtra(REGISTRATION_AUTH_KEY, 0)
+            val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
             startActivity(sendIntent)
         }
     }

@@ -2,17 +2,15 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.MainContentActivity
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
-import com.istekno.gohipeandroidapp.activities.SplashScreenActivity
 import com.istekno.gohipeandroidapp.adapter.UserDetailProfileAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
 import com.istekno.gohipeandroidapp.models.User
@@ -28,9 +26,9 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        setToolbar(toolbar)
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_home_screen, container, false)
+
+        setToolbar(toolbar)
         return binding.root
     }
 
@@ -42,7 +40,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragment
     }
 
     private fun showRecyclerList() {
-        binding.rvListDeveloper.apply {
+        binding.rvListEngineer.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = UserDetailProfileAdapter(listUser, object : UserDetailProfileAdapter.OnItemClickCallback {
                 override fun onItemClicked(user: User) {
@@ -55,8 +53,10 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragment
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
-        toolbar.title = "Home"
+        toolbar.visibility = View.GONE
+        binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
+        binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
+        binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = true
+        binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = true
     }
-
 }

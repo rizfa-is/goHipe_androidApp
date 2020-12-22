@@ -23,7 +23,11 @@ class CompanyChatScreenFragment(private val toolbar: MaterialToolbar) : Fragment
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
+        toolbar.visibility = View.VISIBLE
         toolbar.title = "Chat"
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = false
     }
 }

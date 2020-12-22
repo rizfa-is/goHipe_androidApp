@@ -1,6 +1,5 @@
 package com.istekno.gohipeandroidapp.fragments
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,19 +8,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.MainContentActivity
+import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
+import com.istekno.gohipeandroidapp.activities.EngineerMainContentActivity
 import com.istekno.gohipeandroidapp.models.EngineerModel
-import com.istekno.gohipeandroidapp.databases.GoHipePreferences
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentLoginScreenBinding
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerRegisterScreenFragment
 import com.istekno.gohipeandroidapp.models.CompanyModel
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class LoginScreenFragment : Fragment() {
-
-    companion object {
-        const val LOGIN_AUTH_KEY = "login_auth_key"
-    }
 
     private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var goHipePreferences: GoHipePreferences
@@ -70,28 +66,26 @@ class LoginScreenFragment : Fragment() {
             return
         }
 
-        if (engineerModel.email!!.contains(email) && engineerModel.password!!.contains(password)) {
+        if (engineerModel.email == email && engineerModel.password == password) {
             engineerModel.isLogin = true
             goHipePreferences.setEngineerPreference(engineerModel)
 
             dialog.dialog(context, "Login Successful") {
-                val sendIntent = Intent(context, MainContentActivity::class.java)
-                sendIntent.putExtra(LOGIN_AUTH_KEY, 0)
+                val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
                 startActivity(sendIntent)
                 activity?.finish()
             }
-        } else if (companyModel.email!!.contains(email) && companyModel.password!!.contains(password)) {
+        } else if (companyModel.email == email && companyModel.password == password) {
             companyModel.isLogin = true
             goHipePreferences.setCompanyPreference(companyModel)
 
             dialog.dialog(context, "Login Successful") {
-                val sendIntent = Intent(context, MainContentActivity::class.java)
-                sendIntent.putExtra(LOGIN_AUTH_KEY, 1)
+                val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
                 startActivity(sendIntent)
                 activity?.finish()
             }
         } else {
-            dialog.dialogCancel(context, "Email haven't registered")
+            dialog.dialogCancel(context, "Email or Password Incorrect")
         }
     }
 }

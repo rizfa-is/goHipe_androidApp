@@ -23,7 +23,6 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar) : Fragm
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
-        toolbar.title = "Search"
+        toolbar.visibility = View.GONE
     }
 }

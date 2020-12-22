@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainScreenActivity
 import com.istekno.gohipeandroidapp.models.EngineerModel
-import com.istekno.gohipeandroidapp.databases.GoHipePreferences
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountSettingBinding
 import com.istekno.gohipeandroidapp.utility.Dialog
 

@@ -2,19 +2,17 @@ package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.UserDetailProfileAdapter
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHomeScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
 import com.istekno.gohipeandroidapp.models.User
 
 class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
@@ -28,9 +26,9 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragmen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        setToolbar(toolbar)
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_home_screen, container, false)
+
+        setToolbar(toolbar)
         return binding.root
     }
 
@@ -42,7 +40,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragmen
     }
 
     private fun showRecyclerList() {
-        binding.rvListDeveloper.apply {
+        binding.rvListCompany.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = UserDetailProfileAdapter(listUser, object : UserDetailProfileAdapter.OnItemClickCallback {
                 override fun onItemClicked(user: User) {
@@ -55,8 +53,10 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar) : Fragmen
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
-        toolbar.title = "Home"
+        toolbar.visibility = View.GONE
+        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
+        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
+        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = true
+        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = true
     }
-
 }

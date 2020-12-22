@@ -11,37 +11,31 @@
         android:background="@color/background_grey"
         android:elevation="4dp">
 
+        <ImageView
+            android:id="@+id/img_comaccfrg_shape1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/shape_profile_big" />
+
+        <ImageView
+            android:id="@+id/img_comaccfrg_shape2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/shape_profile_small" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background_grey">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/img_comaccfrg_shape1"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:src="@drawable/shape_profile_big"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/img_comaccfrg_shape2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/shape_profile_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/img_comaccfrg_avatar"
                     android:layout_width="115dp"
                     android:layout_height="115dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="40dp"
                     android:elevation="3dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_mainscreen_background"
