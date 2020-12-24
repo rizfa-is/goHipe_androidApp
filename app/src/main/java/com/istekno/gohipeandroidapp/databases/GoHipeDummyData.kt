@@ -2,6 +2,7 @@ package com.istekno.gohipeandroidapp.databases
 
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.models.Experience
+import com.istekno.gohipeandroidapp.models.MostPopular
 
 object GoHipeDatabases {
     private val portfolio = intArrayOf(
@@ -10,6 +11,14 @@ object GoHipeDatabases {
         R.drawable.img_porto3,
         R.drawable.img_porto4,
         R.drawable.img_porto5
+    )
+
+    private val name = arrayOf(
+            "Portgas D. Ace",
+            "Monkey D. Luffy",
+            "Uzumaki Naruto",
+            "Vinsmoke Sanji",
+            "Meito Shusui"
     )
 
     private val job = arrayOf(
@@ -53,6 +62,10 @@ object GoHipeDatabases {
         str
     )
 
+    private val project = arrayOf(10, 11, 9, 27, 18)
+    private val day = arrayOf(6, 8, 5, 4, 7)
+    private val rate = arrayOf(88, 90, 96, 91, 93)
+
     val porto : IntArray
     get() {
         val portos = portfolio
@@ -77,6 +90,23 @@ object GoHipeDatabases {
     }
 
 
+    val listEngineerTalentOfTheMonth: ArrayList<MostPopular>
+    get() {
+        val mp = ArrayList<MostPopular>()
+        for (i in name.indices) {
+            val mostPopular = MostPopular(
+                    name[i],
+                    job[i],
+                    portfolio[i],
+                    project[i],
+                    day[i],
+                    rate[i]
+            )
+            mp.add(mostPopular)
+        }
+        return mp
+    }
+
     private val abilities = arrayOf(
             "Android",
             "108 MP",
@@ -95,50 +125,4 @@ object GoHipeDatabases {
             R.drawable.ic_idea,
             R.drawable.ic_location_track
     )
-
-    val iconAbility : IntArray
-        get() {
-            return iconAbilities
-        }
-
-    //LOGIN
-    //ENGINEER
-
-    private val emailEng = arrayOf(
-        "rosyidrosadi15@gmail.com"
-    )
-
-    val loginEmailEngineer : Array<String>
-    get() {
-        return emailEng
-    }
-
-    private val passwordEng = arrayOf(
-        "qwer1234"
-    )
-
-    val loginPasswordEngineer : Array<String>
-    get() {
-        return passwordEng
-    }
-
-    //COMPANY
-
-    private val emailComp = arrayOf(
-        "siosin15@gmail.com"
-    )
-
-    val loginEmailCompany : Array<String>
-        get() {
-            return emailComp
-        }
-
-    private val passwordComp = arrayOf(
-        "asdf1234"
-    )
-
-    val loginPasswordCompany : Array<String>
-        get() {
-            return passwordComp
-        }
 }

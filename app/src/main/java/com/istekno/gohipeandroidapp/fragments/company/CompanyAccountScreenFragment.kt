@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAccountScreenBinding
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountScreenFragment
 
-class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
+class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
@@ -32,17 +33,27 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar) : Fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbarListener()
+    }
+
+    private fun toolbarListener() {
         toolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.mn_maincontent_toolbar_setting) {
-                val sendIntent = Intent(context, SettingScreenActivity::class.java)
-                sendIntent.putExtra(SETTING_AUTH_KEY, 1)
-                startActivity(sendIntent)
+            when (it.itemId) {
+                R.id.mn_maincontent_toolbar_favorite -> {
+                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_maincontent, CompanyFavoriteScreenFragment(toolbar, bottomNavigationView))?.addToBackStack(null)?.commit()
+                }
+                R.id.mn_maincontent_toolbar_setting -> {
+                    val sendIntent = Intent(context, SettingScreenActivity::class.java)
+                    sendIntent.putExtra(SETTING_AUTH_KEY, 1)
+                    startActivity(sendIntent)
+                }
             }
             false
         }
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
+        bottomNavigationView.visibility = View.VISIBLE
         toolbar.visibility = View.VISIBLE
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true

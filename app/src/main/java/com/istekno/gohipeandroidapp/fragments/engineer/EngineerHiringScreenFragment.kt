@@ -7,26 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.databinding.FragmentEngineerChatScreenBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHiringScreenBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHiringScreenBinding
 
-class EngineerChatScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
+class EngineerHiringScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
 
-    private lateinit var binding: FragmentEngineerChatScreenBinding
+    private lateinit var binding: FragmentEngineerHiringScreenBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        setToolbar(toolbar, bottomNavigationView)
+                              savedInstanceState: Bundle?): View {
+        setToolbar(toolbar)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_chat_screen, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_hiring_screen, container, false)
         return binding.root
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar, bottomNavigationView: BottomNavigationView) {
-        bottomNavigationView.visibility = View.GONE
+    private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.visibility = View.VISIBLE
-        toolbar.title = "Chat"
+        toolbar.title = "Hiring"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false

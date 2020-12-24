@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyAccountScreenFragment
+import com.istekno.gohipeandroidapp.fragments.company.CompanyFavoriteScreenFragment
 
-class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
+class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
@@ -36,17 +39,25 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbarListener()
+        setViewPager(view)
+        chipViewInit(view)
+    }
+
+    private fun toolbarListener() {
         toolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.mn_maincontent_toolbar_setting) {
-                val sendIntent = Intent(context, SettingScreenActivity::class.java)
-                sendIntent.putExtra(SETTING_AUTH_KEY, 0)
-                startActivity(sendIntent)
+            when (it.itemId) {
+                R.id.mn_maincontent_toolbar_favorite -> {
+                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_maincontent, EngineerFavoriteScreenFragment(toolbar, bottomNavigationView))?.addToBackStack(null)?.commit()
+                }
+                R.id.mn_maincontent_toolbar_setting -> {
+                    val sendIntent = Intent(context, SettingScreenActivity::class.java)
+                    sendIntent.putExtra(SETTING_AUTH_KEY, 0)
+                    startActivity(sendIntent)
+                }
             }
             false
         }
-
-        setViewPager(view)
-        chipViewInit(view)
     }
 
     private fun setViewPager(view: View) {
@@ -68,6 +79,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar) : Frag
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {
+        bottomNavigationView.visibility = View.VISIBLE
         toolbar.visibility = View.VISIBLE
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true

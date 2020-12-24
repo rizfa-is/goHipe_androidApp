@@ -80,7 +80,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:text="List Engineer"
+                android:text="Talent Of The Month"
                 android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold"
@@ -91,12 +91,12 @@
                 android:id="@+id/rv_list_engineer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_list_engineer"
-                tools:listitem="@layout/item_row_list_developer" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_list_engineer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

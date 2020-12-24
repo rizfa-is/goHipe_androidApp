@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityEngineerMainContentBinding
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerChatScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHomeScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerSearchScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.*
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class EngineerMainContentActivity : AppCompatActivity() {
@@ -36,7 +33,10 @@ class EngineerMainContentActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+
+        binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
+
+        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
     }
 
     private fun changeFragmentScreen() {
@@ -44,19 +44,19 @@ class EngineerMainContentActivity : AppCompatActivity() {
         binding.bottomNavView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.mn_item_maincontent_home -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_search -> {
                     supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerSearchScreenFragment(binding.topAppBarMaincontentActivity)).commit()
                     true
                 }
-                R.id.mn_item_maincontent_chat -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerChatScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                R.id.mn_item_maincontent_hiring -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_account -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
                     true
                 }
                 else -> true

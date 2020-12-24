@@ -54,7 +54,8 @@
     <string name="total_months">20 months</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="chat">Chat</string>
+    <string name="project">Project</string>
     <string name="account">Account</string>
     <string name="issog_corp">iSSOG Corp</string>
+    <string name="hiring">Hiring</string>
 </resources>

@@ -44,3 +44,13 @@ data class CompanyModel(
     var password: String? = null,
     var isLogin: Boolean = false
 ) : Parcelable
+
+@Parcelize
+data class MostPopular(
+        val name : String,
+        val job : String,
+        val image: Int,
+        val project: Int,
+        val delivery_time: Int,
+        val conv_rate: Int
+) : Parcelable

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_marginEnd="8dp"
+        android:layout_gravity="center">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_homescreen_bg2"
+            app:shapeAppearance="@style/circleImage"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_most_popular"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_mainscreen_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/circleImage_profile" />
+
+        <TextView
+            android:id="@+id/tv_most_popular_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Monkey D. Luffy"
+            android:letterSpacing="0.05"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/img_most_popular"
+            app:layout_constraintStart_toStartOf="@+id/img_most_popular"
+            app:layout_constraintTop_toBottomOf="@+id/img_most_popular" />
+
+        <TextView
+            android:id="@+id/tv_most_popular_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Android Developer"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tv_most_popular_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_most_popular_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_most_popular_name" />
+
+        <TextView
+            android:id="@+id/tv_most_popular_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:drawablePadding="7dp"
+            android:gravity="center"
+            android:text="20"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/ic_mostpop_project"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_most_popular_devliverytime"
+            app:layout_constraintEnd_toStartOf="@+id/tv_most_popular_devliverytime"
+            app:layout_constraintTop_toTopOf="@+id/tv_most_popular_devliverytime" />
+
+        <TextView
+            android:id="@+id/tv_most_popular_devliverytime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:drawablePadding="7dp"
+            android:gravity="center"
+            android:text="7 days"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/ic_time"
+            app:layout_constraintEnd_toEndOf="@+id/tv_most_popular_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_most_popular_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_most_popular_job" />
+
+        <TextView
+            android:id="@+id/tv_most_popular_projectconvrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:drawablePadding="7dp"
+            android:gravity="center"
+            android:text="92 %"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/ic_conversion_project"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_most_popular_devliverytime"
+            app:layout_constraintStart_toEndOf="@+id/tv_most_popular_devliverytime"
+            app:layout_constraintTop_toTopOf="@+id/tv_most_popular_devliverytime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

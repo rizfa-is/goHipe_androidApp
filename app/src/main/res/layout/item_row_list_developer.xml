@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginVertical="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_enprofifrg_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:elevation="3dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_mainscreen_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/circleImage_profile" />
-
-    <TextView
-        android:id="@+id/tv_enprofifrg_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:text="@string/name"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/img_enprofifrg_avatar"
-        app:layout_constraintStart_toStartOf="@+id/img_enprofifrg_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/img_enprofifrg_avatar" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_enprofifrg_job"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:text="@string/job"
-        android:textColor="@color/text"
-        app:layout_constraintEnd_toEndOf="@+id/tv_enprofifrg_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_enprofifrg_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_enprofifrg_name" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_enprofifrg_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:elevation="3dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_mainscreen_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/circleImage_profile" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/cg_enprofifrg_developer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_enprofifrg_job" />
+        <TextView
+            android:id="@+id/tv_enprofifrg_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/name"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/img_enprofifrg_avatar"
+            app:layout_constraintStart_toStartOf="@+id/img_enprofifrg_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/img_enprofifrg_avatar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_enprofifrg_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/job"
+            android:textColor="@color/text"
+            app:layout_constraintEnd_toEndOf="@+id/tv_enprofifrg_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_enprofifrg_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_enprofifrg_name" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_enprofifrg_developer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_enprofifrg_job" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

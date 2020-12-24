@@ -5,40 +5,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.databinding.ItemRowExperienceBinding
 import com.istekno.gohipeandroidapp.models.Experience
 import kotlin.collections.ArrayList
 
 class ListExperienceRecycleViewAdapter(private val listExperience: ArrayList<Experience>) : RecyclerView.Adapter<ListExperienceRecycleViewAdapter.ListViewHolder>() {
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val job : TextView = itemView.findViewById(R.id.tv_item_row_experience_job)
-        private val company : TextView = itemView.findViewById(R.id.tv_item_row_experience_company)
-        private val period : TextView = itemView.findViewById(R.id.tv_item_row_experience_startenddate)
-        private val totalMonth : TextView = itemView.findViewById(R.id.tv_item_row_experience_totalmonths)
-        private val desc : TextView = itemView.findViewById(R.id.tv_item_row_experience_desc)
-        val image : ImageView = itemView.findViewById(R.id.img_item_row_experience)
-
+    inner class ListViewHolder(val binding: ItemRowExperienceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(experience: Experience) {
             Glide.with(itemView.context)
                 .load(experience.image)
                 .apply(RequestOptions().override(150, 150))
-                .into(image)
+                .into(binding.imgItemRowExperience)
 
-            job.text = experience.job
-            company.text = experience.company
-            period.text = experience.period
-            totalMonth.text = experience.totalMonth
-            desc.text = experience.description
+            binding.tvItemRowExperienceJob.text = experience.job
+            binding.tvItemRowExperienceCompany.text = experience.company
+            binding.tvItemRowExperienceStartenddate.text = experience.period
+            binding.tvItemRowExperienceTotalmonths.text = experience.totalMonth
+            binding.tvItemRowExperienceDesc.text = experience.description
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ListViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_experience, viewGroup, false)
-        return ListViewHolder(view)
+        return ListViewHolder(DataBindingUtil.inflate(LayoutInflater.from(viewGroup.context), R.layout.item_row_experience, viewGroup, false))
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {

@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityCompanyMainContentBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyAccountScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyChatScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanySearchScreenFragment
+import com.istekno.gohipeandroidapp.fragments.company.*
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class CompanyMainContentActivity : AppCompatActivity() {
@@ -26,7 +23,7 @@ class CompanyMainContentActivity : AppCompatActivity() {
         dialog = Dialog()
 
         connectionCheck(this)
-        initFragment()
+        initHomeFragment()
         changeFragmentScreen()
     }
 
@@ -35,8 +32,8 @@ class CompanyMainContentActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun initFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+    private fun initHomeFragment() {
+        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
     }
 
     private fun changeFragmentScreen() {
@@ -44,19 +41,23 @@ class CompanyMainContentActivity : AppCompatActivity() {
         binding.bottomNavView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.mn_item_maincontent_home -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_search -> {
                     supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanySearchScreenFragment(binding.topAppBarMaincontentActivity)).commit()
                     true
                 }
-                R.id.mn_item_maincontent_chat -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyChatScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                R.id.mn_item_maincontent_hiring -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    true
+                }
+                R.id.mn_item_maincontent_project -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_account -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyAccountScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
                     true
                 }
                 else -> true

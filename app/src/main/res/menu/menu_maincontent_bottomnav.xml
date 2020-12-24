@@ -10,9 +10,13 @@
         android:title="@string/search"
         android:icon="@drawable/ic_bottom_nav_search_unchecked"/>
     <item
-        android:id="@+id/mn_item_maincontent_chat"
-        android:title="@string/chat"
-        android:icon="@drawable/ic_bottom_nav_chat_unchecked"/>
+        android:id="@+id/mn_item_maincontent_hiring"
+        android:title="@string/hiring"
+        android:icon="@drawable/ic_bottom_nav_hiring_unchecked"/>
+    <item
+        android:id="@+id/mn_item_maincontent_project"
+        android:title="@string/project"
+        android:icon="@drawable/ic_bottom_nav_project_unchecked"/>
     <item
         android:id="@+id/mn_item_maincontent_account"
         android:title="@string/account"
