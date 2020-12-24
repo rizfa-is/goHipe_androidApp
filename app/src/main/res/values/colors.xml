@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="theme_green">#009640</color>
+    <color name="theme_green_dark">#008939</color>
     <color name="theme_orange">#efa723</color>
     <color name="background_grey">#f6f7f8</color>
     <color name="text">#606060</color>

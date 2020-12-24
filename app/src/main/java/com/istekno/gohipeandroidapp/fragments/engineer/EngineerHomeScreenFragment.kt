@@ -13,10 +13,10 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
-import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
+import com.istekno.gohipeandroidapp.adapter.ScouterOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHomeScreenBinding
-import com.istekno.gohipeandroidapp.models.MostPopular
+import com.istekno.gohipeandroidapp.models.ScouterTop
 
 class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
 
@@ -25,7 +25,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
     }
 
     private lateinit var binding: FragmentEngineerHomeScreenBinding
-    private val listTop = ArrayList<MostPopular>()
+    private val listTop = ArrayList<ScouterTop>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -38,8 +38,8 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listTop.addAll(GoHipeDatabases.listEngineerTalentOfTheMonth)
-        listTop.sortByDescending { it.project }
+        listTop.addAll(GoHipeDatabases.listScouterOfTheMonth)
+        listTop.sortByDescending { it.engineer_hired }
 
         showRecyclerList()
         toolbarListener()
@@ -48,12 +48,16 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
     private fun showRecyclerList() {
         binding.rvListCompany.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = TalentOfTheMonthAdapter(listTop, object : TalentOfTheMonthAdapter.OnItemClickCallback {
-                override fun onItemClicked(mostPopular: MostPopular) {
+            adapter = ScouterOfTheMonthAdapter(listTop, object : ScouterOfTheMonthAdapter.OnItemClickCallback {
+
+                override fun onItemClicked(scouterTop: ScouterTop) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(HOME_AUTH_KEY, 0)
                     startActivity(sendIntent)
                 }
+
+
+
             })
         }
     }

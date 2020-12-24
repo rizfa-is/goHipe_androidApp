@@ -22,7 +22,8 @@ data class Experience(
 data class User(
         val name : String,
         val job : String,
-        val image: Int
+        val image: Int,
+        val ability: List<String>
 ) : Parcelable
 
 @Parcelize
@@ -53,4 +54,14 @@ data class MostPopular(
         val project: Int,
         val delivery_time: Int,
         val conv_rate: Int
+) : Parcelable
+
+@Parcelize
+data class ScouterTop(
+    val name : String,
+    val field : String,
+    val image: Int,
+    val project: Int,
+    val engineer_hired: Int,
+    val requirement_rate: Double
 ) : Parcelable
