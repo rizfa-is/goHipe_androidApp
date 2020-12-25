@@ -1,10 +1,7 @@
 package com.istekno.gohipeandroidapp.databases
 
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.models.Experience
-import com.istekno.gohipeandroidapp.models.MostPopular
-import com.istekno.gohipeandroidapp.models.ScouterTop
-import com.istekno.gohipeandroidapp.models.User
+import com.istekno.gohipeandroidapp.models.*
 
 object GoHipeDatabases {
     private val portfolio = intArrayOf(
@@ -21,6 +18,14 @@ object GoHipeDatabases {
             "Uzumaki Naruto",
             "Vinsmoke Sanji",
             "Meito Shusui"
+    )
+
+    private val projectName = arrayOf(
+        "Tani Kita",
+        "Flutter Modern Resto",
+        "Finding Nimou",
+        "Jualan Apaja",
+        "Website Kenal Kamu"
     )
 
     private val job = arrayOf(
@@ -153,6 +158,20 @@ object GoHipeDatabases {
                     job[i],
                     portfolio[i],
                     listEngineerAbilities[i]
+                )
+                mp.add(mostPopular)
+            }
+            return mp
+        }
+
+    val listSearchProject: ArrayList<SearchProject>
+        get() {
+            val mp = ArrayList<SearchProject>()
+            for (i in name.indices) {
+                val mostPopular = SearchProject(
+                    projectName[i],
+                    desc[i],
+                    portfolio[i]
                 )
                 mp.add(mostPopular)
             }

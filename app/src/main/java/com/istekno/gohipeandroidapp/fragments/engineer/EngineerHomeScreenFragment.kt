@@ -14,9 +14,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ScouterOfTheMonthAdapter
+import com.istekno.gohipeandroidapp.adapter.SkillfulTalentAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHomeScreenBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
 import com.istekno.gohipeandroidapp.models.ScouterTop
+import com.istekno.gohipeandroidapp.models.User
 
 class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
 
@@ -26,6 +29,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
     private lateinit var binding: FragmentEngineerHomeScreenBinding
     private val listTop = ArrayList<ScouterTop>()
+    private val listSkillful = ArrayList<User>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -40,8 +44,10 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
         listTop.addAll(GoHipeDatabases.listScouterOfTheMonth)
         listTop.sortByDescending { it.engineer_hired }
+        listSkillful.addAll(GoHipeDatabases.listSearchEngineer)
 
         showRecyclerList()
+        showRecyclerList2()
         toolbarListener()
     }
 
@@ -49,15 +55,24 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
         binding.rvListCompany.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = ScouterOfTheMonthAdapter(listTop, object : ScouterOfTheMonthAdapter.OnItemClickCallback {
-
                 override fun onItemClicked(scouterTop: ScouterTop) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(HOME_AUTH_KEY, 0)
                     startActivity(sendIntent)
                 }
+            })
+        }
+    }
 
-
-
+    private fun showRecyclerList2() {
+        binding.rvListCompany2.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            adapter = SkillfulTalentAdapter(listSkillful, object : SkillfulTalentAdapter.OnItemClickCallback {
+                override fun onItemClicked(user: User) {
+                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
+                    sendIntent.putExtra(CompanyHomeScreenFragment.HOME_AUTH_KEY, 0)
+                    startActivity(sendIntent)
+                }
             })
         }
     }
