@@ -92,6 +92,14 @@ object GoHipeDatabases {
         listOf("Ruby", "NetBeans", "Spring", "Route", "AI")
         )
 
+    private val deadline = arrayOf(
+        "11-01-2021", "01-02-2021", "15-01-2021", "06-01-2021", "03-03-2021"
+    )
+
+    private val status = arrayOf(
+        "wait", "approved", "rejected", "approved", "wait"
+    )
+
     val porto : IntArray
     get() {
         val portos = portfolio
@@ -174,6 +182,29 @@ object GoHipeDatabases {
                     portfolio[i]
                 )
                 mp.add(mostPopular)
+            }
+            return mp
+        }
+
+    var statusHire : String = ""
+        set(value) {
+        field = value
+    }
+
+    val listHire: ArrayList<HireModel>
+        get() {
+            val mp = ArrayList<HireModel>()
+            for (i in projectName.indices) {
+                val mostPopular = HireModel(
+                    projectName[i],
+                    desc[i],
+                    portfolio[i],
+                    deadline[i]
+                )
+
+                if (status[i] == statusHire) {
+                    mp.add(mostPopular)
+                }
             }
             return mp
         }

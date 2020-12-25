@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
+import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProfileScreenBinding
 
@@ -35,7 +35,7 @@ class EngineerDetailProfileScreenFragment(private val fullname : String? = null,
     }
 
     private fun setViewPager(view: View) {
-        val enginerProfilePagerAdapter = EngineerProfilePagerAdapter(view.context, childFragmentManager)
+        val enginerProfilePagerAdapter = EngineerProfileViewPagerAdapter(view.context, childFragmentManager)
         binding.vpEngprofiact.adapter = enginerProfilePagerAdapter
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }

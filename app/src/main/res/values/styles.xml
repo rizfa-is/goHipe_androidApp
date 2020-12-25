@@ -74,4 +74,8 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomRight">30%</item>
     </style>
+
+    <style name="TabLayoutText">
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

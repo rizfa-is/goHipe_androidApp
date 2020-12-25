@@ -12,11 +12,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
-import com.istekno.gohipeandroidapp.adapter.EngineerProfilePagerAdapter
+import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyAccountScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyFavoriteScreenFragment
 
 class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
 
@@ -61,7 +59,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
     }
 
     private fun setViewPager(view: View) {
-        val enginerAccountPagerAdapter = EngineerProfilePagerAdapter(view.context, childFragmentManager)
+        val enginerAccountPagerAdapter = EngineerProfileViewPagerAdapter(view.context, childFragmentManager)
         binding.vpEngprofiact.adapter = enginerAccountPagerAdapter
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }

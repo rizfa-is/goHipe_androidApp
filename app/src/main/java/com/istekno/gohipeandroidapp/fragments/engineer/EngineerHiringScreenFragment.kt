@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.adapter.ListHireViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHiringScreenBinding
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHiringScreenBinding
 
@@ -21,6 +22,18 @@ class EngineerHiringScreenFragment(private val toolbar: MaterialToolbar) : Fragm
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_hiring_screen, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setPagerAdapter(view)
+    }
+
+    private fun setPagerAdapter(view: View) {
+        val pagerAdapter = ListHireViewPagerAdapter(view.context, childFragmentManager)
+        binding.vpListHire.adapter = pagerAdapter
+        binding.tlListHire.setupWithViewPager(binding.vpListHire)
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {

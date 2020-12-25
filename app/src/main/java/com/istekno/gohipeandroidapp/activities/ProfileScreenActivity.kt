@@ -3,16 +3,12 @@ package com.istekno.gohipeandroidapp.activities
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.ActivityProfileScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProfileScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProfileScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHomeScreenFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class ProfileScreenActivity : AppCompatActivity() {

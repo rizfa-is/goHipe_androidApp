@@ -72,3 +72,11 @@ data class ScouterTop(
     val engineer_hired: Int,
     val requirement_rate: Double
 ) : Parcelable
+
+@Parcelize
+data class HireModel(
+    val project : String,
+    val desc : String,
+    val image: Int,
+    val deadline: String
+) : Parcelable
