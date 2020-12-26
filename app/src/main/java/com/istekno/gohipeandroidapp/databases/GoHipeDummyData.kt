@@ -187,10 +187,6 @@ object GoHipeDatabases {
         }
 
     var statusHire : String = ""
-        set(value) {
-        field = value
-    }
-
     val listHire: ArrayList<HireModel>
         get() {
             val mp = ArrayList<HireModel>()

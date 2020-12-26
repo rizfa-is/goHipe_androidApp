@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.databinding.FragmentApprovedHireBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRejectedHireBinding
 import com.istekno.gohipeandroidapp.models.HireModel
 
-class ApprovedHireFragment : Fragment() {
+class CompanyRejectedHireFragment : Fragment() {
 
-    private lateinit var binding: FragmentApprovedHireBinding
+    private lateinit var binding: FragmentCompanyRejectedHireBinding
 
     private val dbHire = GoHipeDatabases
     private val listHiring = ArrayList<HireModel>()
@@ -24,27 +24,27 @@ class ApprovedHireFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_approved_hire, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_rejected_hire, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dbHire.statusHire = "approved"
+        dbHire.statusHire = "rejected"
         listHiring.clear()
         listHiring.addAll(dbHire.listHire)
         showRecycleList()
     }
 
     private fun showRecycleList() {
-        binding.rvApprovedfrg.apply {
+        binding.rvRejectedfrg.apply {
             layoutManager = LinearLayoutManager(view?.context)
             adapter = ListHireAdapter(listHiring, object : ListHireAdapter.OnItemClickCallback {
                 override fun onItemClicked(hireModel: HireModel) {
                     Toast.makeText(context, "Selected ${hireModel.project}", Toast.LENGTH_SHORT).show()
                 }
-            }, 1)
+            }, 2)
         }
     }
 }

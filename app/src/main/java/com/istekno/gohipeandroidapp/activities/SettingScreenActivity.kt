@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivitySettingScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.CompanyAccountSettingFragment
+import com.istekno.gohipeandroidapp.fragments.company.CompanyEditProfileAccountFragment
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountSettingFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
@@ -16,6 +17,7 @@ class SettingScreenActivity : AppCompatActivity() {
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
+        const val EDIT_PROFILE_AUTH_KEY = "edit_profile_auth_key"
     }
 
     private lateinit var binding: ActivitySettingScreenBinding
@@ -34,11 +36,16 @@ class SettingScreenActivity : AppCompatActivity() {
 
     private fun initSettingFragment() {
         val authKeySetting = intent.getIntExtra(SETTING_AUTH_KEY, -1)
+        val authKeyEdit = intent.getIntExtra(EDIT_PROFILE_AUTH_KEY, -1)
 
         if (authKeySetting == 0) {
-            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerAccountSettingFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerAccountSettingFragment(binding.topAppBarSetact)).commit()
         } else {
-            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyAccountSettingFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyAccountSettingFragment(binding.topAppBarSetact)).commit()
+        }
+
+        if (authKeyEdit == 1) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyEditProfileAccountFragment(binding.topAppBarSetact)).commit()
         }
     }
 

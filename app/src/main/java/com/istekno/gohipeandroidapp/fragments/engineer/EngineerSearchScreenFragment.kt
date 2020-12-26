@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +40,7 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar) : Fragm
             layoutManager = LinearLayoutManager(context)
             adapter = ListSearchProjectAdapter(listTop, object : ListSearchProjectAdapter.OnItemClickCallback {
                 override fun onItemClicked(searchProject: SearchProject) {
-                    TODO()
+                    Toast.makeText(context, "Selected ${searchProject.name}", Toast.LENGTH_SHORT).show()
                 }
             })
         }

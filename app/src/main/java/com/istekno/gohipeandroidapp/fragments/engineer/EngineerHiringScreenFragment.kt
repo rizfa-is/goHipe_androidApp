@@ -31,7 +31,10 @@ class EngineerHiringScreenFragment(private val toolbar: MaterialToolbar) : Fragm
     }
 
     private fun setPagerAdapter(view: View) {
+        val listFragment = arrayOf(EngineerOnWaitingHireFragment(), EngineerApprovedHireFragment(), EngineerRejectedHireFragment())
         val pagerAdapter = ListHireViewPagerAdapter(view.context, childFragmentManager)
+
+        pagerAdapter.setFargmentList(listFragment)
         binding.vpListHire.adapter = pagerAdapter
         binding.tlListHire.setupWithViewPager(binding.vpListHire)
     }

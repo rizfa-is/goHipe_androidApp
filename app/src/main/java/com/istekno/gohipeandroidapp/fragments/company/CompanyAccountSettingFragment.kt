@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainScreenActivity
 import com.istekno.gohipeandroidapp.models.CompanyModel
@@ -14,7 +15,7 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAccountSettingBinding
 import com.istekno.gohipeandroidapp.utility.Dialog
 
-class CompanyAccountSettingFragment : Fragment() {
+class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragment() {
 
     private lateinit var binding: FragmentCompanyAccountSettingBinding
     private lateinit var goHipePreferences: GoHipePreferences
@@ -23,6 +24,7 @@ class CompanyAccountSettingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+        setToolbar(toolbar)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_account_setting, container, false)
         return binding.root
@@ -46,5 +48,9 @@ class CompanyAccountSettingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setToolbar(toolbar: MaterialToolbar) {
+        toolbar.title = "Setting"
     }
 }

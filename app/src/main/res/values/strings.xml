@@ -61,4 +61,10 @@
     <string name="on_waiting">On waiting</string>
     <string name="approved">Approved</string>
     <string name="rejected">Rejected</string>
+    <string name="field">Field</string>
+    <string name="_location">Location</string>
+    <string name="_description">Description</string>
+    <string name="_instagram">Instagram</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="update_account">Update Account</string>
 </resources>

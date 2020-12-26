@@ -11,18 +11,18 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.models.Portfolio
-import com.istekno.gohipeandroidapp.databinding.FragmentPortfolioBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerPortfolioBinding
 
-class PortfolioFragment : Fragment() {
+class EngineerPortfolioFragment : Fragment() {
 
-    private lateinit var binding: FragmentPortfolioBinding
+    private lateinit var binding: FragmentEngineerPortfolioBinding
 
     private val listPortfolio = ArrayList<Portfolio>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_portfolio, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_portfolio, container, false)
         return binding.root
     }
 

@@ -18,6 +18,7 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
+        const val EDIT_PROFILE_AUTH_KEY = "edit_profile_auth_key"
     }
 
     private lateinit var binding: FragmentCompanyAccountScreenBinding
@@ -34,6 +35,11 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
         super.onViewCreated(view, savedInstanceState)
 
         toolbarListener()
+        binding.btnComaccfrgEditprofile.setOnClickListener {
+            val sendIntent = Intent(context, SettingScreenActivity::class.java)
+            sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY, 1)
+            startActivity(sendIntent)
+        }
     }
 
     private fun toolbarListener() {

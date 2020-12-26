@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments.company
+package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.databinding.FragmentRejectedHireBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerRejectedHireBinding
 import com.istekno.gohipeandroidapp.models.HireModel
 
-class RejectedHireFragment : Fragment() {
+class EngineerRejectedHireFragment : Fragment() {
 
-    private lateinit var binding: FragmentRejectedHireBinding
+    private lateinit var binding: FragmentEngineerRejectedHireBinding
 
     private val dbHire = GoHipeDatabases
     private val listHiring = ArrayList<HireModel>()
@@ -24,7 +24,7 @@ class RejectedHireFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rejected_hire, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_rejected_hire, container, false)
         return binding.root
     }
 

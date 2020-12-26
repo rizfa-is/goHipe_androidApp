@@ -11,18 +11,18 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListExperienceRecycleViewAdapter
 import com.istekno.gohipeandroidapp.models.Experience
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.databinding.FragmentExperienceBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerExperienceBinding
 
-class ExperienceFragment : Fragment() {
+class EngineerExperienceFragment : Fragment() {
 
-    private lateinit var binding: FragmentExperienceBinding
+    private lateinit var binding: FragmentEngineerExperienceBinding
 
     private val listExperience = ArrayList<Experience>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_experience, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_experience, container, false)
         return binding.root
     }
 
