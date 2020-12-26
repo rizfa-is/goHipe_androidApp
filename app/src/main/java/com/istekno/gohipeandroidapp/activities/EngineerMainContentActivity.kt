@@ -36,7 +36,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
         binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
 
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer)).commit()
     }
 
     private fun changeFragmentScreen() {
@@ -44,19 +44,19 @@ class EngineerMainContentActivity : AppCompatActivity() {
         binding.bottomNavView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.mn_item_maincontent_home -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_search -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerSearchScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerSearchScreenFragment(binding.coEngineer)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_hiring -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coEngineer)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_account -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer)).commit()
                     true
                 }
                 else -> true

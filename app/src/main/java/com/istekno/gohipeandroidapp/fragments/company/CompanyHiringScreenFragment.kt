@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -11,13 +12,13 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListHireViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHiringScreenBinding
 
-class CompanyHiringScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
+class CompanyHiringScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout) : Fragment() {
 
     private lateinit var binding: FragmentCompanyHiringScreenBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        setToolbar(toolbar)
+        setToolbar(toolbar, co)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_hiring_screen, container, false)
         return binding.root
@@ -35,8 +36,8 @@ class CompanyHiringScreenFragment(private val toolbar: MaterialToolbar) : Fragme
         binding.tlListHire.setupWithViewPager(binding.vpListHire)
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.visibility = View.VISIBLE
+    private fun setToolbar(toolbar: MaterialToolbar, co: CoordinatorLayout) {
+        co.visibility = View.VISIBLE
         toolbar.title = "Hiring"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false

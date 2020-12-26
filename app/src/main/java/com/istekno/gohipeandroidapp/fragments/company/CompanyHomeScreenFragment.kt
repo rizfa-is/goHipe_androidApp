@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,7 @@ import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
 import com.istekno.gohipeandroidapp.models.MostPopular
 import com.istekno.gohipeandroidapp.models.User
 
-class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
+class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
@@ -34,7 +35,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_home_screen, container, false)
 
-        setToolbar(toolbar)
+        setToolbar(co)
         return binding.root
     }
 
@@ -90,9 +91,9 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         }
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar) {
+    private fun setToolbar(co: CoordinatorLayout) {
         bottomNavigationView.visibility = View.VISIBLE
-        toolbar.visibility = View.GONE
+        co.visibility = View.GONE
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = true

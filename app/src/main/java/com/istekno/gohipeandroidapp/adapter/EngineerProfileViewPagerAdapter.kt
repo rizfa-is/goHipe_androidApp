@@ -8,22 +8,18 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerExperienceFragment
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerPortfolioFragment
 
-class EngineerProfileViewPagerAdapter(private val mContext: Context, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class EngineerProfileViewPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val tabTitles = intArrayOf(R.string.portfolio_tab_title, R.string.experience_tab_title)
+    private val tabTitles = arrayOf("Portfolio", "Experience")
+    private val fragment = arrayOf(EngineerPortfolioFragment(), EngineerExperienceFragment())
 
     override fun getCount(): Int = tabTitles.size
 
     override fun getItem(position: Int): Fragment {
-        var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment  = EngineerPortfolioFragment()
-            1 -> fragment = EngineerExperienceFragment()
-        }
-        return fragment as Fragment
+        return fragment[position]
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return mContext.resources.getString(tabTitles[position])
+    override fun getPageTitle(position: Int): CharSequence {
+        return tabTitles[position]
     }
 }

@@ -121,12 +121,38 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/tv_comeditaccountfrg_confirmpass"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:text="@string/confirm_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_password" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_comeditaccountfrg_confirmpass"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true"
+                app:helperText="min. length 8 characters"
+                app:helperTextTextColor="@color/text_loc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_confirmpass">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_comeditaccountfrg_confirmpass"
+                    style="@style/MaterialField_EditText_Edit"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
                 android:id="@+id/tv_comeditaccountfrg_company"
                 style="@style/TextView_MaterialInput_Edit"
                 android:layout_marginTop="16dp"
                 android:text="@string/company"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_password" />
+                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_confirmpass" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_company"

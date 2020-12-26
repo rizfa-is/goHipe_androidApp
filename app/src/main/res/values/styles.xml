@@ -80,6 +80,10 @@
         <item name="android:scrollbars">vertical</item>
     </style>
 
+    <style name="TabLayoutTextApp" parent="android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">17sp</item>
+    </style>
+
     <style name="circleImage_profile">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

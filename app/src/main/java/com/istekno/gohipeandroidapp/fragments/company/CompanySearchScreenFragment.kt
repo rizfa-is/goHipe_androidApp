@@ -6,29 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListSearchEngineerAdapter
-import com.istekno.gohipeandroidapp.adapter.ScouterOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanySearchScreenBinding
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHomeScreenFragment
-import com.istekno.gohipeandroidapp.models.ScouterTop
 import com.istekno.gohipeandroidapp.models.User
 
-class CompanySearchScreenFragment(private val toolbar: MaterialToolbar) : Fragment() {
+class CompanySearchScreenFragment(private val co: CoordinatorLayout) : Fragment() {
 
     private lateinit var binding: FragmentCompanySearchScreenBinding
     private val listTop = ArrayList<User>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        toolbarListener(toolbar)
+        setToolbar(co)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_search_screen, container, false)
         return binding.root
@@ -40,7 +37,6 @@ class CompanySearchScreenFragment(private val toolbar: MaterialToolbar) : Fragme
         listTop.addAll(GoHipeDatabases.listSearchEngineer)
 
         showRecyclerList()
-        toolbarListener(toolbar)
     }
 
     private fun showRecyclerList() {
@@ -56,7 +52,7 @@ class CompanySearchScreenFragment(private val toolbar: MaterialToolbar) : Fragme
         }
     }
 
-    private fun toolbarListener(toolbar: MaterialToolbar) {
-        toolbar.visibility = View.GONE
+    private fun setToolbar(co: CoordinatorLayout) {
+        co.visibility = View.GONE
     }
 }

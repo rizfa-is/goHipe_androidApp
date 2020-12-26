@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.company.CompanyAccountScreenFragment">
-    
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.company.CompanyDetailProjectScreenFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,13 +12,13 @@
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/img_comaccfrg_shape1"
+            android:id="@+id/img_compdetailprojectfrg_shape1"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/shape_profile_big" />
 
         <ImageView
-            android:id="@+id/img_comaccfrg_shape2"
+            android:id="@+id/img_compdetailprojectfrg_shape2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/shape_profile_small" />
@@ -29,21 +29,20 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="70dp">
+                android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img_comaccfrg_avatar"
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
-                    android:layout_marginTop="40dp"
-                    android:elevation="3dp"
+                    android:id="@+id/img_compdetailprojectfrg_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="50dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_mainscreen_background"
+                    android:src="@drawable/img_porto1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearance="@style/circleImage_profile" />
+                    app:shapeAppearance="@style/circleImage" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout_engprofifrg"
@@ -51,49 +50,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp"
                     android:paddingHorizontal="24dp"
                     android:background="@drawable/shape_profile_background1"
                     android:orientation="vertical"
                     android:elevation="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_comaccfrg_avatar">
+                    app:layout_constraintTop_toBottomOf="@+id/img_compdetailprojectfrg_avatar">
 
                     <TextView
-                        android:id="@+id/tv_comaccfrg_name"
+                        android:id="@+id/tv_compdetailprojectfrg_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
-                        android:text="@string/name"
+                        android:text="Buku Taniqu"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_comaccfrg_job"
+                        android:id="@+id/tv_compdetailprojectfrg_job"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
-                        android:text="@string/job"
+                        android:drawableStart="@drawable/ic_time"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@android:color/holo_red_dark"
+                        android:gravity="center_vertical"
+                        android:text="12-01-2021"
                         android:textColor="@color/text" />
 
                     <TextView
-                        android:id="@+id/tv_comaccfrg_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
-                        android:drawableStart="@drawable/ic_location"
-                        android:drawablePadding="5dp"
-                        android:text="@string/location"
-                        android:textColor="@color/text_loc" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_description"
+                        android:id="@+id/tv_compdetailprojectfrg_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -103,48 +93,28 @@
                         android:textColor="@color/text"
                         android:textAlignment="inherit" />
 
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="monkdluff97@gmail.com"
-                        app:drawableStartCompat="@drawable/ic_email" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_ig"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/instagram"
-                        app:drawableStartCompat="@drawable/ic_instagram" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_gitlab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="24dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/gitlab"
-                        app:drawableStartCompat="@drawable/ic_linkedin" />
-
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_comaccfrg_editprofile"
+                        android:id="@+id/btn_comdetailprojectfrg_editproject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Edit Profile"
+                        android:text="Edit project"
                         android:textAllCaps="false"
                         android:backgroundTint="@color/theme_orange"/>
-
+                    
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_engprofifrg" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </RelativeLayout>
-    
+
 </layout>

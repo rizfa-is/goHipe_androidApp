@@ -7,12 +7,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="57dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_list_hire"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/TabLayoutTextApp"
             app:tabBackground="@drawable/background_hiring_tab_selector"
             app:tabSelectedTextColor="@color/white"
             app:tabIndicatorColor="@color/white"

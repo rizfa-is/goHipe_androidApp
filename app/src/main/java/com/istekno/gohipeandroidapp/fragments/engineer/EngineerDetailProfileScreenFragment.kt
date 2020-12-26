@@ -1,11 +1,13 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
@@ -28,15 +30,15 @@ class EngineerDetailProfileScreenFragment(private val fullname : String? = null,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setViewPager(view)
+        setViewPager()
         chipViewInit(view)
         changeText(email, fullname)
         favoriteState()
     }
 
-    private fun setViewPager(view: View) {
-        val enginerProfilePagerAdapter = EngineerProfileViewPagerAdapter(view.context, childFragmentManager)
-        binding.vpEngprofiact.adapter = enginerProfilePagerAdapter
+    private fun setViewPager() {
+        val enginerAccountPagerAdapter = EngineerProfileViewPagerAdapter(childFragmentManager)
+        binding.vpEngprofiact.adapter = enginerAccountPagerAdapter
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }
 

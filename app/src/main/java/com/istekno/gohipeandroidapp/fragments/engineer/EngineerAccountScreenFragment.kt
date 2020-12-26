@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -16,7 +17,7 @@ import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
 
-class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
+class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
@@ -28,7 +29,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        setToolbar(toolbar)
+        setToolbar(toolbar, co)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_account_screen, container, false)
         return binding.root
@@ -38,7 +39,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         super.onViewCreated(view, savedInstanceState)
 
         toolbarListener()
-        setViewPager(view)
+        setViewPager()
         chipViewInit(view)
     }
 
@@ -58,8 +59,8 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         }
     }
 
-    private fun setViewPager(view: View) {
-        val enginerAccountPagerAdapter = EngineerProfileViewPagerAdapter(view.context, childFragmentManager)
+    private fun setViewPager() {
+        val enginerAccountPagerAdapter = EngineerProfileViewPagerAdapter(childFragmentManager)
         binding.vpEngprofiact.adapter = enginerAccountPagerAdapter
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }
@@ -76,9 +77,9 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         }
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar) {
+    private fun setToolbar(toolbar: MaterialToolbar, co: CoordinatorLayout) {
         bottomNavigationView.visibility = View.VISIBLE
-        toolbar.visibility = View.VISIBLE
+        co.visibility = View.VISIBLE
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = true

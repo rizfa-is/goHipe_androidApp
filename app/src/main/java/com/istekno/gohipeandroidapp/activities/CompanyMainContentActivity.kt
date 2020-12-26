@@ -33,7 +33,7 @@ class CompanyMainContentActivity : AppCompatActivity() {
     }
 
     private fun initHomeFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
     }
 
     private fun changeFragmentScreen() {
@@ -41,23 +41,23 @@ class CompanyMainContentActivity : AppCompatActivity() {
         binding.bottomNavView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.mn_item_maincontent_home -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_search -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanySearchScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanySearchScreenFragment(binding.coCompany)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_hiring -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_project -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_account -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
                     true
                 }
                 else -> true

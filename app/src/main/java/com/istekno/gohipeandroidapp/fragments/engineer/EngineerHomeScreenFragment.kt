@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,7 @@ import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
 import com.istekno.gohipeandroidapp.models.ScouterTop
 import com.istekno.gohipeandroidapp.models.User
 
-class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {
+class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
@@ -93,7 +94,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         bottomNavigationView.visibility = View.VISIBLE
-        toolbar.visibility = View.GONE
+        co.visibility = View.GONE
         binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = true

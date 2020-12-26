@@ -67,4 +67,8 @@
     <string name="_instagram">Instagram</string>
     <string name="linkedin">LinkedIn</string>
     <string name="update_account">Update Account</string>
+    <string name="_name">Name</string>
+    <string name="add_project">Add project</string>
+    <string name="deadline">Deadline</string>
+    <string name="update_project">Update project</string>
 </resources>
