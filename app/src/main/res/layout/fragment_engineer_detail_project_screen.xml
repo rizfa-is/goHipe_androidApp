@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.engineer.EngineerDetailProjectScreenFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_grey"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/img_engdetailprojectfrg_shape1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/shape_profile_big" />
+
+        <ImageView
+            android:id="@+id/img_engdetailprojectfrg_shape2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/shape_profile_small" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_engdetailprojectfrg_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_porto5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/circleImage" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_engdetailprojectfrg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:paddingHorizontal="24dp"
+                    android:background="@drawable/shape_profile_background1"
+                    android:orientation="vertical"
+                    android:elevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_engdetailprojectfrg_avatar">
+
+                    <TextView
+                        android:id="@+id/tv_engdetailprojectfrg_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:text="Baba Noukii"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_engdetailprojectfrg_job"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:drawableStart="@drawable/ic_time"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@android:color/holo_red_dark"
+                        android:gravity="center_vertical"
+                        android:text="10-02-2021"
+                        android:textColor="@color/text" />
+
+                    <TextView
+                        android:id="@+id/tv_engdetailprojectfrg_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginVertical="16dp"
+                        android:lineSpacingExtra="7dp"
+                        android:text="@string/description"
+                        android:textColor="@color/text"
+                        android:textAlignment="inherit" />
+                    
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_engdetailprojectfrg" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/vw_engdetailprojectfrg_bottombar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:paddingHorizontal="8dp"
+            android:elevation="2dp"
+            android:background="@drawable/shape_profile_bg_bottombar"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_engdetailprojectfrg_hire"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginBottom="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@id/img_engdetailprojectfrg_favorite"
+            android:text="@string/chat_now"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/theme_orange"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/ic_chat"/>
+
+        <ImageView
+            android:id="@+id/img_engdetailprojectfrg_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:elevation="2dp"
+            android:src="@drawable/ic_favorite_unchecked"/>
+
+    </RelativeLayout>
+
+</layout>

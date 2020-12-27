@@ -42,7 +42,7 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
                 companyModel.isLogin = false
                 goHipePreferences.setCompanyPreference(companyModel)
 
-                dialog.dialog(view.context, "Log Out Successful") {
+                dialog.dialog(view.context, "Are you sure to logout ?") {
                     startActivity(Intent(view.context, MainScreenActivity::class.java))
                     activity?.finish()
                 }

@@ -42,7 +42,7 @@ class EngineerAccountSettingFragment(private val toolbar: MaterialToolbar): Frag
                 engineerModel.isLogin = false
                 goHipePreferences.setEngineerPreference(engineerModel)
 
-                dialog.dialog(view.context, "Log Out Successful") {
+                dialog.dialog(view.context, "Are you sure to logout ?") {
                     startActivity(Intent(view.context, MainScreenActivity::class.java))
                     activity?.finish()
                 }

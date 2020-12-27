@@ -4,14 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivitySettingScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyAccountSettingFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyAddProjectScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyEditProfileAccountFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyEditProjectScreenFragment
+import com.istekno.gohipeandroidapp.fragments.company.*
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountSettingFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
@@ -21,6 +17,7 @@ class SettingScreenActivity : AppCompatActivity() {
         const val SETTING_AUTH_KEY = "setting_auth_key"
         const val EDIT_PROFILE_AUTH_KEY = "edit_profile_auth_key"
         const val PROJECT_AUTH_KEY = "project_auth_key"
+        const val HIRE_AUTH_KEY = "hire_auth_key"
     }
 
     private lateinit var binding: ActivitySettingScreenBinding
@@ -41,6 +38,7 @@ class SettingScreenActivity : AppCompatActivity() {
         val authKeySetting = intent.getIntExtra(SETTING_AUTH_KEY, -1)
         val authKeyEdit = intent.getIntExtra(EDIT_PROFILE_AUTH_KEY, -1)
         val authKeyProject = intent.getIntExtra(PROJECT_AUTH_KEY, -1)
+        val authKeyHire = intent.getIntExtra(HIRE_AUTH_KEY, -1)
 
         if (authKeySetting == 0) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerAccountSettingFragment(binding.topAppBarSetact)).commit()
@@ -56,6 +54,12 @@ class SettingScreenActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyAddProjectScreenFragment(binding.topAppBarSetact)).commit()
         } else if (authKeyProject == 12) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyEditProjectScreenFragment(binding.topAppBarSetact)).commit()
+        }
+
+        if (authKeyHire == 0) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyAddHireScreenFragment(binding.topAppBarSetact)).commit()
+        } else if (authKeyHire == 20 ) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyEditHireScreenFragment(binding.topAppBarSetact)).commit()
         }
     }
 

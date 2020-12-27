@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityProfileScreenBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailHireScreenFragment
 import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProfileScreenFragment
 import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProjectScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailHireScreenFragment
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProfileScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProjectScreenFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class ProfileScreenActivity : AppCompatActivity() {
@@ -17,6 +20,7 @@ class ProfileScreenActivity : AppCompatActivity() {
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
         const val PROJECT_AUTH_KEY = "project_auth_key"
+        const val HIRE_AUTH_KEY = "hire_auth_key"
     }
 
     private lateinit var binding: ActivityProfileScreenBinding
@@ -38,16 +42,21 @@ class ProfileScreenActivity : AppCompatActivity() {
     private fun initFragment() {
         val authKeyHome = intent.getIntExtra(HOME_AUTH_KEY, -1)
         val authKeyProject = intent.getIntExtra(PROJECT_AUTH_KEY, -1)
+        val authKeyHire = intent.getIntExtra(HIRE_AUTH_KEY, -1)
 
         if (authKeyHome == 0) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailProfileScreenFragment("iSSOG Corp", "issog.id@gmail.com")).commit()
-        } else {
+        } else if (authKeyHome == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailProfileScreenFragment("Monkey D Luffy", "monkeyD@gmail.com")).commit()
         }
 
         if (authKeyProject == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailProjectScreenFragment()).commit()
+        } else if (authKeyProject == 0) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailProjectScreenFragment()).commit()
         }
+
+        authHire(authKeyHire)
     }
 
     private fun connectionCheck(context: Context) {
@@ -56,6 +65,29 @@ class ProfileScreenActivity : AppCompatActivity() {
 
         if (checkNetwork == null || !checkNetwork.isConnected || !checkNetwork.isAvailable) {
             dialog.dialogCheckInternet(this, this)
+        }
+    }
+
+    private fun authHire(status: Int) {
+        when (status) {
+            0 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailHireScreenFragment(0)).commit()
+            }
+            1 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailHireScreenFragment(1)).commit()
+            }
+            2 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailHireScreenFragment(2)).commit()
+            }
+            10 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(0)).commit()
+            }
+            11 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(1)).commit()
+            }
+            12 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(2)).commit()
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerOnWaitingHireBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyOnWaitingHireFragment
 import com.istekno.gohipeandroidapp.models.HireModel
 
 class EngineerOnWaitingHireFragment : Fragment() {
+
+    companion object {
+        const val HIRE_AUTH_KEY = "hire_auth_key"
+    }
 
     private lateinit var binding: FragmentEngineerOnWaitingHireBinding
 
@@ -42,7 +49,9 @@ class EngineerOnWaitingHireFragment : Fragment() {
             layoutManager = LinearLayoutManager(view?.context)
             adapter = ListHireAdapter(listHiring, object : ListHireAdapter.OnItemClickCallback {
                 override fun onItemClicked(hireModel: HireModel) {
-                    Toast.makeText(context, "Selected ${hireModel.project}", Toast.LENGTH_SHORT).show()
+                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
+                    sendIntent.putExtra(HIRE_AUTH_KEY, 10)
+                    startActivity(sendIntent)
                 }
             }, 0)
         }

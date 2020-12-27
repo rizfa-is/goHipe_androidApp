@@ -12,20 +12,23 @@ class Dialog {
             setTitle("Notice")
             setMessage(message)
             setCancelable(false)
-            setPositiveButton("OK") { dialogInterface, i ->
+            setPositiveButton("Yes") { dialogInterface, i ->
                 listAction()
+            }
+            setNegativeButton("No") { dialogInterface, i ->
+                dialogInterface.dismiss()
             }
         }
         dialog.show()
     }
 
-    fun dialogCancel(context: Context?, message: String) {
+    fun dialogCancel(context: Context?, message: String, listAction: () -> Unit) {
         val dialog = AlertDialog.Builder(context).apply {
             setTitle("Notice")
             setMessage(message)
             setCancelable(false)
-            setPositiveButton("OK") { dialogInterface, _ ->
-                dialogInterface.dismiss()
+            setPositiveButton("OK") { _, _ ->
+                listAction()
             }
         }
         dialog.show()

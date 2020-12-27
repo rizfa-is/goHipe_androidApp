@@ -101,7 +101,7 @@ class EngineerRegisterScreenFragment : Fragment() {
 
         saveData(inputFullname, inputEmail, inputPassword, inputPhone, true)
 
-        dialog.dialog(context, "Register Successful") {
+        dialog.dialogCancel(context, "Register Successful") {
             val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
             startActivity(sendIntent)
         }

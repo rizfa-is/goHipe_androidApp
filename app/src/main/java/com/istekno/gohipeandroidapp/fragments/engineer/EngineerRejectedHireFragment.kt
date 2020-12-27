@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerRejectedHireBinding
 import com.istekno.gohipeandroidapp.models.HireModel
 
 class EngineerRejectedHireFragment : Fragment() {
+
+    companion object {
+        const val HIRE_AUTH_KEY = "hire_auth_key"
+    }
 
     private lateinit var binding: FragmentEngineerRejectedHireBinding
 
@@ -42,7 +48,9 @@ class EngineerRejectedHireFragment : Fragment() {
             layoutManager = LinearLayoutManager(view?.context)
             adapter = ListHireAdapter(listHiring, object : ListHireAdapter.OnItemClickCallback {
                 override fun onItemClicked(hireModel: HireModel) {
-                    Toast.makeText(context, "Selected ${hireModel.project}", Toast.LENGTH_SHORT).show()
+                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
+                    sendIntent.putExtra(HIRE_AUTH_KEY, 12)
+                    startActivity(sendIntent)
                 }
             }, 2)
         }

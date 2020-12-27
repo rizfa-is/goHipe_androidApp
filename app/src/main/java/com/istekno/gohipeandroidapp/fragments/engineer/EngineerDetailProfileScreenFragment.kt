@@ -1,20 +1,24 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProfileScreenBinding
 
 class EngineerDetailProfileScreenFragment(private val fullname : String? = null, private val email : String? = null, private val password : String? = null) : Fragment() {
+
+    companion object {
+        const val HIRE_AUTH_KEY = "hire_auth_key"
+    }
 
     private lateinit var binding: FragmentEngineerDetailProfileScreenBinding
 
@@ -29,6 +33,12 @@ class EngineerDetailProfileScreenFragment(private val fullname : String? = null,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnEngprofifrgHire.setOnClickListener {
+            val sendIntent = Intent(context, SettingScreenActivity::class.java)
+            sendIntent.putExtra(HIRE_AUTH_KEY, 0)
+            startActivity(sendIntent)
+        }
 
         setViewPager()
         chipViewInit(view)

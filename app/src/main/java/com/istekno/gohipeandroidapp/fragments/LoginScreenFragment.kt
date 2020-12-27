@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -70,7 +71,7 @@ class LoginScreenFragment : Fragment() {
             engineerModel.isLogin = true
             goHipePreferences.setEngineerPreference(engineerModel)
 
-            dialog.dialog(context, "Login Successful") {
+            dialog.dialogCancel(context, "Login Successful") {
                 val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
                 startActivity(sendIntent)
                 activity?.finish()
@@ -79,13 +80,13 @@ class LoginScreenFragment : Fragment() {
             companyModel.isLogin = true
             goHipePreferences.setCompanyPreference(companyModel)
 
-            dialog.dialog(context, "Login Successful") {
+            dialog.dialogCancel(context, "Login Successful") {
                 val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
                 startActivity(sendIntent)
                 activity?.finish()
             }
         } else {
-            dialog.dialogCancel(context, "Email or Password Incorrect")
+            dialog.dialogCancel(context, "Email or Password Incorrect") { DialogInterface.BUTTON_NEGATIVE }
         }
     }
 }

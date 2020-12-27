@@ -71,4 +71,9 @@
     <string name="add_project">Add project</string>
     <string name="deadline">Deadline</string>
     <string name="update_project">Update project</string>
+    <string name="update_hire">Update hire</string>
+    <string name="price">Price</string>
+    <string name="message">Message</string>
+    <string name="engineer_id">Engineer ID</string>
+    <string name="hire_now">Hire now</string>
 </resources>
