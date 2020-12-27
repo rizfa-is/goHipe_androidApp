@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.fragments.company
+package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,21 +8,19 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyEditHireScreenBinding
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerEditProfileAccountBinding
 
-class CompanyEditHireScreenFragment(private val toolbar: MaterialToolbar): Fragment() {
+class EngineerEditProfileAccountFragment : Fragment() {
 
-    private val listDropdownJobtype = listOf("Buku Tani", "Aplikasi Anak Rantau", "Mau Makan Murah", "Travelion")
+    private val listDropdownJobtype = listOf("Freelance", "Fulltime")
 
-    private lateinit var binding: FragmentCompanyEditHireScreenBinding
+    private lateinit var binding: FragmentEngineerEditProfileAccountBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        setToolbar(toolbar)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_edit_hire_screen, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_edit_profile_account, container, false)
         return binding.root
     }
 
@@ -34,10 +32,6 @@ class CompanyEditHireScreenFragment(private val toolbar: MaterialToolbar): Fragm
 
     private fun setDropdownMenuAdapter(view: View) {
         val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, listDropdownJobtype)
-        (binding.itComedithirefrgProject.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-    }
-
-    private fun setToolbar(toolbar: MaterialToolbar) {
-        toolbar.title = ""
+        (binding.itEngeditaccountfrgJobtype.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 }

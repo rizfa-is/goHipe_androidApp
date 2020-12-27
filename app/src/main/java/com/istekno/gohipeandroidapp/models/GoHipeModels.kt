@@ -80,3 +80,24 @@ data class HireModel(
     val image: Int,
     val deadline: String
 ) : Parcelable
+
+@Parcelize
+data class EngineerModels(
+    val enID: String?,
+    val enName: String?,
+    val enJobTitle: String?,
+    val enJobType: String?,
+    val enLocation: String?,
+    val enDesc: String?,
+    val enEmail: String?,
+    val enIG: String?,
+    val enGithub: String?,
+    val enGitlab: String?
+) : Parcelable
+
+@Parcelize
+data class Ability(
+    val abID: String?,
+    val enID: String?,
+    val abName: String?
+) : Parcelable

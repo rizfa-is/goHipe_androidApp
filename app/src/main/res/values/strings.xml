@@ -76,4 +76,8 @@
     <string name="message">Message</string>
     <string name="engineer_id">Engineer ID</string>
     <string name="hire_now">Hire now</string>
+    <string name="job_title">Job title</string>
+    <string name="job_type">Job type</string>
+    <string name="_github">Github</string>
+    <string name="_gitlab">Gitlab</string>
 </resources>

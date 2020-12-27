@@ -41,13 +41,36 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/tv_comedithirefrg_project"
+            style="@style/TextView_MaterialInput_Edit"
+            android:layout_marginTop="16dp"
+            android:text="@string/project"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_comedithirefrg_engid" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/it_comedithirefrg_project"
+            style="@style/MaterialField_TextInputLayout_Edit3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comedithirefrg_project">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_comedithirefrg_project"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <TextView
             android:id="@+id/tv_comedithirefrg_message"
             style="@style/TextView_MaterialInput_Edit"
             android:layout_marginTop="16dp"
             android:text="@string/message"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_comedithirefrg_engid" />
+            app:layout_constraintTop_toBottomOf="@+id/it_comedithirefrg_project" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/it_comedithirefrg_message"

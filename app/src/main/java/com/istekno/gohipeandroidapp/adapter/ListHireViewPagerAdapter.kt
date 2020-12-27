@@ -14,7 +14,6 @@ class ListHireViewPagerAdapter(private val mContext: Context, fragmentManager: F
 
     @StringRes
     private val tabTitles = intArrayOf(R.string.on_waiting, R.string.approved, R.string.rejected)
-
     private var fragment = arrayOf(CompanyOnWaitingHireFragment(), CompanyApprovedHireFragment(), CompanyRejectedHireFragment())
 
     fun setFargmentList(fragmentList: Array<Fragment>) {

@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.engineer.EngineerAccountScreenFragment">
 
+    <data>
+        <variable
+            name="model"
+            type="com.istekno.gohipeandroidapp.models.EngineerModels" />
+    </data>
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
-                        android:text="@string/name"
+                        android:text="@{model.enName}"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -77,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
-                        android:text="@string/job"
+                        android:text="@{model.enJobTitle}"
                         android:textColor="@color/text" />
 
                     <TextView
@@ -88,7 +94,7 @@
                         android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/ic_location"
                         android:drawablePadding="5dp"
-                        android:text="@string/location"
+                        android:text="@{model.enLocation}"
                         android:textColor="@color/text_loc" />
 
                     <com.google.android.material.chip.ChipGroup
@@ -104,7 +110,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginVertical="8dp"
                         android:lineSpacingExtra="7dp"
-                        android:text="@string/description"
+                        android:text="@{model.enLocation}"
                         android:textColor="@color/text"
                         android:textAlignment="inherit" />
 
@@ -114,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:drawablePadding="10dp"
-                        android:text="monkdluff97@gmail.com"
+                        android:text="@{model.enEmail}"
                         app:drawableStartCompat="@drawable/ic_email" />
 
                     <TextView
@@ -123,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:drawablePadding="10dp"
-                        android:text="@string/instagram"
+                        android:text="@{model.enIG}"
                         app:drawableStartCompat="@drawable/ic_instagram" />
 
                     <TextView
@@ -132,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:drawablePadding="10dp"
-                        android:text="@string/github"
+                        android:text="@{model.enGithub}"
                         app:drawableStartCompat="@drawable/ic_github" />
 
                     <TextView
@@ -140,9 +146,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="24dp"
                         android:drawablePadding="10dp"
-                        android:text="@string/gitlab"
+                        android:text="@{model.enGitlab}"
                         app:drawableStartCompat="@drawable/ic_gitlab" />
 
                     <com.google.android.material.button.MaterialButton

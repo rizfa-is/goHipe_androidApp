@@ -9,6 +9,7 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivitySettingScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.*
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountSettingFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerEditProfileFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class SettingScreenActivity : AppCompatActivity() {
@@ -42,12 +43,14 @@ class SettingScreenActivity : AppCompatActivity() {
 
         if (authKeySetting == 0) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerAccountSettingFragment(binding.topAppBarSetact)).commit()
-        } else {
+        } else if (authKeySetting == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyAccountSettingFragment(binding.topAppBarSetact)).commit()
         }
 
         if (authKeyEdit == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyEditProfileAccountFragment(binding.topAppBarSetact)).commit()
+        } else if (authKeyEdit == 0) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerEditProfileFragment(binding.topAppBarSetact)).commit()
         }
 
         if (authKeyProject == 1) {

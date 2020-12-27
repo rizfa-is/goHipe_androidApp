@@ -2,12 +2,16 @@ package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.erdin.arkaandroidtwo.project.EngineerResponse
+import com.erdin.arkaandroidtwo.project.GoHipeApiService
+import com.erdin.arkaandroidtwo.remote.ApiClient
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
@@ -16,14 +20,20 @@ import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyAccountScreenFragment
+import com.istekno.gohipeandroidapp.models.EngineerModels
+import kotlinx.coroutines.*
 
 class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
+        const val EDIT_PROFILE_AUTH_KEY = "edit_profile_auth_key"
     }
 
     private lateinit var binding: FragmentEngineerAccountScreenBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     private val listAbility = GoHipeDatabases.ability
 
@@ -37,10 +47,37 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient()?.create(GoHipeApiService::class.java)!!
+        getAllEngineer()
 
         toolbarListener()
+        buttonListener()
         setViewPager()
         chipViewInit(view)
+    }
+
+    private fun getAllEngineer() {
+        coroutineScope.launch {
+            Log.d("android2", "Start: ${Thread.currentThread().name}")
+
+            val result = withContext(Dispatchers.IO) {
+                Log.d("android2", "CallApi: ${Thread.currentThread().name}")
+                try {
+                    service.getAllEngineer()
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is EngineerResponse) {
+                Log.d("android2", result.toString())
+                val list = result.data?.map{
+                    EngineerModels(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab)
+                }
+                binding.model = list!![0]
+            }
+        }
     }
 
     private fun toolbarListener() {
@@ -56,6 +93,14 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
                 }
             }
             false
+        }
+    }
+
+    private fun buttonListener() {
+        binding.btnEnaccfrgEditprofile.setOnClickListener {
+            val sendIntent = Intent(context, SettingScreenActivity::class.java)
+            sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY, 0)
+            startActivity(sendIntent)
         }
     }
 
