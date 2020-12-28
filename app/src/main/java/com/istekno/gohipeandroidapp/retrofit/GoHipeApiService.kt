@@ -8,8 +8,10 @@ interface GoHipeApiService {
     suspend fun getAllEngineer(): EngineerResponse
 
     @POST("login")
+    @FormUrlEncoded
     suspend fun loginAccount(
-        @Body info: LoginModelRequest
+        @Field("email") email: String,
+        @Field("password") password: String
     ): LoginResponse
 
     @POST("signup/engineer")

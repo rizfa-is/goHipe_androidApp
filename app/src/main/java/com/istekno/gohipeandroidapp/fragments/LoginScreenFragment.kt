@@ -49,25 +49,6 @@ class LoginScreenFragment : Fragment() {
         clickListener(view)
     }
 
-    private fun loginEngineer(email: String, password: String) {
-        val loginModel = LoginModelRequest(email, password)
-
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.loginAccount(loginModel)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is LoginResponse) {
-                Log.d("goHipe : ", result.toString())
-                val listResponse = result.database
-            }
-        }
-    }
-
     private fun clickListener(view: View) {
         binding.tvLoginfrgForgotPassword.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, ForgotPasswordScreenFragment())?.commit()
@@ -80,6 +61,25 @@ class LoginScreenFragment : Fragment() {
 
         binding.tvLoginfrgRegisterHere.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, SelectRoleFragment())?.commit()
+        }
+    }
+
+    private fun loginEngineer(email: String, password: String) {
+        val loginModel = LoginModelRequest(email, password)
+
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.loginAccount(email, password)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is LoginResponse) {
+                Log.d("goHipe : ", result.toString())
+                val listResponse = result.database
+            }
         }
     }
 
