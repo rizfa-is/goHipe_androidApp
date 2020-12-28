@@ -3,11 +3,13 @@ package com.istekno.gohipeandroidapp.fragments
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
 import com.istekno.gohipeandroidapp.activities.EngineerMainContentActivity
@@ -16,7 +18,11 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentLoginScreenBinding
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerRegisterScreenFragment
 import com.istekno.gohipeandroidapp.models.CompanyModel
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.retrofit.LoginModelRequest
+import com.istekno.gohipeandroidapp.retrofit.LoginResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
+import kotlinx.coroutines.*
 
 class LoginScreenFragment : Fragment() {
 
@@ -25,6 +31,8 @@ class LoginScreenFragment : Fragment() {
     private lateinit var engineerModel: EngineerModel
     private lateinit var companyModel: CompanyModel
     private lateinit var dialog: Dialog
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -35,12 +43,38 @@ class LoginScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog = Dialog()
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
 
+        clickListener(view)
+    }
+
+    private fun loginEngineer(email: String, password: String) {
+        val loginModel = LoginModelRequest(email, password)
+
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.loginAccount(loginModel)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is LoginResponse) {
+                Log.d("goHipe : ", result.toString())
+                val listResponse = result.database
+            }
+        }
+    }
+
+    private fun clickListener(view: View) {
         binding.tvLoginfrgForgotPassword.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, ForgotPasswordScreenFragment())?.commit()
         }
 
         binding.btnLoginfrgLogin.setOnClickListener {
+            loginEngineer("nicoarc12@gmail.com","arcOhara99")
             login(view)
         }
 
@@ -88,5 +122,10 @@ class LoginScreenFragment : Fragment() {
         } else {
             dialog.dialogCancel(context, "Email or Password Incorrect") { DialogInterface.BUTTON_NEGATIVE }
         }
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

@@ -1,5 +1,6 @@
-package com.erdin.arkaandroidtwo.remote
+package com.istekno.gohipeandroidapp.remote
 
+import com.erdin.arkaandroidtwo.remote.HeaderInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

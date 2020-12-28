@@ -3,6 +3,7 @@ package com.istekno.gohipeandroidapp.fragments.engineer
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,12 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerRegisterScreenBinding
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterModelRequest
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.retrofit.LoginResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
+import kotlinx.coroutines.*
 
 
 class EngineerRegisterScreenFragment : Fragment() {
@@ -31,6 +37,8 @@ class EngineerRegisterScreenFragment : Fragment() {
     private lateinit var binding: FragmentEngineerRegisterScreenBinding
     private lateinit var engineerModel: EngineerModel
     private lateinit var dialog: Dialog
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +61,34 @@ class EngineerRegisterScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         engineerModel = EngineerModel()
         dialog = Dialog()
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
 
         binding.tvEngregisterfrgLoginHere.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
         }
         binding.btnEngregisterfrgRegister.setOnClickListener {
+            registerEngineer("Rock D Xebec", "rockdxx@gmail.com", "089786546321", "rockD11")
             registration()
+        }
+    }
+
+    private fun registerEngineer(name: String, email: String, phone: String, password: String) {
+        val registerModel = EngineerRegisterModelRequest(name, email, phone, password)
+
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.registerEngineer(registerModel)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is LoginResponse) {
+                Log.d("goHipe : ", result.toString())
+                val listResponse = result.database
+            }
         }
     }
 
@@ -117,5 +147,10 @@ class EngineerRegisterScreenFragment : Fragment() {
         engineerModel.isLogin = isLogin
 
         userPreference.setEngineerPreference(engineerModel)
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }
