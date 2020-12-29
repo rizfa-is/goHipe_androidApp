@@ -15,8 +15,12 @@ interface GoHipeApiService {
     ): LoginResponse
 
     @POST("signup/engineer")
+    @FormUrlEncoded
     suspend fun registerEngineer(
-        @Body infoRegister: EngineerRegisterModelRequest
+            @Field("name") name: String,
+            @Field("email") email: String,
+            @Field("phone") phone: String,
+            @Field("password") password: String
     ): EngineerRegisterResponse
 
     @POST("signup/company")

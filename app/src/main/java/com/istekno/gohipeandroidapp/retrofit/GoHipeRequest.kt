@@ -51,4 +51,16 @@ data class LoginModelRequest(
     @Expose
     val password: String)
 
-data class EngineerRegisterModelRequest(val name: String, val email: String, val phone: String, val password: String)
+data class EngineerRegisterModelRequest(
+        @SerializedName("name")
+        @Expose
+        val name: String,
+        @SerializedName("email")
+        @Expose
+        val email: String,
+        @SerializedName("phone")
+        @Expose
+        val phone: String,
+        @SerializedName("password")
+        @Expose
+        val password: String)

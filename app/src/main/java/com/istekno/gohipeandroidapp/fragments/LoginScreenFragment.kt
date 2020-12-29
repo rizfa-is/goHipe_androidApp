@@ -55,7 +55,6 @@ class LoginScreenFragment : Fragment() {
         }
 
         binding.btnLoginfrgLogin.setOnClickListener {
-            loginEngineer("nicoarc12@gmail.com","arcOhara99")
             login(view)
         }
 
@@ -65,8 +64,6 @@ class LoginScreenFragment : Fragment() {
     }
 
     private fun loginEngineer(email: String, password: String) {
-        val loginModel = LoginModelRequest(email, password)
-
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -100,6 +97,8 @@ class LoginScreenFragment : Fragment() {
             binding.etLoginfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
             return
         }
+
+        loginEngineer(email,password)
 
         if (engineerModel.email == email && engineerModel.password == password) {
             engineerModel.isLogin = true

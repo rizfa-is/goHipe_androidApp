@@ -46,8 +46,8 @@ data class LoginResponse(val success: String, val message: String, val database:
     data class LoginModel(val email: String, val level: String, val token: String)
 }
 
-data class EngineerRegisterResponse(val success: String, val message: String, val database: ArrayList<EngineerRegisterGHR>) {
-    data class EngineerRegisterGHR(val id: String,
+data class EngineerRegisterResponse(val success: String, val message: String, val database: EngineerRegisterGHR) {
+    data class EngineerRegisterGHR(@SerializedName("id") val id: String,
                                    @SerializedName("ac_name") val enName: String,
                                    @SerializedName("ac_email") val enEmail: String,
                                    @SerializedName("ac_phone") val enPhone: String,

@@ -19,6 +19,7 @@ import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterModelRequest
+import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.retrofit.LoginResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
@@ -68,24 +69,21 @@ class EngineerRegisterScreenFragment : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
         }
         binding.btnEngregisterfrgRegister.setOnClickListener {
-            registerEngineer("Rock D Xebec", "rockdxx@gmail.com", "089786546321", "rockD11")
             registration()
         }
     }
 
     private fun registerEngineer(name: String, email: String, phone: String, password: String) {
-        val registerModel = EngineerRegisterModelRequest(name, email, phone, password)
-
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service.registerEngineer(registerModel)
+                    service.registerEngineer(name, email, phone, password)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
             }
 
-            if (result is LoginResponse) {
+            if (result is EngineerRegisterResponse) {
                 Log.d("goHipe : ", result.toString())
                 val listResponse = result.database
             }
@@ -93,11 +91,11 @@ class EngineerRegisterScreenFragment : Fragment() {
     }
 
     private fun registration() {
-        val inputFullname = binding.etEngregisterfrgFullname.text.toString()
-        val inputEmail = binding.etEngregisterfrgEmail.text.toString()
-        val inputPhone = binding.etEngregisterfrgPhone.text.toString()
-        val inputPassword = binding.etEngregisterfrgPassword.text.toString()
-        val inputConfirmPassword = binding.etEngregisterfrgConfirmPassword.text.toString()
+        val inputFullname = binding.etEngregisterfrgFullname.text.toString().trim()
+        val inputEmail = binding.etEngregisterfrgEmail.text.toString().trim()
+        val inputPhone = binding.etEngregisterfrgPhone.text.toString().trim()
+        val inputPassword = binding.etEngregisterfrgPassword.text.toString().trim()
+        val inputConfirmPassword = binding.etEngregisterfrgConfirmPassword.text.toString().trim()
 
         if (inputFullname.isEmpty()) {
             binding.etEngregisterfrgFullname.error = FIELD_REQUIRED
@@ -129,11 +127,12 @@ class EngineerRegisterScreenFragment : Fragment() {
             return
         }
 
-        saveData(inputFullname, inputEmail, inputPassword, inputPhone, true)
+        registerEngineer(inputFullname, inputEmail, inputPhone, inputPassword)
+//        saveData(inputFullname, inputEmail, inputPassword, inputPhone, true)
 
         dialog.dialogCancel(context, "Register Successful") {
             val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
-            startActivity(sendIntent)
+//            startActivity(sendIntent)
         }
     }
 
