@@ -57,3 +57,5 @@ data class EngineerRegisterResponse(val success: String, val message: String, va
                                    @SerializedName("en_created_at") val enCreatedAt: String,
                                    @SerializedName("en_updated_at") val enUpdatedAt: String)
 }
+
+data class EngineerDeleteResponse(val success: String, val message: String)
