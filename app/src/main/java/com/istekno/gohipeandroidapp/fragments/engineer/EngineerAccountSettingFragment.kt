@@ -43,7 +43,7 @@ class EngineerAccountSettingFragment(private val toolbar: MaterialToolbar): Frag
         goHipePreferences = GoHipePreferences(view.context)
         engineerModel = goHipePreferences.getEngineerPreference()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
 
         viewListener(view)
     }

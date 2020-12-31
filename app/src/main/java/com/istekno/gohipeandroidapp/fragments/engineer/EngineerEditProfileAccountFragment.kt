@@ -41,7 +41,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dialog = Dialog()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
 
         setDropdownMenuAdapter(view)
         viewListener()

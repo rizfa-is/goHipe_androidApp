@@ -35,16 +35,18 @@ data class SearchProject(
 
 @Parcelize
 data class EngineerModel(
-    var acID: String? = null,
-    var engID: String? = null,
+    var acID: Long? = null,
+    var engID: Long? = null,
+    var level: String? = null,
     var token: String? = null,
     var isLogin: Boolean = false
 ) : Parcelable
 
 @Parcelize
 data class CompanyModel(
-        var acID: String? = null,
-        var compID: String? = null,
+        var acID: Long? = null,
+        var compID: Long? = null,
+        var level: String? = null,
         var token: String? = null,
         var isLogin: Boolean = false
 ) : Parcelable

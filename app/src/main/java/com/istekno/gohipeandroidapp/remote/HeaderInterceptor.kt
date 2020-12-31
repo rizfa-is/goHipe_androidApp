@@ -1,20 +1,22 @@
 package com.erdin.arkaandroidtwo.remote
 
+import android.content.Context
+import android.util.Log
+import android.view.View
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class HeaderInterceptor() : Interceptor {
+class HeaderInterceptor(context: Context) : Interceptor {
 
-    private lateinit var goHipePreferences: GoHipePreferences
+    private val goHipePreferences = GoHipePreferences(context)
     private var tokenAuth = ""
-    var role = "Random"
 
     override fun intercept(chain: Interceptor.Chain): Response = chain.run {
 
-        if (role == "Company") {
+        if (goHipePreferences.getCompanyPreference().level == "Company") {
             tokenAuth = goHipePreferences.getCompanyPreference().token!!
-        } else if (role == "Engineer") {
+        } else if (goHipePreferences.getEngineerPreference().level == "Engineer") {
             tokenAuth = goHipePreferences.getEngineerPreference().token!!
         }
 

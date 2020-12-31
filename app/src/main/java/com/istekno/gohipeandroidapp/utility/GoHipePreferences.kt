@@ -12,6 +12,7 @@ class GoHipePreferences(context: Context) {
 
         private const val ACID = "acID"
         private const val COMPID = "compID"
+        private const val LEVEL = "level"
         private const val ENGID = "engID"
         private const val TOKEN = "token"
         private const val LOGIN = "isLogin"
@@ -22,8 +23,9 @@ class GoHipePreferences(context: Context) {
 
     fun setEngineerPreference(value: EngineerModel) {
         val editor = engineerPreferences.edit()
-        editor.putString(ACID, value.acID)
-        editor.putString(ENGID, value.engID)
+        value.acID?.let { editor.putLong(ACID, it) }
+        value.engID?.let { editor.putLong(ENGID, it) }
+        editor.putString(LEVEL, value.level)
         editor.putString(TOKEN, value.token)
         editor.putBoolean(LOGIN, value.isLogin)
         editor.apply()
@@ -31,8 +33,9 @@ class GoHipePreferences(context: Context) {
 
     fun getEngineerPreference(): EngineerModel {
         val model = EngineerModel()
-        model.acID = engineerPreferences.getString(ACID, "")
-        model.engID = engineerPreferences.getString(ENGID, "")
+        model.acID = engineerPreferences.getLong(ACID, -1)
+        model.engID = engineerPreferences.getLong(ENGID, -1)
+        model.level = engineerPreferences.getString(LEVEL, "")
         model.token = engineerPreferences.getString(TOKEN, "")
         model.isLogin = engineerPreferences.getBoolean(LOGIN, false)
 
@@ -41,8 +44,9 @@ class GoHipePreferences(context: Context) {
 
     fun setCompanyPreference(value: CompanyModel) {
         val editor = companyPreferences.edit()
-        editor.putString(ACID, value.acID)
-        editor.putString(COMPID, value.compID)
+        value.acID?.let { editor.putLong(ACID, it) }
+        value.compID?.let { editor.putLong(COMPID, it) }
+        editor.putString(LEVEL, value.level)
         editor.putString(TOKEN, value.token)
         editor.putBoolean(LOGIN, value.isLogin)
         editor.apply()
@@ -50,8 +54,9 @@ class GoHipePreferences(context: Context) {
 
     fun getCompanyPreference(): CompanyModel {
         val model = CompanyModel()
-        model.acID = companyPreferences.getString(ACID, "")
-        model.compID = companyPreferences.getString(COMPID, "")
+        model.acID = companyPreferences.getLong(ACID, -1)
+        model.compID = companyPreferences.getLong(COMPID, -1)
+        model.level = companyPreferences.getString(LEVEL, "")
         model.token = companyPreferences.getString(TOKEN, "")
         model.isLogin = companyPreferences.getBoolean(LOGIN, false)
 

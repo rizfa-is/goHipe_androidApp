@@ -14,16 +14,6 @@ class ForgotPasswordScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentForgotPasswordScreenBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
-            }
-        })
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -35,7 +25,7 @@ class ForgotPasswordScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnForgotpassfrgSendmail.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, ResetPasswordScreenFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, ResetPasswordScreenFragment())?.addToBackStack(null)?.commit()
         }
     }
 }

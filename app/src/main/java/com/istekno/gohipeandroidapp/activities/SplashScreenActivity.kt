@@ -13,7 +13,12 @@ import com.istekno.gohipeandroidapp.models.EngineerModel
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.ActivitySplashScreenBinding
 import com.istekno.gohipeandroidapp.models.CompanyModel
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.CompanyGetByIDResponse
+import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
+import kotlinx.coroutines.*
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -22,6 +27,8 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var companyModel: CompanyModel
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var dialog: Dialog
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,8 @@ class SplashScreenActivity : AppCompatActivity() {
         engineerModel = goHipePreferences.getEngineerPreference()
         companyModel = goHipePreferences.getCompanyPreference()
         dialog = Dialog()
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(this)!!.create(GoHipeApiService::class.java)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -50,22 +59,80 @@ class SplashScreenActivity : AppCompatActivity() {
         if (checkNetwork == null || !checkNetwork.isConnected || !checkNetwork.isAvailable) {
             dialog.dialogCheckInternet(this, this)
         } else {
-            Handler(mainLooper).postDelayed(
-                {
-                    if (engineerModel.isLogin) {
-                        val sendIntent = Intent(this, EngineerMainContentActivity::class.java)
-                        startActivity(sendIntent)
-                        finish()
-                    } else if (companyModel.isLogin) {
-                        val sendIntent = Intent(this, CompanyMainContentActivity::class.java)
-                        startActivity(sendIntent)
-                        finish()
+            sessionCheck(this)
+        }
+    }
+
+    private fun sessionCheck(context: Context) {
+        coroutineScope.launch {
+            withContext(Job() + Dispatchers.IO) {
+                try {
+                    val idComp = goHipePreferences.getCompanyPreference().compID
+                    val idEng = goHipePreferences.getEngineerPreference().engID
+
+                    if (idComp != (-1).toLong() || idEng != (-1).toLong()) {
+
+                        val resultComp: CompanyGetByIDResponse
+                        val resultEng: EngineerGetByIDResponse
+                        val successComp: Boolean
+                        val successEng: Boolean
+                        val msgComp: String
+                        val msgEng: String
+
+                        when {
+                            companyModel.isLogin -> {
+                                resultComp = service.getCompanyByID(idComp!!)
+                                successComp = resultComp.success
+                                msgComp = resultComp.message
+
+                                Handler(mainLooper).postDelayed(
+                                        {
+                                            if (successComp && msgComp != "jwt expired") {
+                                                val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
+                                                startActivity(sendIntent)
+                                                finish()
+                                            }
+                                        }, 4000
+                                )
+
+                            }
+                            engineerModel.isLogin -> {
+                                resultEng = service.getEngineerByID(idEng!!)
+                                successEng = resultEng.success
+                                msgEng = resultEng.message
+
+                                Handler(mainLooper).postDelayed(
+                                        {
+                                            if (successEng && msgEng != "jwt expired") {
+                                                val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
+                                                startActivity(sendIntent)
+                                                finish()
+                                            }
+                                        }, 4000
+                                )
+                            }
+                            else -> {
+                                Handler(mainLooper).postDelayed(
+                                        {
+                                            startActivity(Intent(context, MainScreenActivity::class.java))
+                                            finish()
+                                        }, 4000
+                                )
+                            }
+                        }
+
                     } else {
-                        startActivity(Intent(this, IntroScreenActivity::class.java))
-                        finish()
+                        Handler(mainLooper).postDelayed(
+                                {
+                                    startActivity(Intent(context, IntroScreenActivity::class.java))
+                                    finish()
+                                }, 4000
+                        )
                     }
-                }, 4000
-            )
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 }

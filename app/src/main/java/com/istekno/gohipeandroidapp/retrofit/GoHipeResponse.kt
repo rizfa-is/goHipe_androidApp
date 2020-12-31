@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import kotlin.collections.ArrayList
 
 data class EngineerGetByIDResponse(val success: Boolean, val message: String, val database: ArrayList<Engineer>?) {
-    data class Engineer(@SerializedName("en_id") val enID: String,
+    data class Engineer(@SerializedName("en_id") val enID: Long,
                         @SerializedName("ac_name") val enName: String,
                         @SerializedName("en_job_title") val enJobTitle: String?,
                         @SerializedName("en_job_type") val enJobType: String?,
@@ -19,12 +19,12 @@ data class EngineerGetByIDResponse(val success: Boolean, val message: String, va
                         @SerializedName("portfolio") val enPortfolioList: ArrayList<Portfolio>?,
                         @SerializedName("experience") val enExperienceList: ArrayList<Experience>?)
 
-    data class Ability(@SerializedName("ab_id") val abID: String,
-                       @SerializedName("en_id") val enID: String,
+    data class Ability(@SerializedName("ab_id") val abID: Long,
+                       @SerializedName("en_id") val enID: Long,
                        @SerializedName("ab_name") val abName: String?)
 
-    data class Portfolio(@SerializedName("pr_id") val prID: String,
-                         @SerializedName("en_id") val enID: String,
+    data class Portfolio(@SerializedName("pr_id") val prID: Long,
+                         @SerializedName("en_id") val enID: Long,
                          @SerializedName("pr_application") val prApplication: String?,
                          @SerializedName("pr_desc") val prDesc: String?,
                          @SerializedName("pr_link") val prLink: String?,
@@ -33,8 +33,8 @@ data class EngineerGetByIDResponse(val success: Boolean, val message: String, va
                          @SerializedName("pr_role") val prRole: String?,
                          @SerializedName("pr_img") val prImg: String?)
 
-    data class Experience(@SerializedName("ex_id") val exID: String,
-                         @SerializedName("en_id") val enID: String,
+    data class Experience(@SerializedName("ex_id") val exID: Long,
+                         @SerializedName("en_id") val enID: Long,
                          @SerializedName("ex_role") val exRole: String?,
                          @SerializedName("ex_company") val exCompany: String?,
                          @SerializedName("ex_desc") val exDesc: String?,
@@ -47,7 +47,7 @@ data class LoginResponse(val success: Boolean, val message: String, val database
 }
 
 data class EngineerRegisterResponse(val success: Boolean, val message: String, val database: EngineerRegisterGHR?) {
-    data class EngineerRegisterGHR(@SerializedName("id") val id: String,
+    data class EngineerRegisterGHR(@SerializedName("id") val id: Long,
                                    @SerializedName("ac_name") val enName: String,
                                    @SerializedName("ac_email") val enEmail: String,
                                    @SerializedName("ac_phone") val enPhone: String,
@@ -59,8 +59,8 @@ data class EngineerRegisterResponse(val success: Boolean, val message: String, v
 }
 
 data class CompanyGetByIDResponse(val success: Boolean, val message: String, val database: ArrayList<Company>?) {
-    data class Company(@SerializedName("ac_id") val acID: String,
-                        @SerializedName("cp_id") val cpID: String,
+    data class Company(@SerializedName("ac_id") val acID: Long,
+                        @SerializedName("cp_id") val cpID: Long,
                         @SerializedName("ac_name") val acName: String?,
                         @SerializedName("ac_email") val acEmail: String?,
                         @SerializedName("cp_company") val cpCompany: String?,
@@ -73,8 +73,8 @@ data class CompanyGetByIDResponse(val success: Boolean, val message: String, val
                         @SerializedName("cp_img") val cpAvatar: String?,
                         @SerializedName("project") val cpProject: ArrayList<Project>?)
 
-    data class Project(@SerializedName("pj_id") val exID: String,
-                          @SerializedName("cp_id") val enID: String,
+    data class Project(@SerializedName("pj_id") val exID: Long,
+                          @SerializedName("cp_id") val enID: Long,
                           @SerializedName("pj_name") val exRole: String?,
                           @SerializedName("pj_desc") val exCompany: String?,
                           @SerializedName("pj_deadline") val exDesc: String?,
@@ -82,7 +82,7 @@ data class CompanyGetByIDResponse(val success: Boolean, val message: String, val
 }
 
 data class CompanyRegisterResponse(val success: Boolean, val message: String, val database: CompanyRegisterGHR?) {
-    data class CompanyRegisterGHR(@SerializedName("id") val id: String,
+    data class CompanyRegisterGHR(@SerializedName("id") val id: Long,
                                    @SerializedName("ac_name") val enName: String,
                                    @SerializedName("ac_email") val enEmail: String,
                                    @SerializedName("ac_phone") val enPhone: String,

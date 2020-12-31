@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class EngineerModelRequest(
-        val enID: String?,
+        val enID: Long?,
         val enName: String?,
         val enJobTitle: String?,
         val enJobType: String?,

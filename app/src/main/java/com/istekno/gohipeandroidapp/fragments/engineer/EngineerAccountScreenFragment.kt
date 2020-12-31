@@ -49,7 +49,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
         goHipePreferences = GoHipePreferences(view.context)
         getAllEngineer(view)
 

@@ -41,16 +41,6 @@ class EngineerRegisterScreenFragment : Fragment() {
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, SelectRoleFragment())?.commit()
-            }
-        })
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -62,7 +52,7 @@ class EngineerRegisterScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dialog = Dialog()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
 
         binding.tvEngregisterfrgLoginHere.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()

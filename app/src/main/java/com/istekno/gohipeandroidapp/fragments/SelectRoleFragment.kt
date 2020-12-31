@@ -34,16 +34,16 @@ class SelectRoleFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.img_rolefrg_engineer -> {
-                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, EngineerRegisterScreenFragment())?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, EngineerRegisterScreenFragment())?.addToBackStack(null)?.commit()
             }
             R.id.tv_rolefrg_engineer -> {
-                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, EngineerRegisterScreenFragment())?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, EngineerRegisterScreenFragment())?.addToBackStack(null)?.commit()
             }
             R.id.img_rolefrg_company -> {
-                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, CompanyRegisterScreenFragment())?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, CompanyRegisterScreenFragment())?.addToBackStack(null)?.commit()
             }
             R.id.tv_rolefrg_company -> {
-                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, CompanyRegisterScreenFragment())?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, CompanyRegisterScreenFragment())?.addToBackStack(null)?.commit()
             }
         }
     }
