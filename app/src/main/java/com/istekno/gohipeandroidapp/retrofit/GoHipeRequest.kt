@@ -4,20 +4,20 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class EngineerModelRequest(
-    val enID: String?,
-    val enName: String?,
-    val enJobTitle: String?,
-    val enJobType: String?,
-    val enLocation: String?,
-    val enDesc: String?,
-    val enEmail: String?,
-    val enIG: String?,
-    val enGithub: String?,
-    val enGitlab: String?,
-    val enAvatar: String,
-    val ability: ArrayList<EngineerResponse.Ability>,
-    val portfolio: ArrayList<EngineerResponse.Portfolio>,
-    val experience: ArrayList<EngineerResponse.Experience>
+        val enID: String?,
+        val enName: String?,
+        val enJobTitle: String?,
+        val enJobType: String?,
+        val enLocation: String?,
+        val enDesc: String?,
+        val enEmail: String?,
+        val enIG: String?,
+        val enGithub: String?,
+        val enGitlab: String?,
+        val enAvatar: String?,
+        val ability: ArrayList<EngineerGetByIDResponse.Ability>?,
+        val portfolio: ArrayList<EngineerGetByIDResponse.Portfolio>?,
+        val experience: ArrayList<EngineerGetByIDResponse.Experience>?
 )
 
 data class AbilityModel(
@@ -27,7 +27,7 @@ data class AbilityModel(
 
 data class PortfolioModel(val prID: String,
                      val enID: String,
-                     val prApplication: String,
+                     val prApplication: String?,
                      val prDesc: String,
                      val prLink: String,
                      val prRepo: String,

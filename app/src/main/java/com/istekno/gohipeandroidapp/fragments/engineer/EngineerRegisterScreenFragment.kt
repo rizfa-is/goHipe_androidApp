@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -36,7 +37,6 @@ class EngineerRegisterScreenFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentEngineerRegisterScreenBinding
-    private lateinit var engineerModel: EngineerModel
     private lateinit var dialog: Dialog
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
@@ -60,7 +60,6 @@ class EngineerRegisterScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        engineerModel = EngineerModel()
         dialog = Dialog()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
@@ -70,23 +69,6 @@ class EngineerRegisterScreenFragment : Fragment() {
         }
         binding.btnEngregisterfrgRegister.setOnClickListener {
             registration()
-        }
-    }
-
-    private fun registerEngineer(name: String, email: String, phone: String, password: String) {
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.registerEngineer(name, email, phone, password)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is EngineerRegisterResponse) {
-                Log.d("goHipe : ", result.toString())
-                val listResponse = result.database
-            }
         }
     }
 
@@ -128,24 +110,31 @@ class EngineerRegisterScreenFragment : Fragment() {
         }
 
         registerEngineer(inputFullname, inputEmail, inputPhone, inputPassword)
-//        saveData(inputFullname, inputEmail, inputPassword, inputPhone, true)
 
         dialog.dialogCancel(context, "Register Successful") {
-            val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
-//            startActivity(sendIntent)
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
         }
     }
 
-    private fun saveData(name: String, email: String, password: String, phone: String, isLogin: Boolean) {
-        val userPreference = GoHipePreferences(context!!)
+    private fun registerEngineer(name: String, email: String, phone: String, password: String) {
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.registerEngineer(name, email, phone, password)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
 
-        engineerModel.name = name
-        engineerModel.email = email
-        engineerModel.password = password
-        engineerModel.phone = phone.toLong()
-        engineerModel.isLogin = isLogin
-
-        userPreference.setEngineerPreference(engineerModel)
+            if (result is EngineerRegisterResponse) {
+                Log.d("goHipe : ", result.toString())
+                if (result.success) {
+                    Toast.makeText(context, "Register successful!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

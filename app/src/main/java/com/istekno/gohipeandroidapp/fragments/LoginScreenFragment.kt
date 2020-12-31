@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.erdin.arkaandroidtwo.remote.HeaderInterceptor
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
@@ -18,8 +19,9 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentLoginScreenBinding
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerRegisterScreenFragment
 import com.istekno.gohipeandroidapp.models.CompanyModel
+import com.istekno.gohipeandroidapp.retrofit.CompanyGetByIDResponse
+import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
-import com.istekno.gohipeandroidapp.retrofit.LoginModelRequest
 import com.istekno.gohipeandroidapp.retrofit.LoginResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
 import kotlinx.coroutines.*
@@ -33,6 +35,7 @@ class LoginScreenFragment : Fragment() {
     private lateinit var dialog: Dialog
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
+    private lateinit var headerInterceptor: HeaderInterceptor
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -42,9 +45,12 @@ class LoginScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        companyModel = CompanyModel()
+        engineerModel = EngineerModel()
         dialog = Dialog()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
+        headerInterceptor = HeaderInterceptor()
 
         clickListener(view)
     }
@@ -60,23 +66,6 @@ class LoginScreenFragment : Fragment() {
 
         binding.tvLoginfrgRegisterHere.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, SelectRoleFragment())?.commit()
-        }
-    }
-
-    private fun loginEngineer(email: String, password: String) {
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.loginAccount(email, password)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is LoginResponse) {
-                Log.d("goHipe : ", result.toString())
-                val listResponse = result.database
-            }
         }
     }
 
@@ -98,28 +87,88 @@ class LoginScreenFragment : Fragment() {
             return
         }
 
-        loginEngineer(email,password)
+        checkLogin(email,password)
+    }
 
-        if (engineerModel.email == email && engineerModel.password == password) {
-            engineerModel.isLogin = true
-            goHipePreferences.setEngineerPreference(engineerModel)
+    private fun checkLogin(email: String, password: String) {
+        coroutineScope.launch {
+            var resultA: LoginResponse
+            var resultB: CompanyGetByIDResponse
+            var resultC: EngineerGetByIDResponse
 
-            dialog.dialogCancel(context, "Login Successful") {
-                val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
-                startActivity(sendIntent)
-                activity?.finish()
+            withContext(Dispatchers.IO) {
+                try {
+                    resultA = service.loginAccount(email, password)
+                    saveData(resultA.database?.level!!, null, null, resultA.database?.token)
+                    headerInterceptor.role = resultA.database?.level!!
+
+                    Log.d("goHipe : ", resultA.toString())
+                    val responseStatus = resultA.success
+
+                    if (responseStatus && resultA.database?.level == "Company") {
+
+                        resultB = service.getCompanyByID(resultA.database!!.acID)
+                        loginAction(resultA.database?.level!!, resultA, resultB, null)
+
+                    } else if (responseStatus && resultA.database?.level == "Engineer") {
+
+                        resultC = service.getEngineerByID(resultA.database!!.acID)
+                        loginAction(resultA.database?.level!!, resultA, null, resultC)
+
+                    } else {
+                        dialog.dialogCancel(context, resultA.message) { DialogInterface.BUTTON_NEGATIVE }
+                    }
+
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
             }
-        } else if (companyModel.email == email && companyModel.password == password) {
-            companyModel.isLogin = true
-            goHipePreferences.setCompanyPreference(companyModel)
+        }
+    }
 
-            dialog.dialogCancel(context, "Login Successful") {
-                val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
-                startActivity(sendIntent)
-                activity?.finish()
+    private fun loginAction(role: String, modelA: LoginResponse, modelB: CompanyGetByIDResponse?, modelC: EngineerGetByIDResponse?) {
+        when (role) {
+            "Company" -> {
+                saveData(role, modelA.database?.acID.toString(), modelB?.database!![0].cpID, modelA.database?.token!!)
+
+                dialog.dialogCancel(context, "Login Successful") {
+                    val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
+                    startActivity(sendIntent)
+                    activity?.finish()
+                }
             }
-        } else {
-            dialog.dialogCancel(context, "Email or Password Incorrect") { DialogInterface.BUTTON_NEGATIVE }
+            "Engineer" -> {
+                saveData(role, modelA.database?.acID.toString(), modelC?.database!![0].enID, modelA.database?.token!!)
+
+                dialog.dialogCancel(context, "Login Successful") {
+                    val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
+                    startActivity(sendIntent)
+                    activity?.finish()
+                }
+            }
+        }
+    }
+
+    private fun saveData(role: String, acID: String?, roleID: String?, token: String?) {
+        val userPreference = GoHipePreferences(context!!)
+
+        when (role) {
+            "Company" -> {
+                companyModel.acID = acID
+                companyModel.compID = roleID
+                companyModel.token = token
+                companyModel.isLogin = true
+
+                userPreference.setCompanyPreference(companyModel)
+            }
+            "Engineer" -> {
+                engineerModel.acID = acID
+                engineerModel.engID = roleID
+                engineerModel.token = token
+                engineerModel.isLogin = true
+
+                userPreference.setEngineerPreference(engineerModel)
+            }
         }
     }
 

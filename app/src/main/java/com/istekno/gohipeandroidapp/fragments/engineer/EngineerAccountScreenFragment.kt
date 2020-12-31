@@ -10,7 +10,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.istekno.gohipeandroidapp.retrofit.EngineerResponse
+import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.google.android.material.appbar.MaterialToolbar
@@ -21,6 +21,7 @@ import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
 class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
@@ -35,6 +36,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
     private lateinit var binding: FragmentEngineerAccountScreenBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
+    private lateinit var goHipePreferences: GoHipePreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -48,6 +50,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         super.onViewCreated(view, savedInstanceState)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
+        goHipePreferences = GoHipePreferences(view.context)
         getAllEngineer(view)
 
         toolbarListener()
@@ -58,26 +61,25 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
 
     fun getAllEngineer(view: View) {
         coroutineScope.launch {
-            Log.d("android2", "Start: ${Thread.currentThread().name}")
+            val id = goHipePreferences.getEngineerPreference().acID
 
             val result = withContext(Dispatchers.IO) {
-                Log.d("android2", "CallApi: ${Thread.currentThread().name}")
                 try {
-                    service.getAllEngineer()
+                    service.getEngineerByID(id!!.toLong())
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
             }
 
-            if (result is EngineerResponse) {
+            if (result is EngineerGetByIDResponse) {
                 Log.d("android2", result.toString())
                 val list = result.database?.map{
                     EngineerModelRequest(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar, it.enAbilityList, it.enPortfolioList, it.enExperienceList)
                 }
 
-                binding.model = list[0]
+                binding.model = list!![0]
                 Glide.with(view.context).load(imageLink + list[0].enAvatar).into(binding.imgEnaccfrgAvatar)
-                chipViewInit(view, list[0].ability)
+                chipViewInit(view, list[0].ability!!)
             }
         }
     }
@@ -112,7 +114,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }
 
-    private fun chipViewInit(view: View, listAbilities: ArrayList<EngineerResponse.Ability>) {
+    private fun chipViewInit(view: View, listAbilities: ArrayList<EngineerGetByIDResponse.Ability>) {
         for (i in 0 until listAbilities.size) {
             val chip = Chip(view.context)
             chip.chipCornerRadius = 30F

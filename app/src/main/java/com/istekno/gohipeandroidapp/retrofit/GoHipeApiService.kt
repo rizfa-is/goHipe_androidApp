@@ -11,8 +11,10 @@ interface GoHipeApiService {
             @Field("password") password: String
     ): LoginResponse
 
-    @GET("engineer/1")
-    suspend fun getAllEngineer(): EngineerResponse
+    @GET("engineer/{id}")
+    suspend fun getEngineerByID(
+            @Path("id") id: Long
+    ): EngineerGetByIDResponse
 
     @POST("signup/engineer")
     @FormUrlEncoded
@@ -38,7 +40,19 @@ interface GoHipeApiService {
             @Field("ac_password") password: String
     ): EngineerDeleteResponse
 
+    @GET("company/{id}")
+    suspend fun getCompanyByID(
+            @Path("id") id: Long
+    ): CompanyGetByIDResponse
+
     @POST("signup/company")
-    suspend fun registerCompany(): LoginResponse
+    suspend fun registerCompany(
+            @Field("name") name: String,
+            @Field("email") email: String,
+            @Field("phone") phone: String,
+            @Field("password") password: String,
+            @Field("company") company: String,
+            @Field("position") position: String
+    ): CompanyRegisterResponse
 
 }

@@ -10,11 +10,10 @@ class GoHipePreferences(context: Context) {
         private const val ENG_PREF_NAME = "eng_pref"
         private const val COMP_PREF_NAME = "comp_pref"
 
-        private const val EMAIL = "email"
-        private const val PASSWORD = "password"
-        private const val PHONE = "phone"
-        private const val COMPANY = "company"
-        private const val POSITION = "position"
+        private const val ACID = "acID"
+        private const val COMPID = "compID"
+        private const val ENGID = "engID"
+        private const val TOKEN = "token"
         private const val LOGIN = "isLogin"
     }
 
@@ -23,18 +22,18 @@ class GoHipePreferences(context: Context) {
 
     fun setEngineerPreference(value: EngineerModel) {
         val editor = engineerPreferences.edit()
-        editor.putString(EMAIL, value.email)
-        editor.putString(PASSWORD, value.password)
-        editor.putLong(PHONE, value.phone)
+        editor.putString(ACID, value.acID)
+        editor.putString(ENGID, value.engID)
+        editor.putString(TOKEN, value.token)
         editor.putBoolean(LOGIN, value.isLogin)
         editor.apply()
     }
 
     fun getEngineerPreference(): EngineerModel {
         val model = EngineerModel()
-        model.email = engineerPreferences.getString(EMAIL, "")
-        model.password = engineerPreferences.getString(PASSWORD, "")
-        model.phone = engineerPreferences.getLong(PHONE, 0)
+        model.acID = engineerPreferences.getString(ACID, "")
+        model.engID = engineerPreferences.getString(ENGID, "")
+        model.token = engineerPreferences.getString(TOKEN, "")
         model.isLogin = engineerPreferences.getBoolean(LOGIN, false)
 
         return model
@@ -42,22 +41,18 @@ class GoHipePreferences(context: Context) {
 
     fun setCompanyPreference(value: CompanyModel) {
         val editor = companyPreferences.edit()
-        editor.putString(EMAIL, value.email)
-        editor.putString(PASSWORD, value.password)
-        editor.putString(COMPANY, value.company)
-        editor.putString(POSITION, value.position)
-        editor.putLong(PHONE, value.phone)
+        editor.putString(ACID, value.acID)
+        editor.putString(COMPID, value.compID)
+        editor.putString(TOKEN, value.token)
         editor.putBoolean(LOGIN, value.isLogin)
         editor.apply()
     }
 
     fun getCompanyPreference(): CompanyModel {
         val model = CompanyModel()
-        model.email = companyPreferences.getString(EMAIL, "")
-        model.password = companyPreferences.getString(PASSWORD, "")
-        model.company = companyPreferences.getString(COMPANY, "")
-        model.position = companyPreferences.getString(POSITION, "")
-        model.phone = companyPreferences.getLong(PHONE, 0)
+        model.acID = companyPreferences.getString(ACID, "")
+        model.compID = companyPreferences.getString(COMPID, "")
+        model.token = companyPreferences.getString(TOKEN, "")
         model.isLogin = companyPreferences.getBoolean(LOGIN, false)
 
         return model

@@ -3,9 +3,11 @@ package com.istekno.gohipeandroidapp.fragments.company
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,7 +19,11 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBinding
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterResponse
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
+import kotlinx.coroutines.*
 
 class CompanyRegisterScreenFragment : Fragment() {
 
@@ -29,8 +35,9 @@ class CompanyRegisterScreenFragment : Fragment() {
     }
     
     private lateinit var binding: FragmentCompanyRegisterScreenBinding
-    private lateinit var companyModel: CompanyModel
     private lateinit var dialog: Dialog
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +58,9 @@ class CompanyRegisterScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        companyModel = CompanyModel()
         dialog = Dialog()
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient()!!.create(GoHipeApiService::class.java)
 
         binding.tvComregisterfrgLoginHere.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment(), LoginScreenFragment::class.java.simpleName)?.commit()
@@ -116,25 +124,32 @@ class CompanyRegisterScreenFragment : Fragment() {
             binding.etComregisterfrgConfirmPassword.error = FIELD_MUST_MATCH
             return
         }
-        
-        saveData(inputFullname, inputEmail, inputPassword, inputCompany, inputPosition, inputPhone, true)
+
+        registerCompany(inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition)
+
         dialog.dialogCancel(context, "Register Successful") {
-            val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
-            startActivity(sendIntent)
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment(), LoginScreenFragment::class.java.simpleName)?.commit()
         }
     }
 
-    private fun saveData(name: String, email: String, password: String, company: String, position: String, phone: String, isLogin: Boolean) {
-        val userPreference = GoHipePreferences(context!!)
+    private fun registerCompany(name: String, email: String, phone: String, password: String, company: String, position: String) {
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.registerCompany(name, email, phone, password, company, position)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
 
-        companyModel.name = name
-        companyModel.email = email
-        companyModel.password = password
-        companyModel.company = company
-        companyModel.position = position
-        companyModel.phone = phone.toLong()
-        companyModel.isLogin = isLogin
-
-        userPreference.setCompanyPreference(companyModel)
+            if (result is EngineerRegisterResponse) {
+                Log.d("goHipe : ", result.toString())
+                if (result.success) {
+                    Toast.makeText(context, "Register successful!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 }
