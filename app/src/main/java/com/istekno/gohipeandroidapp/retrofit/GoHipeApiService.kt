@@ -1,5 +1,7 @@
 package com.istekno.gohipeandroidapp.retrofit
 
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.*
 
 interface GoHipeApiService {
@@ -10,6 +12,12 @@ interface GoHipeApiService {
             @Field("email") email: String,
             @Field("password") password: String
     ): LoginResponse
+
+
+
+
+    @GET("engineer")
+    suspend fun getAllEngineer(): EngineerGetByIDResponse
 
     @GET("engineer/{id}")
     suspend fun getEngineerByID(
@@ -40,10 +48,18 @@ interface GoHipeApiService {
             @Field("ac_password") password: String
     ): EngineerDeleteResponse
 
+
+
+
     @GET("company/{id}")
     suspend fun getCompanyByID(
             @Path("id") id: Long
     ): CompanyGetByIDResponse
+
+    @GET("company/{id}")
+    suspend fun testJWTCompany(
+            @Path("id") id: Long
+    ): Call<CompanyGetByIDResponse>
 
     @POST("signup/company")
     suspend fun registerCompany(

@@ -1,47 +1,49 @@
 package com.istekno.gohipeandroidapp.retrofit
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
+@Parcelize
 data class EngineerModelRequest(
-        val enID: Long?,
-        val enName: String?,
-        val enJobTitle: String?,
-        val enJobType: String?,
-        val enLocation: String?,
-        val enDesc: String?,
-        val enEmail: String?,
-        val enIG: String?,
-        val enGithub: String?,
-        val enGitlab: String?,
-        val enAvatar: String?,
-        val ability: ArrayList<EngineerGetByIDResponse.Ability>?,
-        val portfolio: ArrayList<EngineerGetByIDResponse.Portfolio>?,
-        val experience: ArrayList<EngineerGetByIDResponse.Experience>?
-)
+         val enID: Long?,
+         val enName: String?,
+         val enJobTitle: String?,
+         val enJobType: String?,
+         val enLocation: String?,
+         val enDesc: String?,
+         val enEmail: String?,
+         val enIG: String?,
+         val enGithub: String?,
+         val enGitlab: String?,
+         val enAvatar: String?
+) : Parcelable
 
-data class AbilityModel(
-    val abID: String?,
-    val enID: String?,
-    val abName: String?)
+data class AbilityM(val list: ArrayList<Ability>)
 
-data class PortfolioModel(val prID: String,
-                     val enID: String,
-                     val prApplication: String?,
-                     val prDesc: String,
-                     val prLink: String,
-                     val prRepo: String,
-                     val prCompany: String,
-                     val prRole: String,
-                     val prImg: String)
+data class AbilityModel(val abID: Long,
+                        val enID: Long,
+                        val abName: String?)
 
-data class ExperienceModel(val exID: String,
-                      val enID: String,
-                      val exRole: String,
-                      val exCompany: String,
-                      val exDesc: String,
-                      val exStartDate: String?,
-                      val exEndDate: String?)
+data class PortfolioModel(val prID: Long,
+                          val enID: Long,
+                          val prApplication: String?,
+                          val prDesc: String?,
+                          val prLink: String?,
+                          val prRepo: String?,
+                          val prCompany: String?,
+                          val prRole: String?,
+                          val prImg: String?)
+
+data class ExperienceModel(val exID: Long,
+                           val enID: Long,
+                           val exRole: String?,
+                           val exCompany: String?,
+                           val exDesc: String?,
+                           val exStartDate: String?,
+                           val exEndDate: String?)
 
 data class LoginModelRequest(
     @SerializedName("email")

@@ -19,28 +19,31 @@ data class EngineerGetByIDResponse(val success: Boolean, val message: String, va
                         @SerializedName("portfolio") val enPortfolioList: ArrayList<Portfolio>?,
                         @SerializedName("experience") val enExperienceList: ArrayList<Experience>?)
 
-    data class Ability(@SerializedName("ab_id") val abID: Long,
-                       @SerializedName("en_id") val enID: Long,
-                       @SerializedName("ab_name") val abName: String?)
 
-    data class Portfolio(@SerializedName("pr_id") val prID: Long,
-                         @SerializedName("en_id") val enID: Long,
-                         @SerializedName("pr_application") val prApplication: String?,
-                         @SerializedName("pr_desc") val prDesc: String?,
-                         @SerializedName("pr_link") val prLink: String?,
-                         @SerializedName("pr_repo") val prRepo: String?,
-                         @SerializedName("pr_company") val prCompany: String?,
-                         @SerializedName("pr_role") val prRole: String?,
-                         @SerializedName("pr_img") val prImg: String?)
-
-    data class Experience(@SerializedName("ex_id") val exID: Long,
-                         @SerializedName("en_id") val enID: Long,
-                         @SerializedName("ex_role") val exRole: String?,
-                         @SerializedName("ex_company") val exCompany: String?,
-                         @SerializedName("ex_desc") val exDesc: String?,
-                         @SerializedName("ex_start") val exStartDate: String?,
-                         @SerializedName("ex_end") val exEndDate: String?)
 }
+
+data class Ability(@SerializedName("ab_id") val abID: Long,
+                   @SerializedName("en_id") val enID: Long,
+                   @SerializedName("ab_name") val abName: String?)
+
+data class Portfolio(@SerializedName("pr_id") val prID: Long,
+                     @SerializedName("en_id") val enID: Long,
+                     @SerializedName("pr_application") val prApplication: String?,
+                     @SerializedName("pr_desc") val prDesc: String?,
+                     @SerializedName("pr_link") val prLink: String?,
+                     @SerializedName("pr_repo") val prRepo: String?,
+                     @SerializedName("pr_company") val prCompany: String?,
+                     @SerializedName("pr_role") val prRole: String?,
+                     @SerializedName("pr_img") val prImg: String?)
+
+data class Experience(@SerializedName("ex_id") val exID: Long,
+                      @SerializedName("en_id") val enID: Long,
+                      @SerializedName("ex_role") val exRole: String?,
+                      @SerializedName("ex_company") val exCompany: String?,
+                      @SerializedName("ex_desc") val exDesc: String?,
+                      @SerializedName("ex_start") val exStartDate: String?,
+                      @SerializedName("ex_end") val exEndDate: String?)
+
 
 data class LoginResponse(val success: Boolean, val message: String, val database: LoginModel?) {
     data class LoginModel(val acID: Long, val email: String, val level: String, val token: String)

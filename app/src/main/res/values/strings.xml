@@ -80,4 +80,5 @@
     <string name="job_type">Job type</string>
     <string name="_github">Github</string>
     <string name="_gitlab">Gitlab</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

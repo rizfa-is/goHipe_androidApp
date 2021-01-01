@@ -1,15 +1,14 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyFavoriteScreenBinding
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerFavoriteScreenBinding
 
 class EngineerFavoriteScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView) : Fragment() {

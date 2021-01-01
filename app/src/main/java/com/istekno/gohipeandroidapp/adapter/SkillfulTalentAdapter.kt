@@ -11,9 +11,23 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemSkillfulTalentBinding
+import com.istekno.gohipeandroidapp.models.MostPopular
 import com.istekno.gohipeandroidapp.models.User
 
-class SkillfulTalentAdapter(private val listUser: List<User>, private val onItemClickCallback: OnItemClickCallback): RecyclerView.Adapter<SkillfulTalentAdapter.ListViewHolder>() {
+class SkillfulTalentAdapter: RecyclerView.Adapter<SkillfulTalentAdapter.ListViewHolder>() {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    private val listUser =  ArrayList<User>()
+
+    fun setData(list: ArrayList<User>) {
+        listUser.clear()
+        listUser.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun setOnitemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     interface OnItemClickCallback {
         fun onItemClicked(user: User)
@@ -21,13 +35,11 @@ class SkillfulTalentAdapter(private val listUser: List<User>, private val onItem
 
     inner class ListViewHolder(val binding: ItemSkillfulTalentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
+            binding.modelSkillful = user
             Glide.with(itemView.context)
                 .load(user.image)
                 .apply(RequestOptions().override(150, 150))
                 .into(binding.imgSkillfulTalentEng)
-
-            binding.tvSkillfulTalentEngName.text = user.name
-            binding.tvSkillfulTalentEngJob.text = user.job
 
             chipViewInit(user.ability, itemView, binding)
 

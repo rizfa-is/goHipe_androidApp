@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -19,8 +20,13 @@ import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
 import kotlinx.coroutines.*
+import okhttp3.Callback
 
 class SplashScreenActivity : AppCompatActivity() {
+
+    companion object {
+        private const val splashDuration = 3000
+    }
 
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var engineerModel: EngineerModel
@@ -64,75 +70,65 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun sessionCheck(context: Context) {
-        coroutineScope.launch {
-            withContext(Job() + Dispatchers.IO) {
-                try {
-                    val idComp = goHipePreferences.getCompanyPreference().compID
-                    val idEng = goHipePreferences.getEngineerPreference().engID
+        val idComp = goHipePreferences.getCompanyPreference().acID
+        val idEng = goHipePreferences.getEngineerPreference().acID
 
-                    if (idComp != (-1).toLong() || idEng != (-1).toLong()) {
-
-                        val resultComp: CompanyGetByIDResponse
-                        val resultEng: EngineerGetByIDResponse
-                        val successComp: Boolean
-                        val successEng: Boolean
-                        val msgComp: String
-                        val msgEng: String
-
-                        when {
-                            companyModel.isLogin -> {
-                                resultComp = service.getCompanyByID(idComp!!)
-                                successComp = resultComp.success
-                                msgComp = resultComp.message
-
+        if (idComp != (-1).toLong() || idEng != (-1).toLong()) {
+            when {
+                companyModel.isLogin -> {
+                    coroutineScope.launch {
+                        withContext(Job() + Dispatchers.IO) {
+                            try {
+                                service.getCompanyByID(idComp!!)
                                 Handler(mainLooper).postDelayed(
                                         {
-                                            if (successComp && msgComp != "jwt expired") {
-                                                val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
-                                                startActivity(sendIntent)
-                                                finish()
-                                            }
-                                        }, 4000
+                                            val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
+                                            startActivity(sendIntent)
+                                            finish()
+                                        }, splashDuration.toLong()
                                 )
-
-                            }
-                            engineerModel.isLogin -> {
-                                resultEng = service.getEngineerByID(idEng!!)
-                                successEng = resultEng.success
-                                msgEng = resultEng.message
-
-                                Handler(mainLooper).postDelayed(
-                                        {
-                                            if (successEng && msgEng != "jwt expired") {
-                                                val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
-                                                startActivity(sendIntent)
-                                                finish()
-                                            }
-                                        }, 4000
-                                )
-                            }
-                            else -> {
+                            } catch (e: Throwable) {
                                 Handler(mainLooper).postDelayed(
                                         {
                                             startActivity(Intent(context, MainScreenActivity::class.java))
                                             finish()
-                                        }, 4000
+                                        }, splashDuration.toLong()
                                 )
                             }
                         }
-
-                    } else {
-                        Handler(mainLooper).postDelayed(
-                                {
-                                    startActivity(Intent(context, IntroScreenActivity::class.java))
-                                    finish()
-                                }, 4000
-                        )
                     }
-                } catch (e: Throwable) {
-                    e.printStackTrace()
+                }
+                engineerModel.isLogin -> {
+                    coroutineScope.launch {
+                        withContext(Job() + Dispatchers.IO) {
+                            try {
+                                service.getEngineerByID(idEng!!)
+                                Handler(mainLooper).postDelayed(
+                                        {
+                                            val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
+                                            startActivity(sendIntent)
+                                            finish()
+                                        }, splashDuration.toLong()
+                                )
+                            } catch (e: Throwable) {
+                                Handler(mainLooper).postDelayed(
+                                        {
+                                            startActivity(Intent(context, MainScreenActivity::class.java))
+                                            finish()
+                                        }, splashDuration.toLong()
+                                )
+                            }
+                        }
+                    }
                 }
             }
+        } else {
+            Handler(mainLooper).postDelayed(
+                    {
+                        startActivity(Intent(context, IntroScreenActivity::class.java))
+                        finish()
+                    }, splashDuration.toLong()
+            )
         }
     }
 }

@@ -55,10 +55,10 @@ data class CompanyModel(
 data class MostPopular(
         val name : String,
         val job : String,
-        val image: Int,
-        val project: Int,
-        val delivery_time: Int,
-        val conv_rate: Int
+        val image: String,
+        val project: Int? = null,
+        val delivery_time: Int? = null,
+        val conv_rate: Int? = null
 ) : Parcelable
 
 @Parcelize

@@ -66,15 +66,19 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
     }
 
     private fun showRecyclerList2() {
+        val rvAdapter = SkillfulTalentAdapter()
+
         binding.rvListCompany2.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = SkillfulTalentAdapter(listSkillful, object : SkillfulTalentAdapter.OnItemClickCallback {
+            rvAdapter.setData(listSkillful)
+            rvAdapter.setOnitemClickCallback(object : SkillfulTalentAdapter.OnItemClickCallback {
                 override fun onItemClicked(user: User) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(CompanyHomeScreenFragment.HOME_AUTH_KEY, 0)
                     startActivity(sendIntent)
                 }
             })
+            adapter = rvAdapter
         }
     }
 

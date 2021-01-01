@@ -4,7 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.company.CompanyAccountScreenFragment">
-    
+
+    <data>
+        <variable
+            name="model"
+            type="com.istekno.gohipeandroidapp.retrofit.CompanyGetByIDResponse.Company" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
-                        android:text="@string/name"
+                        android:text="@{model.acName}"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -78,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="8dp"
-                        android:text="@string/job"
+                        android:text="@{model.cpPosition}"
                         android:textColor="@color/text" />
 
                     <TextView
@@ -89,7 +95,7 @@
                         android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/ic_location"
                         android:drawablePadding="5dp"
-                        android:text="@string/location"
+                        android:text="@{model.cpLocation}"
                         android:textColor="@color/text_loc" />
 
                     <TextView
@@ -99,7 +105,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginVertical="16dp"
                         android:lineSpacingExtra="7dp"
-                        android:text="@string/description"
+                        android:text="@{model.cpDesc}"
                         android:textColor="@color/text"
                         android:textAlignment="inherit" />
 
@@ -108,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="monkdluff97@gmail.com"
+                        android:text="@{model.acEmail}"
                         app:drawableStartCompat="@drawable/ic_email" />
 
                     <TextView
@@ -117,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:drawablePadding="10dp"
-                        android:text="@string/instagram"
+                        android:text="@{model.cpInsta}"
                         app:drawableStartCompat="@drawable/ic_instagram" />
 
                     <TextView
@@ -127,7 +133,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="24dp"
                         android:drawablePadding="10dp"
-                        android:text="@string/gitlab"
+                        android:text="@{model.cpLinkedIn}"
                         app:drawableStartCompat="@drawable/ic_linkedin" />
 
                     <com.google.android.material.button.MaterialButton
@@ -135,7 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Edit Profile"
+                        android:text="@string/edit_profile"
                         android:textAllCaps="false"
                         android:backgroundTint="@color/theme_orange"/>
 

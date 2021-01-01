@@ -4,6 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="modelMostPop"
+            type="com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest" />
+    </data>
+
     <RelativeLayout
         android:layout_width="200dp"
         android:layout_height="250dp"
@@ -46,7 +52,7 @@
                 android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Monkey D. Luffy"
+                android:text="@{modelMostPop.enName}"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -63,7 +69,7 @@
                 android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Android Developer"
+                android:text="@{modelMostPop.enJobTitle}"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/tv_most_popular_name"
                 app:layout_constraintStart_toStartOf="@+id/tv_most_popular_name"
@@ -76,7 +82,6 @@
                 android:layout_marginEnd="32dp"
                 android:drawablePadding="7dp"
                 android:gravity="center"
-                android:text="20"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -92,7 +97,6 @@
                 android:layout_marginTop="32dp"
                 android:drawablePadding="7dp"
                 android:gravity="center"
-                android:text="7 days"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -108,7 +112,6 @@
                 android:layout_marginStart="32dp"
                 android:drawablePadding="7dp"
                 android:gravity="center"
-                android:text="92 %"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"

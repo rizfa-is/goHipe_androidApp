@@ -20,7 +20,7 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
+import com.istekno.gohipeandroidapp.retrofit.Ability
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
@@ -72,14 +72,9 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
             }
 
             if (result is EngineerGetByIDResponse) {
-                Log.d("android2", result.toString())
-                val list = result.database?.map{
-                    EngineerModelRequest(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar, it.enAbilityList, it.enPortfolioList, it.enExperienceList)
-                }
-
-                binding.model = list!![0]
-                Glide.with(view.context).load(imageLink + list[0].enAvatar).into(binding.imgEnaccfrgAvatar)
-                chipViewInit(view, list[0].ability!!)
+                binding.model = result.database!![0]
+                Glide.with(view.context).load(imageLink + result.database[0].enAvatar).into(binding.imgEnaccfrgAvatar)
+                chipViewInit(view, result.database[0].enAbilityList!!)
             }
         }
     }
@@ -114,7 +109,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }
 
-    private fun chipViewInit(view: View, listAbilities: ArrayList<EngineerGetByIDResponse.Ability>) {
+    private fun chipViewInit(view: View, listAbilities: ArrayList<Ability>) {
         for (i in 0 until listAbilities.size) {
             val chip = Chip(view.context)
             chip.chipCornerRadius = 30F

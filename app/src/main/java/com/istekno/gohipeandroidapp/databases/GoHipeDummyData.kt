@@ -123,22 +123,23 @@ object GoHipeDatabases {
         return expers
     }
 
-    val listEngineerTalentOfTheMonth: ArrayList<MostPopular>
-    get() {
-        val mp = ArrayList<MostPopular>()
-        for (i in name.indices) {
-            val mostPopular = MostPopular(
-                    name[i],
-                    job[i],
-                    portfolio[i],
-                    project[i],
-                    day[i],
-                    rate[i]
-            )
-            mp.add(mostPopular)
-        }
-        return mp
-    }
+//    val listEngineerTalentOfTheMonth: ArrayList<MostPopular>
+//    get() {
+//        val mp = ArrayList<MostPopular>()
+//        for (i in name.indices) {
+//            val mostPopular = MostPopular(
+//                    name[i],
+//                    job[i],
+//                    portfolio[i],
+//                    project[i],
+//                    day[i],
+//                    rate[i]
+//            )
+//            mp.add(mostPopular)
+//        }
+//        mp.sortByDescending { it.project }
+//        return mp
+//    }
 
     val listScouterOfTheMonth: ArrayList<ScouterTop>
         get() {

@@ -1,7 +1,9 @@
 package com.istekno.gohipeandroidapp.fragments.company
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,21 +20,29 @@ import com.istekno.gohipeandroidapp.adapter.SkillfulTalentAdapter
 import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
-import com.istekno.gohipeandroidapp.models.MostPopular
 import com.istekno.gohipeandroidapp.models.User
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.AbilityM
+import com.istekno.gohipeandroidapp.retrofit.AbilityModel
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import kotlinx.coroutines.*
 
 class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
+        const val HOME_DATA = "home_data"
     }
 
     private lateinit var binding: FragmentCompanyHomeScreenBinding
-    private val listTop = ArrayList<MostPopular>()
-    private val listSkillful = ArrayList<User>()
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
+    private lateinit var goHipePreferences: GoHipePreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+                              savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_home_screen, container, false)
 
         setToolbar(co)
@@ -41,39 +51,75 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
+        goHipePreferences = GoHipePreferences(view.context)
 
-        listTop.addAll(GoHipeDatabases.listEngineerTalentOfTheMonth)
-        listTop.sortByDescending { it.project }
-        listSkillful.addAll(GoHipeDatabases.listSearchEngineer)
+
 
         showRecyclerList()
         showRecyclerList2()
+        (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(GoHipeDatabases.listSearchEngineer)
+
+        getCompanyInfo()
         toolbarListener()
     }
 
+    @SuppressLint("SetTextI18n")
+    fun getCompanyInfo() {
+        coroutineScope.launch {
+            val id = goHipePreferences.getCompanyPreference().acID
+
+            withContext(Dispatchers.IO) {
+                try {
+                    val result1 = service.getCompanyByID(id!!.toLong())
+                    val result2 = service.getAllEngineer()
+                    val listEngineer = result2.database?.map {
+                        EngineerModelRequest(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                    }
+
+                    activity?.runOnUiThread {
+                        binding.textViewHello.text = "Hai ${result1.database!![0].acName!!.split(" ")[0]}"
+                        (binding.rvListEngineer.adapter as TalentOfTheMonthAdapter).setData(listEngineer!!)
+                    }
+
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
     private fun showRecyclerList() {
+        val rvAdapter = TalentOfTheMonthAdapter()
+
         binding.rvListEngineer.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = TalentOfTheMonthAdapter(listTop, object : TalentOfTheMonthAdapter.OnItemClickCallback {
-                override fun onItemClicked(mostPopular: MostPopular) {
+            rvAdapter.setOnItemClickCallback(object : TalentOfTheMonthAdapter.OnItemClickCallback {
+                override fun onItemClicked(engineerModelRequest: EngineerModelRequest) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(HOME_AUTH_KEY, 1)
+                    sendIntent.putExtra(HOME_DATA, engineerModelRequest)
                     startActivity(sendIntent)
                 }
             })
+            adapter = rvAdapter
         }
     }
 
     private fun showRecyclerList2() {
+        val rvAdapter = SkillfulTalentAdapter()
+
         binding.rvListEngineer2.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = SkillfulTalentAdapter(listSkillful, object : SkillfulTalentAdapter.OnItemClickCallback {
+            rvAdapter.setOnitemClickCallback(object : SkillfulTalentAdapter.OnItemClickCallback {
                 override fun onItemClicked(user: User) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(HOME_AUTH_KEY, 1)
                     startActivity(sendIntent)
                 }
             })
+            adapter = rvAdapter
         }
     }
 
@@ -81,10 +127,10 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         binding.topAppBarCompanyHomefrg.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.mn_maincontent_toolbar_chat -> {
-                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_maincontent, CompanyChatScreenFragment(toolbar, bottomNavigationView))?.addToBackStack(null)?.commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_maincontent, CompanyChatScreenFragment(toolbar, bottomNavigationView, co))?.addToBackStack(null)?.commit()
                 }
                 R.id.mn_maincontent_toolbar_notification -> {
-                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_maincontent, CompanyNotificationScreenFragment(toolbar, bottomNavigationView))?.addToBackStack(null)?.commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_maincontent, CompanyNotificationScreenFragment(toolbar, bottomNavigationView, co))?.addToBackStack(null)?.commit()
                 }
             }
             false

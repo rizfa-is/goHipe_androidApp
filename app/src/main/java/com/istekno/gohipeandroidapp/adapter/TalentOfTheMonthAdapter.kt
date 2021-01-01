@@ -9,29 +9,44 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemListMostPopularBinding
-import com.istekno.gohipeandroidapp.models.MostPopular
+import com.istekno.gohipeandroidapp.retrofit.AbilityModel
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
+import com.istekno.gohipeandroidapp.retrofit.ExperienceModel
+import com.istekno.gohipeandroidapp.retrofit.PortfolioModel
 
-class TalentOfTheMonthAdapter(private val listUser: ArrayList<MostPopular>, private val onItemClickCallback: OnItemClickCallback): RecyclerView.Adapter<TalentOfTheMonthAdapter.ListViewHolder>() {
+class TalentOfTheMonthAdapter: RecyclerView.Adapter<TalentOfTheMonthAdapter.ListViewHolder>() {
+
+    companion object {
+        const val imageLink = "http://107.22.89.131:7000/image/"
+    }
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    private val listEngineer = mutableListOf<EngineerModelRequest>()
+
+    fun setData(listEn: List<EngineerModelRequest>) {
+        listEngineer.clear()
+        listEngineer.addAll(listEn)
+        notifyDataSetChanged()
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     interface OnItemClickCallback {
-        fun onItemClicked(mostPopular: MostPopular)
+        fun onItemClicked(engineerModelRequest: EngineerModelRequest)
     }
 
     inner class ListViewHolder(val binding: ItemListMostPopularBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(mostPopular: MostPopular) {
+        fun bind(engineerModelRequest: EngineerModelRequest) {
+            binding.modelMostPop = engineerModelRequest
             Glide.with(itemView.context)
-                    .load(mostPopular.image)
+                    .load(imageLink + engineerModelRequest.enAvatar)
                     .apply(RequestOptions().override(150, 150))
                     .into(binding.imgMostPopular)
 
-            binding.tvMostPopularName.text = mostPopular.name
-            binding.tvMostPopularJob.text = mostPopular.job
-            binding.tvMostPopularProject.text = mostPopular.project.toString()
-            binding.tvMostPopularDevliverytime.text = "${mostPopular.delivery_time} days"
-            binding.tvMostPopularProjectconvrate.text = "${mostPopular.conv_rate} %"
-
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[this.adapterPosition]) }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listEngineer[this.adapterPosition]) }
         }
     }
 
@@ -40,8 +55,8 @@ class TalentOfTheMonthAdapter(private val listUser: ArrayList<MostPopular>, priv
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listUser[position])
+        holder.bind(listEngineer[position])
     }
 
-    override fun getItemCount(): Int = listUser.size
+    override fun getItemCount(): Int = listEngineer.size
 }

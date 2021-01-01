@@ -2,23 +2,30 @@ package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProfileScreenBinding
+import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
 
-class EngineerDetailProfileScreenFragment(private val fullname : String? = null, private val email : String? = null, private val password : String? = null) : Fragment() {
+class EngineerDetailProfileScreenFragment : Fragment() {
 
     companion object {
         const val HIRE_AUTH_KEY = "hire_auth_key"
+        const val HOME_DATA = "home_data"
+
+        const val imageLink = "http://107.22.89.131:7000/image/"
     }
 
     private lateinit var binding: FragmentEngineerDetailProfileScreenBinding
@@ -41,9 +48,12 @@ class EngineerDetailProfileScreenFragment(private val fullname : String? = null,
             startActivity(sendIntent)
         }
 
+        val data = activity?.intent?.getParcelableExtra<EngineerModelRequest>(HOME_DATA)
+        binding.model = data
+        Glide.with(view.context).load(imageLink + data?.enAvatar).into(binding.imgEnprofifrgAvatar)
+
         setViewPager()
         chipViewInit(view)
-        changeText(email, fullname)
         favoriteState()
     }
 
@@ -75,10 +85,5 @@ class EngineerDetailProfileScreenFragment(private val fullname : String? = null,
                 binding.imgEnprofifrgFavorite.isSelected = false
             }
         }
-    }
-
-    private fun changeText(emailNew: String?, fullname: String?) {
-        binding.tvEnprofifrgEmail.text = emailNew
-        binding.tvEnprofifrgName.text = fullname
     }
 }
