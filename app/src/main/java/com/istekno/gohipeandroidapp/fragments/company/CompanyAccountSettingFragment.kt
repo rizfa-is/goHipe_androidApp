@@ -40,6 +40,7 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
         binding.btnCompsetfrgLogout.setOnClickListener {
             if (goHipePreferences.getCompanyPreference().isLogin) {
                 companyModel.isLogin = false
+                companyModel.level = ""
                 goHipePreferences.setCompanyPreference(companyModel)
 
                 dialog.dialog(view.context, "Are you sure to logout ?") {

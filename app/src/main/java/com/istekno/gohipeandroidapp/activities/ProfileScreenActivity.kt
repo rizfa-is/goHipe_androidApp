@@ -3,7 +3,6 @@ package com.istekno.gohipeandroidapp.activities
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
@@ -11,11 +10,9 @@ import com.istekno.gohipeandroidapp.databinding.ActivityProfileScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailHireScreenFragment
 import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProfileScreenFragment
 import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProjectScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment.Companion.HOME_DATA
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailHireScreenFragment
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProfileScreenFragment
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProjectScreenFragment
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 

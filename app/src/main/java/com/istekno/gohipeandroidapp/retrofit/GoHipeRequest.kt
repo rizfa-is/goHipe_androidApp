@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class EngineerModelRequest(
+data class EngineerModelResponse(
          val enID: Long?,
          val enName: String?,
          val enJobTitle: String?,
@@ -19,6 +19,16 @@ data class EngineerModelRequest(
          val enGithub: String?,
          val enGitlab: String?,
          val enAvatar: String?
+) : Parcelable
+
+@Parcelize
+data class ProjectModelResponse(
+    val pjID : Long?,
+    val cpID: Long?,
+    val pjName : String?,
+    val pjDesc: String?,
+    val pjDeadline: String?,
+    val pjImage: String?
 ) : Parcelable
 
 data class AbilityM(val list: ArrayList<Ability>)

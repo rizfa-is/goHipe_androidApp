@@ -52,6 +52,7 @@ class EngineerAccountSettingFragment(private val toolbar: MaterialToolbar): Frag
         binding.btnEngsetfrgLogout.setOnClickListener {
             if (goHipePreferences.getEngineerPreference().isLogin) {
                 engineerModel.isLogin = false
+                engineerModel.level = ""
                 goHipePreferences.setEngineerPreference(engineerModel)
 
                 dialog.dialog(view.context, "Are you sure to logout ?") {

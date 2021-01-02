@@ -9,10 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemListMostPopularBinding
-import com.istekno.gohipeandroidapp.retrofit.AbilityModel
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
-import com.istekno.gohipeandroidapp.retrofit.ExperienceModel
-import com.istekno.gohipeandroidapp.retrofit.PortfolioModel
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 
 class TalentOfTheMonthAdapter: RecyclerView.Adapter<TalentOfTheMonthAdapter.ListViewHolder>() {
 
@@ -21,9 +18,9 @@ class TalentOfTheMonthAdapter: RecyclerView.Adapter<TalentOfTheMonthAdapter.List
     }
 
     private lateinit var onItemClickCallback: OnItemClickCallback
-    private val listEngineer = mutableListOf<EngineerModelRequest>()
+    private val listEngineer = mutableListOf<EngineerModelResponse>()
 
-    fun setData(listEn: List<EngineerModelRequest>) {
+    fun setData(listEn: List<EngineerModelResponse>) {
         listEngineer.clear()
         listEngineer.addAll(listEn)
         notifyDataSetChanged()
@@ -34,15 +31,15 @@ class TalentOfTheMonthAdapter: RecyclerView.Adapter<TalentOfTheMonthAdapter.List
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(engineerModelRequest: EngineerModelRequest)
+        fun onItemClicked(engineerModelResponse: EngineerModelResponse)
     }
 
     inner class ListViewHolder(val binding: ItemListMostPopularBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(engineerModelRequest: EngineerModelRequest) {
-            binding.modelMostPop = engineerModelRequest
+        fun bind(engineerModelResponse: EngineerModelResponse) {
+            binding.modelMostPop = engineerModelResponse
             Glide.with(itemView.context)
-                    .load(imageLink + engineerModelRequest.enAvatar)
+                    .load(imageLink + engineerModelResponse.enAvatar)
                     .apply(RequestOptions().override(150, 150))
                     .into(binding.imgMostPopular)
 

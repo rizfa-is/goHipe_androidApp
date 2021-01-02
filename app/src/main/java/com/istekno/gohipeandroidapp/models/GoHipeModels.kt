@@ -27,13 +27,6 @@ data class User(
 ) : Parcelable
 
 @Parcelize
-data class SearchProject(
-    val name : String,
-    val desc : String,
-    val image: Int
-) : Parcelable
-
-@Parcelize
 data class EngineerModel(
     var acID: Long? = null,
     var engID: Long? = null,

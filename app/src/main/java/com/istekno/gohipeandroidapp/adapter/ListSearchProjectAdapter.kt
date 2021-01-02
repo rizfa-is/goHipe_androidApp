@@ -9,27 +9,43 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemListSearchProjectBinding
-import com.istekno.gohipeandroidapp.models.SearchProject
+import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 
-class ListSearchProjectAdapter(private val listUser: List<SearchProject>, private val onItemClickCallback: OnItemClickCallback, private val level: Int): RecyclerView.Adapter<ListSearchProjectAdapter.ListViewHolder>() {
+class ListSearchProjectAdapter(private val level: Int): RecyclerView.Adapter<ListSearchProjectAdapter.ListViewHolder>() {
+
+    companion object {
+        const val imageLink = "http://107.22.89.131:7000/image/"
+    }
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    private val listUser = mutableListOf<ProjectModelResponse>()
+
+    fun setData(projectModelResponse: List<ProjectModelResponse>) {
+        listUser.clear()
+        listUser.addAll(projectModelResponse)
+        notifyDataSetChanged()
+    }
+
+    fun onItemClickCallbak(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     interface OnItemClickCallback {
-        fun onItemClicked(searchProject: SearchProject)
-        fun onDeleteClicked()
+        fun onItemClicked(projectModelResponse: ProjectModelResponse)
+        fun onDeleteClicked(projectModelResponse: ProjectModelResponse)
     }
 
     inner class ListViewHolder(val binding: ItemListSearchProjectBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(searchProject: SearchProject) {
+        fun bind(projectModelResponse: ProjectModelResponse) {
+            binding.model = projectModelResponse
             Glide.with(itemView.context)
-                .load(searchProject.image)
+                .load(imageLink + projectModelResponse.pjImage)
                 .apply(RequestOptions().override(150, 150))
                 .into(binding.imgListSearchProject)
 
-            binding.tvListSearchProjectName.text = searchProject.name
-            binding.tvListSearchProjectDesc.text = searchProject.desc
             if (level == 1) binding.imgDelete.visibility = View.VISIBLE
 
-            binding.imgDelete.setOnClickListener { onItemClickCallback.onDeleteClicked() }
+            binding.imgDelete.setOnClickListener { onItemClickCallback.onDeleteClicked(listUser[this.adapterPosition]) }
             this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[this.adapterPosition]) }
         }
     }

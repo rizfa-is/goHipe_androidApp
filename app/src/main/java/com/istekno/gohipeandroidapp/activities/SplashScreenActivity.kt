@@ -10,17 +10,14 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.models.EngineerModel
-import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.ActivitySplashScreenBinding
 import com.istekno.gohipeandroidapp.models.CompanyModel
+import com.istekno.gohipeandroidapp.models.EngineerModel
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.CompanyGetByIDResponse
-import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
-import okhttp3.Callback
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -29,8 +26,6 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private lateinit var goHipePreferences: GoHipePreferences
-    private lateinit var engineerModel: EngineerModel
-    private lateinit var companyModel: CompanyModel
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var dialog: Dialog
     private lateinit var coroutineScope: CoroutineScope
@@ -40,8 +35,6 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen)
         goHipePreferences = GoHipePreferences(this)
-        engineerModel = goHipePreferences.getEngineerPreference()
-        companyModel = goHipePreferences.getCompanyPreference()
         dialog = Dialog()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(this)!!.create(GoHipeApiService::class.java)
@@ -72,6 +65,8 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun sessionCheck(context: Context) {
         val idComp = goHipePreferences.getCompanyPreference().acID
         val idEng = goHipePreferences.getEngineerPreference().acID
+        val companyModel = goHipePreferences.getCompanyPreference()
+        val engineerModel = goHipePreferences.getEngineerPreference()
 
         if (idComp != (-1).toLong() || idEng != (-1).toLong()) {
             when {
@@ -120,6 +115,14 @@ class SplashScreenActivity : AppCompatActivity() {
                             }
                         }
                     }
+                }
+                else -> {
+                    Handler(mainLooper).postDelayed(
+                        {
+                            startActivity(Intent(context, MainScreenActivity::class.java))
+                            finish()
+                        }, splashDuration.toLong()
+                    )
                 }
             }
         } else {

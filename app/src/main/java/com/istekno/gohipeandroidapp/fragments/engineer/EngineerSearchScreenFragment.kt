@@ -16,7 +16,6 @@ import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerSearchScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.CompanyProjectScreenFragment
-import com.istekno.gohipeandroidapp.models.SearchProject
 
 class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment() {
 
@@ -25,7 +24,6 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment
     }
 
     private lateinit var binding: FragmentEngineerSearchScreenBinding
-    private val listTop = ArrayList<SearchProject>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -38,26 +36,25 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listTop.addAll(GoHipeDatabases.listSearchProject)
-        showRecyclerList()
+//        showRecyclerList()
     }
 
-    private fun showRecyclerList() {
-        binding.rvSearchListProject.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = ListSearchProjectAdapter(listTop, object : ListSearchProjectAdapter.OnItemClickCallback {
-                override fun onItemClicked(searchProject: SearchProject) {
-                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
-                    sendIntent.putExtra(PROJECT_AUTH_KEY, 0)
-                    startActivity(sendIntent)
-                }
-
-                override fun onDeleteClicked() {
-                    TODO()
-                }
-            }, 0)
-        }
-    }
+//    private fun showRecyclerList() {
+//        binding.rvSearchListProject.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = ListSearchProjectAdapter(listTop, object : ListSearchProjectAdapter.OnItemClickCallback {
+//                override fun onItemClicked(searchProject: SearchProject) {
+//                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
+//                    sendIntent.putExtra(PROJECT_AUTH_KEY, 0)
+//                    startActivity(sendIntent)
+//                }
+//
+//                override fun onDeleteClicked(searchProject: SearchProject) {
+//                    TODO()
+//                }
+//            }, 0)
+//        }
+//    }
 
     private fun setToolbar() {
         co.visibility = View.GONE

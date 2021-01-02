@@ -17,7 +17,7 @@ class CompanyMainContentActivity : AppCompatActivity() {
     private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(null)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_company_main_content)
         setSupportActionBar(binding.topAppBarMaincontentActivity)
         dialog = Dialog()

@@ -3,6 +3,13 @@ package com.istekno.gohipeandroidapp.retrofit
 import com.google.gson.annotations.SerializedName
 import kotlin.collections.ArrayList
 
+data class GeneralResponse(val success: Boolean, val message: String) {
+}
+
+data class LoginResponse(val success: Boolean, val message: String, val database: LoginModel?) {
+    data class LoginModel(val acID: Long, val email: String, val level: String, val token: String)
+}
+
 data class EngineerGetByIDResponse(val success: Boolean, val message: String, val database: ArrayList<Engineer>?) {
     data class Engineer(@SerializedName("en_id") val enID: Long,
                         @SerializedName("ac_name") val enName: String,
@@ -45,10 +52,6 @@ data class Experience(@SerializedName("ex_id") val exID: Long,
                       @SerializedName("ex_end") val exEndDate: String?)
 
 
-data class LoginResponse(val success: Boolean, val message: String, val database: LoginModel?) {
-    data class LoginModel(val acID: Long, val email: String, val level: String, val token: String)
-}
-
 data class EngineerRegisterResponse(val success: Boolean, val message: String, val database: EngineerRegisterGHR?) {
     data class EngineerRegisterGHR(@SerializedName("id") val id: Long,
                                    @SerializedName("ac_name") val enName: String,
@@ -73,16 +76,19 @@ data class CompanyGetByIDResponse(val success: Boolean, val message: String, val
                         @SerializedName("cp_desc") val cpDesc: String?,
                         @SerializedName("cp_insta") val cpInsta: String?,
                         @SerializedName("cp_linkedin") val cpLinkedIn: String?,
-                        @SerializedName("cp_img") val cpAvatar: String?,
-                        @SerializedName("project") val cpProject: ArrayList<Project>?)
-
-    data class Project(@SerializedName("pj_id") val exID: Long,
-                          @SerializedName("cp_id") val enID: Long,
-                          @SerializedName("pj_name") val exRole: String?,
-                          @SerializedName("pj_desc") val exCompany: String?,
-                          @SerializedName("pj_deadline") val exDesc: String?,
-                          @SerializedName("image") val exStartDate: String?)
+                        @SerializedName("cp_img") val cpAvatar: String?)
 }
+
+data class GetAllProject(val success: Boolean, val message: String, val database: ArrayList<Project>?)
+
+data class Project(@SerializedName("pj_id") val pjID: Long,
+                   @SerializedName("cp_id") val cpID: Long,
+                   @SerializedName("pj_name") val pjName: String?,
+                   @SerializedName("pj_desc") val pjDesc: String?,
+                   @SerializedName("pj_deadline") val pjDeadline: String?,
+                   @SerializedName("pj_img") val pjImage: String?,
+                   @SerializedName("pj_created_at") val pjCreatedAt: String?,
+                   @SerializedName("pj_updated_at") val pjUpdatedAt: String?)
 
 data class CompanyRegisterResponse(val success: Boolean, val message: String, val database: CompanyRegisterGHR?) {
     data class CompanyRegisterGHR(@SerializedName("id") val id: Long,

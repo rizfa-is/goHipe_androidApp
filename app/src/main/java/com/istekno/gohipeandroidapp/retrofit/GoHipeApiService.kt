@@ -1,5 +1,7 @@
 package com.istekno.gohipeandroidapp.retrofit
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -56,12 +58,11 @@ interface GoHipeApiService {
             @Path("id") id: Long
     ): CompanyGetByIDResponse
 
-    @GET("company/{id}")
-    suspend fun testJWTCompany(
-            @Path("id") id: Long
-    ): Call<CompanyGetByIDResponse>
+    @GET("project")
+    suspend fun getAllProjectCompany(): GetAllProject
 
     @POST("signup/company")
+    @FormUrlEncoded
     suspend fun registerCompany(
             @Field("name") name: String,
             @Field("email") email: String,
@@ -70,5 +71,20 @@ interface GoHipeApiService {
             @Field("company") company: String,
             @Field("position") position: String
     ): CompanyRegisterResponse
+
+    @Multipart
+    @POST("project/create")
+    suspend fun addProject(
+        @Part("cp_id") cpID: RequestBody,
+        @Part("pj_name") name: RequestBody,
+        @Part("pj_desc") desc: RequestBody,
+        @Part("pj_deadline") deadline: RequestBody,
+        @Part image: MultipartBody.Part
+    ): Call<GeneralResponse>
+
+    @DELETE("project/{id}")
+    suspend fun deleteProject(
+        @Path("id") id: Long
+    ): GeneralResponse
 
 }

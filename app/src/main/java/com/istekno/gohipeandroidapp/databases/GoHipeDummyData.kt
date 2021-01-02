@@ -2,6 +2,7 @@ package com.istekno.gohipeandroidapp.databases
 
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.models.*
+import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 
 object GoHipeDatabases {
     private val portfolio = intArrayOf(
@@ -173,19 +174,6 @@ object GoHipeDatabases {
             return mp
         }
 
-    val listSearchProject: ArrayList<SearchProject>
-        get() {
-            val mp = ArrayList<SearchProject>()
-            for (i in name.indices) {
-                val mostPopular = SearchProject(
-                    projectName[i],
-                    desc[i],
-                    portfolio[i]
-                )
-                mp.add(mostPopular)
-            }
-            return mp
-        }
 
     var statusHire : String = ""
     val listHire: ArrayList<HireModel>

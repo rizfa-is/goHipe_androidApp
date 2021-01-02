@@ -5,122 +5,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.company.CompanyAddProjectScreenFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="16dp">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_addproject"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_mainscreen_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/circleImage_profile" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/edit_image_button_bg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="3dp"
-            android:padding="3dp"
-            android:background="@color/theme_green"
-            android:scaleType="centerCrop"
-            app:strokeColor="@color/white"
-            app:strokeWidth="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_addproject"
-            app:layout_constraintEnd_toEndOf="@+id/img_addproject"
-            app:shapeAppearance="@style/circleImage_profile" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/edit_image_button"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_margin="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_image_button_bg"
-            app:layout_constraintEnd_toEndOf="@+id/edit_image_button_bg"
-            app:layout_constraintStart_toStartOf="@+id/edit_image_button_bg"
-            app:layout_constraintTop_toTopOf="@+id/edit_image_button_bg"
-            app:shapeAppearance="@style/circleImage_profile" />
-
-        <TextView
-            android:id="@+id/tv_compaddprojectfrg_name"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="24dp"
-            android:text="@string/_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_addproject" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_compaddprojectfrg_name"
-            style="@style/MaterialField_TextInputLayout_Edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_compaddprojectfrg_name"
-                style="@style/MaterialField_EditText_Edit" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_compaddprojectfrg_desc"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="16dp"
-            android:text="@string/_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_name" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_compaddprojectfrg_desc"
-            style="@style/MaterialField_TextInputLayout_Edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_desc">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_compaddprojectfrg_desc"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_addproject"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                style="@style/MaterialField_EditText_Edit" />
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_mainscreen_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/circleImage_profile" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/edit_image_button_bg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:padding="3dp"
+                android:background="@color/theme_green"
+                android:scaleType="centerCrop"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_addproject"
+                app:layout_constraintEnd_toEndOf="@+id/img_addproject"
+                app:shapeAppearance="@style/circleImage_profile" />
 
-        <TextView
-            android:id="@+id/tv_compaddprojectfrg_deadline"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="16dp"
-            android:text="@string/deadline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_desc" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/edit_image_button"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_image_button_bg"
+                app:layout_constraintEnd_toEndOf="@+id/edit_image_button_bg"
+                app:layout_constraintStart_toStartOf="@+id/edit_image_button_bg"
+                app:layout_constraintTop_toTopOf="@+id/edit_image_button_bg"
+                app:shapeAppearance="@style/circleImage_profile" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_compaddprojectfrg_deadline"
-            style="@style/MaterialField_TextInputLayout_Edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_deadline">
+            <TextView
+                android:id="@+id/tv_compaddprojectfrg_name"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="24dp"
+                android:text="@string/_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_addproject" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_compaddprojectfrg_deadline"
-                style="@style/MaterialField_EditText_Edit" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_compaddprojectfrg_name"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_name">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_compaddprojectfrg_name"
+                    style="@style/MaterialField_EditText_Edit" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_compaddprojectfrg_add"
-            style="@style/MaterialButton"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@color/theme_orange"
-            android:text="@string/add_project"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_deadline" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_compaddprojectfrg_desc"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:text="@string/_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_name" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_compaddprojectfrg_desc"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_desc">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_compaddprojectfrg_desc"
+                    android:layout_height="100dp"
+                    style="@style/MaterialField_EditText_Edit" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_compaddprojectfrg_deadline"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:text="@string/deadline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_desc" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_compaddprojectfrg_deadline"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_deadline">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_compaddprojectfrg_deadline"
+                    android:clickable="true"
+                    android:editable="false"
+                    style="@style/MaterialField_EditText_Edit"
+                    android:focusable="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_compaddprojectfrg_add"
+                style="@style/MaterialButton"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="70dp"
+                android:backgroundTint="@color/theme_orange"
+                android:text="@string/add_project"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_deadline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

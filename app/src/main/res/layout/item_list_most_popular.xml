@@ -7,7 +7,7 @@
     <data>
         <variable
             name="modelMostPop"
-            type="com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest" />
+            type="com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse" />
     </data>
 
     <RelativeLayout

@@ -3,7 +3,6 @@ package com.istekno.gohipeandroidapp.fragments.company
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +21,7 @@ import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
 import com.istekno.gohipeandroidapp.models.User
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.AbilityM
-import com.istekno.gohipeandroidapp.retrofit.AbilityModel
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelRequest
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
@@ -75,7 +72,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                     val result1 = service.getCompanyByID(id!!.toLong())
                     val result2 = service.getAllEngineer()
                     val listEngineer = result2.database?.map {
-                        EngineerModelRequest(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                        EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
                     }
 
                     activity?.runOnUiThread {
@@ -96,10 +93,10 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         binding.rvListEngineer.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             rvAdapter.setOnItemClickCallback(object : TalentOfTheMonthAdapter.OnItemClickCallback {
-                override fun onItemClicked(engineerModelRequest: EngineerModelRequest) {
+                override fun onItemClicked(engineerModelResponse: EngineerModelResponse) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(HOME_AUTH_KEY, 1)
-                    sendIntent.putExtra(HOME_DATA, engineerModelRequest)
+                    sendIntent.putExtra(HOME_DATA, engineerModelResponse)
                     startActivity(sendIntent)
                 }
             })

@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyDetailProjectScreenBinding
+import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 
 class CompanyDetailProjectScreenFragment : Fragment() {
 
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
+        const val PROJECT_DATA = "project_data"
+
+        const val imageLink = "http://107.22.89.131:7000/image/"
     }
 
     private lateinit var binding: FragmentCompanyDetailProjectScreenBinding
@@ -28,6 +33,10 @@ class CompanyDetailProjectScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val data = activity?.intent?.getParcelableExtra<ProjectModelResponse>(PROJECT_DATA)
+
+        binding.model = data
+        Glide.with(view.context).load(imageLink + data?.pjImage).into(binding.imgCompdetailprojectfrgAvatar)
 
         binding.btnComdetailprojectfrgEditproject.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
