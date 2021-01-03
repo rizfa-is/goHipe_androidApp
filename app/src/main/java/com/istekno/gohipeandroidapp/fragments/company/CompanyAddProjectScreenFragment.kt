@@ -50,9 +50,6 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
 
     companion object {
         const val FIELD_REQUIRED = "Field tidak boleh kosong"
-        const val FIELD_DIGITS_ONLY = "Hanya boleh berisi numerik"
-        const val FIELD_IS_NOT_VALID = "Email tidak valid"
-        const val FIELD_MUST_MATCH = "Password harus sama"
     }
 
     private lateinit var binding: FragmentCompanyAddProjectScreenBinding
@@ -105,20 +102,11 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == Constant.REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null){
-
             val dataResponse = data.data.toString()
             val path = dataResponse
 
-            Log.e("data",path)
-            // membuat request body yang berisi file dari picked image.
-            val requestBody = File(path).asRequestBody("multipart".toMediaTypeOrNull())
-
-            // mengoper value dari requestbody sekaligus membuat form data untuk upload. dan juga mengambil nama dari picked image
             imageName = MultipartBody.Part.createFormData("image", path)
-
-            // mempilkan image yang akan diupload dengan glide ke imgUpload.
             Glide.with(this).load(path).into(binding.imgAddproject)
-
         }
     }
 
@@ -128,17 +116,17 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         val inputDeadline = binding.etCompaddprojectfrgDeadline.text.toString()
 
         if (inputName.isEmpty()) {
-            binding.etCompaddprojectfrgName.error = CompanyRegisterScreenFragment.FIELD_REQUIRED
+            binding.etCompaddprojectfrgName.error = FIELD_REQUIRED
             return
         }
 
         if (inputDesc.isEmpty()) {
-            binding.etCompaddprojectfrgDesc.error = CompanyRegisterScreenFragment.FIELD_IS_NOT_VALID
+            binding.etCompaddprojectfrgDesc.error = FIELD_REQUIRED
             return
         }
 
         if (inputDeadline.isEmpty()) {
-            binding.etCompaddprojectfrgDeadline.error = CompanyRegisterScreenFragment.FIELD_REQUIRED
+            binding.etCompaddprojectfrgDeadline.error = FIELD_REQUIRED
             return
         }
 

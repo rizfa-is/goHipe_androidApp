@@ -13,6 +13,10 @@ import com.istekno.gohipeandroidapp.utility.Dialog
 
 class CompanyMainContentActivity : AppCompatActivity() {
 
+    companion object {
+        const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
+    }
+
     private lateinit var binding: ActivityCompanyMainContentBinding
     private lateinit var dialog: Dialog
 
@@ -33,7 +37,13 @@ class CompanyMainContentActivity : AppCompatActivity() {
     }
 
     private fun initHomeFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
+        val hireAuthKey = intent.getIntExtra(HIRE_ADD_AUTH_KEY, -1)
+
+        if (hireAuthKey == 1) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany)).commit()
+        } else {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
+        }
     }
 
     private fun changeFragmentScreen() {

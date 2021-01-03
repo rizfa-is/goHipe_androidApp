@@ -82,6 +82,15 @@ interface GoHipeApiService {
         @Part image: MultipartBody.Part
     ): Call<GeneralResponse>
 
+    @POST("hire/create")
+    @FormUrlEncoded
+    suspend fun addHire(
+            @Field("en_id") enID: Long,
+            @Field("pj_id") pjID: Long,
+            @Field("hr_price") price: String,
+            @Field("hr_message") message: String
+    ): GeneralResponse
+
     @DELETE("project/{id}")
     suspend fun deleteProject(
         @Path("id") id: Long

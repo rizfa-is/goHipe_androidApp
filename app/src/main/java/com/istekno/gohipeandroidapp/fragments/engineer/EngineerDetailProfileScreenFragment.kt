@@ -20,6 +20,7 @@ class EngineerDetailProfileScreenFragment : Fragment() {
 
     companion object {
         const val HIRE_AUTH_KEY = "hire_auth_key"
+        const val HIRE_DATA = "hire_data"
         const val HOME_DATA = "home_data"
 
         const val imageLink = "http://107.22.89.131:7000/image/"
@@ -38,16 +39,17 @@ class EngineerDetailProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HOME_DATA)
+        binding.model = data
+        Glide.with(view.context).load(imageLink + data?.enAvatar).into(binding.imgEnprofifrgAvatar)
+
 
         binding.btnEngprofifrgHire.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(HIRE_AUTH_KEY, 0)
+            sendIntent.putExtra(HIRE_DATA, data)
             startActivity(sendIntent)
         }
-
-        val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HOME_DATA)
-        binding.model = data
-        Glide.with(view.context).load(imageLink + data?.enAvatar).into(binding.imgEnprofifrgAvatar)
 
         setViewPager()
         chipViewInit(view)
