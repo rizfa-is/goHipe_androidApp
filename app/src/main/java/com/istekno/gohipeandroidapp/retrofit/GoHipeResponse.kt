@@ -90,6 +90,23 @@ data class Project(@SerializedName("pj_id") val pjID: Long,
                    @SerializedName("pj_created_at") val pjCreatedAt: String?,
                    @SerializedName("pj_updated_at") val pjUpdatedAt: String?)
 
+data class GetAllHire(val success: Boolean, val message: String, val database: ArrayList<Hire>?)
+
+data class Hire(@SerializedName("hr_id") val hrID: Long,
+                @SerializedName("cp_id") val cpID: Long,
+                @SerializedName("en_id") val enID: Long,
+                @SerializedName("pj_id") val pjID: Long,
+                @SerializedName("pj_name") val pjName: String?,
+                @SerializedName("pj_desc") val pjDesc: String?,
+                @SerializedName("pj_deadline") val pjDeadline: String?,
+                @SerializedName("pj_img") val pjImage: String?,
+                @SerializedName("hr_price") val hrPrice: String?,
+                @SerializedName("hr_message") val hrMessage: String?,
+                @SerializedName("hr_status") val hrStatus: String?,
+                @SerializedName("hr_date_confirm") val hrDateConfirm: String?,
+                @SerializedName("hr_created_at") val hrCreatedAt: String?)
+
+
 data class CompanyRegisterResponse(val success: Boolean, val message: String, val database: CompanyRegisterGHR?) {
     data class CompanyRegisterGHR(@SerializedName("id") val id: Long,
                                    @SerializedName("ac_name") val enName: String,

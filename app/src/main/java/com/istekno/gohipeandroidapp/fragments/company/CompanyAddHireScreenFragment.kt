@@ -63,10 +63,7 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         setTextInput(data)
 
         binding.btnComhirenowfrgUpdate.setOnClickListener {
-            val project = binding.etComhirenowfrgProject.text.toString()
-
             hire(view, data?.enID!!)
-            Toast.makeText(view.context, "Project: $project", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -100,7 +97,7 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         }
 
         postHire(enID, project, price, msg)
-        dialog.dialog(view.context, "Add project successful!") {
+        dialog.dialogCancel(view.context, "Add project successful!") {
             val sendIntent = Intent(view.context, CompanyMainContentActivity::class.java)
             sendIntent.putExtra(HIRE_ADD_AUTH_KEY, 1)
             startActivity(sendIntent)

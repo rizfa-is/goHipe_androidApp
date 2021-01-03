@@ -53,6 +53,7 @@ interface GoHipeApiService {
 
 
 
+
     @GET("company/{id}")
     suspend fun getCompanyByID(
             @Path("id") id: Long
@@ -60,6 +61,9 @@ interface GoHipeApiService {
 
     @GET("project")
     suspend fun getAllProjectCompany(): GetAllProject
+
+    @GET("hire")
+    suspend fun getAllHire(): GetAllHire
 
     @POST("signup/company")
     @FormUrlEncoded
@@ -96,4 +100,10 @@ interface GoHipeApiService {
         @Path("id") id: Long
     ): GeneralResponse
 
+    @PUT("hire/update/{id}")
+    @FormUrlEncoded
+    suspend fun updateHireStatus(
+            @Path("id") id: Long,
+            @Field("hr_status") hrStatus: String
+    ): GeneralResponse
 }

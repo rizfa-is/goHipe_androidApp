@@ -10,29 +10,43 @@ import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemListHireBinding
 import com.istekno.gohipeandroidapp.models.HireModel
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
+import com.istekno.gohipeandroidapp.retrofit.HireModelResponse
 
-class ListHireAdapter(private val listHire: ArrayList<HireModel>, private val onItemClickCallback: OnItemClickCallback, private val hireStatus: Int) : RecyclerView.Adapter<ListHireAdapter.ListViewHolder>() {
+class ListHireAdapter(private val hireStatus: Int) : RecyclerView.Adapter<ListHireAdapter.ListViewHolder>() {
 
     companion object {
         const val STATUS_WAIT = "On waiting"
         const val STATUS_APPROVED = "Approved"
         const val STATUS_REJECTED = "Rejected"
+
+        const val imageLink = "http://107.22.89.131:7000/image/"
+    }
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    private val listHire = mutableListOf<HireModelResponse>()
+
+    fun setData(listHr: List<HireModelResponse>) {
+        listHire.clear()
+        listHire.addAll(listHr)
+        notifyDataSetChanged()
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(hireModel: HireModel)
+        fun onItemClicked(hireModelResponse: HireModelResponse)
     }
 
     inner class ListViewHolder(val binding: ItemListHireBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(hireModel: HireModel) {
+        fun bind(hireModelResponse: HireModelResponse) {
+            binding.model = hireModelResponse
             Glide.with(itemView.context)
-                .load(hireModel.image)
+                .load(imageLink + hireModelResponse.pjImage)
                 .apply(RequestOptions().override(150,150))
                 .into(binding.imgListSearchProject)
-
-            binding.tvListSearchProjectName.text = hireModel.project
-            binding.tvListSearchProjectDesc.text = hireModel.desc
-            binding.tvListSearchProjectDeadline.text = hireModel.deadline
 
             hireStatusMode(binding, itemView)
 

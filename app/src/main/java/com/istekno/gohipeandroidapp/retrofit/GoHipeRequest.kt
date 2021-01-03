@@ -31,6 +31,23 @@ data class ProjectModelResponse(
     val pjImage: String?
 ) : Parcelable
 
+@Parcelize
+data class HireModelResponse(
+        val hrID: Long,
+        val cpID: Long,
+        val enID: Long,
+        val pjID: Long,
+        val pjName : String?,
+        val pjDesc: String?,
+        val pjDeadline: String?,
+        val pjImage: String?,
+        val hrPrice: String?,
+        val hrMessage: String?,
+        val hrStatus: String?,
+        val hrDateConfirm: String?,
+        val hrCreatedAt: String?
+) : Parcelable
+
 data class AbilityM(val list: ArrayList<Ability>)
 
 data class AbilityModel(val abID: Long,

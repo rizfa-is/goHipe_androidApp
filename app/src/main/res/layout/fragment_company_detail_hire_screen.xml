@@ -5,6 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.company.CompanyDetailHireScreenFragment">
 
+    <data>
+        <variable
+            name="model"
+            type="com.istekno.gohipeandroidapp.retrofit.HireModelResponse" />
+
+        <variable
+            name="modelEng"
+            type="com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,7 +76,7 @@
                         android:layout_marginTop="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Tanam Tuai"
+                        android:text="@{model.pjName}"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -81,7 +91,7 @@
                         android:layout_marginTop="4dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Max budget : $1200"
+                        android:text="@{`Price : ` + model.hrPrice}"
                         android:textColor="@color/text_loc" />
 
                     <TextView
@@ -93,7 +103,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
-                        android:text="@string/description"
+                        android:text="@{model.hrMessage}"
                         android:textColor="@color/black" />
 
                     <com.google.android.material.button.MaterialButton
@@ -165,7 +175,7 @@
                         android:layout_toEndOf="@+id/img_list_search_eng"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Monkey D. Luffy"
+                        android:text="@{modelEng.enName}"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -179,7 +189,7 @@
                         android:layout_marginTop="4dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Android Developer"
+                        android:text="@{modelEng.enJobTitle}"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -191,7 +201,7 @@
                         android:layout_marginTop="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="ID : 989-098-1295"
+                        android:text="@{`ID : ` + modelEng.enID.toString()}"
                         android:textColor="@color/text_loc" />
 
                 </RelativeLayout>
