@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -11,9 +12,8 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
-import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
+import com.istekno.gohipeandroidapp.activities.EngineerMainContentActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailHireScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyAddHireScreenFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
@@ -22,6 +22,9 @@ import com.istekno.gohipeandroidapp.retrofit.HireModelResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
+import java.text.NumberFormat
+import java.util.*
+
 
 class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment() {
 
@@ -49,6 +52,7 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
@@ -56,16 +60,25 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
         goHipePreferences = GoHipePreferences(view.context)
         dialog = Dialog()
 
+        viewListener(view)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun viewListener(view: View) {
         val model = activity?.intent?.getParcelableExtra<HireModelResponse>(HIRE_DATA)
+        val price = NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(model?.hrPrice?.toDouble())
+
         binding.model = model
+        binding.tvEngdetailhirefrgprice.text = "Budget: $price"
         Glide.with(view.context).load(imageLink + model?.pjImage).into(binding.imgEngdetailhirefrgproject)
+
         getEngineerInfo(model!!, view)
 
         binding.btnEngdetailhirefrgEditproject.setOnClickListener {
             updateHireStatus("approve", model)
 
-            dialog.dialogCancel(view.context, "Hiring accepted!") {
-                val sendIntent = Intent(view.context, CompanyMainContentActivity::class.java)
+            dialog.dialog(view.context, "Hiring accepted!") {
+                val sendIntent = Intent(view.context, EngineerMainContentActivity::class.java)
                 sendIntent.putExtra(HIRE_ADD_AUTH_KEY, 1)
                 startActivity(sendIntent)
             }
@@ -74,8 +87,8 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
         binding.btnEngdetailhirefrgEditproject2.setOnClickListener {
             updateHireStatus("reject", model)
 
-            dialog.dialogCancel(view.context, "Hiring denied!") {
-                val sendIntent = Intent(view.context, CompanyMainContentActivity::class.java)
+            dialog.dialog(view.context, "Hiring denied!") {
+                val sendIntent = Intent(view.context, EngineerMainContentActivity::class.java)
                 sendIntent.putExtra(HIRE_ADD_AUTH_KEY, 1)
                 startActivity(sendIntent)
             }
@@ -87,7 +100,7 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
             withContext(Dispatchers.IO) {
                 try {
                     service.updateHireStatus(data.hrID, status)
-                } catch (e:Throwable) {
+                } catch (e: Throwable) {
                     e.printStackTrace()
                 }
             }

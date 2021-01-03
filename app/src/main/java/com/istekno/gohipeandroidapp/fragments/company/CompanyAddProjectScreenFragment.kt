@@ -4,10 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
-import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAddProjectScreenBinding
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBinding
 import com.istekno.gohipeandroidapp.models.ImagePickerModel
@@ -29,6 +27,7 @@ import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.vincent.filepicker.Constant
 import com.vincent.filepicker.Constant.MAX_NUMBER
+import com.vincent.filepicker.Constant.RESULT_PICK_IMAGE
 import com.vincent.filepicker.activity.ImagePickActivity
 import com.vincent.filepicker.filter.entity.ImageFile
 import kotlinx.coroutines.*
@@ -50,6 +49,8 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
 
     companion object {
         const val FIELD_REQUIRED = "Field tidak boleh kosong"
+        const val PROJECT_ADD_AUTH_KEY = "project_add_auth_key"
+        const val REQUEST_CODE = 1000
     }
 
     private lateinit var binding: FragmentCompanyAddProjectScreenBinding
@@ -84,10 +85,9 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         binding.editImageButton.setOnClickListener {
 
             if (EasyPermissions.hasPermissions(view.context,android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
-                startActivityForResult(intent, Constant.REQUEST_CODE_PICK_IMAGE)
+                startActivityForResult(intent, REQUEST_CODE)
             } else {
                 EasyPermissions.requestPermissions(this,"This application need your permission to access image gallery.",991,android.Manifest.permission.READ_EXTERNAL_STORAGE)
             }
@@ -101,12 +101,12 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == Constant.REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK && data != null){
-            val dataResponse = data.data.toString()
-            val path = dataResponse
+        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
+            val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
 
-            imageName = MultipartBody.Part.createFormData("image", path)
-            Glide.with(this).load(path).into(binding.imgAddproject)
+            imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
+            Glide.with(this).load(dataResponse).into(binding.imgAddproject)
         }
     }
 
@@ -133,7 +133,9 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         addProjectService(inputName, inputDesc, inputDeadline)
 
         dialog.dialogCancel(context, "Add project successful") {
-            fragmentManager?.popBackStack()
+            val sendIntent = Intent(view?.context, CompanyMainContentActivity::class.java)
+            sendIntent.putExtra(PROJECT_ADD_AUTH_KEY, 1)
+            startActivity(sendIntent)
         }
     }
 

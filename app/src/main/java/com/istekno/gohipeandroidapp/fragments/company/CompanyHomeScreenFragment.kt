@@ -52,8 +52,6 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
         goHipePreferences = GoHipePreferences(view.context)
 
-
-
         showRecyclerList()
         showRecyclerList2()
         (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(GoHipeDatabases.listSearchEngineer)

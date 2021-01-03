@@ -73,7 +73,6 @@ class CompanyApprovedHireFragment : Fragment() {
                 mutable.removeAll { it.cpID != cpID }
                 mutable.removeAll { it.hrStatus != "approve"}
 
-                Log.e("listHire Approve", mutable.toString())
                 (binding.rvApprovedfrg.adapter as ListHireAdapter).setData(mutable)
             }
         }

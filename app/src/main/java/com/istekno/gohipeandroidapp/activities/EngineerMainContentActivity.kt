@@ -13,6 +13,10 @@ import com.istekno.gohipeandroidapp.utility.Dialog
 
 class EngineerMainContentActivity : AppCompatActivity() {
 
+    companion object {
+        const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
+    }
+
     private lateinit var binding: ActivityEngineerMainContentBinding
     private lateinit var dialog: Dialog
 
@@ -33,10 +37,17 @@ class EngineerMainContentActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-
+        val hireAuthKey = intent.getIntExtra(HIRE_ADD_AUTH_KEY, -1)
         binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
 
-        supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer)).commit()
+        if (hireAuthKey == 1) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coEngineer, binding.bottomNavView)).commit()
+
+        } else {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer)).commit()
+        }
+
+
     }
 
     private fun changeFragmentScreen() {
@@ -52,7 +63,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
                     true
                 }
                 R.id.mn_item_maincontent_hiring -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coEngineer)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coEngineer, binding.bottomNavView)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_account -> {

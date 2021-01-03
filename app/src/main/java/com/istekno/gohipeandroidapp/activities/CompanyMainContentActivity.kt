@@ -15,6 +15,7 @@ class CompanyMainContentActivity : AppCompatActivity() {
 
     companion object {
         const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
+        const val PROJECT_ADD_AUTH_KEY = "project_add_auth_key"
     }
 
     private lateinit var binding: ActivityCompanyMainContentBinding
@@ -38,9 +39,12 @@ class CompanyMainContentActivity : AppCompatActivity() {
 
     private fun initHomeFragment() {
         val hireAuthKey = intent.getIntExtra(HIRE_ADD_AUTH_KEY, -1)
+        val projectAuthKey = intent.getIntExtra(PROJECT_ADD_AUTH_KEY, -1)
 
         if (hireAuthKey == 1) {
-            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany)).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany, binding.bottomNavView)).commit()
+        } else if (projectAuthKey == 1) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany, binding.bottomNavView)).commit()
         } else {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
         }
@@ -59,11 +63,11 @@ class CompanyMainContentActivity : AppCompatActivity() {
                     true
                 }
                 R.id.mn_item_maincontent_hiring -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany, binding.bottomNavView)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_project -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany)).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany, binding.bottomNavView)).commit()
                     true
                 }
                 R.id.mn_item_maincontent_account -> {

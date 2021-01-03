@@ -24,8 +24,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/circleList" />
@@ -71,7 +71,6 @@
             android:drawablePadding="10dp"
             android:drawableTint="@android:color/holo_red_dark"
             android:gravity="center_vertical"
-            android:text="@{model.pjDeadline}"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_list_search_project_name"

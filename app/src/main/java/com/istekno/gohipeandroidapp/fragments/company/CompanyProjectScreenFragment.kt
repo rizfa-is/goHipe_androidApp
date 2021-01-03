@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
@@ -23,7 +24,7 @@ import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout) : Fragment() {
+class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout, private val bottomNavigationView: BottomNavigationView) : Fragment() {
 
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
@@ -38,7 +39,7 @@ class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        setToolbar(toolbar, co)
+        setToolbar(toolbar, co, bottomNavigationView)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_project_screen, container, false)
         return binding.root
@@ -124,8 +125,9 @@ class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private
         }
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar, co: CoordinatorLayout) {
+    private fun setToolbar(toolbar: MaterialToolbar, co: CoordinatorLayout, bottomNavigationView: BottomNavigationView) {
         co.visibility = View.VISIBLE
+        bottomNavigationView.menu.findItem(R.id.mn_item_maincontent_project).isChecked = true
         toolbar.title = "Project"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false

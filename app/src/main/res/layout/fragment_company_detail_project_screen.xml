@@ -75,7 +75,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_compdetailprojectfrg_job"
+                        android:id="@+id/tv_compdetailprojectfrg_deadline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -84,7 +84,6 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@android:color/holo_red_dark"
                         android:gravity="center_vertical"
-                        android:text="@{model.pjDeadline}"
                         android:textColor="@color/text" />
 
                     <TextView

@@ -5,117 +5,126 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.company.CompanyAddHireScreenFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="16dp"
-        android:background="@color/theme_green">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_comhirenowfrg_hirenow"
-            style="@style/TextView_Account"
-            android:layout_marginTop="24dp"
-            android:text="@string/hire_talent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:background="@color/theme_green">
 
-        <TextView
-            android:id="@+id/tv_comhirenowfrg_engid"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="32dp"
-            android:text="@string/engineer_id"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_hirenow" />
+            <TextView
+                android:id="@+id/tv_comhirenowfrg_hirenow"
+                style="@style/TextView_Account"
+                android:layout_marginTop="24dp"
+                android:text="@string/hire_talent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_comhirenowfrg_engid"
-            style="@style/MaterialField_TextInputLayout_Edit2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_engid">
+            <TextView
+                android:id="@+id/tv_comhirenowfrg_engid"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="32dp"
+                android:text="@string/engineer_id"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_hirenow" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_comhirenowfrg_engid"
-                style="@style/MaterialField_EditText_Edit2" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_comhirenowfrg_engid"
+                style="@style/MaterialField_TextInputLayout_Edit2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_engid">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_comhirenowfrg_engid"
+                    style="@style/MaterialField_EditText_Edit2" />
 
-        <TextView
-            android:id="@+id/tv_comhirenowfrg_project"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="16dp"
-            android:text="@string/project"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_engid" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_comhirenowfrg_project"
-            style="@style/MaterialField_TextInputLayout_Edit3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_project">
+            <TextView
+                android:id="@+id/tv_comhirenowfrg_project"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:text="@string/project"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_engid" />
 
-            <AutoCompleteTextView
-                android:id="@+id/et_comhirenowfrg_project"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"  />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_comhirenowfrg_project"
+                style="@style/MaterialField_TextInputLayout_Edit3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_project">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/et_comhirenowfrg_project"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"  />
 
-        <TextView
-            android:id="@+id/tv_comhirenowfrg_message"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="16dp"
-            android:text="@string/message"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_project" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_comhirenowfrg_message"
-            style="@style/MaterialField_TextInputLayout_Edit2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_message">
+            <TextView
+                android:id="@+id/tv_comhirenowfrg_message"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:text="@string/message"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_project" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_comhirenowfrg_message"
-                android:layout_height="100dp"
-                style="@style/MaterialField_EditText_Edit2" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_comhirenowfrg_message"
+                style="@style/MaterialField_TextInputLayout_Edit2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_message">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_comhirenowfrg_message"
+                    android:layout_height="100dp"
+                    style="@style/MaterialField_EditText_Edit2" />
 
-        <TextView
-            android:id="@+id/tv_comhirenowfrg_price"
-            style="@style/TextView_MaterialInput_Edit"
-            android:layout_marginTop="16dp"
-            android:text="@string/price"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_message" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/it_comhirenowfrg_price"
-            style="@style/MaterialField_TextInputLayout_Edit2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_price">
+            <TextView
+                android:id="@+id/tv_comhirenowfrg_price"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:text="@string/price"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_message" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_comhirenowfrg_price"
-                style="@style/MaterialField_EditText_Edit2" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_comhirenowfrg_price"
+                style="@style/MaterialField_TextInputLayout_Edit2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comhirenowfrg_price">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_comhirenowfrg_price"
+                    style="@style/MaterialField_EditText_Edit2"
+                    android:inputType="number"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_comhirenowfrg_update"
-            style="@style/MaterialButton"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@color/theme_orange"
-            android:text="@string/hire_now"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_price" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_comhirenowfrg_update"
+                style="@style/MaterialButton"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="70dp"
+                android:backgroundTint="@color/theme_orange"
+                android:text="@string/hire_now"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_comhirenowfrg_price" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

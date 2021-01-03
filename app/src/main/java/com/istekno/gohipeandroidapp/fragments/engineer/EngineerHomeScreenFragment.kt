@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,11 +17,17 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ScouterOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.adapter.SkillfulTalentAdapter
+import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHomeScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
 import com.istekno.gohipeandroidapp.models.ScouterTop
 import com.istekno.gohipeandroidapp.models.User
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import kotlinx.coroutines.*
 
 class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
 
@@ -29,6 +36,10 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
     }
 
     private lateinit var binding: FragmentEngineerHomeScreenBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
+    private lateinit var goHipePreferences: GoHipePreferences
+
     private val listTop = ArrayList<ScouterTop>()
     private val listSkillful = ArrayList<User>()
 
@@ -42,6 +53,9 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
+        goHipePreferences = GoHipePreferences(view.context)
 
         listTop.addAll(GoHipeDatabases.listScouterOfTheMonth)
         listTop.sortByDescending { it.engineer_hired }
@@ -49,7 +63,27 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
         showRecyclerList()
         showRecyclerList2()
+        getCompanyInfo()
         toolbarListener()
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun getCompanyInfo() {
+        coroutineScope.launch {
+            val id = goHipePreferences.getEngineerPreference().acID
+
+            withContext(Dispatchers.IO) {
+                try {
+                    val result1 = service.getEngineerByID(id!!.toLong())
+
+                    activity?.runOnUiThread {
+                        binding.textViewHello.text = "Hai ${result1.database!![0].enName.split(" ")[0]}"
+                    }
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun showRecyclerList() {

@@ -13,7 +13,7 @@
     <color name="theme_orange">#efa723</color>
     <color name="theme_orange_trans">#99efa723</color>
     <color name="theme_red">#db0000</color>
-    <color name="theme_red_trans">#99db0000</color>
+    <color name="theme_red_trans">#99FD2C2C</color>
     <color name="background_grey">#f6f7f8</color>
     <color name="text">#606060</color>
     <color name="text_loc">#afafaf</color>

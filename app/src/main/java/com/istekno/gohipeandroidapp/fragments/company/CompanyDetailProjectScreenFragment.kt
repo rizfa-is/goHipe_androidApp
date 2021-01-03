@@ -36,6 +36,7 @@ class CompanyDetailProjectScreenFragment : Fragment() {
         val data = activity?.intent?.getParcelableExtra<ProjectModelResponse>(PROJECT_DATA)
 
         binding.model = data
+        binding.tvCompdetailprojectfrgDeadline.text = binding.model?.pjDeadline!!.split('T')[0]
         Glide.with(view.context).load(imageLink + data?.pjImage).into(binding.imgCompdetailprojectfrgAvatar)
 
         binding.btnComdetailprojectfrgEditproject.setOnClickListener {
