@@ -21,6 +21,21 @@ data class EngineerModelResponse(
          val enAvatar: String?
 ) : Parcelable
 
+data class SearchEngineerModelResponse(
+        val enID: Long?,
+        val enName: String?,
+        val enJobTitle: String?,
+        val enJobType: String?,
+        val enLocation: String?,
+        val enDesc: String?,
+        val enEmail: String?,
+        val enIG: String?,
+        val enGithub: String?,
+        val enGitlab: String?,
+        val enAvatar: String?,
+        val listAbility: ArrayList<Ability>?
+)
+
 @Parcelize
 data class ProjectModelResponse(
     val pjID : Long?,
@@ -50,10 +65,13 @@ data class HireModelResponse(
 
 data class AbilityM(val list: ArrayList<Ability>)
 
+@Parcelize
 data class AbilityModel(val abID: Long,
                         val enID: Long,
-                        val abName: String?)
+                        val abName: String?
+) : Parcelable
 
+@Parcelize
 data class PortfolioModel(val prID: Long,
                           val enID: Long,
                           val prApplication: String?,
@@ -62,15 +80,18 @@ data class PortfolioModel(val prID: Long,
                           val prRepo: String?,
                           val prCompany: String?,
                           val prRole: String?,
-                          val prImg: String?)
+                          val prImg: String?
+) : Parcelable
 
+@Parcelize
 data class ExperienceModel(val exID: Long,
                            val enID: Long,
                            val exRole: String?,
                            val exCompany: String?,
                            val exDesc: String?,
                            val exStartDate: String?,
-                           val exEndDate: String?)
+                           val exEndDate: String?
+): Parcelable
 
 data class LoginModelRequest(
     @SerializedName("email")

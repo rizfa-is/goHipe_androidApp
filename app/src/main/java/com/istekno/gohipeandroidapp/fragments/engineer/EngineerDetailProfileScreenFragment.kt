@@ -12,9 +12,14 @@ import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
+import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
+import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProfileScreenBinding
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.*
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import kotlinx.coroutines.*
 
 class EngineerDetailProfileScreenFragment : Fragment() {
 
@@ -27,8 +32,8 @@ class EngineerDetailProfileScreenFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentEngineerDetailProfileScreenBinding
-
-    private val listAbility = GoHipeDatabases.ability
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -39,10 +44,12 @@ class EngineerDetailProfileScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
+
         val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HOME_DATA)
         binding.model = data
         Glide.with(view.context).load(imageLink + data?.enAvatar).into(binding.imgEnprofifrgAvatar)
-
 
         binding.btnEngprofifrgHire.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
@@ -52,7 +59,7 @@ class EngineerDetailProfileScreenFragment : Fragment() {
         }
 
         setViewPager()
-        chipViewInit(view)
+        getEngineerDetail(data!!, view)
         favoriteState()
     }
 
@@ -62,12 +69,38 @@ class EngineerDetailProfileScreenFragment : Fragment() {
         binding.tlEngprofiact.setupWithViewPager(binding.vpEngprofiact)
     }
 
-    private fun chipViewInit(view: View) {
+    private fun getEngineerDetail(data: EngineerModelResponse, view: View) {
+        coroutineScope.launch {
+            val id = data.enID
+            val listAbility = mutableListOf<AbilityModel>()
+
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.getAllEngineer()
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is EngineerGetByIDResponse) {
+                for (i in 0 until result.database!!.size) {
+                    result.database[i].enAbilityList?.map {
+                        listAbility.add(AbilityModel(it.abID, it.enID, it.abName))
+                    }
+                }
+
+                listAbility.removeAll { it.enID != id }
+                chipViewInit(view, listAbility)
+            }
+        }
+    }
+
+    private fun chipViewInit(view: View, listAbility: MutableList<AbilityModel>) {
         for (i in 0 until listAbility.size) {
             val chip = Chip(view.context)
             chip.chipCornerRadius = 30F
             chip.chipBackgroundColor = resources.getColorStateList(R.color.theme_orange)
-            chip.text = listAbility[i].toString()
+            chip.text = listAbility[i].abName
             chip.setTextColor(resources.getColor(R.color.white))
 
             binding.cgEnprofifrgAbility.addView(chip)

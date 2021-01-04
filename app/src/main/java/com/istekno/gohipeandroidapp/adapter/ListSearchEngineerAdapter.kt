@@ -12,26 +12,45 @@ import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemListSearchEngineerBinding
 import com.istekno.gohipeandroidapp.models.User
+import com.istekno.gohipeandroidapp.retrofit.*
 
-class ListSearchEngineerAdapter(private val listUser: List<User>, private val onItemClickCallback: OnItemClickCallback): RecyclerView.Adapter<ListSearchEngineerAdapter.ListViewHolder>() {
+class ListSearchEngineerAdapter: RecyclerView.Adapter<ListSearchEngineerAdapter.ListViewHolder>() {
+
+    companion object {
+        const val imageLink = "http://107.22.89.131:7000/image/"
+    }
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    private val listEngineer = mutableListOf<EngineerModelResponse>()
+    private val listAbility = mutableListOf<AbilityM>()
+
+    fun setData(listEn: List<EngineerModelResponse>, listAb: List<AbilityM>) {
+        listEngineer.clear()
+        listEngineer.addAll(listEn)
+        listAbility.clear()
+        listAbility.addAll(listAb)
+        notifyDataSetChanged()
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     interface OnItemClickCallback {
-        fun onItemClicked(user: User)
+        fun onItemClicked(engineerModelResponse: EngineerModelResponse)
     }
 
     inner class ListViewHolder(val binding: ItemListSearchEngineerBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        fun bind(engineerModelResponse: EngineerModelResponse, abilityM: AbilityM) {
+            binding.model = engineerModelResponse
             Glide.with(itemView.context)
-                .load(user.image)
+                .load(imageLink + engineerModelResponse.enAvatar)
                 .apply(RequestOptions().override(150, 150))
                 .into(binding.imgListSearchEng)
 
-            binding.tvListSearchEngName.text = user.name
-            binding.tvListSearchEngJob.text = user.job
+            chipViewInit(abilityM.list, itemView, binding)
 
-            chipViewInit(user.ability, itemView, binding)
-
-            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[this.adapterPosition]) }
+            this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listEngineer[this.adapterPosition]) }
         }
     }
 
@@ -40,27 +59,28 @@ class ListSearchEngineerAdapter(private val listUser: List<User>, private val on
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listUser[position])
+        holder.bind(listEngineer[position], listAbility[position])
     }
 
-    override fun getItemCount(): Int = listUser.size
+    override fun getItemCount(): Int = listEngineer.size
 
     @SuppressLint("SetTextI18n")
-    private fun chipViewInit(listAbility: List<String>, view: View, binding: ItemListSearchEngineerBinding) {
-        for (element in listAbility) {
+    private fun chipViewInit(listAbility: List<Ability>, view: View, binding: ItemListSearchEngineerBinding) {
+        for (i in listAbility.indices) {
             val chip = Chip(view.context)
+            val abName = listAbility[i].abName
 
-            if (listAbility.indexOf(element) <= 2) {
+            if (i <= 2) {
                 chip.width = 17
                 chip.height = 7
                 chip.chipCornerRadius = 20F
                 chip.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_orange)
-                chip.text = element
+                chip.text = abName
                 chip.textSize = 12F
                 chip.setTextColor(view.resources.getColor(R.color.white))
 
                 binding.cgSearchengAbility.addView(chip)
-            } else if (listAbility.indexOf(element) == listAbility.size - 1) {
+            } else if (i == listAbility.size - 1) {
                 chip.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
                 chip.text = "${listAbility.size - 3}+"
                 chip.textSize = 14F

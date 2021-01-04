@@ -1,23 +1,33 @@
 package com.istekno.gohipeandroidapp.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemRowPortfolioBinding
-import com.istekno.gohipeandroidapp.models.Portfolio
+import com.istekno.gohipeandroidapp.retrofit.PortfolioModel
 
-class ListPortfolioRecycleViewAdapter(private val listPortfolio: ArrayList<Portfolio>) : RecyclerView.Adapter<ListPortfolioRecycleViewAdapter.ListViewHolder>() {
+class ListPortfolioRecycleViewAdapter : RecyclerView.Adapter<ListPortfolioRecycleViewAdapter.ListViewHolder>() {
+
+    companion object {
+        const val imageLink = "http://107.22.89.131:7000/image/"
+    }
+
+    private val listPortfolio = mutableListOf<PortfolioModel>()
+
+    fun setData(listPr: List<PortfolioModel>) {
+        listPortfolio.clear()
+        listPortfolio.addAll(listPr)
+        notifyDataSetChanged()
+    }
 
     inner class ListViewHolder(val binding: ItemRowPortfolioBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(portfolio: Portfolio) {
+        fun bind(portfolioModel: PortfolioModel) {
             Glide.with(itemView.context)
-                .load(portfolio.image)
+                .load(imageLink + portfolioModel.prImg)
                 .apply(RequestOptions().override(900, 400))
                 .into(binding.imgItemRowPortfolio)
         }

@@ -1,6 +1,5 @@
 package com.istekno.gohipeandroidapp.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -35,7 +34,6 @@ class TalentOfTheMonthAdapter: RecyclerView.Adapter<TalentOfTheMonthAdapter.List
     }
 
     inner class ListViewHolder(val binding: ItemListMostPopularBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind(engineerModelResponse: EngineerModelResponse) {
             binding.modelMostPop = engineerModelResponse
             Glide.with(itemView.context)

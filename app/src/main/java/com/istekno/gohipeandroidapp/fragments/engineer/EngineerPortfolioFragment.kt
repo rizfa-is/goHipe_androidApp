@@ -9,15 +9,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.models.Portfolio
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerPortfolioBinding
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.*
+import kotlinx.coroutines.*
 
 class EngineerPortfolioFragment : Fragment() {
 
-    private lateinit var binding: FragmentEngineerPortfolioBinding
+    companion object {
+        const val HOME_DATA = "home_data"
+    }
 
-    private val listPortfolio = ArrayList<Portfolio>()
+    private lateinit var binding: FragmentEngineerPortfolioBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -28,21 +33,47 @@ class EngineerPortfolioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val portfolio = GoHipeDatabases.porto
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
 
-        for (i in 0 until portfolio.size) {
-            val porto = Portfolio(
-                portfolio[i]
-            )
-            listPortfolio.add(porto)
-        }
+        val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HOME_DATA)
         showRecycleList(view)
+        getPortfolio(data!!)
+    }
+
+    private fun getPortfolio(data: EngineerModelResponse) {
+        coroutineScope.launch {
+            val id = data.enID
+            val listPortfolio = mutableListOf<PortfolioModel>()
+
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.getAllEngineer()
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is EngineerGetByIDResponse) {
+                for (i in 0 until result.database!!.size) {
+                    result.database[i].enPortfolioList?.map {
+                        listPortfolio.add(PortfolioModel(it.prID, it.enID, it.prApplication, it.prDesc, it.prLink, it.prRepo, it.prCompany, it.prRole, it.prImg))
+                    }
+                }
+
+                listPortfolio.removeAll { it.enID != id }
+                activity?.runOnUiThread {
+                    (binding.rvPortofrg.adapter as ListPortfolioRecycleViewAdapter).setData(listPortfolio)
+                }
+            }
+        }
     }
 
     private fun showRecycleList(view: View) {
         binding.rvPortofrg.apply {
+            val rvAdapter = ListPortfolioRecycleViewAdapter()
             layoutManager = LinearLayoutManager(view.context)
-            adapter = ListPortfolioRecycleViewAdapter(listPortfolio)
+            adapter = rvAdapter
         }
     }
 }

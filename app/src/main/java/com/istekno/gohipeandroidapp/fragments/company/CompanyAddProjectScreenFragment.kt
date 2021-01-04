@@ -18,24 +18,15 @@ import com.google.android.material.textfield.TextInputEditText
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAddProjectScreenBinding
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBinding
-import com.istekno.gohipeandroidapp.models.ImagePickerModel
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.GeneralResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
-import com.vincent.filepicker.Constant
-import com.vincent.filepicker.Constant.MAX_NUMBER
-import com.vincent.filepicker.Constant.RESULT_PICK_IMAGE
-import com.vincent.filepicker.activity.ImagePickActivity
-import com.vincent.filepicker.filter.entity.ImageFile
 import kotlinx.coroutines.*
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Call
@@ -101,10 +92,11 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
             val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
 
+            Log.e("path", data.data?.path.toString())
             imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
             Glide.with(this).load(dataResponse).into(binding.imgAddproject)
         }
@@ -140,10 +132,10 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
     }
 
     private fun addProjectService(iName: String, iDesc: String, iDeadline: String) {
+        val cpID = goHipePreferences.getCompanyPreference().compID.toString()
         val name = iName.toRequestBody("text/plain".toMediaTypeOrNull())
         val desc= iDesc.toRequestBody("text/plain".toMediaTypeOrNull())
         val deadline = iDeadline.toRequestBody("text/plain".toMediaTypeOrNull())
-        val cpID = goHipePreferences.getCompanyPreference().compID.toString()
         val compID = cpID.toRequestBody("text/plain".toMediaTypeOrNull())
 
         coroutineScope.launch {

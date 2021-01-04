@@ -21,8 +21,7 @@ import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
 import com.istekno.gohipeandroidapp.models.User
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
-import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.retrofit.*
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
@@ -56,12 +55,12 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         showRecyclerList2()
         (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(GoHipeDatabases.listSearchEngineer)
 
-        getCompanyInfo()
+        getEngineerDetail()
         toolbarListener()
     }
 
     @SuppressLint("SetTextI18n")
-    fun getCompanyInfo() {
+    private fun getEngineerDetail() {
         coroutineScope.launch {
             val id = goHipePreferences.getCompanyPreference().acID
 
