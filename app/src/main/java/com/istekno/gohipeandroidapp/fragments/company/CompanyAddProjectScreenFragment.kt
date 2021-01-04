@@ -50,6 +50,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var dialog: Dialog
     private lateinit var imageName: MultipartBody.Part
+    private var dataImage = ""
 
     private val myCalendar: Calendar = Calendar.getInstance()
 
@@ -96,7 +97,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
             val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
             val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
 
-            Log.e("path", data.data?.path.toString())
+            dataImage = dataResponse
             imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
             Glide.with(this).load(dataResponse).into(binding.imgAddproject)
         }
@@ -122,12 +123,16 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
             return
         }
 
-        addProjectService(inputName, inputDesc, inputDeadline)
+        if (dataImage != "") {
+            addProjectService(inputName, inputDesc, inputDeadline)
 
-        dialog.dialogCancel(context, "Add project successful") {
-            val sendIntent = Intent(view?.context, CompanyMainContentActivity::class.java)
-            sendIntent.putExtra(PROJECT_ADD_AUTH_KEY, 1)
-            startActivity(sendIntent)
+            dialog.dialogCancel(context, "Add project successful") {
+                val sendIntent = Intent(view?.context, CompanyMainContentActivity::class.java)
+                sendIntent.putExtra(PROJECT_ADD_AUTH_KEY, 1)
+                startActivity(sendIntent)
+            }
+        } else {
+            Toast.makeText(view?.context, "Please select project image!", Toast.LENGTH_SHORT).show()
         }
     }
 

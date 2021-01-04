@@ -17,9 +17,7 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.SkillfulTalentAdapter
 import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHomeScreenBinding
-import com.istekno.gohipeandroidapp.models.User
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.*
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
@@ -53,7 +51,6 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
 
         showRecyclerList()
         showRecyclerList2()
-        (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(GoHipeDatabases.listSearchEngineer)
 
         getEngineerDetail()
         toolbarListener()
@@ -68,6 +65,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                 try {
                     val result1 = service.getCompanyByID(id!!.toLong())
                     val result2 = service.getAllEngineer()
+                    val listAbility = result2.database?.map { AbilityM(it.enAbilityList!!) }
                     val listEngineer = result2.database?.map {
                         EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
                     }
@@ -75,6 +73,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                     activity?.runOnUiThread {
                         binding.textViewHello.text = "Hai ${result1.database!![0].acName!!.split(" ")[0]}"
                         (binding.rvListEngineer.adapter as TalentOfTheMonthAdapter).setData(listEngineer!!)
+                        (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(listEngineer, listAbility!!)
                     }
 
                 } catch (e: Throwable) {
@@ -106,10 +105,11 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
 
         binding.rvListEngineer2.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            rvAdapter.setOnitemClickCallback(object : SkillfulTalentAdapter.OnItemClickCallback {
-                override fun onItemClicked(user: User) {
+            rvAdapter.setOnItemClickCallback(object : SkillfulTalentAdapter.OnItemClickCallback {
+                override fun onItemClicked(engineerModelResponse: EngineerModelResponse) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(HOME_AUTH_KEY, 1)
+                    sendIntent.putExtra(HOME_DATA, engineerModelResponse)
                     startActivity(sendIntent)
                 }
             })
