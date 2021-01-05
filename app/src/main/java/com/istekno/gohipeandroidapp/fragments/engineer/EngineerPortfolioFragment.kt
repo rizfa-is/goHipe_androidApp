@@ -12,6 +12,7 @@ import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerPortfolioBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.*
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
 class EngineerPortfolioFragment : Fragment() {
@@ -23,6 +24,7 @@ class EngineerPortfolioFragment : Fragment() {
     private lateinit var binding: FragmentEngineerPortfolioBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
+    private lateinit var goHipePreferences: GoHipePreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -35,15 +37,21 @@ class EngineerPortfolioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
+        goHipePreferences = GoHipePreferences(view.context)
 
         val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HOME_DATA)
+        val dataShared = goHipePreferences.getEngineerPreference()
+
         showRecycleList(view)
-        getPortfolio(data!!)
+        if (data != null) {
+            getPortfolio(data.enID!!)
+        } else {
+            getPortfolio(dataShared.engID!!)
+        }
     }
 
-    private fun getPortfolio(data: EngineerModelResponse) {
+    private fun getPortfolio(enID: Long) {
         coroutineScope.launch {
-            val id = data.enID
             val listPortfolio = mutableListOf<PortfolioModel>()
 
             val result = withContext(Dispatchers.IO) {
@@ -61,7 +69,7 @@ class EngineerPortfolioFragment : Fragment() {
                     }
                 }
 
-                listPortfolio.removeAll { it.enID != id }
+                listPortfolio.removeAll { it.enID != enID }
                 activity?.runOnUiThread {
                     (binding.rvPortofrg.adapter as ListPortfolioRecycleViewAdapter).setData(listPortfolio)
                 }

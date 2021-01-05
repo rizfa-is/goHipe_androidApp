@@ -12,6 +12,7 @@ import com.istekno.gohipeandroidapp.adapter.ListExperienceRecycleViewAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerExperienceBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.*
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
 class EngineerExperienceFragment : Fragment() {
@@ -23,6 +24,7 @@ class EngineerExperienceFragment : Fragment() {
     private lateinit var binding: FragmentEngineerExperienceBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
+    private lateinit var goHipePreferences: GoHipePreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -35,15 +37,22 @@ class EngineerExperienceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
+        goHipePreferences = GoHipePreferences(view.context)
 
         val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HOME_DATA)
+        val dataShared = goHipePreferences.getEngineerPreference()
+
         showRecycleList(view)
-        getExperience(data!!)
+
+        if (data != null) {
+            getExperience(data.enID!!)
+        } else {
+            getExperience(dataShared.engID!!)
+        }
     }
 
-    private fun getExperience(data: EngineerModelResponse) {
+    private fun getExperience(enID: Long) {
         coroutineScope.launch {
-            val id = data.enID
             val listPortfolio = mutableListOf<ExperienceModel>()
 
             val result = withContext(Dispatchers.IO) {
@@ -61,7 +70,7 @@ class EngineerExperienceFragment : Fragment() {
                     }
                 }
 
-                listPortfolio.removeAll { it.enID != id }
+                listPortfolio.removeAll { it.enID != enID }
                 activity?.runOnUiThread {
                     (binding.rvExperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listPortfolio)
                 }

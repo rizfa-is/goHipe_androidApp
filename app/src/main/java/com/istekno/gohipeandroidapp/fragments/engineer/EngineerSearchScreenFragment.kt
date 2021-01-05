@@ -16,14 +16,23 @@ import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerSearchScreenBinding
 import com.istekno.gohipeandroidapp.fragments.company.CompanyProjectScreenFragment
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.GetAllProject
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
+import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import kotlinx.coroutines.*
 
 class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment() {
 
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
+        const val PROJECT_DATA = "project_data"
     }
 
     private lateinit var binding: FragmentEngineerSearchScreenBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -35,26 +44,52 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
 
-//        showRecyclerList()
+        showRecyclerList()
+        getAllProjectByCompanyID()
     }
 
-//    private fun showRecyclerList() {
-//        binding.rvSearchListProject.apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = ListSearchProjectAdapter(listTop, object : ListSearchProjectAdapter.OnItemClickCallback {
-//                override fun onItemClicked(searchProject: SearchProject) {
-//                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
-//                    sendIntent.putExtra(PROJECT_AUTH_KEY, 0)
-//                    startActivity(sendIntent)
-//                }
-//
-//                override fun onDeleteClicked(searchProject: SearchProject) {
-//                    TODO()
-//                }
-//            }, 0)
-//        }
-//    }
+    private fun getAllProjectByCompanyID() {
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    service.getAllProjectCompany()
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (result is GetAllProject) {
+                val list = result.database?.map {
+                    ProjectModelResponse(it.pjID, it.cpID, it.pjName, it.pjDesc, it.pjDeadline, it.pjImage)
+                }
+
+                (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(list!!)
+            }
+        }
+    }
+
+    private fun showRecyclerList() {
+        binding.rvSearchListProject.apply {
+            val rvAdapter = ListSearchProjectAdapter(0)
+            layoutManager = LinearLayoutManager(context)
+            rvAdapter.onItemClickCallbak(object : ListSearchProjectAdapter.OnItemClickCallback {
+                override fun onItemClicked(projectModelResponse: ProjectModelResponse) {
+                    val sendIntent = Intent(context, ProfileScreenActivity::class.java)
+                    sendIntent.putExtra(PROJECT_AUTH_KEY, 0)
+                    sendIntent.putExtra(PROJECT_DATA, projectModelResponse)
+                    startActivity(sendIntent)
+                }
+
+                override fun onDeleteClicked(projectModelResponse: ProjectModelResponse) {
+                    TODO()
+                }
+            })
+            adapter = rvAdapter
+        }
+    }
 
     private fun setToolbar() {
         co.visibility = View.GONE
