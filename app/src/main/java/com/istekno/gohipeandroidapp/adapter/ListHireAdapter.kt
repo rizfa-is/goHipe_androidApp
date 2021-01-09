@@ -48,7 +48,7 @@ class ListHireAdapter(private val hireStatus: Int) : RecyclerView.Adapter<ListHi
                 .apply(RequestOptions().override(150,150))
                 .into(binding.imgListSearchProject)
 
-            binding.tvListSearchProjectDeadline.text = hireModelResponse.pjDeadline!!.split('T')[0]
+            binding.tvListSearchProjectDeadline.text = hireModelResponse.pjDeadline?.split('T')?.get(0) ?: "null"
 
             hireStatusMode(binding, itemView)
 

@@ -44,10 +44,10 @@ interface GoHipeApiService {
     @FormUrlEncoded
     suspend fun updateEngineer(
             @Path("id") id: Long,
-            @Field("ac_name") name: String,
-            @Field("ac_email") email: String,
-            @Field("ac_phone") phone: String,
-            @Field("ac_password") password: String
+            @Field("ac_name") name: String? = null,
+            @Field("ac_email") email: String? = null,
+            @Field("ac_phone") phone: String? = null,
+            @Field("ac_password") password: String? = null
     ): EngineerDeleteResponse
 
 

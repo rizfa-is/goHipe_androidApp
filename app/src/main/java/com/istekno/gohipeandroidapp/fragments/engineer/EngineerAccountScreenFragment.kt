@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -24,7 +25,8 @@ import com.istekno.gohipeandroidapp.retrofit.Ability
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
+class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView,
+                                    private val rl: RelativeLayout, private val co: CoordinatorLayout, private val state: Boolean) : Fragment() {
 
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
@@ -40,7 +42,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        setToolbar(toolbar, co)
+        setToolbar()
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_account_screen, container, false)
         return binding.root
@@ -56,7 +58,6 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         toolbarListener()
         buttonListener()
         setViewPager()
-
     }
 
     fun getAllEngineer(view: View) {
@@ -121,12 +122,19 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         }
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar, co: CoordinatorLayout) {
+    private fun setToolbar() {
+        if (state) {
+            co.visibility = View.VISIBLE
+            rl.visibility = View.GONE
+        } else {
+            co.visibility = View.GONE
+            rl.visibility = View.VISIBLE
+        }
+
         bottomNavigationView.visibility = View.VISIBLE
-        co.visibility = View.VISIBLE
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = true
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = false
     }

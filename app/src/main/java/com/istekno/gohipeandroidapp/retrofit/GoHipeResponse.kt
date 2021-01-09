@@ -3,7 +3,7 @@ package com.istekno.gohipeandroidapp.retrofit
 import com.google.gson.annotations.SerializedName
 import kotlin.collections.ArrayList
 
-data class GeneralResponse(val success: Boolean, val message: String) {
+data class GeneralResponse(@SerializedName("success") val success: Boolean, @SerializedName("message") val message: String) {
 }
 
 data class LoginResponse(val success: Boolean, val message: String, val database: LoginModel?) {

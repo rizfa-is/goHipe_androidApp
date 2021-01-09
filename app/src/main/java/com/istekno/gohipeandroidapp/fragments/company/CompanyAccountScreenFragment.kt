@@ -100,7 +100,7 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
         co.visibility = View.VISIBLE
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
-        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = true
+        toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = false
     }

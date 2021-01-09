@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
@@ -23,7 +25,8 @@ import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment() {
+class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout,
+                                   private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
 
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
@@ -53,6 +56,8 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment
 
     private fun getAllProjectByCompanyID() {
         coroutineScope.launch {
+
+            binding.pgHomeengfrg.visibility = View.VISIBLE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllProjectCompany()
@@ -67,6 +72,7 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment
                 }
 
                 (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(list!!)
+                binding.pgHomeengfrg.visibility = View.GONE
             }
         }
     }
@@ -92,6 +98,13 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout) : Fragment
     }
 
     private fun setToolbar() {
-        co.visibility = View.GONE
+        if (state) {
+            co.visibility = View.GONE
+            rl.visibility = View.GONE
+        } else {
+            co.visibility = View.GONE
+            rl.visibility = View.VISIBLE
+            toolbar.title = "Search"
+        }
     }
 }

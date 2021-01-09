@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments.company
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -116,10 +117,6 @@ class CompanyRegisterScreenFragment : Fragment() {
         }
 
         registerCompany(inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition)
-
-        dialog.dialogCancel(context, "Register Successful") {
-            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment(), LoginScreenFragment::class.java.simpleName)?.commit()
-        }
     }
 
     private fun registerCompany(name: String, email: String, phone: String, password: String, company: String, position: String) {
@@ -128,16 +125,19 @@ class CompanyRegisterScreenFragment : Fragment() {
                 try {
                     service.registerCompany(name, email, phone, password, company, position)
                 } catch (e: Throwable) {
-                    e.printStackTrace()
+                    val status = e.toString().split(" ")[2]
+                    activity?.runOnUiThread {
+                        if (status == "404") {
+                            val msg = "Unfortunely, Email already exist!"
+                            dialog.dialogCancel(context, msg) { DialogInterface.BUTTON_NEGATIVE }
+                        }
+                    }
                 }
             }
 
             if (result is EngineerRegisterResponse) {
-                Log.d("goHipe : ", result.toString())
-                if (result.success) {
-                    Toast.makeText(context, "Register successful!", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+                dialog.dialogCancel(context, "Register Successful") {
+                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment(), LoginScreenFragment::class.java.simpleName)?.commit()
                 }
             }
         }

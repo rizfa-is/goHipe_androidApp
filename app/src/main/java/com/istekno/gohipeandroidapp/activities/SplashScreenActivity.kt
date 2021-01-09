@@ -83,6 +83,10 @@ class SplashScreenActivity : AppCompatActivity() {
                                         }, splashDuration.toLong()
                                 )
                             } catch (e: Throwable) {
+                                companyModel.isLogin = false
+                                companyModel.level = ""
+                                goHipePreferences.setCompanyPreference(companyModel)
+
                                 Handler(mainLooper).postDelayed(
                                         {
                                             startActivity(Intent(context, MainScreenActivity::class.java))
@@ -106,6 +110,10 @@ class SplashScreenActivity : AppCompatActivity() {
                                         }, splashDuration.toLong()
                                 )
                             } catch (e: Throwable) {
+                                engineerModel.isLogin = false
+                                engineerModel.level = ""
+                                goHipePreferences.setEngineerPreference(engineerModel)
+
                                 Handler(mainLooper).postDelayed(
                                         {
                                             startActivity(Intent(context, MainScreenActivity::class.java))

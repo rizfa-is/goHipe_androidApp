@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.erdin.arkaandroidtwo.remote.HeaderInterceptor
+import com.google.gson.GsonBuilder
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
@@ -19,12 +19,12 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentLoginScreenBinding
 import com.istekno.gohipeandroidapp.fragments.engineer.EngineerRegisterScreenFragment
 import com.istekno.gohipeandroidapp.models.CompanyModel
-import com.istekno.gohipeandroidapp.retrofit.CompanyGetByIDResponse
-import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
-import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
-import com.istekno.gohipeandroidapp.retrofit.LoginResponse
+import com.istekno.gohipeandroidapp.retrofit.*
 import com.istekno.gohipeandroidapp.utility.Dialog
+import retrofit2.Response
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
 
 class LoginScreenFragment : Fragment() {
 
@@ -116,12 +116,19 @@ class LoginScreenFragment : Fragment() {
                         resultC = service.getEngineerByID(resultA.database!!.acID)
                         loginAction(resultA.database?.level!!, resultA, null, resultC)
 
-                    } else {
-                        dialog.dialogCancel(context, resultA.message) { DialogInterface.BUTTON_NEGATIVE }
                     }
 
                 } catch (e: Throwable) {
-                    e.printStackTrace()
+                    val status = e.toString().split(" ")[2]
+                    activity?.runOnUiThread {
+                        if (status == "403") {
+                            val msg = "Sorry, Wrong Password!"
+                            dialog.dialogCancel(context, msg) { DialogInterface.BUTTON_NEGATIVE }
+                        } else if (status == "404") {
+                            val msg = "Unfortunely, Your email is not registered!"
+                            dialog.dialogCancel(context, msg) { DialogInterface.BUTTON_NEGATIVE }
+                        }
+                    }
                 }
             }
         }

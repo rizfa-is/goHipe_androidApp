@@ -76,31 +76,6 @@ class EngineerEditProfileAccountFragment : Fragment() {
         val inputPassword = binding.etEngeditaccountfrgPassword.text.toString().trim()
         val inputConfirmPassword = binding.etEngeditaccountfrgConfirmpass.text.toString().trim()
 
-        if (inputFullname.isEmpty()) {
-            binding.etEngeditaccountfrgFullname.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
-            return
-        }
-
-        if (inputEmail.isEmpty()) {
-            binding.etEngeditaccountfrgEmail.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
-            return
-        }
-
-        if (inputPassword.isEmpty()) {
-            binding.etEngeditaccountfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
-            return
-        }
-
-        if (inputPhone.isEmpty()) {
-            binding.etEngeditaccountfrgPhone.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
-            return
-        }
-
-        if (!TextUtils.isDigitsOnly(inputPhone)) {
-            binding.etEngeditaccountfrgPhone.error = EngineerRegisterScreenFragment.FIELD_DIGITS_ONLY
-            return
-        }
-
         if (inputPassword != inputConfirmPassword) {
             binding.etEngeditaccountfrgConfirmpass.error = EngineerRegisterScreenFragment.FIELD_MUST_MATCH
             return

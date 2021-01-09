@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,20 +17,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ScouterOfTheMonthAdapter
-import com.istekno.gohipeandroidapp.adapter.SkillfulTalentAdapter
-import com.istekno.gohipeandroidapp.adapter.TalentOfTheMonthAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHomeScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyHomeScreenFragment
 import com.istekno.gohipeandroidapp.models.ScouterTop
 import com.istekno.gohipeandroidapp.models.User
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
+class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView,
+                                 private val co: CoordinatorLayout, private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
@@ -47,7 +45,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
         savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_home_screen, container, false)
 
-        setToolbar(toolbar)
+        setToolbar()
         return binding.root
     }
 
@@ -63,21 +61,26 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
         showRecyclerList()
 //        showRecyclerList2()
-        getCompanyInfo()
+        getEngineerInfo()
         toolbarListener()
     }
 
     @SuppressLint("SetTextI18n")
-    fun getCompanyInfo() {
+    fun getEngineerInfo() {
         coroutineScope.launch {
             val id = goHipePreferences.getEngineerPreference().acID
 
+            binding.svHomeeng.visibility = View.GONE
+            binding.pgHomeeng.visibility = View.VISIBLE
             withContext(Dispatchers.IO) {
                 try {
                     val result1 = service.getEngineerByID(id!!.toLong())
 
                     activity?.runOnUiThread {
                         binding.textViewHello.text = "Hai ${result1.database!![0].enName.split(" ")[0]}"
+
+                        binding.svHomeeng.visibility = View.VISIBLE
+                        binding.pgHomeeng.visibility = View.GONE
                     }
                 } catch (e: Throwable) {
                     e.printStackTrace()
@@ -130,12 +133,20 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
         }
     }
 
-    private fun setToolbar(toolbar: MaterialToolbar) {
+    private fun setToolbar() {
+        if (state) {
+            co.visibility = View.GONE
+            rl.visibility = View.GONE
+        } else {
+            co.visibility = View.GONE
+            rl.visibility = View.VISIBLE
+            toolbar.title = "Home"
+        }
+
         bottomNavigationView.visibility = View.VISIBLE
-        co.visibility = View.GONE
         binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
-        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = true
-        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = true
+        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false
+        binding.topAppBarEngineerHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = false
     }
 }

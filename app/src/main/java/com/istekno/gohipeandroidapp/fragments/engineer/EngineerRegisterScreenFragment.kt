@@ -1,5 +1,6 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -100,10 +101,6 @@ class EngineerRegisterScreenFragment : Fragment() {
         }
 
         registerEngineer(inputFullname, inputEmail, inputPhone, inputPassword)
-
-        dialog.dialogCancel(context, "Register Successful") {
-            fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
-        }
     }
 
     private fun registerEngineer(name: String, email: String, phone: String, password: String) {
@@ -112,16 +109,19 @@ class EngineerRegisterScreenFragment : Fragment() {
                 try {
                     service.registerEngineer(name, email, phone, password)
                 } catch (e: Throwable) {
-                    e.printStackTrace()
+                    val status = e.toString().split(" ")[2]
+                    activity?.runOnUiThread {
+                        if (status == "404") {
+                            val msg = "Unfortunely, Email already exist!"
+                            dialog.dialogCancel(context, msg) { DialogInterface.BUTTON_NEGATIVE }
+                        }
+                    }
                 }
             }
 
             if (result is EngineerRegisterResponse) {
-                Log.d("goHipe : ", result.toString())
-                if (result.success) {
-                    Toast.makeText(context, "Register successful!", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+                dialog.dialogCancel(context, "Register Successful") {
+                    fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
                 }
             }
         }

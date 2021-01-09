@@ -14,7 +14,7 @@ class HeaderInterceptor(context: Context) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response = chain.run {
 
-        if (goHipePreferences.getCompanyPreference().level == "Company") {
+        if (goHipePreferences.getCompanyPreference().level == "Company" ) {
             tokenAuth = goHipePreferences.getCompanyPreference().token!!
         } else if (goHipePreferences.getEngineerPreference().level == "Engineer") {
             tokenAuth = goHipePreferences.getEngineerPreference().token!!
