@@ -9,15 +9,37 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-      <TextView
+      <ProgressBar
+          android:id="@+id/pg_editportofrg"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Portfolio"
-          android:textSize="20sp"
+          android:layout_gravity="center"
+          android:indeterminateTint="@color/theme_green"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/fab_editportofrg"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="16dp"
+          android:backgroundTint="@color/theme_green"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:srcCompat="@drawable/ic_add"
+          app:tint="@color/white" />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_editportofrg"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"/>
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

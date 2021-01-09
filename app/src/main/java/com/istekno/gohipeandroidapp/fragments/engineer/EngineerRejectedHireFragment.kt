@@ -76,6 +76,7 @@ class EngineerRejectedHireFragment : Fragment() {
 
                 Log.e("listHire Reject", mutable.toString())
                 (binding.rvRejectedfrg.adapter as ListHireAdapter).setData(mutable)
+                binding.pgHireengfrgC.visibility = View.GONE
             }
         }
     }

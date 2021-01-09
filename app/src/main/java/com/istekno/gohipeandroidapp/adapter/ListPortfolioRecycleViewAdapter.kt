@@ -1,6 +1,7 @@
 package com.istekno.gohipeandroidapp.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,7 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemRowPortfolioBinding
 import com.istekno.gohipeandroidapp.retrofit.PortfolioModel
 
-class ListPortfolioRecycleViewAdapter : RecyclerView.Adapter<ListPortfolioRecycleViewAdapter.ListViewHolder>() {
+class ListPortfolioRecycleViewAdapter(private val type: Int) : RecyclerView.Adapter<ListPortfolioRecycleViewAdapter.ListViewHolder>() {
 
     companion object {
         const val imageLink = "http://107.22.89.131:7000/image/"
@@ -30,6 +31,8 @@ class ListPortfolioRecycleViewAdapter : RecyclerView.Adapter<ListPortfolioRecycl
                 .load(imageLink + portfolioModel.prImg)
                 .apply(RequestOptions().override(900, 400))
                 .into(binding.imgItemRowPortfolio)
+
+            if (type == 1) binding.llEditporto.visibility = View.GONE
         }
     }
 

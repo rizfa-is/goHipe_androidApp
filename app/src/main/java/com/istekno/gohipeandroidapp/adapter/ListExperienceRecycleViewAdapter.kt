@@ -19,7 +19,7 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.collections.ArrayList
 
-class ListExperienceRecycleViewAdapter: RecyclerView.Adapter<ListExperienceRecycleViewAdapter.ListViewHolder>() {
+class ListExperienceRecycleViewAdapter(private val type: Int): RecyclerView.Adapter<ListExperienceRecycleViewAdapter.ListViewHolder>() {
 
     val listImageEx = listOf(
             "https://assets.tokopedia.net/assets-tokopedia-lite/v2/arael/kratos/36c1015e.png",
@@ -52,6 +52,8 @@ class ListExperienceRecycleViewAdapter: RecyclerView.Adapter<ListExperienceRecyc
 
             binding.tvItemRowExperienceStartenddate.text = "$startDate - $endDate"
             binding.tvItemRowExperienceTotalmonths.text = "$sum months"
+
+            if (type == 1) binding.llEditexperi.visibility = View.GONE
         }
     }
 

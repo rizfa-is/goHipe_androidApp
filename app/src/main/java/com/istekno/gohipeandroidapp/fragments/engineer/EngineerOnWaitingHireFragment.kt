@@ -75,6 +75,7 @@ class EngineerOnWaitingHireFragment : Fragment() {
 
                 Log.e("listHire Wait", mutable.toString())
                 (binding.rvOnwaitfrg.adapter as ListHireAdapter).setData(mutable)
+                binding.pgHireengfrgA.visibility = View.GONE
             }
         }
     }

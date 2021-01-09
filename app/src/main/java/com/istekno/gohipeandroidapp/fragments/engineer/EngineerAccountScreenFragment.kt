@@ -60,10 +60,11 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         setViewPager()
     }
 
-    fun getAllEngineer(view: View) {
+    private fun getAllEngineer(view: View) {
         coroutineScope.launch {
             val id = goHipePreferences.getEngineerPreference().acID
 
+            binding.svEngaccfrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getEngineerByID(id!!.toLong())
@@ -76,6 +77,9 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
                 binding.model = result.database!![0]
                 Glide.with(view.context).load(imageLink + result.database[0].enAvatar).into(binding.imgEnaccfrgAvatar)
                 chipViewInit(view, result.database[0].enAbilityList!!)
+
+                binding.svEngaccfrg.visibility = View.VISIBLE
+                binding.pgAccengfrg.visibility = View.GONE
             }
         }
     }

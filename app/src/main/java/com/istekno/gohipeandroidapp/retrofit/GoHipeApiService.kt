@@ -35,10 +35,33 @@ interface GoHipeApiService {
             @Field("password") password: String
     ): EngineerRegisterResponse
 
+    @POST("ability/create")
+    @FormUrlEncoded
+    suspend fun addABility(
+            @Field("en_id") enID: Long,
+            @Field("ab_name") abName: String
+    ): GeneralResponse
+
+    @POST("experience/create")
+    @FormUrlEncoded
+    suspend fun addExperience(
+            @Field("en_id") enID: Long,
+            @Field("ex_role") exRole: String,
+            @Field("ex_company") exCompany: String,
+            @Field("ex_desc") exDesc: String,
+            @Field("ex_start") exStartDate: String,
+            @Field("ex_end") exEndDate: String,
+    ): GeneralResponse
+
     @DELETE("account/engineer/{id}")
     suspend fun deleteEngineer(
             @Path("id") id: Long
     ): EngineerDeleteResponse
+
+    @DELETE("ability/{id}")
+    suspend fun deleteAbility(
+            @Path("id") id: Long
+    ): GeneralResponse
 
     @PUT("account/engineer/update/{id}")
     @FormUrlEncoded
@@ -50,6 +73,13 @@ interface GoHipeApiService {
             @Field("ac_password") password: String? = null
     ): EngineerDeleteResponse
 
+    @PUT("ability/update/{id}")
+    @FormUrlEncoded
+    suspend fun updateABility(
+            @Path("id") id: Long,
+            @Field("en_id") enID: Long,
+            @Field("ab_name") abName: String
+    ): GeneralResponse
 
 
 

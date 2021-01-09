@@ -76,6 +76,7 @@ class EngineerApprovedHireFragment : Fragment() {
 
                 Log.e("listHire Approve", mutable.toString())
                 (binding.rvApprovedfrg.adapter as ListHireAdapter).setData(mutable)
+                binding.pgHireengfrgB.visibility = View.GONE
             }
         }
     }

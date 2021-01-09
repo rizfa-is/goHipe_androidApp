@@ -80,7 +80,7 @@ class EngineerExperienceFragment : Fragment() {
 
     private fun showRecycleList(view: View) {
         binding.rvExperifrg.apply {
-            val rvAdapter = ListExperienceRecycleViewAdapter()
+            val rvAdapter = ListExperienceRecycleViewAdapter(1)
             layoutManager = LinearLayoutManager(view.context)
             adapter = rvAdapter
         }

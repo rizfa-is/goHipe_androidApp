@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -23,6 +23,32 @@
             app:shapeAppearance="@style/circleImage_profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_editexperi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:orientation="vertical"
+            android:elevation="1dp"
+            android:background="@drawable/shape_editacc_bg"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout_item_row_engineer"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout_item_row_engineer">
+
+            <ImageView
+                android:id="@+id/btn_editexperi_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit" />
+
+            <ImageView
+                android:id="@+id/btn_editexperi_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_delete2" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout_item_row_engineer"

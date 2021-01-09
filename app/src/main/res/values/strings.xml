@@ -81,4 +81,6 @@
     <string name="_github">Github</string>
     <string name="_gitlab">Gitlab</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
 </resources>

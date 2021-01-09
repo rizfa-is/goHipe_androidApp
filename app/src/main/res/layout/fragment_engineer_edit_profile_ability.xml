@@ -9,15 +9,47 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-      <TextView
+      <ProgressBar
+          android:id="@+id/pg_editabengfrg"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Ability"
-          android:textSize="20sp"
+          android:layout_gravity="center"
+          android:indeterminateTint="@color/theme_green"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
+
+      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+          android:id="@+id/swipe_refresh"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginVertical="16dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="8dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+         <com.google.android.material.chip.ChipGroup
+             android:id="@+id/cg_enaccfrg_ability"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+
+      </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/fab_editab"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="16dp"
+          android:backgroundTint="@color/theme_green"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:srcCompat="@drawable/ic_add"
+          app:tint="@color/white" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

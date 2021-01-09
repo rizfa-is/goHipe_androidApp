@@ -14,6 +14,7 @@ import com.istekno.gohipeandroidapp.databinding.ActivityEngineerMainContentBindi
 import com.istekno.gohipeandroidapp.fragments.engineer.*
 import com.istekno.gohipeandroidapp.models.EngineerModel
 import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
@@ -32,10 +33,12 @@ class EngineerMainContentActivity : AppCompatActivity() {
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var engineerModel: EngineerModel
     private lateinit var dialog: Dialog
+    private var state = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_engineer_main_content)
+        binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
         setSupportActionBar(binding.topAppBarMaincontentActivity)
 
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
@@ -46,6 +49,8 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
         connectionCheck(this)
         getEngineerInfo()
+        initFragment(state)
+        changeFragmentScreen(state)
         viewListener()
     }
 
@@ -78,35 +83,28 @@ class EngineerMainContentActivity : AppCompatActivity() {
         coroutineScope.launch {
             val id = goHipePreferences.getEngineerPreference().acID
 
-            binding.pgMaincontent.visibility = View.VISIBLE
-            withContext(Dispatchers.IO) {
+            val result = withContext(Dispatchers.IO) {
                 try {
-                    val result1 = service.getEngineerByID(id!!.toLong())
-                    val list = result1.database?.map {
-                        EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
-                    }
-
-                    runOnUiThread {
-
-                        val data = list?.get(0)
-                        var state = true
-                        if (data?.enName.isNullOrEmpty() || data?.enJobTitle.isNullOrEmpty() || data?.enJobType.isNullOrEmpty() || data?.enLocation.isNullOrEmpty()
-                                || data?.enDesc.isNullOrEmpty() || data?.enEmail.isNullOrEmpty() || data?.enIG.isNullOrEmpty()
-                                || data?.enGithub.isNullOrEmpty() || data?.enGitlab.isNullOrEmpty() || data?.enAvatar.isNullOrEmpty()) {
-                            binding.checkProfileFrame.visibility = View.VISIBLE
-                            state = false
-                        } else {
-                            binding.frameContainerMaincontent.visibility = View.VISIBLE
-                        }
-
-                        initFragment(state)
-                        binding.pgMaincontent.visibility = View.GONE
-
-                        changeFragmentScreen(state)
-                    }
-
+                    service.getEngineerByID(id!!.toLong())
                 } catch (e: Throwable) {
                     e.printStackTrace()
+                }
+            }
+
+            binding.pgMaincontent.visibility = View.GONE
+            if (result is EngineerGetByIDResponse) {
+                val list = result.database?.map {
+                    EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                }
+
+                val data = list?.get(0)
+                if (data?.enName.isNullOrEmpty() || data?.enJobTitle.isNullOrEmpty() || data?.enJobType.isNullOrEmpty() || data?.enLocation.isNullOrEmpty()
+                        || data?.enDesc.isNullOrEmpty() || data?.enEmail.isNullOrEmpty() || data?.enIG.isNullOrEmpty()
+                        || data?.enGithub.isNullOrEmpty() || data?.enGitlab.isNullOrEmpty() || data?.enAvatar.isNullOrEmpty()) {
+                    binding.checkProfileFrame.visibility = View.VISIBLE
+                    state = false
+                } else {
+                    binding.frameContainerMaincontent.visibility = View.VISIBLE
                 }
             }
         }
@@ -114,7 +112,6 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
     private fun initFragment(state: Boolean) {
         val hireAuthKey = intent.getIntExtra(HIRE_ADD_AUTH_KEY, -1)
-        binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
 
         if (hireAuthKey == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coEngineer,binding.checkProfileFrame, binding.bottomNavView,  state)).commit()

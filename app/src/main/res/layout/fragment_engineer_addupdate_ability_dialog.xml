@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/theme_green"
+            android:gravity="center"
+            android:text="Add ability"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_addex_name"
+            style="@style/TextView_MaterialInput_Edit"
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="16dp"
+            android:text="Ability name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_header" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/it_addab_name"
+            style="@style/MaterialField_TextInputLayout_Edit"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_addex_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_addab_name"
+                style="@style/MaterialField_EditText_Edit" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_addab"
+            style="@style/MaterialButton"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/theme_orange"
+            android:text="Add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_addab_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

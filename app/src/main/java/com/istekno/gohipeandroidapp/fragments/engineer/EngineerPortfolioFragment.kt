@@ -79,7 +79,7 @@ class EngineerPortfolioFragment : Fragment() {
 
     private fun showRecycleList(view: View) {
         binding.rvPortofrg.apply {
-            val rvAdapter = ListPortfolioRecycleViewAdapter()
+            val rvAdapter = ListPortfolioRecycleViewAdapter(1)
             layoutManager = LinearLayoutManager(view.context)
             adapter = rvAdapter
         }
