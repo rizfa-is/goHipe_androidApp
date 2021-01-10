@@ -6,23 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerSearchScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyProjectScreenFragment
+import com.istekno.gohipeandroidapp.helpers.SearchProject
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.GetAllProject
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
-import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import com.istekno.gohipeandroidapp.viewmodels.EngineerSearchProjectViewModel
 import kotlinx.coroutines.*
 
 class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout,
@@ -34,8 +34,9 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
     }
 
     private lateinit var binding: FragmentEngineerSearchScreenBinding
-    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var viewModel: EngineerSearchProjectViewModel
     private lateinit var service: GoHipeApiService
+    private lateinit var searchProject: SearchProject
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -47,34 +48,51 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        viewModel = ViewModelProvider(this).get(EngineerSearchProjectViewModel::class.java)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
+        searchProject = SearchProject()
+
+        viewModel.setSearchService(service)
+        viewModel.getAllProjectByCompanyID()
+
+        searchProject.searchByUsername(binding.searchView)
+        searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
+            override fun onQueryChangeListener(query: String) {
+                viewModel.getProjectByQuery(query)
+            }
+
+            override fun onQuerySubmitListener(query: String) {
+                viewModel.getProjectByQuery(query)
+            }
+        })
 
         showRecyclerList()
-        getAllProjectByCompanyID()
+        viewListener()
+        subscribeLiveData()
     }
 
-    private fun getAllProjectByCompanyID() {
-        coroutineScope.launch {
-
-            binding.pgHomeengfrg.visibility = View.VISIBLE
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.getAllProjectCompany()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is GetAllProject) {
-                val list = result.database?.map {
-                    ProjectModelResponse(it.pjID, it.cpID, it.pjName, it.pjDesc, it.pjDeadline, it.pjImage)
-                }
-
-                (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(list!!)
-                binding.pgHomeengfrg.visibility = View.GONE
-            }
+    private fun viewListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            viewModel.getAllProjectByCompanyID()
         }
+    }
+
+    private fun subscribeLiveData() {
+        viewModel.projectAction.observe(this, {
+            if (it) {
+                binding.pgHomeengfrg.visibility = View.VISIBLE
+                binding.swipeRefresh.isRefreshing = false
+                binding.rvSearchListProject.visibility = View.GONE
+            } else {
+                binding.pgHomeengfrg.visibility = View.GONE
+                binding.rvSearchListProject.visibility = View.VISIBLE
+            }
+        })
+
+        viewModel.getListProject().observe(this, {
+            (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(it!!)
+        })
     }
 
     private fun showRecyclerList() {

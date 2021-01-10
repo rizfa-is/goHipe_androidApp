@@ -2,6 +2,7 @@ package com.istekno.gohipeandroidapp.retrofit
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -85,15 +86,23 @@ interface GoHipeApiService {
             @Path("id") id: Long
     ): GeneralResponse
 
+    @Multipart
     @PUT("account/engineer/update/{id}")
-    @FormUrlEncoded
     suspend fun updateEngineer(
             @Path("id") id: Long,
-            @Field("ac_name") name: String? = null,
-            @Field("ac_email") email: String? = null,
-            @Field("ac_phone") phone: String? = null,
-            @Field("ac_password") password: String? = null
-    ): EngineerDeleteResponse
+            @Part("ac_name") name: RequestBody,
+            @Part("ac_email") email: RequestBody,
+            @Part("ac_phone") phone: RequestBody,
+            @Part("ac_password") password: RequestBody,
+            @Part("en_job_title") jType: RequestBody,
+            @Part("en_job_type") jTitle: RequestBody,
+            @Part("en_location") location: RequestBody,
+            @Part("en_desc") desc: RequestBody,
+            @Part("en_ig") ig: RequestBody,
+            @Part("en_github") github: RequestBody,
+            @Part("en_gitlab") gitlab: RequestBody,
+            @Part image: MultipartBody.Part
+    ): GeneralResponse
 
     @PUT("ability/update/{id}")
     @FormUrlEncoded
@@ -140,6 +149,11 @@ interface GoHipeApiService {
 
     @GET("project")
     suspend fun getAllProjectCompany(): GetAllProject
+
+    @GET("project")
+    suspend fun getProjectByQuery(
+            @Query("search") query: String
+    ): GetAllProject
 
     @GET("hire")
     suspend fun getAllHire(): GetAllHire

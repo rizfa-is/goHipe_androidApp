@@ -67,7 +67,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                     val result2 = service.getAllEngineer()
                     val listAbility = result2.database?.map { AbilityM(it.enAbilityList!!) }
                     val listEngineer = result2.database?.map {
-                        EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                        EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
                     }
 
                     activity?.runOnUiThread {

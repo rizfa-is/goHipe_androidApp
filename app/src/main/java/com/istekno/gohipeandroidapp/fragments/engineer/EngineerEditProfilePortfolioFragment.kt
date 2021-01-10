@@ -178,7 +178,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
             rvAdapter.onItemClickCallbak(object : ListPortfolioRecycleViewAdapter.OnItemClickCallback{
                 override fun onUpdatePressed(portfolioModel: PortfolioModel) {
                     setFormDialog(view, 1, id, portfolioModel.prID, portfolioModel.prApplication, portfolioModel.prDesc,
-                            portfolioModel.prLink, portfolioModel.prRepo, portfolioModel.prCompany, portfolioModel.prRole)
+                            portfolioModel.prLink, portfolioModel.prRepo, portfolioModel.prCompany, portfolioModel.prRole, portfolioModel.prImg)
                 }
 
                 override fun onDeletePressed(portfolioModel: PortfolioModel) {
@@ -202,12 +202,8 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
             val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
             val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
 
-            val customView = LayoutInflater.from(view?.context).inflate(R.layout.fragment_engineer_addupdate_portfolio_dialog, null)
-            val img = customView.findViewById<ShapeableImageView>(R.id.img_addport)
-
             dataImage = dataResponse
             imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
-            Glide.with(this).load(dataResponse).into(img)
         }
     }
 
@@ -255,6 +251,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
             }
         }
 
+        Glide.with(view.context).load(dataImage).into(img)
         btnAdd.setOnClickListener {
             if (type == 1) {
                 val inputApp = appName.text.toString()

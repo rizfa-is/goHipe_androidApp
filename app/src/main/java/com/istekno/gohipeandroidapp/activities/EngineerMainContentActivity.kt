@@ -24,6 +24,7 @@ import kotlinx.coroutines.*
 class EngineerMainContentActivity : AppCompatActivity() {
 
     companion object {
+        const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
     }
 
@@ -91,10 +92,9 @@ class EngineerMainContentActivity : AppCompatActivity() {
                 }
             }
 
-            binding.pgMaincontent.visibility = View.GONE
             if (result is EngineerGetByIDResponse) {
                 val list = result.database?.map {
-                    EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                    EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
                 }
 
                 val data = list?.get(0)
@@ -112,10 +112,12 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
     private fun initFragment(state: Boolean) {
         val hireAuthKey = intent.getIntExtra(HIRE_ADD_AUTH_KEY, -1)
+        val updateAuthKey = intent.getIntExtra(ACC_UPDATE_AUTH_KEY, -1)
 
         if (hireAuthKey == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coEngineer,binding.checkProfileFrame, binding.bottomNavView,  state)).commit()
-
+        } else if (updateAuthKey == 0) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.checkProfileFrame, binding.coEngineer, state)).commit()
         } else {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer, binding.checkProfileFrame, state)).commit()
         }

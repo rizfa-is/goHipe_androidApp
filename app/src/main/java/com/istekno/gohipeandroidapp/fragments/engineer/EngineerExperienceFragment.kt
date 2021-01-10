@@ -53,8 +53,9 @@ class EngineerExperienceFragment : Fragment() {
 
     private fun getExperience(enID: Long) {
         coroutineScope.launch {
-            val listPortfolio = mutableListOf<ExperienceModel>()
+            val listExperience = mutableListOf<ExperienceModel>()
 
+            binding.pgExperifrg.visibility = View.VISIBLE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllEngineer()
@@ -66,12 +67,13 @@ class EngineerExperienceFragment : Fragment() {
             if (result is EngineerGetByIDResponse) {
                 for (i in 0 until result.database!!.size) {
                     result.database[i].enExperienceList?.map {
-                        listPortfolio.add(ExperienceModel(it.exID, it.enID, it.exRole, it.exCompany, it.exDesc, it.exStartDate, it.exEndDate))
+                        listExperience.add(ExperienceModel(it.exID, it.enID, it.exRole, it.exCompany, it.exDesc, it.exStartDate, it.exEndDate))
                     }
                 }
 
-                listPortfolio.removeAll { it.enID != enID }
-                (binding.rvExperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listPortfolio)
+                listExperience.removeAll { it.enID != enID }
+                (binding.rvExperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listExperience)
+                binding.pgExperifrg.visibility = View.GONE
             }
         }
     }

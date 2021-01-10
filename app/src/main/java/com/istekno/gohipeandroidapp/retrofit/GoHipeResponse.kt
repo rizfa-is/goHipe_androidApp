@@ -13,6 +13,7 @@ data class LoginResponse(val success: Boolean, val message: String, val database
 data class EngineerGetByIDResponse(val success: Boolean, val message: String, val database: ArrayList<Engineer>?) {
     data class Engineer(@SerializedName("en_id") val enID: Long,
                         @SerializedName("ac_name") val enName: String,
+                        @SerializedName("ac_phone") val enPhone: String,
                         @SerializedName("en_job_title") val enJobTitle: String?,
                         @SerializedName("en_job_type") val enJobType: String?,
                         @SerializedName("en_location") val enLocation: String?,

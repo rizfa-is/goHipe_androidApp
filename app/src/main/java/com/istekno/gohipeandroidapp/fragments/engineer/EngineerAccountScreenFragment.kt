@@ -2,7 +2,6 @@ package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
 import com.istekno.gohipeandroidapp.retrofit.Ability
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
@@ -31,6 +31,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
         const val EDIT_PROFILE_AUTH_KEY = "edit_profile_auth_key"
+        const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
 
         const val imageLink = "http://107.22.89.131:7000/image/"
     }
@@ -39,6 +40,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
+    private var engineerDetail = listOf<EngineerModelResponse>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -56,7 +58,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         getAllEngineer(view)
 
         toolbarListener()
-        buttonListener()
+        viewListener(view)
         setViewPager()
     }
 
@@ -64,6 +66,8 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         coroutineScope.launch {
             val id = goHipePreferences.getEngineerPreference().acID
 
+            binding.pgAccengfrg.visibility = View.VISIBLE
+            binding.swipeRefresh.isRefreshing = false
             binding.svEngaccfrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -74,9 +78,16 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
             }
 
             if (result is EngineerGetByIDResponse) {
+                val list = result.database?.map {
+                    EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                }
+
                 binding.model = result.database!![0]
                 Glide.with(view.context).load(imageLink + result.database[0].enAvatar).into(binding.imgEnaccfrgAvatar)
                 chipViewInit(view, result.database[0].enAbilityList!!)
+                if (list != null) {
+                    engineerDetail = list
+                }
 
                 binding.svEngaccfrg.visibility = View.VISIBLE
                 binding.pgAccengfrg.visibility = View.GONE
@@ -100,11 +111,17 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         }
     }
 
-    private fun buttonListener() {
+    private fun viewListener(view: View) {
         binding.btnEnaccfrgEditprofile.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY, 0)
+            sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY2, engineerDetail[0])
             startActivity(sendIntent)
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            binding.cgEnaccfrgAbility.removeAllViews()
+            getAllEngineer(view)
         }
     }
 
@@ -136,6 +153,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         }
 
         bottomNavigationView.visibility = View.VISIBLE
+        bottomNavigationView.menu.findItem(R.id.mn_item_maincontent_account).isChecked = true
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false

@@ -54,6 +54,7 @@ class EngineerPortfolioFragment : Fragment() {
         coroutineScope.launch {
             val listPortfolio = mutableListOf<PortfolioModel>()
 
+            binding.pgPortofrg.visibility = View.VISIBLE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllEngineer()
@@ -70,9 +71,8 @@ class EngineerPortfolioFragment : Fragment() {
                 }
 
                 listPortfolio.removeAll { it.enID != enID }
-                activity?.runOnUiThread {
-                    (binding.rvPortofrg.adapter as ListPortfolioRecycleViewAdapter).setData(listPortfolio)
-                }
+                (binding.rvPortofrg.adapter as ListPortfolioRecycleViewAdapter).setData(listPortfolio)
+                binding.pgPortofrg.visibility = View.GONE
             }
         }
     }

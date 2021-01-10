@@ -63,7 +63,7 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout) : Fragment(
             if (result is EngineerGetByIDResponse) {
                 val listAbility = result.database?.map { AbilityM(it.enAbilityList!!) }
                 val listEngineer = result.database?.map {
-                    EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                    EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
                 }
 
                 activity?.runOnUiThread {

@@ -51,6 +51,14 @@ class EngineerApprovedHireFragment : Fragment() {
 
         showRecycleList()
         getHire()
+        viewListener()
+    }
+
+    private fun viewListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getHire()
+        }
     }
 
     private fun getHire() {
@@ -58,6 +66,10 @@ class EngineerApprovedHireFragment : Fragment() {
         var mutable: MutableList<HireModelResponse>
 
         coroutineScope.launch {
+
+            binding.pgHireengfrgB.visibility = View.VISIBLE
+            binding.swipeRefresh.isRefreshing = false
+            binding.rvApprovedfrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllHire()
@@ -77,6 +89,7 @@ class EngineerApprovedHireFragment : Fragment() {
                 Log.e("listHire Approve", mutable.toString())
                 (binding.rvApprovedfrg.adapter as ListHireAdapter).setData(mutable)
                 binding.pgHireengfrgB.visibility = View.GONE
+                binding.rvApprovedfrg.visibility = View.VISIBLE
             }
         }
     }

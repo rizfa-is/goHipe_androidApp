@@ -122,7 +122,7 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
 
             if (result is EngineerGetByIDResponse) {
                 val listEngineer = result.database?.map {
-                    EngineerModelResponse(it.enID, it.enName, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                    EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
                 }
                 mutable = listEngineer!!.toMutableList()
                 mutable.removeAll { it.enID != id }

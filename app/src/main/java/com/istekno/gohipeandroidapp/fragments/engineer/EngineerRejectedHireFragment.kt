@@ -51,6 +51,14 @@ class EngineerRejectedHireFragment : Fragment() {
 
         showRecycleList()
         getHire()
+        viewListener()
+    }
+
+    private fun viewListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getHire()
+        }
     }
 
     private fun getHire() {
@@ -58,6 +66,10 @@ class EngineerRejectedHireFragment : Fragment() {
         var mutable: MutableList<HireModelResponse>
 
         coroutineScope.launch {
+
+            binding.pgHireengfrgC.visibility = View.VISIBLE
+            binding.swipeRefresh.isRefreshing = false
+            binding.rvRejectedfrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllHire()
@@ -77,6 +89,7 @@ class EngineerRejectedHireFragment : Fragment() {
                 Log.e("listHire Reject", mutable.toString())
                 (binding.rvRejectedfrg.adapter as ListHireAdapter).setData(mutable)
                 binding.pgHireengfrgC.visibility = View.GONE
+                binding.rvRejectedfrg.visibility = View.VISIBLE
             }
         }
     }

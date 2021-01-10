@@ -10,6 +10,7 @@ import java.io.Serializable
 data class EngineerModelResponse(
          val enID: Long?,
          val enName: String?,
+         val enPhone: String?,
          val enJobTitle: String?,
          val enJobType: String?,
          val enLocation: String?,
