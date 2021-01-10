@@ -2,7 +2,6 @@ package com.istekno.gohipeandroidapp.retrofit
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -42,6 +41,19 @@ interface GoHipeApiService {
             @Field("ab_name") abName: String
     ): GeneralResponse
 
+    @Multipart
+    @POST("portfolio/create")
+    suspend fun addPortfolio(
+            @Part("en_id") enID: RequestBody,
+            @Part("pr_application") appName: RequestBody,
+            @Part("pr_desc") desc: RequestBody,
+            @Part("pr_link") link: RequestBody,
+            @Part("pr_repo") repo: RequestBody,
+            @Part("pr_company") company: RequestBody,
+            @Part("pr_role") role: RequestBody,
+            @Part image: MultipartBody.Part
+    ): GeneralResponse
+
     @POST("experience/create")
     @FormUrlEncoded
     suspend fun addExperience(
@@ -63,6 +75,16 @@ interface GoHipeApiService {
             @Path("id") id: Long
     ): GeneralResponse
 
+    @DELETE("portfolio/{id}")
+    suspend fun deletePortfolio(
+            @Path("id") id: Long
+    ): GeneralResponse
+
+    @DELETE("experience/{id}")
+    suspend fun deleteExperience(
+            @Path("id") id: Long
+    ): GeneralResponse
+
     @PUT("account/engineer/update/{id}")
     @FormUrlEncoded
     suspend fun updateEngineer(
@@ -80,6 +102,33 @@ interface GoHipeApiService {
             @Field("en_id") enID: Long,
             @Field("ab_name") abName: String
     ): GeneralResponse
+
+    @Multipart
+    @PUT("portfolio/update/{id}")
+    suspend fun updatePortfolio(
+            @Path("id") id: Long,
+            @Part("en_id") enID: RequestBody,
+            @Part("pr_application") appName: RequestBody,
+            @Part("pr_desc") desc: RequestBody,
+            @Part("pr_link") link: RequestBody,
+            @Part("pr_repo") repo: RequestBody,
+            @Part("pr_company") company: RequestBody,
+            @Part("pr_role") role: RequestBody,
+            @Part image: MultipartBody.Part
+    ): GeneralResponse
+
+    @PUT("experience/update/{id}")
+    @FormUrlEncoded
+    suspend fun updateExperience(
+            @Path("id") id: Long,
+            @Field("en_id") enID: Long,
+            @Field("ex_role") exRole: String,
+            @Field("ex_company") exCompany: String,
+            @Field("ex_desc") exDesc: String,
+            @Field("ex_start") exStartDate: String,
+            @Field("ex_end") exEndDate: String,
+    ): GeneralResponse
+
 
 
 
@@ -114,7 +163,7 @@ interface GoHipeApiService {
         @Part("pj_desc") desc: RequestBody,
         @Part("pj_deadline") deadline: RequestBody,
         @Part image: MultipartBody.Part
-    ): Call<GeneralResponse>
+    ): GeneralResponse
 
     @POST("hire/create")
     @FormUrlEncoded

@@ -24,7 +24,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_addex_name"
+                android:id="@+id/tv_addex_role"
                 style="@style/TextView_MaterialInput_Edit"
                 android:layout_marginTop="24dp"
                 android:paddingHorizontal="16dp"
@@ -33,14 +33,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_header" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/it_addex_name"
+                android:id="@+id/it_addex_role"
                 style="@style/MaterialField_TextInputLayout_Edit"
                 android:paddingHorizontal="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_addex_name">
+                app:layout_constraintTop_toBottomOf="@+id/tv_addex_role">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_addex_name"
+                    android:id="@+id/et_addex_role"
                     style="@style/MaterialField_EditText_Edit" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -52,7 +52,7 @@
                 android:paddingHorizontal="16dp"
                 android:text="@string/company"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/it_addex_name" />
+                app:layout_constraintTop_toBottomOf="@+id/it_addex_role" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_addex_company"
@@ -85,7 +85,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_addex_desc"
-                    style="@style/MaterialField_EditText_Edit" />
+                    style="@style/MaterialField_EditText_Edit"
+                    android:layout_height="100dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,6 +108,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_addex_startdate"
+                    android:clickable="true"
+                    android:editable="false"
                     style="@style/MaterialField_EditText_Edit" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -129,6 +132,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_addex_enddate"
+                    android:clickable="true"
+                    android:editable="false"
                     style="@style/MaterialField_EditText_Edit" />
 
             </com.google.android.material.textfield.TextInputLayout>

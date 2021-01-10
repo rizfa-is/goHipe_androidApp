@@ -146,19 +146,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    service.addProject(compID, name, desc, deadline, imageName).enqueue(object : retrofit2.Callback<GeneralResponse> {
-                        override fun onResponse(
-                            call: Call<GeneralResponse>,
-                            response: Response<GeneralResponse>
-                        ) {
-                            Toast.makeText(context,response.body()?.message,Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onFailure(call: Call<GeneralResponse>, t: Throwable) {
-                            Toast.makeText(context,"Connection error", Toast.LENGTH_SHORT).show()
-                            Log.d("ON FAILURE",t.toString())
-                        }
-                    })
+                    service.addProject(compID, name, desc, deadline, imageName)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -175,11 +163,13 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
                 updateLabel(binding.etCompaddprojectfrgDeadline)
             }
 
-        binding.etCompaddprojectfrgDeadline.setOnFocusChangeListener { _, _ ->
-            DatePickerDialog(view.context, date,
-                myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
+        binding.etCompaddprojectfrgDeadline.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                DatePickerDialog(view.context, date,
+                        myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            }
         }
     }
 

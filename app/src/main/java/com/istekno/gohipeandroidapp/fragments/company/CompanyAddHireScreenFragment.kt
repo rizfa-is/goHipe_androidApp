@@ -97,7 +97,7 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         }
 
         postHire(enID, project, price, msg)
-        dialog.dialogCancel(view.context, "Add project successful!") {
+        dialog.dialogCancel(view.context, "Add hire successful!") {
             val sendIntent = Intent(view.context, CompanyMainContentActivity::class.java)
             sendIntent.putExtra(HIRE_ADD_AUTH_KEY, 1)
             startActivity(sendIntent)

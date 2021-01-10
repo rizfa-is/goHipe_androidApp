@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_addport"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_header"
+                app:shapeAppearance="@style/circleImage_profile" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/edit_image_button_bg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:padding="3dp"
+                android:background="@color/theme_green"
+                android:scaleType="centerCrop"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_addport"
+                app:layout_constraintEnd_toEndOf="@+id/img_addport"
+                app:shapeAppearance="@style/circleImage_profile" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/edit_image_button"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_image_button_bg"
+                app:layout_constraintEnd_toEndOf="@+id/edit_image_button_bg"
+                app:layout_constraintStart_toStartOf="@+id/edit_image_button_bg"
+                app:layout_constraintTop_toTopOf="@+id/edit_image_button_bg"
+                app:shapeAppearance="@style/circleImage_profile" />
+            
+            <TextView
+                android:id="@+id/tv_header"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:background="@color/theme_green"
+                android:gravity="center"
+                android:text="Add portfolio"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_addport_appname"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="App name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_addport" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_addport_appname"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addport_appname">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addport_appname"
+                    style="@style/MaterialField_EditText_Edit" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_addport_desc"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="@string/_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_addport_appname" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_addport_desc"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addport_desc">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addport_desc"
+                    style="@style/MaterialField_EditText_Edit"
+                    android:layout_height="100dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_addport_link"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="Link"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_addport_desc" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_addport_link"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addport_link">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addport_link"
+                    style="@style/MaterialField_EditText_Edit"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_addport_repo"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="Repository"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_addport_link" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_addport_repo"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addport_repo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addport_repo"
+                    style="@style/MaterialField_EditText_Edit" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_addport_comp"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="@string/company"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_addport_repo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_addport_comp"
+                style="@style/MaterialField_TextInputLayout_Edit"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addport_comp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addport_comp"
+                    style="@style/MaterialField_EditText_Edit" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_addport_type"
+                style="@style/TextView_MaterialInput_Edit"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="App type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_addport_comp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/it_addport_type"
+                style="@style/MaterialField_TextInputLayout_Edit3"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_addport_type">
+
+                <AutoCompleteTextView
+                    android:id="@+id/et_addport_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_addport"
+                style="@style/MaterialButton"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/theme_orange"
+                android:text="Add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/it_addport_type" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

@@ -15,6 +15,7 @@ import com.istekno.gohipeandroidapp.databinding.ItemRowExperienceBinding
 import com.istekno.gohipeandroidapp.models.Experience
 import com.istekno.gohipeandroidapp.retrofit.ExperienceModel
 import com.istekno.gohipeandroidapp.retrofit.PortfolioModel
+import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.collections.ArrayList
@@ -29,12 +30,22 @@ class ListExperienceRecycleViewAdapter(private val type: Int): RecyclerView.Adap
             "https://1.bp.blogspot.com/-LgTa-xDiknI/X4EflN56boI/AAAAAAAAPuk/24YyKnqiGkwRS9-_9suPKkfsAwO4wHYEgCLcBGAsYHQ/s0/image9.png"
     )
 
+    private lateinit var onItemClickCallback: OnItemClickCallback
     private val listExperience = mutableListOf<ExperienceModel>()
 
     fun setData(listEx: List<ExperienceModel>) {
         listExperience.clear()
         listExperience.addAll(listEx)
         notifyDataSetChanged()
+    }
+
+    fun onItemClickCallbak(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    interface OnItemClickCallback {
+        fun onUpdatePressed(experienceModel: ExperienceModel)
+        fun onDeletePressed(experienceModel: ExperienceModel)
     }
 
     inner class ListViewHolder(val binding: ItemRowExperienceBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -54,6 +65,8 @@ class ListExperienceRecycleViewAdapter(private val type: Int): RecyclerView.Adap
             binding.tvItemRowExperienceTotalmonths.text = "$sum months"
 
             if (type == 1) binding.llEditexperi.visibility = View.GONE
+            binding.btnEditexperiEdit.setOnClickListener { onItemClickCallback.onUpdatePressed(listExperience[this.adapterPosition]) }
+            binding.btnEditexperiDelete.setOnClickListener { onItemClickCallback.onDeletePressed(listExperience[this.adapterPosition]) }
         }
     }
 

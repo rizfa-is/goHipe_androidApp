@@ -71,9 +71,7 @@ class EngineerExperienceFragment : Fragment() {
                 }
 
                 listPortfolio.removeAll { it.enID != enID }
-                activity?.runOnUiThread {
-                    (binding.rvExperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listPortfolio)
-                }
+                (binding.rvExperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listPortfolio)
             }
         }
     }
