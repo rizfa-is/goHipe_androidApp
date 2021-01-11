@@ -30,6 +30,8 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
     companion object {
         const val HIRE_AUTH_KEY = "hire_auth_key"
         const val HIRE_DATA = "hire_data"
+        const val HIRE_DATA_EDIT = "hire_data_edit"
+        const val HIRE_DATA_EDIT2 = "hire_data_edit2"
 
         private const val APPROVED = "APPROVED"
         private const val REJECTED = "REJECTED"
@@ -39,6 +41,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
+    private lateinit var engineer: EngineerModelResponse
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -72,6 +75,8 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
         binding.btnComdetailprojectfrgEditproject.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(HIRE_AUTH_KEY, 20)
+            sendIntent.putExtra(HIRE_DATA_EDIT, model)
+            sendIntent.putExtra(HIRE_DATA_EDIT2, engineer)
             startActivity(sendIntent)
         }
     }
@@ -98,6 +103,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
 
                 activity?.runOnUiThread {
                     binding.modelEng = mutable[0]
+                    engineer = mutable[0]
                     Glide.with(view.context).load(EngineerDetailHireScreenFragment.imageLink + mutable[0].enAvatar).into(binding.imgListSearchEng)
                 }
             }

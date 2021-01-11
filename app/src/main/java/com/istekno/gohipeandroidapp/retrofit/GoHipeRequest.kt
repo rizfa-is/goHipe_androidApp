@@ -22,6 +22,22 @@ data class EngineerModelResponse(
          val enAvatar: String?
 ) : Parcelable
 
+@Parcelize
+data class CompanyModelResponse(
+        val cpID: Long,
+        val cpName: String?,
+        val cpEmail: String?,
+        val cpPhone: String?,
+        val cpCompany: String?,
+        val cpPosition: String?,
+        val cpField: String?,
+        val cpLocation: String?,
+        val cpDesc: String?,
+        val cpInsta: String?,
+        val cpLinkedIn: String?,
+        val cpAvatar: String?
+) : Parcelable
+
 data class SearchEngineerModelResponse(
         val enID: Long?,
         val enName: String?,

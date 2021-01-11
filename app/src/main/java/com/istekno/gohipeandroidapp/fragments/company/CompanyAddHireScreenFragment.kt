@@ -132,10 +132,6 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
             }
 
             val pjID = listProjectID[listProject.indexOf(pjName)]
-            Log.e("pjID", pjID.toString())
-
-            Log.e("listProject", listProject.toString())
-            Log.e("listProjectID", listProjectID.toString())
             withContext(Dispatchers.IO) {
                 try {
                     service.addHire(enID, pjID, pjPrice, pjMessage)

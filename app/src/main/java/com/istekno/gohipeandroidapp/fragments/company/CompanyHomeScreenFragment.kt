@@ -71,7 +71,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                     }
 
                     activity?.runOnUiThread {
-                        binding.textViewHello.text = "Hai ${result1.database!![0].acName!!.split(" ")[0]}"
+                        binding.textViewHello.text = "Hai ${result1.database!![0].cpName!!.split(" ")[0]}"
                         (binding.rvListEngineer.adapter as TalentOfTheMonthAdapter).setData(listEngineer!!)
                         (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(listEngineer, listAbility!!)
                     }

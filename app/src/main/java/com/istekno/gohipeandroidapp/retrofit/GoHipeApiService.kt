@@ -193,10 +193,39 @@ interface GoHipeApiService {
         @Path("id") id: Long
     ): GeneralResponse
 
+    @Multipart
+    @PUT("account/company/update/{id}")
+    suspend fun updateCompany(
+            @Path("id") id: Long,
+            @Part("ac_name") name: RequestBody,
+            @Part("ac_email") email: RequestBody,
+            @Part("ac_phone") phone: RequestBody,
+            @Part("ac_password") password: RequestBody,
+            @Part("cp_company") company: RequestBody,
+            @Part("cp_position") position: RequestBody,
+            @Part("cp_field") field: RequestBody,
+            @Part("cp_location") location: RequestBody,
+            @Part("cp_desc") desc: RequestBody,
+            @Part("cp_insta") ig: RequestBody,
+            @Part("cp_linkedin") linkedin: RequestBody,
+            @Part image: MultipartBody.Part
+    ): GeneralResponse
+
     @PUT("hire/update/{id}")
     @FormUrlEncoded
     suspend fun updateHireStatus(
             @Path("id") id: Long,
+            @Field("hr_status") hrStatus: String
+    ): GeneralResponse
+
+    @PUT("hire/update/{id}")
+    @FormUrlEncoded
+    suspend fun updateHiring(
+            @Path("id") id: Long,
+            @Field("en_id") enID: Long,
+            @Field("pj_id") pjID: Long,
+            @Field("hr_price") hrPrice: String,
+            @Field("hr_message") hrMessage: String,
             @Field("hr_status") hrStatus: String
     ): GeneralResponse
 }

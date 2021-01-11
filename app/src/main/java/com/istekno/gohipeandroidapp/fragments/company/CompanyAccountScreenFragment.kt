@@ -2,23 +2,21 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAccountScreenBinding
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountScreenFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.CompanyGetByIDResponse
-import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
+import com.istekno.gohipeandroidapp.retrofit.CompanyModelResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
@@ -28,12 +26,15 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
     companion object {
         const val SETTING_AUTH_KEY = "setting_auth_key"
         const val EDIT_PROFILE_AUTH_KEY = "edit_profile_auth_key"
+        const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
+        const val imageLink = "http://107.22.89.131:7000/image/"
     }
 
     private lateinit var binding: FragmentCompanyAccountScreenBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
+    private var companyDetail = listOf<CompanyModelResponse>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -51,7 +52,6 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
 
         getCompanyInfo(view)
         viewListener()
-
     }
 
     private fun getCompanyInfo(view: View) {
@@ -67,8 +67,16 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
             }
 
             if (result is CompanyGetByIDResponse) {
+                val list = result.database?.map {
+                    CompanyModelResponse(it.cpID, it.cpName, it.cpEmail, it.cpPhone, it.cpCompany, it.cpPosition, it.cpField, it.cpLocation, it.cpDesc,
+                            it.cpInsta, it.cpLinkedIn, it.cpAvatar)
+                }
+
                 binding.model = result.database!![0]
-                Glide.with(view.context).load(EngineerAccountScreenFragment.imageLink + result.database[0].cpAvatar).into(binding.imgComaccfrgAvatar)
+                Glide.with(view.context).load(imageLink + result.database[0].cpAvatar).into(binding.imgComaccfrgAvatar)
+                if (list != null) {
+                    companyDetail = list
+                }
             }
         }
     }
@@ -77,6 +85,7 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
         binding.btnComaccfrgEditprofile.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY, 1)
+            sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY2, companyDetail[0])
             startActivity(sendIntent)
         }
 
@@ -97,6 +106,7 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
 
     private fun setToolbar(toolbar: MaterialToolbar, co: CoordinatorLayout) {
         bottomNavigationView.visibility = View.VISIBLE
+        bottomNavigationView.menu.findItem(R.id.mn_item_maincontent_account).isChecked = true
         co.visibility = View.VISIBLE
         toolbar.title = "My Account"
         toolbar.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = true

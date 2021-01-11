@@ -16,6 +16,7 @@ class CompanyMainContentActivity : AppCompatActivity() {
     companion object {
         const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
         const val PROJECT_ADD_AUTH_KEY = "project_add_auth_key"
+        const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
     }
 
     private lateinit var binding: ActivityCompanyMainContentBinding
@@ -40,11 +41,14 @@ class CompanyMainContentActivity : AppCompatActivity() {
     private fun initHomeFragment() {
         val hireAuthKey = intent.getIntExtra(HIRE_ADD_AUTH_KEY, -1)
         val projectAuthKey = intent.getIntExtra(PROJECT_ADD_AUTH_KEY, -1)
+        val accAuthKey = intent.getIntExtra(ACC_UPDATE_AUTH_KEY, -1)
 
         if (hireAuthKey == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHiringScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany, binding.bottomNavView)).commit()
         } else if (projectAuthKey == 1) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyProjectScreenFragment(binding.topAppBarMaincontentActivity, binding.coCompany, binding.bottomNavView)).commit()
+        } else if (accAuthKey == 1) {
+            supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
         } else {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, CompanyHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coCompany)).commit()
         }

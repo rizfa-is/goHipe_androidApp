@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
-                        android:text="@{model.acName}"
+                        android:text="@{model.cpName}"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:text="@{model.acEmail}"
+                        android:text="@{model.cpEmail}"
                         app:drawableStartCompat="@drawable/ic_email" />
 
                     <TextView

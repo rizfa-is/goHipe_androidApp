@@ -68,8 +68,9 @@ data class EngineerRegisterResponse(val success: Boolean, val message: String, v
 data class CompanyGetByIDResponse(val success: Boolean, val message: String, val database: ArrayList<Company>?) {
     data class Company(@SerializedName("ac_id") val acID: Long,
                         @SerializedName("cp_id") val cpID: Long,
-                        @SerializedName("ac_name") val acName: String?,
-                        @SerializedName("ac_email") val acEmail: String?,
+                        @SerializedName("ac_name") val cpName: String?,
+                        @SerializedName("ac_email") val cpEmail: String?,
+                        @SerializedName("ac_phone") val cpPhone: String?,
                         @SerializedName("cp_company") val cpCompany: String?,
                         @SerializedName("cp_position") val cpPosition: String?,
                         @SerializedName("cp_field") val cpField: String?,
