@@ -26,6 +26,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
     companion object {
         const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
+        const val EMPTY_DATA_AUTH_KEY = "empty_data_auth_key"
     }
 
     private lateinit var binding: ActivityEngineerMainContentBinding
@@ -35,6 +36,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
     private lateinit var engineerModel: EngineerModel
     private lateinit var dialog: Dialog
     private var state = true
+    private var engineer = listOf<EngineerModelResponse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +52,6 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
         connectionCheck(this)
         getEngineerInfo()
-        initFragment(state)
-        changeFragmentScreen(state)
-        viewListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -64,6 +63,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
         binding.btnGotoAccount.setOnClickListener {
             val sendIntent = Intent(this, SettingScreenActivity::class.java)
             sendIntent.putExtra(EngineerAccountScreenFragment.EDIT_PROFILE_AUTH_KEY, 0)
+            sendIntent.putExtra(EMPTY_DATA_AUTH_KEY, engineer[0])
             startActivity(sendIntent)
         }
         binding.btnLogout.setOnClickListener {
@@ -101,9 +101,22 @@ class EngineerMainContentActivity : AppCompatActivity() {
                 if (data?.enName.isNullOrEmpty() || data?.enJobTitle.isNullOrEmpty() || data?.enJobType.isNullOrEmpty() || data?.enLocation.isNullOrEmpty()
                         || data?.enDesc.isNullOrEmpty() || data?.enEmail.isNullOrEmpty() || data?.enIG.isNullOrEmpty()
                         || data?.enGithub.isNullOrEmpty() || data?.enGitlab.isNullOrEmpty() || data?.enAvatar.isNullOrEmpty()) {
+
                     binding.checkProfileFrame.visibility = View.VISIBLE
+                    binding.frameContainerMaincontent.visibility = View.GONE
                     state = false
+
+                    if (list != null) {
+                        engineer = list
+                    }
+
+                    initFragment(state)
+                    changeFragmentScreen(state)
+                    viewListener()
                 } else {
+                    initFragment(state)
+                    changeFragmentScreen(state)
+                    viewListener()
                     binding.frameContainerMaincontent.visibility = View.VISIBLE
                 }
             }
@@ -119,8 +132,10 @@ class EngineerMainContentActivity : AppCompatActivity() {
         } else if (updateAuthKey == 0) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerAccountScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.checkProfileFrame, binding.coEngineer, state)).commit()
         } else {
+            binding.pgEngmainact.visibility = View.VISIBLE
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_maincontent, EngineerHomeScreenFragment(binding.topAppBarMaincontentActivity, binding.bottomNavView, binding.coEngineer, binding.checkProfileFrame, state)).commit()
         }
+        binding.pgEngmainact.visibility = View.GONE
     }
 
     private fun changeFragmentScreen(state: Boolean) {

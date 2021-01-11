@@ -228,4 +228,15 @@ interface GoHipeApiService {
             @Field("hr_message") hrMessage: String,
             @Field("hr_status") hrStatus: String
     ): GeneralResponse
+
+    @Multipart
+    @PUT("project/update/{id}")
+    suspend fun updateProject(
+            @Path("id") id: Long,
+            @Part("pj_name") pjName: RequestBody,
+            @Part("pj_desc") pjDesc: RequestBody,
+            @Part("pj_deadline") pjDeadline: RequestBody,
+            @Part image: MultipartBody.Part
+    ): GeneralResponse
+
 }

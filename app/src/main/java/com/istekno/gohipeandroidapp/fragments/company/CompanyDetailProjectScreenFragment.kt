@@ -18,6 +18,7 @@ class CompanyDetailProjectScreenFragment : Fragment() {
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
         const val PROJECT_DATA = "project_data"
+        const val EDIT_PROJECT_AUTH_KEY = "edit_project_auth_key"
 
         const val imageLink = "http://107.22.89.131:7000/image/"
     }
@@ -42,6 +43,7 @@ class CompanyDetailProjectScreenFragment : Fragment() {
         binding.btnComdetailprojectfrgEditproject.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(PROJECT_AUTH_KEY, 12)
+            sendIntent.putExtra(EDIT_PROJECT_AUTH_KEY, data)
             startActivity(sendIntent)
         }
     }

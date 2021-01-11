@@ -242,7 +242,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
         setDropdownMenuAdapter(view, roleTI, list)
         cDialog.show()
         btnAddImage.setOnClickListener {
-            if (EasyPermissions.hasPermissions(view.context,android.Manifest.permission.READ_EXTERNAL_STORAGE)){
+            if (EasyPermissions.hasPermissions(view.context, android.Manifest.permission.READ_EXTERNAL_STORAGE)){
                 val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
                 startActivityForResult(intent, REQUEST_CODE)

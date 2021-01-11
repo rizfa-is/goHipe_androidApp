@@ -41,7 +41,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
-    private lateinit var engineer: EngineerModelResponse
+    private var engineer = listOf<EngineerModelResponse>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -76,7 +76,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(HIRE_AUTH_KEY, 20)
             sendIntent.putExtra(HIRE_DATA_EDIT, model)
-            sendIntent.putExtra(HIRE_DATA_EDIT2, engineer)
+            sendIntent.putExtra(HIRE_DATA_EDIT2, engineer[0])
             startActivity(sendIntent)
         }
     }
@@ -103,7 +103,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
 
                 activity?.runOnUiThread {
                     binding.modelEng = mutable[0]
-                    engineer = mutable[0]
+                    engineer = mutable
                     Glide.with(view.context).load(EngineerDetailHireScreenFragment.imageLink + mutable[0].enAvatar).into(binding.imgListSearchEng)
                 }
             }

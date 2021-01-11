@@ -36,6 +36,18 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+        <ProgressBar
+            android:id="@+id/pg_engmainact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/theme_green"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_nav_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frame_container_maincontent" />
+
         <FrameLayout
             android:id="@+id/frame_container_maincontent"
             android:layout_width="match_parent"

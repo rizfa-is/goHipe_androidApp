@@ -34,6 +34,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
         const val REQUEST_CODE = 1000
         const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
+        const val EMPTY_DATA_AUTH_KEY = "empty_data_auth_key"
         const val imageLink = "http://107.22.89.131:7000/image/"
 
         private val listDropdownJobtype = listOf("Freelance", "Fulltime")
@@ -45,6 +46,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var imageName: MultipartBody.Part
+    private lateinit var engineer: EngineerModelResponse
     private var dataImage = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +69,14 @@ class EngineerEditProfileAccountFragment : Fragment() {
 
     private fun setText(view: View) {
         val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(EDIT_PROFILE_AUTH_KEY2)
+        val dataEmpty = activity?.intent?.getParcelableExtra<EngineerModelResponse>(EMPTY_DATA_AUTH_KEY)
+
+        if (dataEmpty != null) {
+            engineer = dataEmpty
+        } else if (data != null) {
+            engineer = data
+        }
+
         val fullname = binding.etEngeditaccountfrgFullname
         val email = binding.etEngeditaccountfrgEmail
         val jobTitle = binding.etEngeditaccountfrgJobtitle
@@ -78,17 +88,17 @@ class EngineerEditProfileAccountFragment : Fragment() {
         val github = binding.etEngeditaccountfrgGithub
         val gitlab = binding.etEngeditaccountfrgGitlab
 
-        fullname.setText(data?.enName)
-        email.setText(data?.enEmail)
-        jobTitle.setText(data?.enJobTitle)
-        jobType.setText(data?.enJobType)
-        phone.setText(data?.enPhone)
-        location.setText(data?.enLocation)
-        desc.setText(data?.enDesc)
-        ig.setText(data?.enIG)
-        github.setText(data?.enGithub)
-        gitlab.setText(data?.enGitlab)
-        Glide.with(view.context).load(imageLink + data?.enAvatar).into(binding.shapeableImageView2)
+        fullname.setText(engineer.enName)
+        email.setText(engineer.enEmail)
+        jobTitle.setText(engineer.enJobTitle)
+        jobType.setText(engineer.enJobType)
+        phone.setText(engineer.enPhone)
+        location.setText(engineer.enLocation)
+        desc.setText(engineer.enDesc)
+        ig.setText(engineer.enIG)
+        github.setText(engineer.enGithub)
+        gitlab.setText(engineer.enGitlab)
+        Glide.with(view.context).load(imageLink + engineer.enAvatar).into(binding.shapeableImageView2)
 
         setDropdownMenuAdapter(view)
     }

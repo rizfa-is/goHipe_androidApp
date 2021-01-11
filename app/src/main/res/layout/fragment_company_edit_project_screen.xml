@@ -16,7 +16,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_mainscreen_background"
+            android:src="@drawable/ic_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -107,6 +107,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_compeditprojectfrg_deadline"
+                android:clickable="true"
+                android:focusable="true"
+                android:editable="false"
                 style="@style/MaterialField_EditText_Edit" />
 
         </com.google.android.material.textfield.TextInputLayout>
