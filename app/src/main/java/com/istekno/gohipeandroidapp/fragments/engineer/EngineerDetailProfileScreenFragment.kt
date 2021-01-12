@@ -51,6 +51,14 @@ class EngineerDetailProfileScreenFragment : Fragment() {
         binding.model = data
         Glide.with(view.context).load(imageLink + data?.enAvatar).into(binding.imgEnprofifrgAvatar)
 
+
+        setViewPager()
+        getEngineerDetail(data!!, view)
+        favoriteState()
+        viewListener(view, data)
+    }
+
+    private fun viewListener(view: View, data: EngineerModelResponse) {
         binding.btnEngprofifrgHire.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(HIRE_AUTH_KEY, 0)
@@ -58,9 +66,11 @@ class EngineerDetailProfileScreenFragment : Fragment() {
             startActivity(sendIntent)
         }
 
-        setViewPager()
-        getEngineerDetail(data!!, view)
-        favoriteState()
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            binding.cgEnprofifrgAbility.removeAllViews()
+            getEngineerDetail(data, view)
+        }
     }
 
     private fun setViewPager() {
@@ -74,6 +84,11 @@ class EngineerDetailProfileScreenFragment : Fragment() {
             val id = data.enID
             val listAbility = mutableListOf<AbilityModel>()
 
+            binding.pgEngprofifrg.visibility = View.VISIBLE
+            binding.swipeRefresh.isRefreshing = false
+            binding.svEngprofifrg.visibility = View.GONE
+            binding.btnEngprofifrgHire.visibility = View.GONE
+            binding.imgEnprofifrgFavorite.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllEngineer()
@@ -91,6 +106,11 @@ class EngineerDetailProfileScreenFragment : Fragment() {
 
                 listAbility.removeAll { it.enID != id }
                 chipViewInit(view, listAbility)
+
+                binding.pgEngprofifrg.visibility = View.GONE
+                binding.svEngprofifrg.visibility = View.VISIBLE
+                binding.btnEngprofifrgHire.visibility = View.VISIBLE
+                binding.imgEnprofifrgFavorite.visibility = View.VISIBLE
             }
         }
     }

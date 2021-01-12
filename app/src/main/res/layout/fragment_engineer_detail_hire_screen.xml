@@ -63,7 +63,6 @@
                         android:layout_height="110dp"
                         android:layout_centerHorizontal="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img_porto4"
                         app:shapeAppearance="@style/circleList" />
 
                     <TextView

@@ -26,6 +26,11 @@ interface GoHipeApiService {
             @Path("id") id: Long
     ): EngineerGetByIDResponse
 
+    @GET("engineer")
+    suspend fun getEngineerByQuery(
+            @Query("search") query: String
+    ): EngineerGetByIDResponse
+
     @POST("signup/engineer")
     @FormUrlEncoded
     suspend fun registerEngineer(
@@ -69,7 +74,7 @@ interface GoHipeApiService {
     @DELETE("account/engineer/{id}")
     suspend fun deleteEngineer(
             @Path("id") id: Long
-    ): EngineerDeleteResponse
+    ): GeneralResponse
 
     @DELETE("ability/{id}")
     suspend fun deleteAbility(
@@ -191,6 +196,11 @@ interface GoHipeApiService {
     @DELETE("project/{id}")
     suspend fun deleteProject(
         @Path("id") id: Long
+    ): GeneralResponse
+
+    @DELETE("account/company/{id}")
+    suspend fun deleteCompany(
+            @Path("id") id: Long
     ): GeneralResponse
 
     @Multipart

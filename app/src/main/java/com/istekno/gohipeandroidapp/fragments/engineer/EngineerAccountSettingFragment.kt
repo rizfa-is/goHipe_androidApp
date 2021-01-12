@@ -55,29 +55,33 @@ class EngineerAccountSettingFragment(private val toolbar: MaterialToolbar): Frag
                     engineerModel.isLogin = false
                     engineerModel.level = ""
                     goHipePreferences.setEngineerPreference(engineerModel)
+
                     startActivity(Intent(view.context, MainScreenActivity::class.java))
-                    activity?.finish()
+                    activity?.finishAffinity()
                 }
             }
         }
 
         binding.btnEngsetfrgDeleteaccount.setOnClickListener {
-            deleteEngineerAccount()
+            dialog.dialog(view.context, "Are you sure to delete account ?") {
+                deleteEngineerAccount()
+
+                startActivity(Intent(view.context, MainScreenActivity::class.java))
+                activity?.finishAffinity()
+            }
         }
     }
 
     private fun deleteEngineerAccount() {
+        val id = goHipePreferences.getEngineerPreference().acID
+
         coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 try {
-                    service.deleteEngineer(5)
+                    service.deleteEngineer(id!!)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
-            }
-
-            if (result is EngineerDeleteResponse) {
-                Log.d("GoHipe : ", result.toString())
             }
         }
     }

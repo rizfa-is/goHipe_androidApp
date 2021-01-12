@@ -10,65 +10,59 @@
         android:layout_height="match_parent"
         android:background="@color/background_grey">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar_company_homefrg"
-                android:layout_width="match_parent"
-                android:layout_height="?android:actionBarSize"
-                app:titleTextColor="@color/white">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <SearchView
-                        android:id="@+id/searchView"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="8dp"
-                        android:layout_marginEnd="24dp"
-                        android:background="@color/white"
-                        app:queryHint="Search project"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_filter"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/searchView"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.appbar.MaterialToolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="57dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_search_list_engineer"
+            <View
+                android:id="@+id/view_bg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:background="@color/theme_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="12dp"
+                android:background="@drawable/shape_list_search_engineer_bg"
+                app:layout_constraintBottom_toBottomOf="@+id/view_bg"
+                app:layout_constraintStart_toStartOf="@+id/view_bg"
+                app:layout_constraintTop_toTopOf="@+id/view_bg"/>
+
+            <ProgressBar
+                android:id="@+id/pg_homeengfrg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/theme_green"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/view_bg" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_bg">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_list_engineer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
             <ImageView
                 android:id="@+id/imageView"

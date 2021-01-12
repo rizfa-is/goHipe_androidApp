@@ -54,6 +54,8 @@ class EngineerPortfolioFragment : Fragment() {
         coroutineScope.launch {
             val listPortfolio = mutableListOf<PortfolioModel>()
 
+            binding.imageView.visibility = View.GONE
+            binding.tvPortfolio.visibility = View.GONE
             binding.pgPortofrg.visibility = View.VISIBLE
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -69,8 +71,13 @@ class EngineerPortfolioFragment : Fragment() {
                         listPortfolio.add(PortfolioModel(it.prID, it.enID, it.prApplication, it.prDesc, it.prLink, it.prRepo, it.prCompany, it.prRole, it.prImg))
                     }
                 }
-
                 listPortfolio.removeAll { it.enID != enID }
+
+                if (listPortfolio.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvPortfolio.visibility = View.VISIBLE
+                }
+
                 (binding.rvPortofrg.adapter as ListPortfolioRecycleViewAdapter).setData(listPortfolio)
                 binding.pgPortofrg.visibility = View.GONE
             }

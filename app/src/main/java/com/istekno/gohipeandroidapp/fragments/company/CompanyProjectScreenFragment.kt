@@ -52,7 +52,6 @@ class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private
         goHipePreferences = GoHipePreferences(view.context)
         dialog = Dialog()
 
-
         viewListener(view)
         showRecyclerList(view)
         getAllProjectByCompanyID()
@@ -64,12 +63,22 @@ class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private
             sendIntent.putExtra(PROJECT_AUTH_KEY, 1)
             startActivity(sendIntent)
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvAllInbox.visibility = View.GONE
+            getAllProjectByCompanyID()
+        }
     }
 
     private fun getAllProjectByCompanyID() {
         val cpID = goHipePreferences.getCompanyPreference().compID
         var mutable: MutableList<ProjectModelResponse>
 
+        binding.fabAddproject.visibility = View.GONE
+        binding.rvCompanyProject.visibility = View.GONE
+        binding.swipeRefresh.isRefreshing = false
+        binding.pgComprojectfrg.visibility = View.VISIBLE
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -86,7 +95,15 @@ class CompanyProjectScreenFragment(private val toolbar: MaterialToolbar, private
                 mutable = list!!.toMutableList()
                 mutable.removeAll { it.cpID != cpID }
 
+                if (mutable.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvAllInbox.visibility = View.VISIBLE
+                }
+
                 (binding.rvCompanyProject.adapter as ListSearchProjectAdapter).setData(mutable)
+                binding.fabAddproject.visibility = View.VISIBLE
+                binding.rvCompanyProject.visibility = View.VISIBLE
+                binding.pgComprojectfrg.visibility = View.GONE
             }
         }
     }

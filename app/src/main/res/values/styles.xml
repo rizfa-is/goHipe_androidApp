@@ -81,6 +81,13 @@
         <item name="boxStrokeColor">@color/white</item>
     </style>
 
+    <style name="MaterialField_TextInputLayout_Edit4" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="boxStrokeColor">@color/theme_green</item>
+    </style>
+
     <style name="MaterialField_EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

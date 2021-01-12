@@ -24,9 +24,13 @@ class ListSearchEngineerAdapter: RecyclerView.Adapter<ListSearchEngineerAdapter.
     private val listEngineer = mutableListOf<EngineerModelResponse>()
     private val listAbility = mutableListOf<AbilityM>()
 
-    fun setData(listEn: List<EngineerModelResponse>, listAb: List<AbilityM>) {
+    fun setDataEngineer(listEn: List<EngineerModelResponse>) {
         listEngineer.clear()
         listEngineer.addAll(listEn)
+        notifyDataSetChanged()
+    }
+
+    fun setDataAbility(listAb: List<AbilityM>) {
         listAbility.clear()
         listAbility.addAll(listAb)
         notifyDataSetChanged()
@@ -66,6 +70,8 @@ class ListSearchEngineerAdapter: RecyclerView.Adapter<ListSearchEngineerAdapter.
 
     @SuppressLint("SetTextI18n")
     private fun chipViewInit(listAbility: List<Ability>, view: View, binding: ItemListSearchEngineerBinding) {
+        binding.cgSearchengAbility.removeAllViews()
+
         for (i in listAbility.indices) {
             val chip = Chip(view.context)
             val abName = listAbility[i].abName

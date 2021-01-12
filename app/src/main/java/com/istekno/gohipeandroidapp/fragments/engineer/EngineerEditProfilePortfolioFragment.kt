@@ -81,6 +81,8 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvPortfolio.visibility = View.GONE
             getPortfolio(id)
         }
     }
@@ -107,8 +109,13 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
                         listPortfolio.add(PortfolioModel(it.prID, it.enID, it.prApplication, it.prDesc, it.prLink, it.prRepo, it.prCompany, it.prRole, it.prImg))
                     }
                 }
-
                 listPortfolio.removeAll { it.enID != enID }
+
+                if (listPortfolio.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvPortfolio.visibility = View.VISIBLE
+                }
+
                 (binding.rvEditportofrg.adapter as ListPortfolioRecycleViewAdapter).setData(listPortfolio)
                 binding.fabEditportofrg.visibility = View.VISIBLE
                 binding.rvEditportofrg.visibility = View.VISIBLE

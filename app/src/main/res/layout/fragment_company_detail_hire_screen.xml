@@ -22,200 +22,215 @@
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/img_compdetailprojectfrg_shape1"
+            android:id="@+id/img_detailhirefrg_shape1"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:src="@drawable/shape_profile_big" />
 
         <ImageView
-            android:id="@+id/img_compdetailprojectfrg_shape2"
+            android:id="@+id/img_detailhirefrg_shape2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/shape_profile_small" />
 
-        <androidx.core.widget.NestedScrollView
+        <ProgressBar
+            android:id="@+id/pg_detailhirefrg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/theme_green"
+            android:layout_centerInParent="true"/>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/sv_detailhirefrg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="16dp">
+                android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:id="@+id/relativeLayout_comdetailhirefrg"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/shape_profile_background1"
-                    android:elevation="2dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="16dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/img_comdetailhirefrg_project"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/img_porto4"
-                        app:shapeAppearance="@style/circleList" />
-
-                    <TextView
-                        android:id="@+id/tv_comdetailhirefrg_project_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/img_comdetailhirefrg_project"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{model.pjName}"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_comdetailhirefrg_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_comdetailhirefrg_project_name"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textColor="@color/text_loc" />
-
-                    <TextView
-                        android:id="@+id/tv_comdetailhirefrg_project_desc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/tv_comdetailhirefrg_price"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center"
-                        android:text="@{model.hrMessage}"
-                        android:textColor="@color/black" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_comdetailprojectfrg_editproject"
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout_comdetailhirefrg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_comdetailhirefrg_project_desc"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="@color/theme_orange"
-                        android:text="Edit hire"
-                        android:textAllCaps="false" />
+                        android:layout_marginTop="40dp"
+                        android:background="@drawable/shape_profile_background1"
+                        android:elevation="2dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/tv_comdetailprojectfrg_hire_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_comdetailhirefrg_project_desc"
-                        android:layout_marginTop="16dp"
-                        android:ellipsize="end"
-                        android:gravity="center_horizontal"
-                        android:maxLines="1"
-                        android:padding="10dp"
-                        android:text="Approved"
-                        android:textColor="@color/theme_green_dark"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/img_comdetailhirefrg_project"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop"
+                            app:shapeAppearance="@style/circleList" />
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_comdetailhirefrg_project_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_comdetailhirefrg_project"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{model.pjName}"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/img_line_connection"
-                    android:layout_width="65dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/img_line_connection"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout_comdetailhirefrg" />
+                        <TextView
+                            android:id="@+id/tv_comdetailhirefrg_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_comdetailhirefrg_project_name"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="4dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/text_loc" />
 
-                <RelativeLayout
-                    android:id="@+id/relativeLayout_comdetailhirefrg2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingVertical="16dp"
-                    android:paddingHorizontal="24dp"
-                    android:background="@drawable/shape_profile_background1"
-                    android:elevation="2dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_line_connection">
+                        <TextView
+                            android:id="@+id/tv_comdetailhirefrg_project_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/tv_comdetailhirefrg_price"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:gravity="center"
+                            android:text="@{model.hrMessage}"
+                            android:textColor="@color/black" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/img_list_search_eng"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/img_mainscreen_background"
-                        app:shapeAppearance="@style/circleImage_profile" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_comdetailprojectfrg_editproject"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_comdetailhirefrg_project_desc"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="16dp"
+                            android:backgroundTint="@color/theme_orange"
+                            android:text="Edit hire"
+                            android:textAllCaps="false" />
 
-                    <TextView
-                        android:id="@+id/tv_list_search_eng_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/img_list_search_eng"
-                        android:layout_marginStart="24dp"
-                        android:layout_toEndOf="@+id/img_list_search_eng"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{modelEng.enName}"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_comdetailprojectfrg_hire_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_comdetailhirefrg_project_desc"
+                            android:layout_marginTop="16dp"
+                            android:ellipsize="end"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:padding="10dp"
+                            android:text="Approved"
+                            android:textColor="@color/theme_green_dark"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_list_search_eng_job"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_list_search_eng_name"
-                        android:layout_alignStart="@+id/tv_list_search_eng_name"
-                        android:layout_marginTop="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{modelEng.enJobTitle}"
-                        android:textColor="@color/black" />
+                    </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_list_search_eng_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_list_search_eng_job"
-                        android:layout_alignStart="@+id/tv_list_search_eng_name"
+                    <ImageView
+                        android:id="@+id/img_line_connection"
+                        android:layout_width="65dp"
+                        android:layout_height="120dp"
                         android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{`ID : ` + modelEng.enID.toString()}"
-                        android:textColor="@color/text_loc" />
+                        android:src="@drawable/img_line_connection"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_comdetailhirefrg" />
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout_comdetailhirefrg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingVertical="16dp"
+                        android:paddingHorizontal="24dp"
+                        android:background="@drawable/shape_profile_background1"
+                        android:elevation="2dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img_line_connection">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout_comdetailhirefrg2" />
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/img_list_search_eng"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_mainscreen_background"
+                            app:shapeAppearance="@style/circleImage_profile" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/tv_list_search_eng_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/img_list_search_eng"
+                            android:layout_marginStart="24dp"
+                            android:layout_toEndOf="@+id/img_list_search_eng"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{modelEng.enName}"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-        </androidx.core.widget.NestedScrollView>
+                        <TextView
+                            android:id="@+id/tv_list_search_eng_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_list_search_eng_name"
+                            android:layout_alignStart="@+id/tv_list_search_eng_name"
+                            android:layout_marginTop="4dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{modelEng.enJobTitle}"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tv_list_search_eng_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_list_search_eng_job"
+                            android:layout_alignStart="@+id/tv_list_search_eng_name"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{`ID : ` + modelEng.enID.toString()}"
+                            android:textColor="@color/text_loc" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relativeLayout_comdetailhirefrg2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
 

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -69,7 +70,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         goHipePreferences = GoHipePreferences(view.context)
         dialog = Dialog()
 
-        retrieveDate(view)
+        retrieveDate(view, binding.imgSelectdate, binding.etCompaddprojectfrgDeadline)
         viewListener(view)
     }
 
@@ -154,7 +155,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         }
     }
 
-    private fun retrieveDate(view: View) {
+    private fun retrieveDate(view: View, imgDate: ImageView, editText: TextInputEditText) {
         val date =
             OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 myCalendar.set(Calendar.YEAR, year)
@@ -163,20 +164,37 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
                 updateLabel(binding.etCompaddprojectfrgDeadline)
             }
 
-        binding.etCompaddprojectfrgDeadline.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+        imgDate.setOnClickListener {
+            val et = editText.text.toString()
+            val initDate: List<Int>
+            var yearNew = 0
+            var monthNew = 0
+            var dayNew = 0
+
+            if (et.isNotEmpty()) {
+                initDate = editText.text.toString().split('-').map { it.toInt() }
+                yearNew = initDate[0]
+                monthNew = initDate[1]
+                dayNew = initDate[2]
+            }
+
+            if (yearNew == 0 && monthNew == 0 && dayNew == 0) {
                 DatePickerDialog(view.context, date,
                         myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            } else {
+                DatePickerDialog(view.context, date,
+                        yearNew, monthNew - 1,
+                        dayNew
                 ).show()
             }
         }
     }
 
-    private fun updateLabel(edittext: TextInputEditText) {
-        val myFormat = "YYYY-MM-DD" //In which you need put here
-        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-        edittext.setText(sdf.format(myCalendar.time))
+    private fun updateLabel(editText: TextInputEditText) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        editText.setText(dateFormat.format(myCalendar.time))
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {

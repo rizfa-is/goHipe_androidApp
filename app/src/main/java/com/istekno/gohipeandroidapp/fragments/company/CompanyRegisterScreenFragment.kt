@@ -21,6 +21,7 @@ import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBin
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
 import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.CompanyRegisterResponse
 import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
@@ -135,7 +136,7 @@ class CompanyRegisterScreenFragment : Fragment() {
                 }
             }
 
-            if (result is EngineerRegisterResponse) {
+            if (result is CompanyRegisterResponse) {
                 dialog.dialogCancel(context, "Register Successful") {
                     fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment(), LoginScreenFragment::class.java.simpleName)?.commit()
                 }

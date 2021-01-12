@@ -79,6 +79,11 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
             sendIntent.putExtra(HIRE_DATA_EDIT2, engineer[0])
             startActivity(sendIntent)
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getEngineerInfo(model, view)
+        }
     }
 
     private fun getEngineerInfo(data: HireModelResponse, view: View) {
@@ -86,6 +91,9 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
             val id = data.enID
             val mutable: MutableList<EngineerModelResponse>
 
+            binding.pgDetailhirefrg.visibility = View.VISIBLE
+            binding.swipeRefresh.isRefreshing = false
+            binding.svDetailhirefrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllEngineer()
@@ -101,11 +109,12 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
                 mutable = listEngineer!!.toMutableList()
                 mutable.removeAll { it.enID != id }
 
-                activity?.runOnUiThread {
-                    binding.modelEng = mutable[0]
-                    engineer = mutable
-                    Glide.with(view.context).load(EngineerDetailHireScreenFragment.imageLink + mutable[0].enAvatar).into(binding.imgListSearchEng)
-                }
+                binding.modelEng = mutable[0]
+                engineer = mutable
+                Glide.with(view.context).load(EngineerDetailHireScreenFragment.imageLink + mutable[0].enAvatar).into(binding.imgListSearchEng)
+
+                binding.pgDetailhirefrg.visibility = View.GONE
+                binding.svDetailhirefrg.visibility = View.VISIBLE
             }
         }
     }

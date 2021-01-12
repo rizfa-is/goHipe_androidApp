@@ -94,23 +94,34 @@
                 android:id="@+id/tv_addex_startdate"
                 style="@style/TextView_MaterialInput_Edit"
                 android:layout_marginTop="16dp"
-                android:paddingHorizontal="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/start_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/it_addex_desc" />
 
+            <ImageView
+                android:id="@+id/img_selectdate"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_date"
+                app:layout_constraintBottom_toBottomOf="@+id/it_addex_startdate"
+                app:layout_constraintEnd_toEndOf="@+id/tv_addex_startdate"
+                app:layout_constraintStart_toStartOf="@id/tv_addex_startdate"
+                app:layout_constraintTop_toTopOf="@+id/it_addex_startdate" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_addex_startdate"
-                style="@style/MaterialField_TextInputLayout_Edit"
-                android:paddingHorizontal="16dp"
-                app:layout_constraintStart_toStartOf="parent"
+                style="@style/MaterialField_TextInputLayout_Edit4"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_selectdate"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addex_startdate">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_addex_startdate"
+                    style="@style/MaterialField_EditText_Edit"
                     android:clickable="true"
-                    android:editable="false"
-                    style="@style/MaterialField_EditText_Edit" />
+                    android:editable="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,23 +129,34 @@
                 android:id="@+id/tv_addex_enddate"
                 style="@style/TextView_MaterialInput_Edit"
                 android:layout_marginTop="16dp"
-                android:paddingHorizontal="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/end_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/it_addex_startdate" />
 
+            <ImageView
+                android:id="@+id/img_selectdate2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_date"
+                app:layout_constraintBottom_toBottomOf="@+id/it_addex_enddate"
+                app:layout_constraintEnd_toEndOf="@+id/img_selectdate"
+                app:layout_constraintStart_toStartOf="@id/tv_addex_enddate"
+                app:layout_constraintTop_toTopOf="@+id/it_addex_enddate" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_addex_enddate"
-                style="@style/MaterialField_TextInputLayout_Edit"
-                android:paddingHorizontal="16dp"
-                app:layout_constraintStart_toStartOf="parent"
+                style="@style/MaterialField_TextInputLayout_Edit4"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_selectdate2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addex_enddate">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_addex_enddate"
+                    style="@style/MaterialField_EditText_Edit"
                     android:clickable="true"
-                    android:editable="false"
-                    style="@style/MaterialField_EditText_Edit" />
+                    android:editable="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

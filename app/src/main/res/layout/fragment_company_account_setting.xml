@@ -11,17 +11,30 @@
         android:paddingHorizontal="16dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_compsetfrg_logout"
+            android:id="@+id/btn_compsetfrg_deleteaccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:text="Delete account"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:backgroundTint="@color/theme_orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_compsetfrg_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Log out"
             android:textAllCaps="false"
             android:textSize="17sp"
             android:backgroundTint="@android:color/holo_red_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_compsetfrg_deleteaccount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

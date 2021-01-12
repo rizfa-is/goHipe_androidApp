@@ -55,6 +55,8 @@ class EngineerExperienceFragment : Fragment() {
         coroutineScope.launch {
             val listExperience = mutableListOf<ExperienceModel>()
 
+            binding.imageView.visibility = View.GONE
+            binding.tvExperience.visibility = View.GONE
             binding.pgExperifrg.visibility = View.VISIBLE
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -70,8 +72,13 @@ class EngineerExperienceFragment : Fragment() {
                         listExperience.add(ExperienceModel(it.exID, it.enID, it.exRole, it.exCompany, it.exDesc, it.exStartDate, it.exEndDate))
                     }
                 }
-
                 listExperience.removeAll { it.enID != enID }
+
+                if (listExperience.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvExperience.visibility = View.VISIBLE
+                }
+
                 (binding.rvExperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listExperience)
                 binding.pgExperifrg.visibility = View.GONE
             }

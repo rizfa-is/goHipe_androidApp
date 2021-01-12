@@ -57,6 +57,8 @@ class EngineerApprovedHireFragment : Fragment() {
     private fun viewListener() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvApproved.visibility = View.GONE
             getHire()
         }
     }
@@ -86,7 +88,11 @@ class EngineerApprovedHireFragment : Fragment() {
                 mutable.removeAll { it.enID != enID }
                 mutable.removeAll { it.hrStatus != "approve"}
 
-                Log.e("listHire Approve", mutable.toString())
+                if (mutable.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvApproved.visibility = View.VISIBLE
+                }
+
                 (binding.rvApprovedfrg.adapter as ListHireAdapter).setData(mutable)
                 binding.pgHireengfrgB.visibility = View.GONE
                 binding.rvApprovedfrg.visibility = View.VISIBLE

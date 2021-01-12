@@ -53,7 +53,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         showRecyclerList2()
 
         getEngineerDetail()
-        toolbarListener()
+        viewListener()
     }
 
     @SuppressLint("SetTextI18n")
@@ -61,6 +61,9 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         coroutineScope.launch {
             val id = goHipePreferences.getCompanyPreference().acID
 
+            binding.svHomecomp.visibility = View.GONE
+            binding.swipeRefresh.isRefreshing = false
+            binding.pgHomecomp.visibility = View.VISIBLE
             withContext(Dispatchers.IO) {
                 try {
                     val result1 = service.getCompanyByID(id!!.toLong())
@@ -80,6 +83,9 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                     e.printStackTrace()
                 }
             }
+
+            binding.svHomecomp.visibility = View.VISIBLE
+            binding.pgHomecomp.visibility = View.GONE
         }
     }
 
@@ -117,7 +123,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         }
     }
 
-    private fun toolbarListener() {
+    private fun viewListener() {
         binding.topAppBarCompanyHomefrg.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.mn_maincontent_toolbar_chat -> {
@@ -128,6 +134,11 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                 }
             }
             false
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getEngineerDetail()
         }
     }
 

@@ -51,6 +51,8 @@ class EngineerEditProfileAbilityFragment : Fragment() {
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvAbility.visibility = View.GONE
             binding.cgEnaccfrgAbility.removeAllViews()
             getAllAbility(view)
         }
@@ -72,7 +74,13 @@ class EngineerEditProfileAbilityFragment : Fragment() {
             }
 
             if (result is EngineerGetByIDResponse) {
-                chipViewInit(view, result.database?.get(0)?.enAbilityList!!)
+
+                if (result.database?.get(0)?.enAbilityList!!.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvAbility.visibility = View.VISIBLE
+                }
+
+                chipViewInit(view, result.database[0].enAbilityList!!)
 
                 binding.fabEditab.visibility = View.VISIBLE
                 binding.pgEditabengfrg.visibility = View.GONE

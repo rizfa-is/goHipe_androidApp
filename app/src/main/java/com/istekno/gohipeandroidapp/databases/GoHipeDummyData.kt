@@ -1,18 +1,8 @@
 package com.istekno.gohipeandroidapp.databases
 
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.models.*
-import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 
 object GoHipeDatabases {
-    private val portfolio = intArrayOf(
-        R.drawable.img_porto1,
-        R.drawable.img_porto2,
-        R.drawable.img_porto3,
-        R.drawable.img_porto4,
-        R.drawable.img_porto5
-    )
-
     private val name = arrayOf(
             "Portgas D. Ace",
             "Monkey D. Luffy",
@@ -101,29 +91,6 @@ object GoHipeDatabases {
         "wait", "approved", "rejected", "approved", "wait"
     )
 
-    val porto : IntArray
-    get() {
-        val portos = portfolio
-        return portos
-    }
-
-    val listExperiences : ArrayList<Experience>
-    get() {
-        val expers = ArrayList<Experience>()
-        for (i in desc.indices) {
-            val experience = Experience(
-                portfolio[i],
-                job[i],
-                company[i],
-                period[i],
-                totalMonth[i],
-                desc[i]
-            )
-            expers.add(experience)
-        }
-        return expers
-    }
-
 //    val listEngineerTalentOfTheMonth: ArrayList<MostPopular>
 //    get() {
 //        val mp = ArrayList<MostPopular>()
@@ -141,58 +108,6 @@ object GoHipeDatabases {
 //        mp.sortByDescending { it.project }
 //        return mp
 //    }
-
-    val listScouterOfTheMonth: ArrayList<ScouterTop>
-        get() {
-            val mp = ArrayList<ScouterTop>()
-            for (i in company.indices) {
-                val mostPopular = ScouterTop(
-                    company[i],
-                    fieldComp[i],
-                    portfolio[i],
-                    project[i],
-                    eng[i],
-                    reqrate[i]
-                )
-                mp.add(mostPopular)
-            }
-            return mp
-        }
-
-    val listSearchEngineer: ArrayList<User>
-        get() {
-            val mp = ArrayList<User>()
-            for (i in name.indices) {
-                val mostPopular = User(
-                    name[i],
-                    job[i],
-                    portfolio[i],
-                    listEngineerAbilities[i]
-                )
-                mp.add(mostPopular)
-            }
-            return mp
-        }
-
-
-    var statusHire : String = ""
-    val listHire: ArrayList<HireModel>
-        get() {
-            val mp = ArrayList<HireModel>()
-            for (i in projectName.indices) {
-                val mostPopular = HireModel(
-                    projectName[i],
-                    desc[i],
-                    portfolio[i],
-                    deadline[i]
-                )
-
-                if (status[i] == statusHire) {
-                    mp.add(mostPopular)
-                }
-            }
-            return mp
-        }
 
     private val abilities = listOf(
         "Android",

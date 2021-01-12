@@ -39,7 +39,6 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
     private lateinit var goHipePreferences: GoHipePreferences
 
     private val listTop = ArrayList<ScouterTop>()
-    private val listSkillful = ArrayList<User>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -55,14 +54,10 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
         goHipePreferences = GoHipePreferences(view.context)
 
-        listTop.addAll(GoHipeDatabases.listScouterOfTheMonth)
-        listTop.sortByDescending { it.engineer_hired }
-        listSkillful.addAll(GoHipeDatabases.listSearchEngineer)
-
         showRecyclerList()
 //        showRecyclerList2()
         getEngineerInfo()
-        toolbarListener()
+        viewListener()
     }
 
     @SuppressLint("SetTextI18n")
@@ -71,6 +66,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
             val id = goHipePreferences.getEngineerPreference().acID
 
             binding.svHomeeng.visibility = View.GONE
+            binding.swipeRefresh.isRefreshing = false
             binding.pgHomeeng.visibility = View.VISIBLE
             withContext(Dispatchers.IO) {
                 try {
@@ -78,14 +74,14 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 
                     activity?.runOnUiThread {
                         binding.textViewHello.text = "Hai ${result1.database!![0].enName.split(" ")[0]}"
-
-                        binding.svHomeeng.visibility = View.VISIBLE
-                        binding.pgHomeeng.visibility = View.GONE
                     }
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
             }
+
+            binding.svHomeeng.visibility = View.VISIBLE
+            binding.pgHomeeng.visibility = View.GONE
         }
     }
 
@@ -119,7 +115,7 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
 //        }
 //    }
 
-    private fun toolbarListener() {
+    private fun viewListener() {
         binding.topAppBarEngineerHomefrg.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.mn_maincontent_toolbar_chat -> {
@@ -130,6 +126,11 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
                 }
             }
             false
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getEngineerInfo()
         }
     }
 

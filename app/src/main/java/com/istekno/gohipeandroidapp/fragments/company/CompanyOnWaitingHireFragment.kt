@@ -51,12 +51,25 @@ class CompanyOnWaitingHireFragment : Fragment() {
 
         showRecycleList()
         getHire()
+        viewListener()
+    }
+
+    private fun viewListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvOnwait.visibility = View.GONE
+            getHire()
+        }
     }
 
     private fun getHire() {
         val cpID = goHipePreferences.getCompanyPreference().compID
         var mutable: MutableList<HireModelResponse>
 
+        binding.rvOnwaitfrg.visibility = View.GONE
+        binding.swipeRefresh.isRefreshing = false
+        binding.pgHireonwaitfrg.visibility = View.VISIBLE
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -74,8 +87,14 @@ class CompanyOnWaitingHireFragment : Fragment() {
                 mutable.removeAll { it.cpID != cpID }
                 mutable.removeAll { it.hrStatus != "wait"}
 
-                Log.e("listHire Wait", mutable.toString())
+                if (mutable.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvOnwait.visibility = View.VISIBLE
+                }
+
                 (binding.rvOnwaitfrg.adapter as ListHireAdapter).setData(mutable)
+                binding.rvOnwaitfrg.visibility = View.VISIBLE
+                binding.pgHireonwaitfrg.visibility = View.GONE
             }
         }
     }

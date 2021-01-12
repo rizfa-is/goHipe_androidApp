@@ -29,127 +29,143 @@
             android:layout_height="100dp"
             android:src="@drawable/shape_profile_small" />
 
-        <androidx.core.widget.NestedScrollView
+        <ProgressBar
+            android:id="@+id/pg_compaccfrg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/theme_green"
+            android:layout_centerInParent="true"/>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/sv_compaccfrg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="70dp">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/img_comaccfrg_avatar"
-                    android:layout_width="115dp"
-                    android:layout_height="115dp"
-                    android:layout_marginTop="40dp"
-                    android:elevation="3dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_mainscreen_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearance="@style/circleImage_profile" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_engprofifrg"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp"
-                    android:paddingHorizontal="24dp"
-                    android:background="@drawable/shape_profile_background1"
-                    android:orientation="vertical"
-                    android:elevation="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_comaccfrg_avatar">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="70dp">
 
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"
-                        android:text="@{model.cpName}"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/img_comaccfrg_avatar"
+                        android:layout_width="115dp"
+                        android:layout_height="115dp"
+                        android:layout_marginTop="40dp"
+                        android:elevation="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_mainscreen_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearance="@style/circleImage_profile" />
 
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_job"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
-                        android:text="@{model.cpPosition}"
-                        android:textColor="@color/text" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
-                        android:drawableStart="@drawable/ic_location"
-                        android:drawablePadding="5dp"
-                        android:text="@{model.cpLocation}"
-                        android:textColor="@color/text_loc" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginVertical="16dp"
-                        android:lineSpacingExtra="7dp"
-                        android:text="@{model.cpDesc}"
-                        android:textColor="@color/text"
-                        android:textAlignment="inherit" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
-                        android:text="@{model.cpEmail}"
-                        app:drawableStartCompat="@drawable/ic_email" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_ig"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:drawablePadding="10dp"
-                        android:text="@{model.cpInsta}"
-                        app:drawableStartCompat="@drawable/ic_instagram" />
-
-                    <TextView
-                        android:id="@+id/tv_comaccfrg_gitlab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="24dp"
-                        android:drawablePadding="10dp"
-                        android:text="@{model.cpLinkedIn}"
-                        app:drawableStartCompat="@drawable/ic_linkedin" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_comaccfrg_editprofile"
+                    <LinearLayout
+                        android:id="@+id/linearLayout_engprofifrg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/edit_profile"
-                        android:textAllCaps="false"
-                        android:backgroundTint="@color/theme_orange"/>
+                        android:paddingHorizontal="24dp"
+                        android:background="@drawable/shape_profile_background1"
+                        android:orientation="vertical"
+                        android:elevation="2dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img_comaccfrg_avatar">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="16dp"
+                            android:text="@{model.cpName}"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dp"
+                            android:text="@{model.cpPosition}"
+                            android:textColor="@color/text" />
 
-        </androidx.core.widget.NestedScrollView>
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dp"
+                            android:drawableStart="@drawable/ic_location"
+                            android:drawablePadding="5dp"
+                            android:text="@{model.cpLocation}"
+                            android:textColor="@color/text_loc" />
+
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginVertical="16dp"
+                            android:lineSpacingExtra="7dp"
+                            android:text="@{model.cpDesc}"
+                            android:textColor="@color/text"
+                            android:textAlignment="inherit" />
+
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:text="@{model.cpEmail}"
+                            app:drawableStartCompat="@drawable/ic_email" />
+
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_ig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:drawablePadding="10dp"
+                            android:text="@{model.cpInsta}"
+                            app:drawableStartCompat="@drawable/ic_instagram" />
+
+                        <TextView
+                            android:id="@+id/tv_comaccfrg_gitlab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="24dp"
+                            android:drawablePadding="10dp"
+                            android:text="@{model.cpLinkedIn}"
+                            app:drawableStartCompat="@drawable/ic_linkedin" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_comaccfrg_editprofile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/edit_profile"
+                            android:textAllCaps="false"
+                            android:backgroundTint="@color/theme_orange"/>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
     

@@ -55,9 +55,8 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
         goHipePreferences = GoHipePreferences(view.context)
-        getAllEngineer(view)
 
-        toolbarListener()
+        getAllEngineer(view)
         viewListener(view)
         setViewPager()
     }
@@ -95,7 +94,7 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
         }
     }
 
-    private fun toolbarListener() {
+    private fun viewListener(view: View) {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.mn_maincontent_toolbar_favorite -> {
@@ -109,9 +108,6 @@ class EngineerAccountScreenFragment(private val toolbar: MaterialToolbar, privat
             }
             false
         }
-    }
-
-    private fun viewListener(view: View) {
         binding.btnEnaccfrgEditprofile.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY, 0)

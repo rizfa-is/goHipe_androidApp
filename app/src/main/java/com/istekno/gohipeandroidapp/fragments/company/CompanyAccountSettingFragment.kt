@@ -13,7 +13,11 @@ import com.istekno.gohipeandroidapp.activities.MainScreenActivity
 import com.istekno.gohipeandroidapp.models.CompanyModel
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAccountSettingBinding
+import com.istekno.gohipeandroidapp.models.EngineerModel
+import com.istekno.gohipeandroidapp.remote.ApiClient
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
+import kotlinx.coroutines.*
 
 class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragment() {
 
@@ -21,6 +25,8 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var companyModel: CompanyModel
     private lateinit var dialog: Dialog
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -32,11 +38,16 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         dialog = Dialog()
         goHipePreferences = GoHipePreferences(view.context)
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
         companyModel = goHipePreferences.getCompanyPreference()
 
+        viewListener(view)
+    }
+
+    private fun viewListener(view: View) {
         binding.btnCompsetfrgLogout.setOnClickListener {
             if (goHipePreferences.getCompanyPreference().isLogin) {
                 dialog.dialog(view.context, "Are you sure to logout ?") {
@@ -45,7 +56,30 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
                     goHipePreferences.setCompanyPreference(companyModel)
 
                     startActivity(Intent(view.context, MainScreenActivity::class.java))
-                    activity?.finish()
+                    activity?.finishAffinity()
+                }
+            }
+        }
+
+        binding.btnCompsetfrgDeleteaccount.setOnClickListener {
+            dialog.dialog(view.context, "Are you sure to delete account ?") {
+                deleteEngineerAccount()
+
+                startActivity(Intent(view.context, MainScreenActivity::class.java))
+                activity?.finishAffinity()
+            }
+        }
+    }
+
+    private fun deleteEngineerAccount() {
+        val id = goHipePreferences.getCompanyPreference().acID
+
+        coroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    service.deleteCompany(id!!)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
                 }
             }
         }

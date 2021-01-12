@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -157,15 +158,15 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
         val month = pjDeadline.split('-')[1].toInt()
         val day = pjDeadline.split('-')[2].toInt()
 
+        date.setText(pjDeadline)
         project.setText(data.pjName)
         desc.setText(data.pjDesc)
-        date.setText(pjDeadline)
         Glide.with(view.context).load(imageLink + data.pjImage).into(binding.imgEditproject)
 
-        retrieveDate(view, binding.etCompeditprojectfrgDeadline, year, month - 1, day)
+        retrieveDate(view, binding.imgSelectdate, binding.etCompeditprojectfrgDeadline, year, month, day)
     }
 
-    private fun retrieveDate(view: View, editText: TextInputEditText, yearN: Int, month: Int, day: Int) {
+    private fun retrieveDate(view: View, imgDate: ImageView, editText: TextInputEditText, yearN: Int, month: Int, day: Int) {
         val date: DatePickerDialog.OnDateSetListener
 
         date = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -175,11 +176,21 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
             updateLabel(editText)
         }
 
-        editText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+        imgDate.setOnClickListener {
+            val dateNew = editText.text.toString().split('-')
+            val yearNew = dateNew[0].toInt()
+            val monthNew = dateNew[1].toInt()
+            val dayNew = dateNew[2].toInt()
+
+            if (yearNew == yearN && monthNew == month && dayNew == day) {
                 DatePickerDialog(view.context, date,
-                        yearN, month,
+                        yearN, month - 1,
                         day
+                ).show()
+            } else {
+                DatePickerDialog(view.context, date,
+                        yearNew, monthNew - 1,
+                        dayNew
                 ).show()
             }
         }

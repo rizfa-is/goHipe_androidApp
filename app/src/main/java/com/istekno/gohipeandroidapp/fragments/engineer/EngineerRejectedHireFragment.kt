@@ -57,6 +57,8 @@ class EngineerRejectedHireFragment : Fragment() {
     private fun viewListener() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvReject.visibility = View.GONE
             getHire()
         }
     }
@@ -86,7 +88,11 @@ class EngineerRejectedHireFragment : Fragment() {
                 mutable.removeAll { it.enID != enID }
                 mutable.removeAll { it.hrStatus != "reject"}
 
-                Log.e("listHire Reject", mutable.toString())
+                if (mutable.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvReject.visibility = View.VISIBLE
+                }
+
                 (binding.rvRejectedfrg.adapter as ListHireAdapter).setData(mutable)
                 binding.pgHireengfrgC.visibility = View.GONE
                 binding.rvRejectedfrg.visibility = View.VISIBLE

@@ -40,6 +40,12 @@ class CompanyDetailProjectScreenFragment : Fragment() {
         binding.tvCompdetailprojectfrgDeadline.text = binding.model?.pjDeadline!!.split('T')[0]
         Glide.with(view.context).load(imageLink + data?.pjImage).into(binding.imgCompdetailprojectfrgAvatar)
 
+        if (data != null) {
+            viewListener(data)
+        }
+    }
+
+    private fun viewListener(data: ProjectModelResponse) {
         binding.btnComdetailprojectfrgEditproject.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(PROJECT_AUTH_KEY, 12)

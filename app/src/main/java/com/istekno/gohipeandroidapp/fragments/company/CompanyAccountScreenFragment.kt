@@ -51,13 +51,16 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
         goHipePreferences = GoHipePreferences(view.context)
 
         getCompanyInfo(view)
-        viewListener()
+        viewListener(view)
     }
 
     private fun getCompanyInfo(view: View) {
         coroutineScope.launch {
             val id = goHipePreferences.getCompanyPreference().acID
 
+            binding.pgCompaccfrg.visibility = View.VISIBLE
+            binding.swipeRefresh.isRefreshing = false
+            binding.svCompaccfrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getCompanyByID(id!!.toLong())
@@ -77,16 +80,24 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
                 if (list != null) {
                     companyDetail = list
                 }
+
+                binding.pgCompaccfrg.visibility = View.GONE
+                binding.svCompaccfrg.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun viewListener() {
+    private fun viewListener(view: View) {
         binding.btnComaccfrgEditprofile.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY, 1)
             sendIntent.putExtra(EDIT_PROFILE_AUTH_KEY2, companyDetail[0])
             startActivity(sendIntent)
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getCompanyInfo(view)
         }
 
         toolbar.setOnMenuItemClickListener {

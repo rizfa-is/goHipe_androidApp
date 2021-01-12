@@ -56,6 +56,8 @@ class EngineerOnWaitingHireFragment : Fragment() {
     private fun viewListener() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvOnwait.visibility = View.GONE
             getHire()
         }
     }
@@ -85,7 +87,11 @@ class EngineerOnWaitingHireFragment : Fragment() {
                 mutable.removeAll { it.enID != enID }
                 mutable.removeAll { it.hrStatus != "wait"}
 
-                Log.e("listHire Wait", mutable.toString())
+                if (mutable.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvOnwait.visibility = View.VISIBLE
+                }
+
                 (binding.rvOnwaitfrg.adapter as ListHireAdapter).setData(mutable)
                 binding.pgHireengfrgA.visibility = View.GONE
                 binding.rvOnwaitfrg.visibility = View.VISIBLE

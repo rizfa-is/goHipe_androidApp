@@ -103,17 +103,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/it_compaddprojectfrg_desc" />
 
+            <ImageView
+                android:id="@+id/img_selectdate"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_date"
+                app:layout_constraintBottom_toBottomOf="@+id/it_compaddprojectfrg_deadline"
+                app:layout_constraintEnd_toEndOf="@+id/tv_compaddprojectfrg_deadline"
+                app:layout_constraintStart_toStartOf="@id/tv_compaddprojectfrg_deadline"
+                app:layout_constraintTop_toTopOf="@+id/it_compaddprojectfrg_deadline" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_compaddprojectfrg_deadline"
-                style="@style/MaterialField_TextInputLayout_Edit"
-                app:layout_constraintStart_toStartOf="parent"
+                style="@style/MaterialField_TextInputLayout_Edit4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_selectdate"
                 app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_deadline">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_compaddprojectfrg_deadline"
+                    style="@style/MaterialField_EditText_Edit"
                     android:clickable="true"
                     android:editable="false"
-                    style="@style/MaterialField_EditText_Edit"
                     android:focusable="true" />
 
             </com.google.android.material.textfield.TextInputLayout>

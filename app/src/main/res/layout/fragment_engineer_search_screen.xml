@@ -27,26 +27,26 @@
 
             <SearchView
                 android:id="@+id/searchView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="12dp"
                 android:background="@drawable/shape_list_search_engineer_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/view_bg"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="@+id/view_bg"
-                app:layout_constraintTop_toTopOf="@+id/view_bg"
-                app:queryHint="Search project" />
+                app:layout_constraintTop_toTopOf="@+id/view_bg"/>
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="40dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_filter"
-                app:layout_constraintBottom_toBottomOf="@+id/searchView"
-                app:layout_constraintEnd_toEndOf="@+id/view_bg"
-                app:layout_constraintStart_toEndOf="@+id/searchView"
-                app:layout_constraintTop_toTopOf="@+id/searchView" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                app:chipSpacing="8dp"
+                app:singleSelection="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_bg" />
 
             <ProgressBar
                 android:id="@+id/pg_homeengfrg"
@@ -57,14 +57,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/cg_filter" />
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_bg">
+                app:layout_constraintTop_toBottomOf="@+id/cg_filter">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_search_list_project"

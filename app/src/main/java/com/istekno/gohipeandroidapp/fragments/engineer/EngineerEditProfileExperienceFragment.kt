@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -65,6 +66,8 @@ class EngineerEditProfileExperienceFragment : Fragment() {
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvExperience.visibility = View.GONE
             getExperience(id)
         }
     }
@@ -91,8 +94,13 @@ class EngineerEditProfileExperienceFragment : Fragment() {
                         listExperiences.add(ExperienceModel(it.exID, it.enID, it.exRole, it.exCompany, it.exDesc, it.exStartDate, it.exEndDate))
                     }
                 }
-
                 listExperiences.removeAll { it.enID != enID }
+
+                if (listExperiences.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvExperience.visibility = View.VISIBLE
+                }
+
                 (binding.rvEditexperifrg.adapter as ListExperienceRecycleViewAdapter).setData(listExperiences)
                 binding.fabEditexperifrg.visibility = View.VISIBLE
                 binding.rvEditexperifrg.visibility = View.VISIBLE
@@ -141,7 +149,7 @@ class EngineerEditProfileExperienceFragment : Fragment() {
         }
     }
 
-    private fun retrieveDate(view: View, editText: TextInputEditText, type: Int, yearData: Int = 0, monthData: Int = 0, dayData: Int = 0) {
+    private fun retrieveDate(view: View,  imgDate: ImageView, editText: TextInputEditText, type: Int, yearData: Int = 0, monthData: Int = 0, dayData: Int = 0) {
         val date: DatePickerDialog.OnDateSetListener
 
         date = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -151,20 +159,36 @@ class EngineerEditProfileExperienceFragment : Fragment() {
             updateLabel(editText)
         }
 
-        editText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+        imgDate.setOnClickListener {
+            val dateNew = editText.text.toString().split('-')
+            val yearNew = dateNew[0].toInt()
+            val monthNew = dateNew[1].toInt()
+            val dayNew = dateNew[2].toInt()
+
+            if (yearNew == yearData && monthNew == monthData && dayNew == dayData) {
+                if (type == 1) {
+                    DatePickerDialog(view.context, date,
+                            yearData, monthData - 1,
+                            dayData
+                    ).show()
+                } else {
+                    DatePickerDialog(view.context, date,
+                            myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)
+                    ).show()
+                }
+            } else {
                 DatePickerDialog(view.context, date,
-                        myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)
+                        yearNew, monthNew - 1,
+                        dayNew
                 ).show()
             }
         }
     }
 
     private fun updateLabel(editText: TextInputEditText) {
-        val myFormat = "YYYY-MM-DD" //In which you need put here
-        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-        editText.setText(sdf.format(myCalendar.time))
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        editText.setText(dateFormat.format(myCalendar.time))
     }
 
     private fun showRecycleList(view: View, id: Long) {
@@ -204,6 +228,8 @@ class EngineerEditProfileExperienceFragment : Fragment() {
         val startDate = customView.findViewById<TextInputEditText>(R.id.et_addex_startdate)
         val endDate = customView.findViewById<TextInputEditText>(R.id.et_addex_enddate)
 
+        val imgStart = customView.findViewById<ImageView>(R.id.img_selectdate)
+        val imgEnd = customView.findViewById<ImageView>(R.id.img_selectdate2)
         val btnAdd = customView.findViewById<MaterialButton>(R.id.btn_addex)
         val cDialog = dialog.setView(customView).create()
 
@@ -214,9 +240,6 @@ class EngineerEditProfileExperienceFragment : Fragment() {
 
             Log.e("add", add.toString())
 
-            retrieveDate(view, startDate, 1, startD!![0].toInt(), startD[1].toInt(), startD[2].toInt())
-            retrieveDate(view, endDate, 1, endD!![0].toInt(), endD[1].toInt(), endD[2].toInt())
-
             header.text = "Update experience"
             btnAdd.text = "Update"
             role.setText(exRole)
@@ -224,9 +247,12 @@ class EngineerEditProfileExperienceFragment : Fragment() {
             desc.setText(exDesc)
             startDate.setText(exStart)
             endDate.setText(exEnd)
-        } else {
-            retrieveDate(view, startDate, 0)
-            retrieveDate(view, endDate, 0)
+
+            retrieveDate(view, imgStart, startDate, 1, startD[0].toInt(), startD[1].toInt(), startD[2].toInt())
+            retrieveDate(view, imgEnd, endDate, 1, endD!![0].toInt(), endD[1].toInt(), endD[2].toInt())
+        }  else {
+            retrieveDate(view, imgStart, startDate, 0)
+            retrieveDate(view, imgEnd, endDate, 0)
         }
 
         cDialog.show()

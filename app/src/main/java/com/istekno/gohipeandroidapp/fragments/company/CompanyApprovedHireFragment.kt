@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
+import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
 import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyApprovedHireBinding
@@ -50,12 +51,25 @@ class CompanyApprovedHireFragment : Fragment() {
 
         showRecycleList()
         getHire()
+        viewListener()
+    }
+
+    private fun viewListener() {
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            binding.imageView.visibility = View.GONE
+            binding.tvApproved.visibility = View.GONE
+            getHire()
+        }
     }
 
     private fun getHire() {
         val cpID = goHipePreferences.getCompanyPreference().compID
         var mutable: MutableList<HireModelResponse>
 
+        binding.rvApprovedfrg.visibility = View.GONE
+        binding.swipeRefresh.isRefreshing = false
+        binding.pgHireapprovefrg.visibility = View.VISIBLE
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -73,7 +87,14 @@ class CompanyApprovedHireFragment : Fragment() {
                 mutable.removeAll { it.cpID != cpID }
                 mutable.removeAll { it.hrStatus != "approve"}
 
+                if (mutable.isEmpty()) {
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.tvApproved.visibility = View.VISIBLE
+                }
+
                 (binding.rvApprovedfrg.adapter as ListHireAdapter).setData(mutable)
+                binding.pgHireapprovefrg.visibility = View.GONE
+                binding.rvApprovedfrg.visibility = View.VISIBLE
             }
         }
     }
