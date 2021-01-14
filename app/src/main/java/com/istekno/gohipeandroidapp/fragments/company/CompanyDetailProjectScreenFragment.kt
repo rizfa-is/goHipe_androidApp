@@ -19,6 +19,7 @@ class CompanyDetailProjectScreenFragment : Fragment() {
         const val PROJECT_AUTH_KEY = "project_auth_key"
         const val PROJECT_DATA = "project_data"
         const val EDIT_PROJECT_AUTH_KEY = "edit_project_auth_key"
+        const val BTN_EDIT_AUTH_KEY = "btn_edit_auth_key"
 
         const val imageLink = "http://107.22.89.131:7000/image/"
     }
@@ -36,13 +37,21 @@ class CompanyDetailProjectScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val data = activity?.intent?.getParcelableExtra<ProjectModelResponse>(PROJECT_DATA)
 
-        binding.model = data
-        binding.tvCompdetailprojectfrgDeadline.text = binding.model?.pjDeadline!!.split('T')[0]
-        Glide.with(view.context).load(imageLink + data?.pjImage).into(binding.imgCompdetailprojectfrgAvatar)
-
         if (data != null) {
+            handleView(view, data)
             viewListener(data)
         }
+    }
+
+    private fun handleView(view: View, data: ProjectModelResponse) {
+        val status = activity?.intent?.getIntExtra(BTN_EDIT_AUTH_KEY, -1)
+        if (status != 0) {
+            binding.btnComdetailprojectfrgEditproject.visibility = View.GONE
+        }
+
+        binding.model = data
+        binding.tvCompdetailprojectfrgDeadline.text = binding.model?.pjDeadline!!.split('T')[0]
+        Glide.with(view.context).load(imageLink + data.pjImage).into(binding.imgCompdetailprojectfrgAvatar)
     }
 
     private fun viewListener(data: ProjectModelResponse) {

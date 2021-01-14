@@ -2,7 +2,6 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +22,12 @@ import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
 class CompanyOnHiringProjectFragment : Fragment() {
+
+    companion object {
+        const val PROJECT_AUTH_KEY = "project_auth_key"
+        const val PROJECT_DATA = "project_data"
+        const val BTN_EDIT_AUTH_KEY = "btn_edit_auth_key"
+    }
 
     private lateinit var binding: FragmentCompanyOnHiringProjectBinding
     private lateinit var coroutineScope: CoroutineScope
@@ -46,7 +51,7 @@ class CompanyOnHiringProjectFragment : Fragment() {
         dialog = Dialog()
 
         viewListener()
-        showRecyclerList(view)
+        showRecyclerList()
         getAllProjectByCompanyID()
     }
 
@@ -120,15 +125,16 @@ class CompanyOnHiringProjectFragment : Fragment() {
         }
     }
 
-    private fun showRecyclerList(view: View) {
+    private fun showRecyclerList() {
         binding.rvCompanyProject.apply {
             layoutManager = LinearLayoutManager(context)
             val rvAdapter = ListSearchProjectAdapter(0)
             rvAdapter.onItemClickCallbak(object : ListSearchProjectAdapter.OnItemClickCallback {
                 override fun onItemClicked(projectModelResponse: ProjectModelResponse) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
-                    sendIntent.putExtra(CompanyPreHiringProjectFragment.PROJECT_AUTH_KEY, 1)
-                    sendIntent.putExtra(CompanyPreHiringProjectFragment.PROJECT_DATA, projectModelResponse)
+                    sendIntent.putExtra(PROJECT_AUTH_KEY, 1)
+                    sendIntent.putExtra(PROJECT_DATA, projectModelResponse)
+                    sendIntent.putExtra(BTN_EDIT_AUTH_KEY, 1)
                     startActivity(sendIntent)
                 }
 

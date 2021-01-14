@@ -3,6 +3,7 @@ package com.istekno.gohipeandroidapp.fragments.company
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +63,8 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
     private fun getEngineerDetail() {
         coroutineScope.launch {
             val id = goHipePreferences.getCompanyPreference().acID
+            val mutableEng = mutableListOf<EngineerModelResponse>()
+            val mutableAb = mutableListOf<AbilityM>()
 
             binding.svHomecomp.visibility = View.GONE
             binding.swipeRefresh.isRefreshing = false
@@ -69,16 +72,19 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
             withContext(Dispatchers.IO) {
                 try {
                     val result1 = service.getCompanyByID(id!!.toLong())
-                    val result2 = service.getAllEngineer()
-                    val listAbility = result2.database?.map { AbilityM(it.enAbilityList!!) }
-                    val listEngineer = result2.database?.map {
-                        EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar)
+                    val result2 = service.getEngineerByFilter("2")
+
+                    result2.database?.map {
+                        if (it.enJobTitle?.isNotEmpty() == true && it.enAbilityList?.isNotEmpty() == true) {
+                            mutableEng.add(EngineerModelResponse(it.enID, it.enName, it.enPhone, it.enJobTitle, it.enJobType, it.enLocation, it.enDesc, it.enEmail, it.enIG, it.enGithub, it.enGitlab, it.enAvatar))
+                            mutableAb.add(AbilityM(it.enAbilityList))
+                        }
                     }
 
                     activity?.runOnUiThread {
                         binding.textViewHello.text = "Hai ${result1.database!![0].cpName!!.split(" ")[0]}"
-                        (binding.rvListEngineer.adapter as TalentOfTheMonthAdapter).setData(listEngineer!!)
-                        (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(listEngineer, listAbility!!)
+                        (binding.rvListEngineer.adapter as TalentOfTheMonthAdapter).setData(mutableEng)
+                        (binding.rvListEngineer2.adapter as SkillfulTalentAdapter).setData(mutableEng, mutableAb)
                     }
 
                 } catch (e: Throwable) {
@@ -158,5 +164,10 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_notification).isVisible = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
     }
 }

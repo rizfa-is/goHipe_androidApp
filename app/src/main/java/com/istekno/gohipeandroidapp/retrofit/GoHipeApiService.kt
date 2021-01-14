@@ -203,6 +203,11 @@ interface GoHipeApiService {
         @Path("id") id: Long
     ): GeneralResponse
 
+    @DELETE("hire/{id}")
+    suspend fun deleteHire(
+        @Path("id") id: Long
+    ): GeneralResponse
+
     @DELETE("account/company/{id}")
     suspend fun deleteCompany(
             @Path("id") id: Long

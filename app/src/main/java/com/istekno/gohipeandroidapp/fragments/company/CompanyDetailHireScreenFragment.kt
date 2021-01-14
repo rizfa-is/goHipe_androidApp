@@ -41,6 +41,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
+    private lateinit var dialog: Dialog
     private var engineer = listOf<EngineerModelResponse>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +58,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
         goHipePreferences = GoHipePreferences(view.context)
+        dialog = Dialog()
 
         viewListener(view)
     }
@@ -72,7 +74,7 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
 
         getEngineerInfo(model!!, view)
 
-        binding.btnComdetailprojectfrgEditproject.setOnClickListener {
+        binding.btnComdetailprojectfrgEdithire.setOnClickListener {
             val sendIntent = Intent(context, SettingScreenActivity::class.java)
             sendIntent.putExtra(HIRE_AUTH_KEY, 20)
             sendIntent.putExtra(HIRE_DATA_EDIT, model)
@@ -80,9 +82,27 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
             startActivity(sendIntent)
         }
 
+        binding.btnComdetailprojectfrgDeletehire.setOnClickListener {
+            dialog.dialog(view.context, "Are you sure to delete ${model.pjName}") {
+                deleteHire(model.hrID)
+            }
+        }
+
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             getEngineerInfo(model, view)
+        }
+    }
+
+    private fun deleteHire(id: Long) {
+        coroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    service.deleteHire(id)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 
@@ -112,24 +132,31 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
                 binding.modelEng = mutable[0]
                 engineer = mutable
                 Glide.with(view.context).load(EngineerDetailHireScreenFragment.imageLink + mutable[0].enAvatar).into(binding.imgListSearchEng)
-
-                binding.pgDetailhirefrg.visibility = View.GONE
-                binding.svDetailhirefrg.visibility = View.VISIBLE
             }
+
+            binding.pgDetailhirefrg.visibility = View.GONE
+            binding.svDetailhirefrg.visibility = View.VISIBLE
         }
     }
 
     private fun detailStatus(hireStatus: Int?) {
         when (hireStatus) {
             1 -> {
-                binding.btnComdetailprojectfrgEditproject.visibility = View.GONE
+                binding.btnComdetailprojectfrgDeletehire.visibility = View.GONE
+                binding.btnComdetailprojectfrgEdithire.visibility = View.GONE
                 binding.tvComdetailprojectfrgHireStatus.text = APPROVED
             }
             2 -> {
-                binding.btnComdetailprojectfrgEditproject.visibility = View.GONE
+                binding.btnComdetailprojectfrgDeletehire.visibility = View.GONE
+                binding.btnComdetailprojectfrgEdithire.visibility = View.GONE
                 binding.tvComdetailprojectfrgHireStatus.text = REJECTED
                 binding.tvComdetailprojectfrgHireStatus.setTextColor(Color.RED)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
     }
 }

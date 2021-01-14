@@ -53,26 +53,29 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
     private fun checkProfile() {
         val data = intent.getParcelableExtra<EngineerModelResponse>(CHECK_PROFILE_AUTH_KEY)
-        if (data?.enJobTitle.isNullOrEmpty() || data?.enJobType.isNullOrEmpty() || data?.enLocation.isNullOrEmpty()
-                || data?.enDesc.isNullOrEmpty() || data?.enIG.isNullOrEmpty()
-                || data?.enGithub.isNullOrEmpty() || data?.enGitlab.isNullOrEmpty() || data?.enAvatar.isNullOrEmpty()) {
 
-            binding.rlCheckProfileFrame.visibility = View.VISIBLE
-            binding.frameContainerMaincontent.visibility = View.GONE
-            state = false
+        if (data != null) {
+            if (data.enJobTitle.isNullOrEmpty() || data.enJobType.isNullOrEmpty() || data.enLocation.isNullOrEmpty()
+                || data.enDesc.isNullOrEmpty() || data.enIG.isNullOrEmpty() || data.enGithub.isNullOrEmpty()
+                || data.enGitlab.isNullOrEmpty() || data.enAvatar.isNullOrEmpty()) {
 
-            if (data != null) {
+                binding.rlCheckProfileFrame.visibility = View.VISIBLE
+                binding.frameContainerMaincontent.visibility = View.GONE
+                state = false
                 engineer = data
-            }
 
-            initFragment(state)
-            changeFragmentScreen(state)
-            viewListener()
+                initFragment(state)
+                changeFragmentScreen(state)
+                viewListener()
+            } else {
+                binding.frameContainerMaincontent.visibility = View.VISIBLE
+                initFragment(state)
+                changeFragmentScreen(state)
+            }
         } else {
             binding.frameContainerMaincontent.visibility = View.VISIBLE
             initFragment(state)
             changeFragmentScreen(state)
-            viewListener()
         }
     }
 

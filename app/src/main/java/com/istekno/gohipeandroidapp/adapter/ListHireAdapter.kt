@@ -9,16 +9,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ItemListHireBinding
-import com.istekno.gohipeandroidapp.models.HireModel
-import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 import com.istekno.gohipeandroidapp.retrofit.HireModelResponse
 
 class ListHireAdapter(private val hireStatus: Int) : RecyclerView.Adapter<ListHireAdapter.ListViewHolder>() {
 
     companion object {
-        const val STATUS_WAIT = "On waiting"
-        const val STATUS_APPROVED = "Approved"
-        const val STATUS_REJECTED = "Rejected"
+        const val STATUS_WAIT = "On wait"
+        const val STATUS_PROGRESS = "On progress"
+        const val STATUS_FINISHED = "Finished"
 
         const val imageLink = "http://107.22.89.131:7000/image/"
     }
@@ -78,12 +76,12 @@ class ListHireAdapter(private val hireStatus: Int) : RecyclerView.Adapter<ListHi
                 bgStatusSign.background = view.resources.getDrawable(R.color.theme_orange_trans)
             }
             1 -> {
-                statusSign.text = STATUS_APPROVED
+                statusSign.text = STATUS_PROGRESS
                 statusSign.setTextColor(view.resources.getColor(R.color.theme_green))
                 bgStatusSign.background = view.resources.getDrawable(R.color.theme_green_trans)
             }
             2 -> {
-                statusSign.text = STATUS_REJECTED
+                statusSign.text = STATUS_FINISHED
                 statusSign.setTextColor(view.resources.getColor(R.color.theme_red))
                 bgStatusSign.background = view.resources.getDrawable(R.color.theme_red_trans)
             }

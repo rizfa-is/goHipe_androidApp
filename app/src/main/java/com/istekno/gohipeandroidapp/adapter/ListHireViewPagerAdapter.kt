@@ -13,24 +13,18 @@ import com.istekno.gohipeandroidapp.fragments.company.CompanyRejectedHireFragmen
 class ListHireViewPagerAdapter(private val mContext: Context, fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     @StringRes
-    private val tabTitles = intArrayOf(R.string.on_waiting, R.string.approved, R.string.rejected)
+    private val tabTitles = intArrayOf(R.string.on_waiting, R.string.on_progress, R.string.finished)
     private var fragment = arrayOf(CompanyOnWaitingHireFragment(), CompanyApprovedHireFragment(), CompanyRejectedHireFragment())
 
     fun setFargmentList(fragmentList: Array<Fragment>) {
         fragment = fragmentList
     }
 
-    fun getFragmentList() : Array<Fragment> {
-        return fragment
-    }
+    private fun getFragmentList() : Array<Fragment> = fragment
 
     override fun getCount(): Int = tabTitles.size
 
-    override fun getItem(position: Int): Fragment {
-        return getFragmentList()[position]
-    }
+    override fun getItem(position: Int): Fragment = getFragmentList()[position]
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return mContext.resources.getString(tabTitles[position])
-    }
+    override fun getPageTitle(position: Int): CharSequence = mContext.resources.getString(tabTitles[position])
 }

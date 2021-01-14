@@ -2,12 +2,11 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
@@ -15,7 +14,10 @@ import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyPreHiringProjectBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.*
+import com.istekno.gohipeandroidapp.retrofit.GetAllHire
+import com.istekno.gohipeandroidapp.retrofit.GetAllProject
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
+import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
@@ -25,6 +27,7 @@ class CompanyPreHiringProjectFragment : Fragment() {
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
         const val PROJECT_DATA = "project_data"
+        const val BTN_EDIT_AUTH_KEY = "btn_edit_auth_key"
     }
 
     private lateinit var binding: FragmentCompanyPreHiringProjectBinding
@@ -146,6 +149,7 @@ class CompanyPreHiringProjectFragment : Fragment() {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
                     sendIntent.putExtra(PROJECT_AUTH_KEY, 1)
                     sendIntent.putExtra(PROJECT_DATA, projectModelResponse)
+                    sendIntent.putExtra(BTN_EDIT_AUTH_KEY, 0)
                     startActivity(sendIntent)
                 }
 

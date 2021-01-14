@@ -122,7 +122,7 @@ class EngineerDetailProfileScreenFragment : Fragment() {
 
             if (result3 is GetAllHire) {
                 result3.database?.map {
-                    if (it.cpID == cpID) listPjIdHire.add(it.pjID)
+                    if (it.cpID == cpID && it.enID == data.enID) listPjIdHire.add(it.pjID)
                 }
             }
 

@@ -55,25 +55,27 @@ class CompanyMainContentActivity : AppCompatActivity() {
     private fun checkProfile() {
         val data = intent.getParcelableExtra<CompanyModelResponse>(CHECK_PROFILE_AUTH_KEY)
 
-        if (data?.cpField.isNullOrEmpty() || data?.cpLocation.isNullOrEmpty() || data?.cpDesc.isNullOrEmpty()
-                || data?.cpInsta.isNullOrEmpty() || data?.cpLinkedIn.isNullOrEmpty() || data?.cpAvatar.isNullOrEmpty()) {
+        if (data != null) {
+            if (data.cpField.isNullOrEmpty() || data.cpLocation.isNullOrEmpty() || data.cpDesc.isNullOrEmpty()
+                || data.cpInsta.isNullOrEmpty() || data.cpLinkedIn.isNullOrEmpty() || data.cpAvatar.isNullOrEmpty()) {
 
-            binding.rlCheckProfileFrame.visibility = View.VISIBLE
-            binding.frameContainerMaincontent.visibility = View.GONE
-            state = false
-
-            if (data != null) {
+                binding.rlCheckProfileFrame.visibility = View.VISIBLE
+                binding.frameContainerMaincontent.visibility = View.GONE
+                state = false
                 company = data
-            }
 
-            initFragment(state)
-            changeFragmentScreen(state)
-            viewListener()
+                initFragment(state)
+                changeFragmentScreen(state)
+                viewListener()
+            } else {
+                binding.frameContainerMaincontent.visibility = View.VISIBLE
+                initFragment(state)
+                changeFragmentScreen(state)
+            }
         } else {
             binding.frameContainerMaincontent.visibility = View.VISIBLE
             initFragment(state)
             changeFragmentScreen(state)
-            viewListener()
         }
     }
 

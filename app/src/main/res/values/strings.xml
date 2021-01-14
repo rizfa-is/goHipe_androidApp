@@ -58,7 +58,9 @@
     <string name="account">Account</string>
     <string name="issog_corp">iSSOG Corp</string>
     <string name="hiring">Hiring</string>
-    <string name="on_waiting">On waiting</string>
+    <string name="on_waiting">On wait</string>
+    <string name="on_progress">On progress</string>
+    <string name="finished">Finished</string>
     <string name="approved">Approved</string>
     <string name="rejected">Rejected</string>
     <string name="field">Field</string>

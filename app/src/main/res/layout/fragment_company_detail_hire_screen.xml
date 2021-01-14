@@ -120,7 +120,7 @@
                             android:textColor="@color/black" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_comdetailprojectfrg_editproject"
+                            android:id="@+id/btn_comdetailprojectfrg_edithire"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_comdetailhirefrg_project_desc"
@@ -128,6 +128,16 @@
                             android:layout_marginTop="16dp"
                             android:backgroundTint="@color/theme_orange"
                             android:text="Edit hire"
+                            android:textAllCaps="false" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_comdetailprojectfrg_deletehire"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/btn_comdetailprojectfrg_edithire"
+                            android:layout_marginHorizontal="16dp"
+                            android:backgroundTint="@color/theme_red"
+                            android:text="Delete hire"
                             android:textAllCaps="false" />
 
                         <TextView
