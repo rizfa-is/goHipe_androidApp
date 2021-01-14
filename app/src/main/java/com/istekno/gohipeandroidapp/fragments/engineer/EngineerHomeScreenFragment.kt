@@ -141,7 +141,6 @@ class EngineerHomeScreenFragment(private val toolbar: MaterialToolbar, private v
         } else {
             co.visibility = View.GONE
             rl.visibility = View.VISIBLE
-            toolbar.title = "Home"
         }
 
         bottomNavigationView.visibility = View.VISIBLE

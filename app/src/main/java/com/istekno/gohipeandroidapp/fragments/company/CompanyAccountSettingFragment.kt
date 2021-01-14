@@ -10,10 +10,9 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.MainScreenActivity
-import com.istekno.gohipeandroidapp.models.CompanyModel
+import com.istekno.gohipeandroidapp.models.CompanyPreferenceModel
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAccountSettingBinding
-import com.istekno.gohipeandroidapp.models.EngineerModel
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
@@ -23,7 +22,7 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
 
     private lateinit var binding: FragmentCompanyAccountSettingBinding
     private lateinit var goHipePreferences: GoHipePreferences
-    private lateinit var companyModel: CompanyModel
+    private lateinit var companyPreferenceModel: CompanyPreferenceModel
     private lateinit var dialog: Dialog
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
@@ -42,7 +41,7 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
         goHipePreferences = GoHipePreferences(view.context)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
-        companyModel = goHipePreferences.getCompanyPreference()
+        companyPreferenceModel = goHipePreferences.getCompanyPreference()
 
         viewListener(view)
     }
@@ -51,9 +50,9 @@ class CompanyAccountSettingFragment(private val toolbar: MaterialToolbar): Fragm
         binding.btnCompsetfrgLogout.setOnClickListener {
             if (goHipePreferences.getCompanyPreference().isLogin) {
                 dialog.dialog(view.context, "Are you sure to logout ?") {
-                    companyModel.isLogin = false
-                    companyModel.level = ""
-                    goHipePreferences.setCompanyPreference(companyModel)
+                    companyPreferenceModel.isLogin = false
+                    companyPreferenceModel.level = ""
+                    goHipePreferences.setCompanyPreference(companyPreferenceModel)
 
                     startActivity(Intent(view.context, MainScreenActivity::class.java))
                     activity?.finishAffinity()

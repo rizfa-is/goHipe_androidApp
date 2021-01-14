@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,7 +24,8 @@ import com.istekno.gohipeandroidapp.retrofit.*
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView, private val co: CoordinatorLayout) : Fragment() {
+class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private val bottomNavigationView: BottomNavigationView,
+                                private val co: CoordinatorLayout, private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
@@ -39,7 +41,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_home_screen, container, false)
 
-        setToolbar(co)
+        setToolbar()
         return binding.root
     }
 
@@ -142,9 +144,16 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         }
     }
 
-    private fun setToolbar(co: CoordinatorLayout) {
+    private fun setToolbar() {
+        if (state) {
+            co.visibility = View.GONE
+            rl.visibility = View.GONE
+        } else {
+            co.visibility = View.GONE
+            rl.visibility = View.VISIBLE
+        }
+
         bottomNavigationView.visibility = View.VISIBLE
-        co.visibility = View.GONE
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_setting).isVisible = false
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_favorite).isVisible = false
         binding.topAppBarCompanyHomefrg.menu.findItem(R.id.mn_maincontent_toolbar_chat).isVisible = false

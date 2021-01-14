@@ -28,7 +28,12 @@ interface GoHipeApiService {
 
     @GET("engineer")
     suspend fun getEngineerByQuery(
-            @Query("search") query: String
+            @Query("search") search: String
+    ): EngineerGetByIDResponse
+
+    @GET("engineer")
+    suspend fun getEngineerByFilter(
+            @Query("filter") filter: String
     ): EngineerGetByIDResponse
 
     @POST("signup/engineer")

@@ -9,14 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputLayout
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
-import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyAddHireScreenBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
@@ -26,6 +24,8 @@ import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
+import java.io.Serializable
+import java.util.ArrayList
 
 class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragment() {
 
@@ -33,6 +33,7 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         const val FIELD_REQUIRED = "Field tidak boleh kosong"
         const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
         const val HIRE_DATA = "hire_data"
+        const val HIRE_DATA2 = "hire_data2"
     }
 
     private lateinit var binding: FragmentCompanyAddHireScreenBinding
@@ -40,6 +41,7 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var dialog: Dialog
+    private var listProject = arrayListOf<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -56,10 +58,9 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         goHipePreferences = GoHipePreferences(view.context)
         dialog = Dialog()
 
-
         val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(HIRE_DATA)
 
-        getAllProjectByCompanyID(view)
+        setDropdown(view)
         setTextInput(data)
 
         binding.btnComhirenowfrgUpdate.setOnClickListener {
@@ -142,37 +143,11 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         }
     }
 
-    private fun getAllProjectByCompanyID(view: View) {
-        val cpID = goHipePreferences.getCompanyPreference().compID
-        var mutable: MutableList<ProjectModelResponse>
-        val listProject = mutableListOf<String>()
+    private fun setDropdown(view: View) {
+        val project = activity?.intent?.getSerializableExtra(HIRE_DATA2).toString().replace("\\[".toRegex(), "").replace("]".toRegex(), "").split(", ")
+        val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, project)
 
-        coroutineScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                try {
-                    service.getAllProjectCompany()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (result is GetAllProject) {
-                val list = result.database?.map {
-                    ProjectModelResponse(it.pjID, it.cpID, it.pjName, it.pjDesc, it.pjDeadline, it.pjImage)
-                }
-                mutable = list!!.toMutableList()
-                mutable.removeAll { it.cpID != cpID }
-                mutable.map {
-                    listProject.add(it.pjName!!)
-                }
-                setDropdownMenuAdapter(view, binding.itComhirenowfrgProject, listProject)
-            }
-        }
-    }
-
-    private fun setDropdownMenuAdapter(view: View, ti: TextInputLayout, list: MutableList<String>) {
-        val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, list)
-        (ti.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+        (binding.itComhirenowfrgProject.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 
     private fun setToolbar(toolbar: MaterialToolbar) {

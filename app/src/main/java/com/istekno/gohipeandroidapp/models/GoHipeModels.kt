@@ -27,7 +27,7 @@ data class User(
 ) : Parcelable
 
 @Parcelize
-data class EngineerModel(
+data class EngineerPreferenceModel(
     var acID: Long? = null,
     var engID: Long? = null,
     var level: String? = null,
@@ -36,7 +36,7 @@ data class EngineerModel(
 ) : Parcelable
 
 @Parcelize
-data class CompanyModel(
+data class CompanyPreferenceModel(
         var acID: Long? = null,
         var compID: Long? = null,
         var level: String? = null,

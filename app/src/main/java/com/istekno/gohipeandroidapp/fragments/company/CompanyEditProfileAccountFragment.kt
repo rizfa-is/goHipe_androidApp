@@ -35,6 +35,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         const val REQUEST_CODE = 1000
         const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
+        const val EMPTY_DATA_AUTH_KEY = "empty_data_auth_key"
         const val imageLink = "http://107.22.89.131:7000/image/"
     }
 
@@ -44,6 +45,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var imageName: MultipartBody.Part
+    private lateinit var company: CompanyModelResponse
     private var dataImage = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -67,9 +69,17 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
 
     private fun setText(view: View) {
         val data = activity?.intent?.getParcelableExtra<CompanyModelResponse>(EDIT_PROFILE_AUTH_KEY2)
+        val dataEmpty = activity?.intent?.getParcelableExtra<CompanyModelResponse>(EMPTY_DATA_AUTH_KEY)
+
+        if (dataEmpty != null) {
+            company = dataEmpty
+        } else if (data != null) {
+            company = data
+        }
+
         val fullname = binding.etComeditaccountfrgFullname
         val email = binding.etComeditaccountfrgEmail
-        val company = binding.etComeditaccountfrgCompany
+        val companyEt = binding.etComeditaccountfrgCompany
         val position = binding.etComeditaccountfrgPosition
         val phone = binding.etComeditaccountfrgPhone
         val field = binding.etComeditaccountfrgField
@@ -78,17 +88,17 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         val ig = binding.etComeditaccountfrgInsta
         val linkedin = binding.etComeditaccountfrgLinkedin
 
-        fullname.setText(data?.cpName)
-        email.setText(data?.cpEmail)
-        company.setText(data?.cpCompany)
-        position.setText(data?.cpPosition)
-        phone.setText(data?.cpPhone)
-        field.setText(data?.cpField)
-        location.setText(data?.cpLocation)
-        desc.setText(data?.cpDesc)
-        ig.setText(data?.cpInsta)
-        linkedin.setText(data?.cpLinkedIn)
-        Glide.with(view.context).load(EngineerEditProfileAccountFragment.imageLink + data?.cpAvatar).into(binding.shapeableImageView2)
+        fullname.setText(company.cpName)
+        email.setText(company.cpEmail)
+        companyEt.setText(company.cpCompany)
+        position.setText(company.cpPosition)
+        phone.setText(company.cpPhone)
+        field.setText(company.cpField)
+        location.setText(company.cpLocation)
+        desc.setText(company.cpDesc)
+        ig.setText(company.cpInsta)
+        linkedin.setText(company.cpLinkedIn)
+        Glide.with(view.context).load(EngineerEditProfileAccountFragment.imageLink + company.cpAvatar).into(binding.shapeableImageView2)
     }
 
     private fun viewListener(view: View) {

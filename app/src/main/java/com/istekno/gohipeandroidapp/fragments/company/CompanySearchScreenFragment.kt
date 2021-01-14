@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.*
 import com.istekno.gohipeandroidapp.viewmodels.CompanySearchEngineerViewModel
 
-class CompanySearchScreenFragment(private val co: CoordinatorLayout) : Fragment() {
+class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
@@ -34,7 +35,7 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout) : Fragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        setToolbar(co)
+        setToolbar()
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_search_screen, container, false)
         return binding.root
@@ -52,11 +53,19 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout) : Fragment(
         searchProject.searchByUsername(binding.searchView)
         searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
             override fun onQueryChangeListener(query: String) {
-                viewModel.getEngineerByQuery(query)
+                if (query.isEmpty()) {
+                    viewModel.getEngineerByQuery(" ")
+                } else {
+                    viewModel.getEngineerByQuery(query)
+                }
             }
 
             override fun onQuerySubmitListener(query: String) {
-                viewModel.getEngineerByQuery(query)
+                if (query.isEmpty()) {
+                    viewModel.getEngineerByQuery(" ")
+                } else {
+                    viewModel.getEngineerByQuery(query)
+                }
             }
         })
 
@@ -109,7 +118,13 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout) : Fragment(
         }
     }
 
-    private fun setToolbar(co: CoordinatorLayout) {
-        co.visibility = View.GONE
+    private fun setToolbar() {
+        if (state) {
+            co.visibility = View.GONE
+            rl.visibility = View.GONE
+        } else {
+            co.visibility = View.GONE
+            rl.visibility = View.VISIBLE
+        }
     }
 }

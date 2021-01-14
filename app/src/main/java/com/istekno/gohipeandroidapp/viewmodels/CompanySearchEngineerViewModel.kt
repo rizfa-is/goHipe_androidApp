@@ -26,7 +26,7 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
             engAction.value = true
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service.getAllEngineer()
+                    service.getEngineerByFilter("2")
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -40,8 +40,8 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
 
                 listENG.value = listEngineer
                 listAB.value = listAbility
-                engAction.value = false
             }
+            engAction.value = false
         }
     }
 
@@ -64,8 +64,8 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
 
                 listENG.value = listEngineer
                 listAB.value = listAbility
-                engAction.value = false
             }
+            engAction.value = false
         }
     }
 

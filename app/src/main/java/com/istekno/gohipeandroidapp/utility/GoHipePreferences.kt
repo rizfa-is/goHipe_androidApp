@@ -1,8 +1,8 @@
 package com.istekno.gohipeandroidapp.utility
 
 import android.content.Context
-import com.istekno.gohipeandroidapp.models.CompanyModel
-import com.istekno.gohipeandroidapp.models.EngineerModel
+import com.istekno.gohipeandroidapp.models.CompanyPreferenceModel
+import com.istekno.gohipeandroidapp.models.EngineerPreferenceModel
 
 class GoHipePreferences(context: Context) {
 
@@ -21,7 +21,7 @@ class GoHipePreferences(context: Context) {
     private val engineerPreferences = context.getSharedPreferences(ENG_PREF_NAME, Context.MODE_PRIVATE)
     private val companyPreferences = context.getSharedPreferences(COMP_PREF_NAME, Context.MODE_PRIVATE)
 
-    fun setEngineerPreference(value: EngineerModel) {
+    fun setEngineerPreference(value: EngineerPreferenceModel) {
         val editor = engineerPreferences.edit()
         value.acID?.let { editor.putLong(ACID, it) }
         value.engID?.let { editor.putLong(ENGID, it) }
@@ -31,8 +31,8 @@ class GoHipePreferences(context: Context) {
         editor.apply()
     }
 
-    fun getEngineerPreference(): EngineerModel {
-        val model = EngineerModel()
+    fun getEngineerPreference(): EngineerPreferenceModel {
+        val model = EngineerPreferenceModel()
         model.acID = engineerPreferences.getLong(ACID, -1)
         model.engID = engineerPreferences.getLong(ENGID, -1)
         model.level = engineerPreferences.getString(LEVEL, "")
@@ -42,7 +42,7 @@ class GoHipePreferences(context: Context) {
         return model
     }
 
-    fun setCompanyPreference(value: CompanyModel) {
+    fun setCompanyPreference(value: CompanyPreferenceModel) {
         val editor = companyPreferences.edit()
         value.acID?.let { editor.putLong(ACID, it) }
         value.compID?.let { editor.putLong(COMPID, it) }
@@ -52,8 +52,8 @@ class GoHipePreferences(context: Context) {
         editor.apply()
     }
 
-    fun getCompanyPreference(): CompanyModel {
-        val model = CompanyModel()
+    fun getCompanyPreference(): CompanyPreferenceModel {
+        val model = CompanyPreferenceModel()
         model.acID = companyPreferences.getLong(ACID, -1)
         model.compID = companyPreferences.getLong(COMPID, -1)
         model.level = companyPreferences.getString(LEVEL, "")

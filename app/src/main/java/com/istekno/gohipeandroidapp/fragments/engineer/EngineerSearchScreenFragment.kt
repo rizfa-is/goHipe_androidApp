@@ -1,7 +1,9 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +27,12 @@ import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import com.istekno.gohipeandroidapp.viewmodels.EngineerSearchProjectViewModel
 
-class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout,
-                                   private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
+class EngineerSearchScreenFragment(private val co: CoordinatorLayout, private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
 
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
         const val PROJECT_DATA = "project_data"
-        private val listFilter = listOf("All", "Name", "Deadline")
+        private val listFilter = listOf("Name", "Deadline")
     }
 
     private lateinit var binding: FragmentEngineerSearchScreenBinding
@@ -55,6 +56,8 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
 
         viewModel.setSearchService(service)
         viewModel.getAllProjectByCompanyID()
+        showRecyclerList()
+        subscribeLiveData(0)
 
         searchProject.searchByUsername(binding.searchView)
         searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
@@ -67,19 +70,39 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
             }
         })
 
-        showRecyclerList()
-        viewListener()
-        subscribeLiveData()
+        chipViewInit(view)
+        viewListener(view)
     }
 
-    private fun viewListener() {
+    @SuppressLint("ResourceType")
+    private fun viewListener(view: View) {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             viewModel.getAllProjectByCompanyID()
         }
+
+        val id1 = view.findViewById<Chip>(0)
+        val id2 = view.findViewById<Chip>(1)
+        id1.setOnClickListener {
+            id1.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_orange)
+            id1.setTextColor(view.resources.getColor(R.color.white))
+            id2.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
+            id2.setTextColor(view.resources.getColor(R.color.theme_green_dark))
+
+            subscribeLiveData(1)
+        }
+        id2.setOnClickListener {
+            id2.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_orange)
+            id2.setTextColor(view.resources.getColor(R.color.white))
+            id1.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
+            id1.setTextColor(view.resources.getColor(R.color.theme_green_dark))
+
+            viewModel.getAllProjectByCompanyID()
+            subscribeLiveData(2)
+        }
     }
 
-    private fun subscribeLiveData() {
+    private fun subscribeLiveData(filter: Int) {
         viewModel.projectAction.observe(this, {
             if (it) {
                 binding.pgHomeengfrg.visibility = View.VISIBLE
@@ -91,7 +114,25 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
             }
         })
 
-        viewModel.getListProject().observe(this, { it ->
+        viewModel.getListProject().observe(this, {
+            val mutableList = it.toMutableList()
+
+            when (filter) {
+                1 -> {
+                    mutableList.sortByDescending { i -> i.pjName }
+
+                    Log.e("listProject filter 1", it.toString())
+                }
+                2 -> {
+                    it.sortedBy { it.pjDeadline }
+
+                    Log.e("listProject filter 2", it.toString())
+                }
+                0 -> {
+                    Log.e("listProject", it.toString())
+                }
+            }
+
             (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(it!!)
         })
     }
@@ -116,20 +157,20 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
         }
     }
 
-    private fun chipViewInit(list: List<String>, view: View) {
-        binding.cgFilter.isSingleSelection = true
-        for (element in list) {
+    private fun chipViewInit(view: View) {
+        val cg = binding.cgFilter
+
+        for (element in listFilter) {
             val chip = Chip(view.context)
 
+            chip.id = listFilter.indexOf(element)
             chip.chipStartPadding = 100F
             chip.chipCornerRadius = 20F
             chip.text = element
-            binding.cgFilter.addView(chip)
-        }
+            chip.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
+            chip.setTextColor(view.resources.getColor(R.color.theme_green_dark))
 
-        binding.cgFilter.setOnCheckedChangeListener { group, checkedId ->
-            val titleOrNull = binding.cgFilter.findViewById<Chip>(checkedId)?.text
-            Toast.makeText(group.context, titleOrNull ?: "No Choice", Toast.LENGTH_LONG).show()
+            cg.addView(chip)
         }
     }
 
@@ -140,7 +181,6 @@ class EngineerSearchScreenFragment(private val toolbar: MaterialToolbar, private
         } else {
             co.visibility = View.GONE
             rl.visibility = View.VISIBLE
-            toolbar.title = "Search"
         }
     }
 }

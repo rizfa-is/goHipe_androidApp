@@ -1,29 +1,19 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.EngineerMainContentActivity
-import com.istekno.gohipeandroidapp.models.EngineerModel
-import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerRegisterScreenBinding
 import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
-import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterModelRequest
 import com.istekno.gohipeandroidapp.retrofit.EngineerRegisterResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
-import com.istekno.gohipeandroidapp.retrofit.LoginResponse
 import com.istekno.gohipeandroidapp.utility.Dialog
 import kotlinx.coroutines.*
 

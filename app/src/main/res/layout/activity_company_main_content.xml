@@ -44,6 +44,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <RelativeLayout
+            android:id="@+id/rl_check_profile_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:background="@color/background_grey"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/co_company" >
+
+            <ImageView
+                android:id="@+id/img_check_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                android:layout_alignStart="@+id/tv_check_profile"
+                android:layout_alignEnd="@+id/tv_check_profile"
+                android:src="@drawable/ic_no_entry" />
+
+            <TextView
+                android:id="@+id/tv_check_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_check_profile"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="Please, complete account profile \nbefore accessing hiring features!"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_goto_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_check_profile"
+                android:layout_alignStart="@+id/tv_check_profile"
+                android:layout_alignEnd="@+id/tv_check_profile"
+                android:layout_marginTop="24dp"
+                android:text="Go to Edit Profile"
+                android:textAllCaps="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_goto_account"
+                android:layout_alignStart="@+id/tv_check_profile"
+                android:layout_alignEnd="@+id/tv_check_profile"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/theme_red"/>
+
+        </RelativeLayout>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_view"
             android:layout_width="match_parent"
