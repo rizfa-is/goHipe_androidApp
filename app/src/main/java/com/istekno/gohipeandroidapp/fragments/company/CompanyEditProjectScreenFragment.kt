@@ -83,7 +83,7 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
             }
         }
         binding.btnCompeditprojectfrgAdd.setOnClickListener {
-            update(data.pjID!!, view)
+            update(data.pjID!!, view, data)
         }
     }
 
@@ -100,7 +100,7 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
         }
     }
 
-    private fun update(pjID: Long, view: View) {
+    private fun update(pjID: Long, view: View, data: ProjectModelResponse) {
         val project = binding.etCompeditprojectfrgName.text.toString()
         val desc = binding.etCompeditprojectfrgDesc.text.toString()
         val deadline = binding.etCompeditprojectfrgDeadline.text.toString()
@@ -122,18 +122,14 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
 
         if (dataImage != "") {
 
-            updateProject(pjID, project, desc, deadline)
-
-            dialog.dialogCancel(view.context, "Update hire successful!") {
-                activity?.onBackPressed()
-            }
-
+            updateProject(1, view, pjID, project, desc, deadline)
         } else {
-            Toast.makeText(view.context, "Please select portfolio image!", Toast.LENGTH_SHORT).show()
+
+            updateProject(0, view, pjID, project, desc, deadline)
         }
     }
 
-    private fun updateProject(pjID: Long, pjName: String, pjDesc: String, pjDeadline: String) {
+    private fun updateProject(type: Int, view: View, pjID: Long, pjName: String, pjDesc: String, pjDeadline: String) {
         coroutineScope.launch {
             val project = pjName.toRequestBody("text/plain".toMediaTypeOrNull())
             val desc= pjDesc.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -141,10 +137,18 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
 
             withContext(Dispatchers.IO) {
                 try {
-                    service.updateProject(pjID, project, desc, deadline, imageName)
+                    if (type == 1) {
+                        service.updateProject(pjID, project, desc, deadline, imageName)
+                    } else {
+                        service.updateProjectNoImg(pjID, project, desc, deadline)
+                    }
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
+            }
+
+            dialog.dialogCancel(view.context, "Update hire successful!") {
+                activity?.onBackPressed()
             }
         }
     }
@@ -203,5 +207,10 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.title = "Edit project"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
     }
 }

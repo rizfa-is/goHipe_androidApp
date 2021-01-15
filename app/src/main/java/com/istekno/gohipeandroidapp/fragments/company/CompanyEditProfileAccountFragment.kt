@@ -247,4 +247,9 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.title = "Edit Profile"
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
+    }
 }

@@ -43,7 +43,7 @@ class ListHireAdapter(private val hireStatus: Int) : RecyclerView.Adapter<ListHi
             binding.model = hireModelResponse
             Glide.with(itemView.context)
                 .load(imageLink + hireModelResponse.pjImage)
-                .apply(RequestOptions().override(150,150))
+                .apply(RequestOptions().override(600,200))
                 .into(binding.imgListSearchProject)
 
             binding.tvListSearchProjectDeadline.text = hireModelResponse.pjDeadline?.split('T')?.get(0) ?: "null"

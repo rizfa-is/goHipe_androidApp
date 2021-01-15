@@ -10,11 +10,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityEngineerMainContentBinding
-import com.istekno.gohipeandroidapp.fragments.engineer.*
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHiringScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHomeScreenFragment
+import com.istekno.gohipeandroidapp.fragments.engineer.EngineerSearchScreenFragment
 import com.istekno.gohipeandroidapp.models.EngineerPreferenceModel
+import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 
 class EngineerMainContentActivity : AppCompatActivity() {
 
@@ -26,6 +35,8 @@ class EngineerMainContentActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityEngineerMainContentBinding
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var engineerPreferenceModel: EngineerPreferenceModel
     private lateinit var dialog: Dialog
@@ -38,6 +49,8 @@ class EngineerMainContentActivity : AppCompatActivity() {
         binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
         setSupportActionBar(binding.topAppBarMaincontentActivity)
 
+        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+        service = ApiClient.getApiClient(this)!!.create(GoHipeApiService::class.java)
         goHipePreferences = GoHipePreferences(this)
         engineerPreferenceModel = goHipePreferences.getEngineerPreference()
         dialog = Dialog()
@@ -149,5 +162,10 @@ class EngineerMainContentActivity : AppCompatActivity() {
         if (checkNetwork == null || !checkNetwork.isConnected || !checkNetwork.isAvailable) {
             dialog.dialogCheckInternet(this, this)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
     }
 }

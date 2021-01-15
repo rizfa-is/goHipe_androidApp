@@ -98,6 +98,13 @@ interface GoHipeApiService {
 
     @Multipart
     @PUT("account/engineer/update/{id}")
+    suspend fun updateEngineerAvatar(
+            @Path("id") id: Long,
+            @Part image: MultipartBody.Part
+    ): GeneralResponse
+
+    @Multipart
+    @PUT("account/engineer/update/{id}")
     suspend fun updateEngineer(
             @Path("id") id: Long,
             @Part("ac_name") name: RequestBody,
@@ -247,6 +254,15 @@ interface GoHipeApiService {
             @Field("hr_price") hrPrice: String,
             @Field("hr_message") hrMessage: String,
             @Field("hr_status") hrStatus: String
+    ): GeneralResponse
+
+    @Multipart
+    @PUT("project/update/{id}")
+    suspend fun updateProjectNoImg(
+            @Path("id") id: Long,
+            @Part("pj_name") pjName: RequestBody,
+            @Part("pj_desc") pjDesc: RequestBody,
+            @Part("pj_deadline") pjDeadline: RequestBody
     ): GeneralResponse
 
     @Multipart
