@@ -21,12 +21,12 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
         this.service = service
     }
 
-    fun getAllEngineer() {
+    fun getAllEngineer(filter: String) {
         launch {
             engAction.value = true
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service.getEngineerByFilter("2")
+                    service.getEngineerByFilter(filter)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -45,12 +45,12 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
         }
     }
 
-    fun getEngineerByQuery(query: String) {
+    fun getEngineerByQuery(query: String, filter: String) {
         launch {
             engAction.value = true
             val result = withContext(Dispatchers.IO) {
                 try {
-                    service.getEngineerByQuery(query)
+                    service.getEngineerByQuery(query, filter)
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }

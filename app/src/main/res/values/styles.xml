@@ -146,4 +146,8 @@
     <style name="TabLayoutText">
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:padding">0dp</item>
+    </style>
 </resources>

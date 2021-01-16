@@ -13,8 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="57dp"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:layout_marginBottom="57dp">
 
             <View
                 android:id="@+id/view_bg"
@@ -36,6 +35,27 @@
                 app:layout_constraintStart_toStartOf="@+id/view_bg"
                 app:layout_constraintTop_toTopOf="@+id/view_bg"/>
 
+            <HorizontalScrollView
+                android:id="@+id/hv_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_bg">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cg_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    app:singleLine="true"
+                    app:singleSelection="true"
+                    app:selectionRequired="true" />
+
+            </HorizontalScrollView>
+
             <ProgressBar
                 android:id="@+id/pg_homeengfrg"
                 android:layout_width="wrap_content"
@@ -45,26 +65,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_bg" />
+                app:layout_constraintTop_toBottomOf="@+id/hv_filter" />
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_list_engineer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:paddingHorizontal="4dp"
+                android:paddingTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_bg">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_list_engineer"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:paddingHorizontal="4dp"
-                    android:paddingTop="8dp"/>
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+                app:layout_constraintTop_toBottomOf="@id/hv_filter" />
 
             <ImageView
                 android:id="@+id/imageView"

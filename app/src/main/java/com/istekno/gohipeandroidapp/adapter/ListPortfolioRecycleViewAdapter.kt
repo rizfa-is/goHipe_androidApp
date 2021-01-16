@@ -40,7 +40,7 @@ class ListPortfolioRecycleViewAdapter(private val type: Int) : RecyclerView.Adap
         fun bind(portfolioModel: PortfolioModel) {
             Glide.with(itemView.context)
                 .load(imageLink + portfolioModel.prImg)
-                .apply(RequestOptions().override(900, 400))
+                .apply(RequestOptions().override(200, 100))
                 .into(binding.imgItemRowPortfolio)
 
             if (type == 1) binding.llEditporto.visibility = View.GONE

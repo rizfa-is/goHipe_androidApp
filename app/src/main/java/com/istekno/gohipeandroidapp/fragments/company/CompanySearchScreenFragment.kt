@@ -2,30 +2,34 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListSearchEngineerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanySearchScreenBinding
 import com.istekno.gohipeandroidapp.helpers.SearchProject
 import com.istekno.gohipeandroidapp.remote.ApiClient
-import com.istekno.gohipeandroidapp.retrofit.*
+import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
+import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.viewmodels.CompanySearchEngineerViewModel
 
-class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val rl: RelativeLayout, private val state: Boolean) : Fragment() {
+class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val rl: RelativeLayout,
+                                  private val state: Boolean) : Fragment() {
 
     companion object {
         const val HOME_AUTH_KEY = "home_auth_key"
         const val HOME_DATA = "home_data"
+        private val listFilter = arrayOf("Default", "Name", "Ability", "Location", "Job Type")
     }
 
     private lateinit var binding: FragmentCompanySearchScreenBinding
@@ -43,49 +47,79 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CompanySearchEngineerViewModel::class.java)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
-        searchProject = SearchProject()
-
+        viewModel = ViewModelProvider(this).get(CompanySearchEngineerViewModel::class.java)
         viewModel.setSearchService(service)
-        viewModel.getAllEngineer()
-
+        searchProject = SearchProject()
         searchProject.searchByUsername(binding.searchView)
-        searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
-            override fun onQueryChangeListener(query: String) {
-                if (query.isEmpty()) {
-                    viewModel.getEngineerByQuery(" ")
-                } else {
-                    viewModel.getEngineerByQuery(query)
-                }
-            }
 
-            override fun onQuerySubmitListener(query: String) {
-                if (query.isEmpty()) {
-                    viewModel.getEngineerByQuery(" ")
-                } else {
-                    viewModel.getEngineerByQuery(query)
-                }
-            }
-        })
+        chipViewInit()
 
+        val checkedID = binding.cgFilter.checkedChipId
+        if (checkedID == -1) {
+            binding.cgFilter.check(0)
+            viewModel.getAllEngineer("0")
+        }
+
+        viewListener(view)
         showRecyclerList()
-        viewListener()
         subscribeLiveData()
     }
 
-    private fun viewListener() {
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = true
-            viewModel.getAllEngineer()
+    private fun viewListener(view: View) {
+        binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+            val chip: Chip = view.findViewById(checkedId)
+            val id = chip.id
+
+            viewModel.getAllEngineer("$id")
         }
+
+        searchViewListener(view)
+    }
+
+    private fun searchViewListener(view: View) {
+        var checkedID = binding.cgFilter.checkedChipId
+
+        searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
+            override fun onQueryChangeListener(query: String) {
+                binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                    val chip: Chip = view.findViewById(checkedId)
+                    val id = chip.id
+                    checkedID = id
+
+                    viewModel.getEngineerByQuery(query,"$id")
+                }
+
+                viewModel.getEngineerByQuery(query,"$checkedID")
+            }
+
+            override fun onQuerySubmitListener(query: String) {
+                binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                    val chip: Chip = view.findViewById(checkedId)
+                    val id = chip.id
+                    checkedID = id
+
+                    viewModel.getEngineerByQuery(query,"$id")
+                }
+
+                viewModel.getEngineerByQuery(query,"$checkedID")
+            }
+
+            override fun onCloseListener() {
+                binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                    val chip: Chip = view.findViewById(checkedId)
+                    val id = chip.id
+
+                    viewModel.getAllEngineer("$id")
+                }
+            }
+        })
     }
 
     private fun subscribeLiveData() {
         viewModel.engAction.observe(this, {
             if (it) {
                 binding.pgHomeengfrg.visibility = View.VISIBLE
-                binding.swipeRefresh.isRefreshing = false
                 binding.rvSearchListEngineer.visibility = View.GONE
             } else {
                 binding.pgHomeengfrg.visibility = View.GONE
@@ -93,13 +127,23 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val
             }
         })
 
-        viewModel.getAllData().observe(this, { it ->
+        viewModel.getAllData().observe(this, {
             (binding.rvSearchListEngineer.adapter as ListSearchEngineerAdapter).setDataEngineer(it)
         })
 
-        viewModel.getListAbility().observe(this, { it ->
+        viewModel.getListAbility().observe(this, {
             (binding.rvSearchListEngineer.adapter as ListSearchEngineerAdapter).setDataAbility(it)
         })
+    }
+
+    private fun chipViewInit() {
+        for (element in listFilter) {
+            val chip = layoutInflater.inflate(R.layout.item_chip_group_choice, binding.cgFilter, false) as Chip
+
+            chip.id = listFilter.indexOf(element)
+            chip.text = element
+            binding.cgFilter.addView(chip)
+        }
     }
 
     private fun showRecyclerList() {

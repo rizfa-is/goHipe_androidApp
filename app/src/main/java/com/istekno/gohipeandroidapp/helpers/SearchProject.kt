@@ -1,6 +1,6 @@
 package com.istekno.gohipeandroidapp.helpers
 
-import com.istekno.gohipeandroidapp.retrofit.HireModelResponse
+import android.widget.SearchView
 
 class SearchProject {
 
@@ -13,25 +13,33 @@ class SearchProject {
     interface OnQueryTextListener {
         fun onQueryChangeListener(query: String)
         fun onQuerySubmitListener(query: String)
+        fun onCloseListener()
     }
 
-    fun searchByUsername(searchView: android.widget.SearchView) {
-        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+    fun searchByUsername(searchView: SearchView) {
+        searchView.isIconified = true
+        searchView.queryHint = "Search name"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(str: String?): Boolean {
                 if (str != null) {
-                    if (str.isEmpty()) return false
                     onQueryTextListener.onQuerySubmitListener(str)
                 }
-                return false
+                return true
             }
 
             override fun onQueryTextChange(str: String?): Boolean {
                 if (str != null) {
-                    if (str.isEmpty()) return false
                     onQueryTextListener.onQueryChangeListener(str)
                 }
                 return false
             }
         })
+
+        searchView.setOnCloseListener {
+            searchView.onActionViewCollapsed()
+            onQueryTextListener.onCloseListener()
+            return@setOnCloseListener true
+        }
     }
 }
