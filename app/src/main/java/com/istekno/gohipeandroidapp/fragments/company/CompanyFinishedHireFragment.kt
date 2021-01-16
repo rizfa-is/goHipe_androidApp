@@ -2,37 +2,31 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
-import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRejectedHireBinding
-import com.istekno.gohipeandroidapp.models.HireModel
+import com.istekno.gohipeandroidapp.databinding.FragmentCompanyFinishedHireBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.GetAllHire
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.retrofit.HireModelResponse
-import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class CompanyRejectedHireFragment : Fragment() {
+class CompanyFinishedHireFragment : Fragment() {
 
     companion object {
         const val HIRE_AUTH_KEY = "hire_auth_key"
         const val HIRE_DATA = "hire_data"
     }
 
-    private lateinit var binding: FragmentCompanyRejectedHireBinding
+    private lateinit var binding: FragmentCompanyFinishedHireBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
@@ -40,7 +34,7 @@ class CompanyRejectedHireFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_rejected_hire, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_finished_hire, container, false)
         return binding.root
     }
 

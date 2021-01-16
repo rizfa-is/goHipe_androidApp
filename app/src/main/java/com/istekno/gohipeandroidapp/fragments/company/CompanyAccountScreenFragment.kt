@@ -10,6 +10,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
@@ -78,7 +79,11 @@ class CompanyAccountScreenFragment(private val toolbar: MaterialToolbar, private
                 }
 
                 binding.model = result.database!![0]
-                Glide.with(view.context).load(imageLink + result.database[0].cpAvatar).into(binding.imgComaccfrgAvatar)
+                Glide.with(view.context)
+                        .load(imageLink + result.database[0].cpAvatar)
+                        .apply(RequestOptions().override(125, 125))
+                        .into(binding.imgComaccfrgAvatar)
+
                 if (list != null) {
                     companyDetail = list
                 }

@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
@@ -118,7 +119,7 @@ class CompanyHomeScreenFragment(private val toolbar: MaterialToolbar, private va
         val rvAdapter = SkillfulTalentAdapter()
 
         binding.rvListEngineer2.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             rvAdapter.setOnItemClickCallback(object : SkillfulTalentAdapter.OnItemClickCallback {
                 override fun onItemClicked(engineerModelResponse: EngineerModelResponse) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)

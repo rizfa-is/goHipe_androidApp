@@ -12,7 +12,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListHireViewPagerAdapter
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyHiringScreenBinding
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHiringScreenBinding
 
 class EngineerHiringScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout,
@@ -35,7 +34,7 @@ class EngineerHiringScreenFragment(private val toolbar: MaterialToolbar, private
     }
 
     private fun setPagerAdapter(view: View) {
-        val listFragment = arrayOf(EngineerOnWaitingHireFragment(), EngineerApprovedHireFragment(), EngineerRejectedHireFragment())
+        val listFragment = arrayOf(EngineerOnWaitingHireFragment(), EngineerOnProgressHireFragment(), EngineerFinishedHireFragment())
         val pagerAdapter = ListHireViewPagerAdapter(view.context, childFragmentManager)
 
         pagerAdapter.setFargmentList(listFragment)

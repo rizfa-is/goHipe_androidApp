@@ -37,8 +37,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:src="@drawable/ic_bottom_nav_hiring_checked"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,10 +51,10 @@
             android:id="@+id/tv_onwait"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="Empty on waiting"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"

@@ -2,21 +2,16 @@ package com.istekno.gohipeandroidapp.fragments.company
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyApprovedHireBinding
-import com.istekno.gohipeandroidapp.databinding.FragmentCompanyOnWaitingHireBinding
-import com.istekno.gohipeandroidapp.models.HireModel
+import com.istekno.gohipeandroidapp.databinding.FragmentCompanyOnwaitingHireBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.GetAllHire
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
@@ -31,7 +26,7 @@ class CompanyOnWaitingHireFragment : Fragment() {
         const val HIRE_DATA = "hire_data"
     }
 
-    private lateinit var binding: FragmentCompanyOnWaitingHireBinding
+    private lateinit var binding: FragmentCompanyOnwaitingHireBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
@@ -39,7 +34,7 @@ class CompanyOnWaitingHireFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_on_waiting_hire, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_onwaiting_hire, container, false)
         return binding.root
     }
 

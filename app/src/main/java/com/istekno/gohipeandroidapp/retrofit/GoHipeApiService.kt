@@ -121,6 +121,23 @@ interface GoHipeApiService {
             @Part image: MultipartBody.Part
     ): GeneralResponse
 
+    @Multipart
+    @PUT("account/engineer/update/{id}")
+    suspend fun updateEngineer(
+            @Path("id") id: Long,
+            @Part("ac_name") name: RequestBody,
+            @Part("ac_email") email: RequestBody,
+            @Part("ac_phone") phone: RequestBody,
+            @Part("ac_password") password: RequestBody,
+            @Part("en_job_title") jType: RequestBody,
+            @Part("en_job_type") jTitle: RequestBody,
+            @Part("en_location") location: RequestBody,
+            @Part("en_desc") desc: RequestBody,
+            @Part("en_ig") ig: RequestBody,
+            @Part("en_github") github: RequestBody,
+            @Part("en_gitlab") gitlab: RequestBody
+    ): GeneralResponse
+
     @PUT("ability/update/{id}")
     @FormUrlEncoded
     suspend fun updateABility(
@@ -141,6 +158,19 @@ interface GoHipeApiService {
             @Part("pr_company") company: RequestBody,
             @Part("pr_role") role: RequestBody,
             @Part image: MultipartBody.Part
+    ): GeneralResponse
+
+    @Multipart
+    @PUT("portfolio/update/{id}")
+    suspend fun updatePortfolio(
+            @Path("id") id: Long,
+            @Part("en_id") enID: RequestBody,
+            @Part("pr_application") appName: RequestBody,
+            @Part("pr_desc") desc: RequestBody,
+            @Part("pr_link") link: RequestBody,
+            @Part("pr_repo") repo: RequestBody,
+            @Part("pr_company") company: RequestBody,
+            @Part("pr_role") role: RequestBody
     ): GeneralResponse
 
     @PUT("experience/update/{id}")
@@ -238,6 +268,23 @@ interface GoHipeApiService {
             @Part image: MultipartBody.Part
     ): GeneralResponse
 
+    @Multipart
+    @PUT("account/company/update/{id}")
+    suspend fun updateCompany(
+            @Path("id") id: Long,
+            @Part("ac_name") name: RequestBody,
+            @Part("ac_email") email: RequestBody,
+            @Part("ac_phone") phone: RequestBody,
+            @Part("ac_password") password: RequestBody,
+            @Part("cp_company") company: RequestBody,
+            @Part("cp_position") position: RequestBody,
+            @Part("cp_field") field: RequestBody,
+            @Part("cp_location") location: RequestBody,
+            @Part("cp_desc") desc: RequestBody,
+            @Part("cp_insta") ig: RequestBody,
+            @Part("cp_linkedin") linkedin: RequestBody
+    ): GeneralResponse
+
     @PUT("hire/update/{id}")
     @FormUrlEncoded
     suspend fun updateHireStatus(
@@ -258,7 +305,7 @@ interface GoHipeApiService {
 
     @Multipart
     @PUT("project/update/{id}")
-    suspend fun updateProjectNoImg(
+    suspend fun updateProject(
             @Path("id") id: Long,
             @Part("pj_name") pjName: RequestBody,
             @Part("pj_desc") pjDesc: RequestBody,

@@ -145,7 +145,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
         }
     }
 
-    private fun updatePortfolio(prID: Long, prApp: String, prDesc: String, prLink: String, prRepo: String, prComp: String, prRole: String) {
+    private fun updatePortfolio(type: Int, prID: Long, prApp: String, prDesc: String, prLink: String, prRepo: String, prComp: String, prRole: String) {
         coroutineScope.launch {
             val enId = goHipePreferences.getEngineerPreference().engID.toString()
             val app = prApp.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -158,7 +158,11 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
 
             withContext(Dispatchers.IO) {
                 try {
-                    service.updatePortfolio(prID, id, app, desc, link, repo, company, role, imageName)
+                    if (type == 1) {
+                        service.updatePortfolio(prID, id, app, desc, link, repo, company, role, imageName)
+                    } else {
+                        service.updatePortfolio(prID, id, app, desc, link, repo, company, role)
+                    }
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -300,7 +304,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
 
                 if (dataImage != "") {
 
-                    updatePortfolio(id, inputApp, inputDesc, inputLink, inputRepo, inputComp, inputRole)
+                    updatePortfolio(1, id, inputApp, inputDesc, inputLink, inputRepo, inputComp, inputRole)
 
                     dialog.dialogCancel(context, "Success update portfolio!") {
                         cDialog.cancel()
@@ -309,7 +313,14 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
                     }
 
                 } else {
-                    Toast.makeText(view.context, "Please select portfolio image!", Toast.LENGTH_SHORT).show()
+
+                    updatePortfolio(0, id, inputApp, inputDesc, inputLink, inputRepo, inputComp, inputRole)
+
+                    dialog.dialogCancel(context, "Success update portfolio!") {
+                        cDialog.cancel()
+                        binding.swipeRefresh.isRefreshing = true
+                        getPortfolio(enId)
+                    }
                 }
             } else {
                 val inputApp = appName.text.toString()

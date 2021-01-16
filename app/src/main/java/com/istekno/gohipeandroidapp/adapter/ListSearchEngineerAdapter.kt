@@ -49,7 +49,7 @@ class ListSearchEngineerAdapter: RecyclerView.Adapter<ListSearchEngineerAdapter.
             binding.model = engineerModelResponse
             Glide.with(itemView.context)
                 .load(imageLink + engineerModelResponse.enAvatar)
-                .apply(RequestOptions().override(150, 150))
+                    .apply(RequestOptions().override(125, 125))
                 .into(binding.imgListSearchEng)
 
             chipViewInit(abilityM.list, itemView, binding)

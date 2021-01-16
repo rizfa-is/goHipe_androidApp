@@ -46,7 +46,7 @@ class SkillfulTalentAdapter: RecyclerView.Adapter<SkillfulTalentAdapter.ListView
             binding.modelSkillful = engineerModelResponse
             Glide.with(itemView.context)
                 .load(imageLink + engineerModelResponse.enAvatar)
-                .apply(RequestOptions().override(150, 150))
+                    .apply(RequestOptions().override(125, 125))
                 .into(binding.imgSkillfulTalentEng)
 
             chipViewInit(abilityM.list, itemView, binding)
@@ -75,17 +75,17 @@ class SkillfulTalentAdapter: RecyclerView.Adapter<SkillfulTalentAdapter.ListView
                 chip.width = 17
                 chip.height = 7
                 chip.chipCornerRadius = 20F
-                chip.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
+                chip.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_green)
                 chip.text = abName
                 chip.textSize = 12F
-                chip.setTextColor(view.resources.getColor(R.color.theme_green))
+                chip.setTextColor(view.resources.getColor(R.color.white))
 
                 binding.cgSearchengAbility.addView(chip)
             } else if (i == listAbility.size - 1) {
-                chip.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_green)
+                chip.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
                 chip.text = "${listAbility.size - 3}+"
                 chip.textSize = 14F
-                chip.setTextColor(view.resources.getColor(R.color.white))
+                chip.setTextColor(view.resources.getColor(R.color.theme_green))
                 binding.cgSearchengAbility.addView(chip)
             }
         }

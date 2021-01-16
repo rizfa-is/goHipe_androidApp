@@ -2,21 +2,16 @@ package com.istekno.gohipeandroidapp.fragments.engineer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
 import com.istekno.gohipeandroidapp.adapter.ListHireAdapter
-import com.istekno.gohipeandroidapp.databases.GoHipeDatabases
-import com.istekno.gohipeandroidapp.databinding.FragmentEngineerApprovedHireBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyApprovedHireFragment
-import com.istekno.gohipeandroidapp.models.HireModel
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerFinishedHireBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.GetAllHire
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
@@ -24,14 +19,14 @@ import com.istekno.gohipeandroidapp.retrofit.HireModelResponse
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import kotlinx.coroutines.*
 
-class EngineerApprovedHireFragment : Fragment() {
+class EngineerFinishedHireFragment : Fragment() {
 
     companion object {
         const val HIRE_AUTH_KEY = "hire_auth_key"
         const val HIRE_DATA = "hire_data"
     }
 
-    private lateinit var binding: FragmentEngineerApprovedHireBinding
+    private lateinit var binding: FragmentEngineerFinishedHireBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
@@ -39,7 +34,7 @@ class EngineerApprovedHireFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_approved_hire, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_finished_hire, container, false)
         return binding.root
     }
 
@@ -58,7 +53,7 @@ class EngineerApprovedHireFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             binding.imageView.visibility = View.GONE
-            binding.tvApproved.visibility = View.GONE
+            binding.tvReject.visibility = View.GONE
             getHire()
         }
     }
@@ -69,9 +64,9 @@ class EngineerApprovedHireFragment : Fragment() {
 
         coroutineScope.launch {
 
-            binding.pgHireengfrgB.visibility = View.VISIBLE
+            binding.pgHireengfrgC.visibility = View.VISIBLE
             binding.swipeRefresh.isRefreshing = false
-            binding.rvApprovedfrg.visibility = View.GONE
+            binding.rvRejectedfrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllHire()
@@ -86,28 +81,28 @@ class EngineerApprovedHireFragment : Fragment() {
                 }
                 mutable = list!!.toMutableList()
                 mutable.removeAll { it.enID != enID }
-                mutable.removeAll { it.hrStatus != "approve"}
+                mutable.removeAll { it.hrStatus != "reject"}
 
                 if (mutable.isEmpty()) {
                     binding.imageView.visibility = View.VISIBLE
-                    binding.tvApproved.visibility = View.VISIBLE
+                    binding.tvReject.visibility = View.VISIBLE
                 }
 
-                (binding.rvApprovedfrg.adapter as ListHireAdapter).setData(mutable)
-                binding.pgHireengfrgB.visibility = View.GONE
-                binding.rvApprovedfrg.visibility = View.VISIBLE
+                (binding.rvRejectedfrg.adapter as ListHireAdapter).setData(mutable)
+                binding.pgHireengfrgC.visibility = View.GONE
+                binding.rvRejectedfrg.visibility = View.VISIBLE
             }
         }
     }
 
     private fun showRecycleList() {
-        binding.rvApprovedfrg.apply {
+        binding.rvRejectedfrg.apply {
             layoutManager = LinearLayoutManager(view?.context)
-            val rvAdapter = ListHireAdapter(1)
+            val rvAdapter = ListHireAdapter(2)
             rvAdapter.setOnItemClickCallback(object : ListHireAdapter.OnItemClickCallback {
                 override fun onItemClicked(hireModelResponse: HireModelResponse) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
-                    sendIntent.putExtra(HIRE_AUTH_KEY, 11)
+                    sendIntent.putExtra(HIRE_AUTH_KEY, 12)
                     sendIntent.putExtra(HIRE_DATA, hireModelResponse)
                     startActivity(sendIntent)
                 }

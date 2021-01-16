@@ -114,24 +114,7 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout, private va
             }
         })
 
-        viewModel.getListProject().observe(this, {
-            val mutableList = it.toMutableList()
-
-            when (filter) {
-                1 -> {
-                    mutableList.sortByDescending { i -> i.pjName }
-
-                    Log.e("listProject filter 1", it.toString())
-                }
-                2 -> {
-                    it.sortedBy { it.pjDeadline }
-
-                    Log.e("listProject filter 2", it.toString())
-                }
-                0 -> {
-                    Log.e("listProject", it.toString())
-                }
-            }
+        viewModel.listProject.observe(this, {
 
             (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(it!!)
         })

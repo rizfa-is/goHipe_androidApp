@@ -38,7 +38,7 @@ class TalentOfTheMonthAdapter: RecyclerView.Adapter<TalentOfTheMonthAdapter.List
             binding.modelMostPop = engineerModelResponse
             Glide.with(itemView.context)
                     .load(imageLink + engineerModelResponse.enAvatar)
-                    .apply(RequestOptions().override(150, 150))
+                    .apply(RequestOptions().override(125, 125))
                     .into(binding.imgMostPopular)
 
             this.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listEngineer[this.adapterPosition]) }

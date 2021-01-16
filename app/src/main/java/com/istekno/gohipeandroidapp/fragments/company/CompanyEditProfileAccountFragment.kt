@@ -129,7 +129,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         }
     }
 
-    private fun updateCompany(name: String, email: String, phone: String, password: String, company: String,
+    private fun updateCompany(type: Int, name: String, email: String, phone: String, password: String, company: String,
                               position: String, field: String, location: String, desc: String, ig: String, linkedin: String) {
         val id = goHipePreferences.getCompanyPreference().acID
         val cName = name.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -147,7 +147,11 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    service.updateCompany(id!!, cName, cEmail, cPhone, cPass, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin, imageName)
+                    if (type == 1) {
+                        service.updateCompany(id!!, cName, cEmail, cPhone, cPass, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin, imageName)
+                    } else {
+                        service.updateCompany(id!!, cName, cEmail, cPhone, cPass, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin)
+                    }
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -231,7 +235,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
 
         if (dataImage != "") {
 
-            updateCompany(inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
+            updateCompany(1, inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
 
             dialog.dialogCancel(context, "Success update account!") {
                 val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
@@ -240,7 +244,14 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
             }
 
         } else {
-            Toast.makeText(view.context, "Please select account image!", Toast.LENGTH_SHORT).show()
+
+            updateCompany(0, inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
+
+            dialog.dialogCancel(context, "Success update account!") {
+                val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
+                sendIntent.putExtra(ACC_UPDATE_AUTH_KEY, 1)
+                startActivity(sendIntent)
+            }
         }
     }
     

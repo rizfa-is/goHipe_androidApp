@@ -131,7 +131,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
         }
     }
 
-    private fun updateEngineer(name: String, email: String, phone: String, password: String, jTitle: String,
+    private fun updateEngineer(type: Int, name: String, email: String, phone: String, password: String, jTitle: String,
                                jType: String, location: String, desc: String, ig: String, github: String, gitlab: String) {
         val id = goHipePreferences.getEngineerPreference().acID
         val eName = name.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -149,7 +149,11 @@ class EngineerEditProfileAccountFragment : Fragment() {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    service.updateEngineer(id!!, eName, eEmail, ePhone, ePass, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab, imageName)
+                    if (type == 1) {
+                        service.updateEngineer(id!!, eName, eEmail, ePhone, ePass, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab, imageName)
+                    } else {
+                        service.updateEngineer(id!!, eName, eEmail, ePhone, ePass, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab)
+                    }
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -233,7 +237,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
 
         if (dataImage != "") {
 
-            updateEngineer(inputFullname, inputEmail, inputPhone, inputPassword, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
+            updateEngineer(1, inputFullname, inputEmail, inputPhone, inputPassword, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
 
             dialog.dialogCancel(context, "Success update account!") {
                 val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
@@ -242,7 +246,14 @@ class EngineerEditProfileAccountFragment : Fragment() {
             }
 
         } else {
-            Toast.makeText(view.context, "Please select account image!", Toast.LENGTH_SHORT).show()
+
+            updateEngineer(0, inputFullname, inputEmail, inputPhone, inputPassword, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
+
+            dialog.dialogCancel(context, "Success update account!") {
+                val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
+                sendIntent.putExtra(ACC_UPDATE_AUTH_KEY, 0)
+                startActivity(sendIntent)
+            }
         }
     }
 

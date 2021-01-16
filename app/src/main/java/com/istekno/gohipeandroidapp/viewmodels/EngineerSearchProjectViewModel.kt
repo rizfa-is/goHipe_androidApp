@@ -1,20 +1,17 @@
 package com.istekno.gohipeandroidapp.viewmodels
 
-import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.istekno.gohipeandroidapp.adapter.ListSearchProjectAdapter
 import com.istekno.gohipeandroidapp.retrofit.GetAllProject
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class EngineerSearchProjectViewModel() : ViewModel(), CoroutineScope {
+class EngineerSearchProjectViewModel : ViewModel(), CoroutineScope {
 
     private lateinit var service: GoHipeApiService
-    private var listProject = MutableLiveData<List<ProjectModelResponse>>()
+    val listProject = MutableLiveData<List<ProjectModelResponse>>()
     val projectAction = MutableLiveData<Boolean>()
 
     override val coroutineContext: CoroutineContext
@@ -67,10 +64,4 @@ class EngineerSearchProjectViewModel() : ViewModel(), CoroutineScope {
             }
         }
     }
-
-    fun getListProject(): LiveData<List<ProjectModelResponse>> {
-        return listProject
-    }
-
-
 }
