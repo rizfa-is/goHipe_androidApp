@@ -89,6 +89,9 @@ class ProfileScreenActivity : AppCompatActivity() {
             12 -> {
                 supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(2)).commit()
             }
+            15 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(5)).commit()
+            }
         }
     }
 }

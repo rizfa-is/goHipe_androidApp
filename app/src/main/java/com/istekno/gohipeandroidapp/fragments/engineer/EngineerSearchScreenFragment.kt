@@ -1,21 +1,16 @@
 package com.istekno.gohipeandroidapp.fragments.engineer
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.ProfileScreenActivity
@@ -32,7 +27,7 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout, private va
     companion object {
         const val PROJECT_AUTH_KEY = "project_auth_key"
         const val PROJECT_DATA = "project_data"
-        private val listFilter = listOf("Name", "Deadline")
+        private val listFilter = arrayOf("Default", "Name", "Deadline")
     }
 
     private lateinit var binding: FragmentEngineerSearchScreenBinding
@@ -50,73 +45,109 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout, private va
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EngineerSearchProjectViewModel::class.java)
         service = ApiClient.getApiClient(view.context)!!.create(GoHipeApiService::class.java)
-        searchProject = SearchProject()
-
+        viewModel = ViewModelProvider(this).get(EngineerSearchProjectViewModel::class.java)
         viewModel.setSearchService(service)
-        viewModel.getAllProjectByCompanyID()
-        showRecyclerList()
-        subscribeLiveData(0)
-
+        searchProject = SearchProject()
         searchProject.searchByUsername(binding.searchView)
+
+        chipViewInit()
+
+        val checkedID = binding.cgFilter.checkedChipId
+        if (checkedID == -1) {
+            binding.cgFilter.check(0)
+            viewModel.getAllProjectByCompanyID(0)
+        }
+
+        viewListener(view)
+        showRecyclerList()
+        subscribeLiveData()
+    }
+
+    private fun viewListener(view: View) {
+        binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+            val chip: Chip = view.findViewById(checkedId)
+            val id = chip.id
+
+            viewModel.getAllProjectByCompanyID(id)
+        }
+
+        searchViewListener(view)
+    }
+
+    private fun searchViewListener(view: View) {
+        var checkedID = binding.cgFilter.checkedChipId
+
         searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
             override fun onQueryChangeListener(query: String) {
-                viewModel.getProjectByQuery(query)
+                if (query.length >= 3) {
+                    binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                        val chip: Chip = view.findViewById(checkedId)
+                        val id = chip.id
+                        checkedID = id
+
+                        viewModel.getProjectByQuery(query,id)
+                    }
+
+                    viewModel.getProjectByQuery(query,checkedID)
+                }
             }
 
             override fun onQuerySubmitListener(query: String) {
-                viewModel.getProjectByQuery(query)
+                binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                    val chip: Chip = view.findViewById(checkedId)
+                    val id = chip.id
+                    checkedID = id
+
+                    viewModel.getProjectByQuery(query,id)
+                }
+
+                viewModel.getProjectByQuery(query,checkedID)
+            }
+
+            override fun onCloseListener() {
+                binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                    val chip: Chip = view.findViewById(checkedId)
+                    val id = chip.id
+                    checkedID = id
+
+                    viewModel.getAllProjectByCompanyID(checkedID)
+                }
+
+                viewModel.getAllProjectByCompanyID(checkedID)
             }
         })
-
-        chipViewInit(view)
-        viewListener(view)
     }
 
-    @SuppressLint("ResourceType")
-    private fun viewListener(view: View) {
-        binding.swipeRefresh.setOnRefreshListener {
-            binding.swipeRefresh.isRefreshing = true
-            viewModel.getAllProjectByCompanyID()
-        }
-
-        val id1 = view.findViewById<Chip>(0)
-        val id2 = view.findViewById<Chip>(1)
-        id1.setOnClickListener {
-            id1.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_orange)
-            id1.setTextColor(view.resources.getColor(R.color.white))
-            id2.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
-            id2.setTextColor(view.resources.getColor(R.color.theme_green_dark))
-
-            subscribeLiveData(1)
-        }
-        id2.setOnClickListener {
-            id2.chipBackgroundColor = view.resources.getColorStateList(R.color.theme_orange)
-            id2.setTextColor(view.resources.getColor(R.color.white))
-            id1.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
-            id1.setTextColor(view.resources.getColor(R.color.theme_green_dark))
-
-            viewModel.getAllProjectByCompanyID()
-            subscribeLiveData(2)
-        }
-    }
-
-    private fun subscribeLiveData(filter: Int) {
+    private fun subscribeLiveData() {
         viewModel.projectAction.observe(this, {
             if (it) {
                 binding.pgHomeengfrg.visibility = View.VISIBLE
-                binding.swipeRefresh.isRefreshing = false
                 binding.rvSearchListProject.visibility = View.GONE
+                binding.imgDataNotFound.visibility = View.GONE
+                binding.tvNotFound.visibility = View.GONE
             } else {
                 binding.pgHomeengfrg.visibility = View.GONE
-                binding.rvSearchListProject.visibility = View.VISIBLE
             }
         })
 
         viewModel.listProject.observe(this, {
 
             (binding.rvSearchListProject.adapter as ListSearchProjectAdapter).setData(it!!)
+        })
+
+        viewModel.isFailedStatus.observe(this, {
+            when (it) {
+                "400" -> {
+                    binding.pgHomeengfrg.visibility = View.GONE
+                    binding.rvSearchListProject.visibility = View.GONE
+                    binding.imgDataNotFound.visibility = View.VISIBLE
+                    binding.tvNotFound.visibility = View.VISIBLE
+                }
+                "ADD LIST PROJECT" -> {
+                    binding.rvSearchListProject.visibility = View.VISIBLE
+                }
+            }
         })
     }
 
@@ -140,20 +171,13 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout, private va
         }
     }
 
-    private fun chipViewInit(view: View) {
-        val cg = binding.cgFilter
-
+    private fun chipViewInit() {
         for (element in listFilter) {
-            val chip = Chip(view.context)
+            val chip = layoutInflater.inflate(R.layout.item_chip_group_choice, binding.cgFilter, false) as Chip
 
             chip.id = listFilter.indexOf(element)
-            chip.chipStartPadding = 100F
-            chip.chipCornerRadius = 20F
             chip.text = element
-            chip.chipBackgroundColor = view.resources.getColorStateList(R.color.white)
-            chip.setTextColor(view.resources.getColor(R.color.theme_green_dark))
-
-            cg.addView(chip)
+            binding.cgFilter.addView(chip)
         }
     }
 

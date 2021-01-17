@@ -101,7 +101,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:gravity="center"
-                            android:text="Scouter Of The Month"
+                            android:text="Project Of The Month"
                             android:textColor="@color/black"
                             android:textSize="23sp"
                             android:textStyle="bold"
@@ -109,7 +109,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/img_engineer_home_bg" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_list_company"
+                            android:id="@+id/rv_list_project"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -128,11 +128,11 @@
                             android:textColor="@color/black"
                             android:textSize="23sp"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/rv_list_company"
-                            app:layout_constraintTop_toBottomOf="@+id/rv_list_company" />
+                            app:layout_constraintStart_toStartOf="@+id/rv_list_project"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_list_project" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_list_company2"
+                            android:id="@+id/rv_list_engineer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"

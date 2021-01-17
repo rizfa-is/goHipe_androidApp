@@ -67,6 +67,8 @@ class SkillfulTalentAdapter: RecyclerView.Adapter<SkillfulTalentAdapter.ListView
 
     @SuppressLint("SetTextI18n")
     private fun chipViewInit(listAbility: List<Ability>, view: View, binding: ItemSkillfulTalentBinding) {
+        binding.cgSearchengAbility.removeAllViews()
+
         for (i in listAbility.indices) {
             val chip = Chip(view.context)
             val abName = listAbility[i].abName

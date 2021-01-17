@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.istekno.gohipeandroidapp.R
-import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
 import com.istekno.gohipeandroidapp.activities.EngineerMainContentActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailHireScreenBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
@@ -34,6 +33,7 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
 
         const val imageLink = "http://107.22.89.131:7000/image/"
 
+        private const val COMPLETED = "COMPLETED"
         private const val APPROVED = "APPROVED"
         private const val REJECTED = "REJECTED"
     }
@@ -112,6 +112,8 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
             val id = data.enID
             val mutable: MutableList<EngineerModelResponse>
 
+            binding.pgDetailhirefrg.visibility = View.VISIBLE
+            binding.svDetailhirefrg.visibility = View.GONE
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getAllEngineer()
@@ -132,6 +134,9 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
                     Glide.with(view.context).load(imageLink + mutable[0].enAvatar).into(binding.imgListSearchEng)
                 }
             }
+
+            binding.pgDetailhirefrg.visibility = View.GONE
+            binding.svDetailhirefrg.visibility = View.VISIBLE
         }
     }
 
@@ -150,6 +155,11 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
                 binding.btnEngdetailhirefrgEditproject2.visibility = View.GONE
                 binding.tvEngdetailhirefrghireStatus.text = REJECTED
                 binding.tvEngdetailhirefrghireStatus.setTextColor(Color.RED)
+            }
+            5 -> {
+                binding.btnEngdetailhirefrgEditproject.visibility = View.GONE
+                binding.btnEngdetailhirefrgEditproject2.visibility = View.GONE
+                binding.tvEngdetailhirefrghireStatus.text = COMPLETED
             }
         }
     }

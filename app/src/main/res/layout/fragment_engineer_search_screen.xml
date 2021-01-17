@@ -36,18 +36,51 @@
                 app:layout_constraintStart_toStartOf="@+id/view_bg"
                 app:layout_constraintTop_toTopOf="@+id/view_bg"/>
 
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/cg_filter"
+            <HorizontalScrollView
+                android:id="@+id/hv_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp"
-                app:chipSpacing="8dp"
-                app:singleSelection="true"
-                app:selectionRequired="true"
+                android:paddingHorizontal="8dp"
+                android:scrollbars="none"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_bg">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cg_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    app:singleLine="true"
+                    app:singleSelection="true"
+                    app:selectionRequired="true" />
+
+            </HorizontalScrollView>
+
+            <ImageView
+                android:id="@+id/img_data_not_found"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="@drawable/ic_data_not_found"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_bg" />
+                app:layout_constraintTop_toBottomOf="@+id/hv_filter"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/tv_not_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Data not found"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_data_not_found" />
 
             <ProgressBar
                 android:id="@+id/pg_homeengfrg"
@@ -55,24 +88,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminateTint="@color/theme_green"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cg_filter" />
+                app:layout_constraintTop_toBottomOf="@+id/hv_filter" />
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_list_project"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:paddingHorizontal="4dp"
+                android:paddingTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cg_filter">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_list_project"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hv_filter"/>
 
             <ImageView
                 android:id="@+id/imageView"
