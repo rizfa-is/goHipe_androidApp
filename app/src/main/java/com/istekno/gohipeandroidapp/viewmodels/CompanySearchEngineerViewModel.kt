@@ -13,6 +13,8 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
     private var listENG = MutableLiveData<List<EngineerModelResponse>>()
     private var listAB = MutableLiveData<List<AbilityM>>()
     val engAction = MutableLiveData<Boolean>()
+    val isFailedStatus = MutableLiveData<String>()
+    var state = ""
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Main
@@ -23,6 +25,7 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
 
     fun getAllEngineer(filter: String) {
         launch {
+
             engAction.value = true
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -40,7 +43,9 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
 
                 listENG.value = listEngineer
                 listAB.value = listAbility
+                isFailedStatus.value = "ADD LIST PROJECT"
             }
+
             engAction.value = false
         }
     }
@@ -48,11 +53,15 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
     fun getEngineerByQuery(query: String, filter: String) {
         launch {
             engAction.value = true
+            state = ""
+
             val result = withContext(Dispatchers.IO) {
                 try {
                     service.getEngineerByQuery(query, filter)
                 } catch (e: Throwable) {
                     e.printStackTrace()
+                    val status = e.toString().split(" ")[2]
+                    state = status
                 }
             }
 
@@ -64,7 +73,13 @@ class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
 
                 listENG.value = listEngineer
                 listAB.value = listAbility
+                isFailedStatus.value = "ADD LIST PROJECT"
             }
+
+            if (state == "400") {
+                isFailedStatus.value = state
+            }
+
             engAction.value = false
         }
     }

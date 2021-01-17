@@ -82,15 +82,17 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val
 
         searchProject.setOnQueryListener(object : SearchProject.OnQueryTextListener {
             override fun onQueryChangeListener(query: String) {
-                binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
-                    val chip: Chip = view.findViewById(checkedId)
-                    val id = chip.id
-                    checkedID = id
+                if (query.length >= 3) {
+                    binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
+                        val chip: Chip = view.findViewById(checkedId)
+                        val id = chip.id
+                        checkedID = id
 
-                    viewModel.getEngineerByQuery(query,"$id")
+                        viewModel.getEngineerByQuery(query,"$id")
+                    }
+
+                    viewModel.getEngineerByQuery(query,"$checkedID")
                 }
-
-                viewModel.getEngineerByQuery(query,"$checkedID")
             }
 
             override fun onQuerySubmitListener(query: String) {
@@ -109,9 +111,12 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val
                 binding.cgFilter.setOnCheckedChangeListener { _, checkedId ->
                     val chip: Chip = view.findViewById(checkedId)
                     val id = chip.id
+                    checkedID = id
 
                     viewModel.getAllEngineer("$id")
                 }
+
+                viewModel.getAllEngineer("$checkedID")
             }
         })
     }
@@ -121,9 +126,10 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val
             if (it) {
                 binding.pgHomeengfrg.visibility = View.VISIBLE
                 binding.rvSearchListEngineer.visibility = View.GONE
+                binding.imgDataNotFound.visibility = View.GONE
+                binding.tvNotFound.visibility = View.GONE
             } else {
                 binding.pgHomeengfrg.visibility = View.GONE
-                binding.rvSearchListEngineer.visibility = View.VISIBLE
             }
         })
 
@@ -133,6 +139,20 @@ class CompanySearchScreenFragment(private val co: CoordinatorLayout, private val
 
         viewModel.getListAbility().observe(this, {
             (binding.rvSearchListEngineer.adapter as ListSearchEngineerAdapter).setDataAbility(it)
+        })
+
+        viewModel.isFailedStatus.observe(this, {
+            when (it) {
+                "400" -> {
+                    binding.pgHomeengfrg.visibility = View.GONE
+                    binding.rvSearchListEngineer.visibility = View.GONE
+                    binding.imgDataNotFound.visibility = View.VISIBLE
+                    binding.tvNotFound.visibility = View.VISIBLE
+                }
+                "ADD LIST PROJECT" -> {
+                    binding.rvSearchListEngineer.visibility = View.VISIBLE
+                }
+            }
         })
     }
 

@@ -17,7 +17,6 @@ class EngineerSearchProjectViewModel : ViewModel(), CoroutineScope {
     val listProject = MutableLiveData<List<ProjectModelResponse>>()
     val projectAction = MutableLiveData<Boolean>()
     val isFailedStatus = MutableLiveData<String>()
-
     var state = ""
 
     override val coroutineContext: CoroutineContext

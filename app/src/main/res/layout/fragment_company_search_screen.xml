@@ -56,6 +56,32 @@
 
             </HorizontalScrollView>
 
+            <ImageView
+                android:id="@+id/img_data_not_found"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="@drawable/ic_data_not_found"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hv_filter"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/tv_not_found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Data not found"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_data_not_found" />
+
             <ProgressBar
                 android:id="@+id/pg_homeengfrg"
                 android:layout_width="wrap_content"

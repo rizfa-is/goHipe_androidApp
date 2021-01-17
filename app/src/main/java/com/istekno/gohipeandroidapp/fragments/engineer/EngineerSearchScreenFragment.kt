@@ -111,7 +111,7 @@ class EngineerSearchScreenFragment(private val co: CoordinatorLayout, private va
                     val id = chip.id
                     checkedID = id
 
-                    viewModel.getAllProjectByCompanyID(checkedID)
+                    viewModel.getAllProjectByCompanyID(id)
                 }
 
                 viewModel.getAllProjectByCompanyID(checkedID)
