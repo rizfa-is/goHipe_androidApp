@@ -80,6 +80,9 @@ class ProfileScreenActivity : AppCompatActivity() {
             2 -> {
                 supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailHireScreenFragment(2)).commit()
             }
+            3 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, CompanyDetailHireScreenFragment(3)).commit()
+            }
             10 -> {
                 supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(0)).commit()
             }
@@ -88,6 +91,9 @@ class ProfileScreenActivity : AppCompatActivity() {
             }
             12 -> {
                 supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(2)).commit()
+            }
+            13 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(3)).commit()
             }
             15 -> {
                 supportFragmentManager.beginTransaction().replace(R.id.frame_container_profileact, EngineerDetailHireScreenFragment(5)).commit()

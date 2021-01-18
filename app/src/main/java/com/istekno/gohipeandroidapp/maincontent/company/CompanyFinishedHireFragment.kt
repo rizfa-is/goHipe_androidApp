@@ -81,7 +81,7 @@ class CompanyFinishedHireFragment : Fragment() {
 
                 mutable = list!!.toMutableList()
                 mutable.removeAll { it.cpID != cpID }
-                mutable.removeAll { it.hrStatus != "reject"}
+                mutable.removeAll { it.hrStatus == "wait" || it.hrStatus == "progress" }
 
                 if (mutable.isEmpty()) {
                     binding.imageView.visibility = View.VISIBLE
@@ -104,7 +104,14 @@ class CompanyFinishedHireFragment : Fragment() {
             rvAdapter.setOnItemClickCallback(object : ListHireAdapter.OnItemClickCallback {
                 override fun onItemClicked(hireModelResponse: HireModelResponse) {
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
-                    sendIntent.putExtra(HIRE_AUTH_KEY, 2)
+                    var key = 0
+                    if (hireModelResponse.hrStatus == "approve") {
+                        key = 2
+                    } else if (hireModelResponse.hrStatus == "reject") {
+                        key = 3
+                    }
+
+                    sendIntent.putExtra(HIRE_AUTH_KEY, key)
                     sendIntent.putExtra(HIRE_DATA, hireModelResponse)
                     startActivity(sendIntent)
                 }

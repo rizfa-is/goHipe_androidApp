@@ -34,7 +34,8 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
         const val imageLink = "http://107.22.89.131:7000/image/"
 
         private const val COMPLETED = "COMPLETED"
-        private const val APPROVED = "APPROVED"
+        private const val PROGRESS = "ON PROGRESS"
+        private const val APPROVE = "APPROVED"
         private const val REJECTED = "REJECTED"
     }
 
@@ -75,7 +76,7 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
         getEngineerInfo(model!!, view)
 
         binding.btnEngdetailhirefrgEditproject.setOnClickListener {
-            updateHireStatus("approve", model)
+            updateHireStatus("progress", model)
 
             dialog.dialog(view.context, "Hiring accepted!") {
                 val sendIntent = Intent(view.context, EngineerMainContentActivity::class.java)
@@ -148,9 +149,15 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
             1 -> {
                 binding.btnEngdetailhirefrgEditproject.visibility = View.GONE
                 binding.btnEngdetailhirefrgEditproject2.visibility = View.GONE
-                binding.tvEngdetailhirefrghireStatus.text = APPROVED
+                binding.tvEngdetailhirefrghireStatus.text = PROGRESS
+                binding.tvEngdetailhirefrghireStatus.setTextColor(Color.rgb(239, 167, 35))
             }
             2 -> {
+                binding.btnEngdetailhirefrgEditproject.visibility = View.GONE
+                binding.btnEngdetailhirefrgEditproject2.visibility = View.GONE
+                binding.tvEngdetailhirefrghireStatus.text = APPROVE
+            }
+            3 -> {
                 binding.btnEngdetailhirefrgEditproject.visibility = View.GONE
                 binding.btnEngdetailhirefrgEditproject2.visibility = View.GONE
                 binding.tvEngdetailhirefrghireStatus.text = REJECTED

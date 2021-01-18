@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,7 +82,7 @@ class EngineerFinishedHireFragment : Fragment() {
                 }
                 mutable = list!!.toMutableList()
                 mutable.removeAll { it.enID != enID }
-                mutable.removeAll { it.hrStatus != "reject"}
+                mutable.removeAll { it.hrStatus == "wait" || it.hrStatus == "progress"}
 
                 if (mutable.isEmpty()) {
                     binding.imageView.visibility = View.VISIBLE
@@ -103,8 +104,15 @@ class EngineerFinishedHireFragment : Fragment() {
             layoutManager = LinearLayoutManager(view.context)
             rvAdapter.setOnItemClickCallback(object : ListHireAdapter.OnItemClickCallback {
                 override fun onItemClicked(hireModelResponse: HireModelResponse) {
+                    var key = 0
+                    if (hireModelResponse.hrStatus == "approve") {
+                        key = 12
+                    } else if (hireModelResponse.hrStatus == "reject") {
+                        key = 13
+                    }
+
                     val sendIntent = Intent(context, ProfileScreenActivity::class.java)
-                    sendIntent.putExtra(HIRE_AUTH_KEY, 12)
+                    sendIntent.putExtra(HIRE_AUTH_KEY, key)
                     sendIntent.putExtra(HIRE_DATA, hireModelResponse)
                     startActivity(sendIntent)
                 }

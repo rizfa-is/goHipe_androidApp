@@ -33,7 +33,10 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
         const val HIRE_DATA_EDIT = "hire_data_edit"
         const val HIRE_DATA_EDIT2 = "hire_data_edit2"
 
-        private const val APPROVED = "APPROVED"
+
+        private const val COMPLETED = "COMPLETED"
+        private const val PROGRESS = "ON PROGRESS"
+        private const val APPROVE = "APPROVED"
         private const val REJECTED = "REJECTED"
     }
 
@@ -144,9 +147,15 @@ class CompanyDetailHireScreenFragment(private val hireStatus: Int?) : Fragment()
             1 -> {
                 binding.btnComdetailprojectfrgDeletehire.visibility = View.GONE
                 binding.btnComdetailprojectfrgEdithire.visibility = View.GONE
-                binding.tvComdetailprojectfrgHireStatus.text = APPROVED
+                binding.tvComdetailprojectfrgHireStatus.text = PROGRESS
+                binding.tvComdetailprojectfrgHireStatus.setTextColor(Color.rgb(239, 167, 35))
             }
             2 -> {
+                binding.btnComdetailprojectfrgDeletehire.visibility = View.GONE
+                binding.btnComdetailprojectfrgEdithire.visibility = View.GONE
+                binding.tvComdetailprojectfrgHireStatus.text = APPROVE
+            }
+            3 -> {
                 binding.btnComdetailprojectfrgDeletehire.visibility = View.GONE
                 binding.btnComdetailprojectfrgEdithire.visibility = View.GONE
                 binding.tvComdetailprojectfrgHireStatus.text = REJECTED

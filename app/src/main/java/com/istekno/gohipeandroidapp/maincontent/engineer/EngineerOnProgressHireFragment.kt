@@ -81,7 +81,7 @@ class EngineerOnProgressHireFragment : Fragment() {
                 }
                 mutable = list!!.toMutableList()
                 mutable.removeAll { it.enID != enID }
-                mutable.removeAll { it.hrStatus != "approve"}
+                mutable.removeAll { it.hrStatus != "progress"}
 
                 if (mutable.isEmpty()) {
                     binding.imageView.visibility = View.VISIBLE

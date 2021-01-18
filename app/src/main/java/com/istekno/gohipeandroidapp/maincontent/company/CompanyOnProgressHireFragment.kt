@@ -80,7 +80,7 @@ class CompanyOnProgressHireFragment : Fragment() {
                 }
                 mutable = list!!.toMutableList()
                 mutable.removeAll { it.cpID != cpID }
-                mutable.removeAll { it.hrStatus != "approve"}
+                mutable.removeAll { it.hrStatus != "progress"}
 
                 if (mutable.isEmpty()) {
                     binding.imageView.visibility = View.VISIBLE

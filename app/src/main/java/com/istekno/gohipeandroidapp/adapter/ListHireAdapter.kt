@@ -77,13 +77,13 @@ class ListHireAdapter(private val hireStatus: Int) : RecyclerView.Adapter<ListHi
             }
             1 -> {
                 statusSign.text = STATUS_PROGRESS
-                statusSign.setTextColor(view.resources.getColor(R.color.theme_green))
-                bgStatusSign.background = view.resources.getDrawable(R.color.theme_green_trans)
+                statusSign.setTextColor(view.resources.getColor(R.color.theme_orange))
+                bgStatusSign.background = view.resources.getDrawable(R.color.theme_orange_trans)
             }
             2 -> {
                 statusSign.text = STATUS_FINISHED
-                statusSign.setTextColor(view.resources.getColor(R.color.theme_red))
-                bgStatusSign.background = view.resources.getDrawable(R.color.theme_red_trans)
+                statusSign.setTextColor(view.resources.getColor(R.color.theme_green))
+                bgStatusSign.background = view.resources.getDrawable(R.color.theme_green_trans)
             }
         }
     }
