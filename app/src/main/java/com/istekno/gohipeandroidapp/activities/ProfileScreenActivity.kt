@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityProfileScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailHireScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProfileScreenFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyDetailProjectScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailHireScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProfileScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerDetailProjectScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.company.CompanyDetailHireScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.company.CompanyDetailProfileScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.company.CompanyDetailProjectScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailHireScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailProfileScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailProjectScreenFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 

@@ -4,13 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityLoginRegisterBinding
-import com.istekno.gohipeandroidapp.fragments.LoginScreenFragment
-import com.istekno.gohipeandroidapp.fragments.SelectRoleFragment
+import com.istekno.gohipeandroidapp.maincontent.LoginScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.SelectRoleFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class LoginRegisterActivity : AppCompatActivity() {

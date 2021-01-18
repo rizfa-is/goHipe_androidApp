@@ -3,8 +3,8 @@ package com.istekno.gohipeandroidapp.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerExperienceFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerPortfolioFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerExperienceFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerPortfolioFragment
 
 class EngineerProfileViewPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

@@ -3,11 +3,9 @@ package com.istekno.gohipeandroidapp.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.istekno.gohipeandroidapp.fragments.company.CompanyCompletedProjectFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyOnHiringProjectFragment
-import com.istekno.gohipeandroidapp.fragments.company.CompanyPreHiringProjectFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerExperienceFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerPortfolioFragment
+import com.istekno.gohipeandroidapp.maincontent.company.CompanyCompletedProjectFragment
+import com.istekno.gohipeandroidapp.maincontent.company.CompanyOnHiringProjectFragment
+import com.istekno.gohipeandroidapp.maincontent.company.CompanyPreHiringProjectFragment
 
 class ListProjectViewPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

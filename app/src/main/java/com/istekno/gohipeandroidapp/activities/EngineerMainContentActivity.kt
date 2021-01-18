@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityEngineerMainContentBinding
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHiringScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerHomeScreenFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerSearchScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerAccountScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerHiringScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerHomeScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerSearchScreenFragment
 import com.istekno.gohipeandroidapp.models.EngineerPreferenceModel
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse

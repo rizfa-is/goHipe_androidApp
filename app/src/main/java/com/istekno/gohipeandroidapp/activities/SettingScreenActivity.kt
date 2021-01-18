@@ -7,9 +7,9 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivitySettingScreenBinding
-import com.istekno.gohipeandroidapp.fragments.company.*
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerAccountSettingFragment
-import com.istekno.gohipeandroidapp.fragments.engineer.EngineerEditProfileFragment
+import com.istekno.gohipeandroidapp.maincontent.company.*
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerAccountSettingFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerEditProfileFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class SettingScreenActivity : AppCompatActivity() {
