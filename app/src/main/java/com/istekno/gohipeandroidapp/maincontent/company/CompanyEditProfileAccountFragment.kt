@@ -3,9 +3,11 @@ package com.istekno.gohipeandroidapp.maincontent.company
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -31,6 +33,10 @@ import java.io.File
 class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): Fragment() {
 
     companion object {
+        const val FIELD_REQUIRED = "Field must not empty"
+        const val FIELD_DIGITS_ONLY = "Number only"
+        const val FIELD_IS_NOT_VALID = "Email format is not valid"
+
         const val REQUEST_CODE = 1000
         const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
@@ -128,13 +134,12 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         }
     }
 
-    private fun updateCompany(type: Int, name: String, email: String, phone: String, password: String, company: String,
+    private fun updateCompany(type: Int, name: String, email: String, phone: String, company: String,
                               position: String, field: String, location: String, desc: String, ig: String, linkedin: String) {
         val id = goHipePreferences.getCompanyPreference().acID
         val cName = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val cEmail = email.toRequestBody("text/plain".toMediaTypeOrNull())
         val cPhone = phone.toRequestBody("text/plain".toMediaTypeOrNull())
-        val cPass = password.toRequestBody("text/plain".toMediaTypeOrNull())
         val cComp = company.toRequestBody("text/plain".toMediaTypeOrNull())
         val cPos = position.toRequestBody("text/plain".toMediaTypeOrNull())
         val cField = field.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -147,9 +152,9 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
             withContext(Dispatchers.IO) {
                 try {
                     if (type == 1) {
-                        service.updateCompany(id!!, cName, cEmail, cPhone, cPass, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin, imageName)
+                        service.updateCompany(id!!, cName, cEmail, cPhone, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin, imageName)
                     } else {
-                        service.updateCompany(id!!, cName, cEmail, cPhone, cPass, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin)
+                        service.updateCompany(id!!, cName, cEmail, cPhone, cComp, cPos, cField, cLoc, cDesc, cIG, cLinkedin)
                     }
                 } catch (e: Throwable) {
                     e.printStackTrace()
@@ -162,8 +167,6 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         val inputFullname = binding.etComeditaccountfrgFullname.text.toString().trim()
         val inputEmail = binding.etComeditaccountfrgEmail.text.toString().trim()
         val inputPhone = binding.etComeditaccountfrgPhone.text.toString().trim()
-        val inputPassword = binding.etComeditaccountfrgPassword.text.toString().trim()
-        val inputConfirmPassword = binding.etComeditaccountfrgConfirmpass.text.toString().trim()
         val inputCompany = binding.etComeditaccountfrgCompany.text.toString().trim()
         val inputPosition = binding.etComeditaccountfrgPosition.text.toString().trim()
         val inputField = binding.etComeditaccountfrgField.text.toString().trim()
@@ -173,68 +176,68 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         val inputLinkedin = binding.etComeditaccountfrgLinkedin.text.toString().trim()
 
         if (inputFullname.isEmpty()) {
-            binding.etComeditaccountfrgFullname.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputEmail.isEmpty()) {
-            binding.etComeditaccountfrgEmail.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
-        if (inputPassword.isEmpty()) {
-            binding.etComeditaccountfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
-            return
-        }
-
-        if (inputPhone.isEmpty()) {
-            binding.etComeditaccountfrgPhone.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+        if (!inputEmail.contains('@') || !inputEmail.contains('.')) {
+            showToast(view, FIELD_IS_NOT_VALID)
             return
         }
 
         if (inputCompany.isEmpty()) {
-            binding.etComeditaccountfrgCompany.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputPosition.isEmpty()) {
-            binding.etComeditaccountfrgPosition.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (inputPhone.isEmpty()) {
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (!TextUtils.isDigitsOnly(inputPhone)) {
+            showToast(view, FIELD_DIGITS_ONLY)
             return
         }
 
         if (inputField.isEmpty()) {
-            binding.etComeditaccountfrgField.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputLocation.isEmpty()) {
-            binding.etComeditaccountfrgLocation.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputDesc.isEmpty()) {
-            binding.etComeditaccountfrgDesc.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputIG.isEmpty()) {
-            binding.etComeditaccountfrgInsta.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputLinkedin.isEmpty()) {
-            binding.etComeditaccountfrgLinkedin.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
-            return
-        }
-
-        if (inputPassword != inputConfirmPassword) {
-            binding.etComeditaccountfrgConfirmpass.error = EngineerRegisterScreenFragment.FIELD_MUST_MATCH
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (dataImage != "") {
 
-            updateCompany(1, inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
+            updateCompany(1, inputFullname, inputEmail, inputPhone, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
 
             dialog.dialogCancel(context, "Success update account!") {
                 val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
@@ -244,7 +247,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
 
         } else {
 
-            updateCompany(0, inputFullname, inputEmail, inputPhone, inputPassword, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
+            updateCompany(0, inputFullname, inputEmail, inputPhone, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
 
             dialog.dialogCancel(context, "Success update account!") {
                 val sendIntent = Intent(context, CompanyMainContentActivity::class.java)
@@ -258,8 +261,12 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         toolbar.title = "Edit Profile"
     }
 
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
     override fun onDestroy() {
-        super.onDestroy()
         coroutineScope.cancel()
+        super.onDestroy()
     }
 }

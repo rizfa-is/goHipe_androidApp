@@ -76,6 +76,7 @@
                 android:id="@+id/it_addport_appname"
                 style="@style/MaterialField_TextInputLayout_Edit"
                 android:paddingHorizontal="16dp"
+                android:hint="@string/hint_project_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addport_appname">
 
@@ -98,6 +99,7 @@
                 android:id="@+id/it_addport_desc"
                 style="@style/MaterialField_TextInputLayout_Edit"
                 android:paddingHorizontal="16dp"
+                android:hint="@string/hint_project_desc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addport_desc">
 
@@ -121,6 +123,7 @@
                 android:id="@+id/it_addport_link"
                 style="@style/MaterialField_TextInputLayout_Edit"
                 android:paddingHorizontal="16dp"
+                android:hint="@string/hint_porto_link"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addport_link">
 
@@ -143,6 +146,7 @@
                 android:id="@+id/it_addport_repo"
                 style="@style/MaterialField_TextInputLayout_Edit"
                 android:paddingHorizontal="16dp"
+                android:hint="@string/hint_porto_repo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addport_repo">
 
@@ -165,6 +169,7 @@
                 android:id="@+id/it_addport_comp"
                 style="@style/MaterialField_TextInputLayout_Edit"
                 android:paddingHorizontal="16dp"
+                android:hint="@string/hint_company"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addport_comp">
 
@@ -187,6 +192,7 @@
                 android:id="@+id/it_addport_type"
                 style="@style/MaterialField_TextInputLayout_Edit3"
                 android:paddingHorizontal="16dp"
+                android:hint="@string/hint_porto_apptype"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_addport_type">
 

@@ -65,6 +65,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_fullname"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_fullname"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_fullname">
 
@@ -85,6 +86,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_email"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_email">
 
@@ -95,68 +97,17 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_comeditaccountfrg_password"
-                style="@style/TextView_MaterialInput_Edit"
-                android:layout_marginTop="16dp"
-                android:text="@string/password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_email" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/it_comeditaccountfrg_password"
-                style="@style/MaterialField_TextInputLayout_Edit"
-                app:endIconMode="password_toggle"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:helperText="min. length 8 characters"
-                app:helperTextTextColor="@color/text_loc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_comeditaccountfrg_password"
-                    style="@style/MaterialField_EditText_Edit"
-                    android:inputType="textPassword" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_comeditaccountfrg_confirmpass"
-                style="@style/TextView_MaterialInput_Edit"
-                android:layout_marginTop="16dp"
-                android:text="@string/confirm_password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_password" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/it_comeditaccountfrg_confirmpass"
-                style="@style/MaterialField_TextInputLayout_Edit"
-                app:endIconMode="password_toggle"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:helperText="min. length 8 characters"
-                app:helperTextTextColor="@color/text_loc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_confirmpass">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_comeditaccountfrg_confirmpass"
-                    style="@style/MaterialField_EditText_Edit"
-                    android:inputType="textPassword" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
                 android:id="@+id/tv_comeditaccountfrg_company"
                 style="@style/TextView_MaterialInput_Edit"
                 android:layout_marginTop="16dp"
                 android:text="@string/company"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_confirmpass" />
+                app:layout_constraintTop_toBottomOf="@+id/it_comeditaccountfrg_email" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_company"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_company"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_company">
 
@@ -177,6 +128,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_position"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_position"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_position">
 
@@ -197,6 +149,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_phone"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_phone">
 
@@ -218,6 +171,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_field"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_field"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_field">
 
@@ -238,6 +192,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_location"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_location"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_location">
 
@@ -258,6 +213,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_desc"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_profile_desc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_desc">
 
@@ -279,6 +235,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_insta"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_profile_ig"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_insta">
 
@@ -299,6 +256,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comeditaccountfrg_linkedin"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_profile_linkedin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comeditaccountfrg_linkedin">
 

@@ -57,7 +57,7 @@ class CompanyMainContentActivity : AppCompatActivity() {
 
         if (data != null) {
             if (data.cpField.isNullOrEmpty() || data.cpLocation.isNullOrEmpty() || data.cpDesc.isNullOrEmpty()
-                || data.cpInsta.isNullOrEmpty() || data.cpLinkedIn.isNullOrEmpty() || data.cpAvatar.isNullOrEmpty()) {
+                || data.cpInsta.isNullOrEmpty() || data.cpLinkedIn.isNullOrEmpty()) {
 
                 binding.rlCheckProfileFrame.visibility = View.VISIBLE
                 binding.frameContainerMaincontent.visibility = View.GONE

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -33,11 +34,11 @@ import java.util.*
 class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fragment() {
 
     companion object {
+        const val FIELD_REQUIRED = "Field must not empty"
+
         const val EDIT_PROJECT_AUTH_KEY = "edit_project_auth_key"
         const val REQUEST_CODE = 1000
         const val imageLink = "http://107.22.89.131:7000/image/"
-
-        private const val DATE_PICKER_TAG = "DatePicker"
     }
 
     private lateinit var binding: FragmentCompanyEditProjectScreenBinding
@@ -104,17 +105,17 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
         val deadline = binding.etCompeditprojectfrgDeadline.text.toString()
 
         if (project.isEmpty()) {
-            binding.etCompeditprojectfrgName.error = CompanyAddHireScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (desc.isEmpty()) {
-            binding.etCompeditprojectfrgDesc.error = CompanyAddHireScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (deadline.isEmpty()) {
-            binding.etCompeditprojectfrgDeadline.error = CompanyAddHireScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
@@ -207,8 +208,12 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
         toolbar.title = "Edit project"
     }
 
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
     override fun onDestroy() {
-        super.onDestroy()
         coroutineScope.cancel()
+        super.onDestroy()
     }
 }

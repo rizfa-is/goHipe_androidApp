@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
@@ -80,12 +81,12 @@ class LoginScreenFragment : Fragment() {
         companyPreferenceModel = goHipePreferences.getCompanyPreference()
 
         if (email.isEmpty()) {
-            binding.etLoginfrgEmail.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, EngineerRegisterScreenFragment.FIELD_REQUIRED)
             return
         }
 
         if (password.isEmpty()) {
-            binding.etLoginfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, EngineerRegisterScreenFragment.FIELD_REQUIRED)
             return
         }
 
@@ -196,6 +197,10 @@ class LoginScreenFragment : Fragment() {
                 userPreference.setEngineerPreference(engineerPreferenceModel)
             }
         }
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

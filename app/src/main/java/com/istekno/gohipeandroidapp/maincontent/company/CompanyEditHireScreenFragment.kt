@@ -2,11 +2,13 @@ package com.istekno.gohipeandroidapp.maincontent.company
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -22,7 +24,8 @@ import java.util.*
 class CompanyEditHireScreenFragment(private val toolbar: MaterialToolbar): Fragment() {
 
     companion object {
-        const val FIELD_REQUIRED = "Field tidak boleh kosong"
+        const val FIELD_REQUIRED = "Field must not empty"
+        const val FIELD_DIGITS_ONLY = "Number only"
         const val HIRE_DATA = "hire_data"
         const val HIRE_DATA_EDIT = "hire_data_edit"
         const val HIRE_DATA_EDIT2 = "hire_data_edit2"
@@ -89,17 +92,22 @@ class CompanyEditHireScreenFragment(private val toolbar: MaterialToolbar): Fragm
         val price = binding.etComedithirefrgPrice.text.toString()
 
         if (project.isEmpty()) {
-            binding.etComedithirefrgProject.error = CompanyAddHireScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (msg.isEmpty()) {
-            binding.etComedithirefrgMessage.error = CompanyAddHireScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (price.isEmpty()) {
-            binding.etComedithirefrgPrice.error = CompanyAddHireScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (!TextUtils.isDigitsOnly(price)) {
+            showToast(view, FIELD_DIGITS_ONLY)
             return
         }
 
@@ -156,5 +164,14 @@ class CompanyEditHireScreenFragment(private val toolbar: MaterialToolbar): Fragm
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.title = ""
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

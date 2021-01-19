@@ -6,11 +6,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyRegisterScreenBinding
 import com.istekno.gohipeandroidapp.maincontent.LoginScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerRegisterScreenFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.CompanyRegisterResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
@@ -20,10 +22,11 @@ import kotlinx.coroutines.*
 class CompanyRegisterScreenFragment : Fragment() {
 
     companion object {
-        const val FIELD_REQUIRED = "Field tidak boleh kosong"
-        const val FIELD_DIGITS_ONLY = "Hanya boleh berisi numerik"
-        const val FIELD_IS_NOT_VALID = "Email tidak valid"
-        const val FIELD_MUST_MATCH = "Password harus sama"
+        const val FIELD_REQUIRED = "Field must not empty"
+        const val FIELD_DIGITS_ONLY = "Number only"
+        const val FIELD_IS_NOT_VALID = "Email format is not valid"
+        const val FIELD_MUST_MATCH = "Password must match"
+        const val FIELD_LENGTH = "Password min. 8 characters"
     }
     
     private lateinit var binding: FragmentCompanyRegisterScreenBinding
@@ -49,11 +52,11 @@ class CompanyRegisterScreenFragment : Fragment() {
         }
 
         binding.btnComregisterfrgRegister.setOnClickListener {
-            registration()
+            registration(view)
         }
     }
 
-    private fun registration() {
+    private fun registration(view: View) {
         val inputFullname = binding.etComregisterfrgFullname.text.toString()
         val inputEmail = binding.etComregisterfrgEmail.text.toString()
         val inputPhone = binding.etComregisterfrgPhone.text.toString()
@@ -63,47 +66,52 @@ class CompanyRegisterScreenFragment : Fragment() {
         val inputConfirmPassword = binding.etComregisterfrgConfirmPassword.text.toString()
 
         if (inputFullname.isEmpty()) {
-            binding.etComregisterfrgFullname.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputEmail.isEmpty()) {
-            binding.etComregisterfrgEmail.error = FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
-        if (inputPassword.isEmpty()) {
-            binding.etComregisterfrgPassword.error = FIELD_REQUIRED
+        if (!inputEmail.contains('@') || !inputEmail.contains('.')) {
+            showToast(view, FIELD_IS_NOT_VALID)
             return
         }
 
         if (inputCompany.isEmpty()) {
-            binding.etComregisterfrgCompany.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputPosition.isEmpty()) {
-            binding.etComregisterfrgPosition.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
-        if (inputConfirmPassword.isEmpty()) {
-            binding.etComregisterfrgConfirmPassword.error = FIELD_REQUIRED
+        if (inputPassword.isEmpty()) {
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (inputPassword.length < 8) {
+            showToast(view, FIELD_LENGTH)
             return
         }
 
         if (inputPhone.isEmpty()) {
-            binding.etComregisterfrgPhone.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (!TextUtils.isDigitsOnly(inputPhone)) {
-            binding.etComregisterfrgPhone.error = FIELD_DIGITS_ONLY
+            showToast(view, FIELD_DIGITS_ONLY)
             return
         }
 
         if (inputPassword != inputConfirmPassword) {
-            binding.etComregisterfrgConfirmPassword.error = FIELD_MUST_MATCH
+            showToast(view, FIELD_MUST_MATCH)
             return
         }
 
@@ -132,5 +140,14 @@ class CompanyRegisterScreenFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

@@ -65,6 +65,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_compaddprojectfrg_name"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_project_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_name">
 
@@ -85,6 +86,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_compaddprojectfrg_desc"
                 style="@style/MaterialField_TextInputLayout_Edit"
+                android:hint="@string/hint_project_desc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_desc">
 
@@ -116,6 +118,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_compaddprojectfrg_deadline"
                 style="@style/MaterialField_TextInputLayout_Edit4"
+                android:hint="@string/hint_deadline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/img_selectdate"
                 app:layout_constraintTop_toBottomOf="@+id/tv_compaddprojectfrg_deadline">

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.istekno.gohipeandroidapp.R
@@ -21,10 +22,11 @@ import kotlinx.coroutines.*
 class EngineerRegisterScreenFragment : Fragment() {
 
     companion object {
-        const val FIELD_REQUIRED = "Field tidak boleh kosong"
-        const val FIELD_DIGITS_ONLY = "Hanya boleh berisi numerik"
-        const val FIELD_IS_NOT_VALID = "Email tidak valid"
-        const val FIELD_MUST_MATCH = "Password harus sama"
+        const val FIELD_REQUIRED = "Field must not empty"
+        const val FIELD_DIGITS_ONLY = "Number only"
+        const val FIELD_IS_NOT_VALID = "Email format is not valid"
+        const val FIELD_MUST_MATCH = "Password must match"
+        const val FIELD_LENGTH = "Password min. 8 characters"
     }
 
     private lateinit var binding: FragmentEngineerRegisterScreenBinding
@@ -49,11 +51,11 @@ class EngineerRegisterScreenFragment : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_container_logregact, LoginScreenFragment())?.commit()
         }
         binding.btnEngregisterfrgRegister.setOnClickListener {
-            registration()
+            registration(view)
         }
     }
 
-    private fun registration() {
+    private fun registration(view: View) {
         val inputFullname = binding.etEngregisterfrgFullname.text.toString().trim()
         val inputEmail = binding.etEngregisterfrgEmail.text.toString().trim()
         val inputPhone = binding.etEngregisterfrgPhone.text.toString().trim()
@@ -61,32 +63,42 @@ class EngineerRegisterScreenFragment : Fragment() {
         val inputConfirmPassword = binding.etEngregisterfrgConfirmPassword.text.toString().trim()
 
         if (inputFullname.isEmpty()) {
-            binding.etEngregisterfrgFullname.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputEmail.isEmpty()) {
-            binding.etEngregisterfrgEmail.error = FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (!inputEmail.contains('@') || !inputEmail.contains('.')) {
+            showToast(view, FIELD_IS_NOT_VALID)
             return
         }
 
         if (inputPassword.isEmpty()) {
-            binding.etEngregisterfrgPassword.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (inputPassword.length < 8) {
+            showToast(view, FIELD_LENGTH)
             return
         }
 
         if (inputPhone.isEmpty()) {
-            binding.etEngregisterfrgPhone.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (!TextUtils.isDigitsOnly(inputPhone)) {
-            binding.etEngregisterfrgPhone.error = FIELD_DIGITS_ONLY
+            showToast(view, FIELD_DIGITS_ONLY)
             return
         }
 
         if (inputPassword != inputConfirmPassword) {
-            binding.etEngregisterfrgConfirmPassword.error = FIELD_MUST_MATCH
+            showToast(view, FIELD_MUST_MATCH)
             return
         }
 
@@ -115,6 +127,10 @@ class EngineerRegisterScreenFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

@@ -31,6 +31,10 @@ import java.util.*
 
 class EngineerEditProfileExperienceFragment : Fragment() {
 
+    companion object {
+        const val FIELD_REQUIRED = "Field must not empty"
+    }
+
     private lateinit var binding: FragmentEngineerEditProfileExperienceBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
@@ -259,74 +263,46 @@ class EngineerEditProfileExperienceFragment : Fragment() {
 
         cDialog.show()
         btnAdd.setOnClickListener {
+            val inputRole = role.text.toString()
+            val inputComp = company.text.toString()
+            val inputDesc = desc.text.toString()
+            val inputStart = startDate.text.toString()
+            val inputEnd = endDate.text.toString()
+
+            if (inputRole.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputComp.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputDesc.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputStart.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputEnd.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
             if (type == 1) {
-                val inputRole = role.text.toString()
-                val inputComp = company.text.toString()
-                val inputDesc = desc.text.toString()
-                val inputStart = startDate.text.toString()
-                val inputEnd = endDate.text.toString()
-
-                if (inputRole.isEmpty()) {
-                    role.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputComp.isEmpty()) {
-                    company.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputDesc.isEmpty()) {
-                    desc.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputStart.isEmpty()) {
-                    startDate.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputEnd.isEmpty()) {
-                    endDate.error = "Form must be filled"
-                    return@setOnClickListener
-                }
 
                 updateExperience(id, inputRole, inputComp, inputDesc, inputStart, inputEnd)
                 Toast.makeText(view.context, "Success update experience", Toast.LENGTH_SHORT).show()
                 cDialog.cancel()
                 binding.swipeRefresh.isRefreshing = true
                 getExperience(enId)
+
             } else {
-                val inputRole = role.text.toString()
-                val inputComp = company.text.toString()
-                val inputDesc = desc.text.toString()
-                val inputStart = startDate.text.toString()
-                val inputEnd = endDate.text.toString()
-
-                if (inputRole.isEmpty()) {
-                    role.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputComp.isEmpty()) {
-                    company.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputDesc.isEmpty()) {
-                    desc.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputStart.isEmpty()) {
-                    startDate.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputEnd.isEmpty()) {
-                    endDate.error = "Form must be filled"
-                    return@setOnClickListener
-                }
 
                 addExperience(inputRole, inputComp, inputDesc, inputStart, inputEnd)
                 Toast.makeText(view.context, "Success add experience", Toast.LENGTH_SHORT).show()
@@ -335,5 +311,14 @@ class EngineerEditProfileExperienceFragment : Fragment() {
                 getExperience(enId)
             }
         }
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

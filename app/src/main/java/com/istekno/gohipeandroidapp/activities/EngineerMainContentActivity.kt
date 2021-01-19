@@ -70,7 +70,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
         if (data != null) {
             if (data.enJobTitle.isNullOrEmpty() || data.enJobType.isNullOrEmpty() || data.enLocation.isNullOrEmpty()
                 || data.enDesc.isNullOrEmpty() || data.enIG.isNullOrEmpty() || data.enGithub.isNullOrEmpty()
-                || data.enGitlab.isNullOrEmpty() || data.enAvatar.isNullOrEmpty()) {
+                || data.enGitlab.isNullOrEmpty()) {
 
                 binding.rlCheckProfileFrame.visibility = View.VISIBLE
                 binding.frameContainerMaincontent.visibility = View.GONE

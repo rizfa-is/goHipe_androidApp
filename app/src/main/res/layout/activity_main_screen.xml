@@ -92,7 +92,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_mainact_register"
             style="@style/MaterialButton"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="60dp"
             android:text="@string/register_now"
             app:backgroundTint="@color/theme_orange"
             app:layout_constraintBottom_toBottomOf="parent"

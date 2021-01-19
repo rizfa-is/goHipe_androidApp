@@ -3,11 +3,13 @@ package com.istekno.gohipeandroidapp.maincontent.company
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -26,7 +28,8 @@ import kotlinx.coroutines.*
 class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragment() {
 
     companion object {
-        const val FIELD_REQUIRED = "Field tidak boleh kosong"
+        const val FIELD_REQUIRED = "Field must not empty"
+        const val FIELD_DIGITS_ONLY = "Number only"
         const val HIRE_ADD_AUTH_KEY = "hire_add_auth_key"
         const val HIRE_DATA = "hire_data"
         const val HIRE_DATA2 = "hire_data2"
@@ -37,7 +40,6 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
     private lateinit var service: GoHipeApiService
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var dialog: Dialog
-    private var listProject = arrayListOf<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -79,17 +81,22 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
         val price = binding.etComhirenowfrgPrice.text.toString()
 
         if (project.isEmpty()) {
-            binding.etComhirenowfrgProject.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (msg.isEmpty()) {
-            binding.etComhirenowfrgMessage.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (price.isEmpty()) {
-            binding.etComhirenowfrgPrice.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (!TextUtils.isDigitsOnly(price)) {
+            showToast(view, FIELD_DIGITS_ONLY)
             return
         }
 
@@ -148,5 +155,14 @@ class CompanyAddHireScreenFragment(private val toolbar: MaterialToolbar): Fragme
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.title = ""
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

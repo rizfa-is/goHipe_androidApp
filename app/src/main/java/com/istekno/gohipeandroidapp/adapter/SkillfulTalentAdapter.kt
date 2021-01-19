@@ -46,6 +46,7 @@ class SkillfulTalentAdapter: RecyclerView.Adapter<SkillfulTalentAdapter.ListView
             binding.modelSkillful = engineerModelResponse
             Glide.with(itemView.context)
                 .load(imageLink + engineerModelResponse.enAvatar)
+                    .placeholder(R.drawable.ic_avatar_en)
                     .apply(RequestOptions().override(125, 125))
                 .into(binding.imgSkillfulTalentEng)
 

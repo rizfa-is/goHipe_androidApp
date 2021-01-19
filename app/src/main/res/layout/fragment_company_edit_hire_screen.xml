@@ -52,6 +52,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/it_comedithirefrg_project"
             style="@style/MaterialField_TextInputLayout_Edit3"
+            android:hint="@string/hint_project_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_comedithirefrg_project">
 
@@ -75,6 +76,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/it_comedithirefrg_message"
             style="@style/MaterialField_TextInputLayout_Edit2"
+            android:hint="@string/hint_hire_msg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_comedithirefrg_message">
 
@@ -97,6 +99,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/it_comedithirefrg_price"
             style="@style/MaterialField_TextInputLayout_Edit2"
+            android:hint="@string/hint_hr_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_comedithirefrg_price">
 

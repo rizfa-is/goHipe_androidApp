@@ -3,11 +3,13 @@ package com.istekno.gohipeandroidapp.maincontent.engineer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -30,6 +32,10 @@ import java.io.File
 class EngineerEditProfileAccountFragment : Fragment() {
 
     companion object {
+        const val FIELD_REQUIRED = "Field must not empty"
+        const val FIELD_DIGITS_ONLY = "Number only"
+        const val FIELD_IS_NOT_VALID = "Email format is not valid"
+
         const val REQUEST_CODE = 1000
         const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
@@ -130,13 +136,12 @@ class EngineerEditProfileAccountFragment : Fragment() {
         }
     }
 
-    private fun updateEngineer(type: Int, name: String, email: String, phone: String, password: String, jTitle: String,
+    private fun updateEngineer(type: Int, name: String, email: String, phone: String, jTitle: String,
                                jType: String, location: String, desc: String, ig: String, github: String, gitlab: String) {
         val id = goHipePreferences.getEngineerPreference().acID
         val eName = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val eEmail = email.toRequestBody("text/plain".toMediaTypeOrNull())
         val ePhone = phone.toRequestBody("text/plain".toMediaTypeOrNull())
-        val ePass = password.toRequestBody("text/plain".toMediaTypeOrNull())
         val eJTitle = jTitle.toRequestBody("text/plain".toMediaTypeOrNull())
         val eJType = jType.toRequestBody("text/plain".toMediaTypeOrNull())
         val eLoc = location.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -149,9 +154,9 @@ class EngineerEditProfileAccountFragment : Fragment() {
             withContext(Dispatchers.IO) {
                 try {
                     if (type == 1) {
-                        service.updateEngineer(id!!, eName, eEmail, ePhone, ePass, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab, imageName)
+                        service.updateEngineer(id!!, eName, eEmail, ePhone, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab, imageName)
                     } else {
-                        service.updateEngineer(id!!, eName, eEmail, ePhone, ePass, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab)
+                        service.updateEngineer(id!!, eName, eEmail, ePhone, eJTitle, eJType, eLoc, eDesc, eIG, eGithub, eGitlab)
                     }
                 } catch (e: Throwable) {
                     e.printStackTrace()
@@ -164,8 +169,6 @@ class EngineerEditProfileAccountFragment : Fragment() {
         val inputFullname = binding.etEngeditaccountfrgFullname.text.toString().trim()
         val inputEmail = binding.etEngeditaccountfrgEmail.text.toString().trim()
         val inputPhone = binding.etEngeditaccountfrgPhone.text.toString().trim()
-        val inputPassword = binding.etEngeditaccountfrgPassword.text.toString().trim()
-        val inputConfirmPassword = binding.etEngeditaccountfrgConfirmpass.text.toString().trim()
         val inputJobTitle = binding.etEngeditaccountfrgJobtitle.text.toString().trim()
         val inputJobType = binding.etEngeditaccountfrgJobtype.text.toString().trim()
         val inputLocation = binding.etEngeditaccountfrgLocation.text.toString().trim()
@@ -175,68 +178,68 @@ class EngineerEditProfileAccountFragment : Fragment() {
         val inputGitlab = binding.etEngeditaccountfrgGitlab.text.toString().trim()
 
         if (inputFullname.isEmpty()) {
-            binding.etEngeditaccountfrgFullname.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputEmail.isEmpty()) {
-            binding.etEngeditaccountfrgEmail.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
-        if (inputPassword.isEmpty()) {
-            binding.etEngeditaccountfrgPassword.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+        if (!inputEmail.contains('@') || !inputEmail.contains('.')) {
+            showToast(view, FIELD_IS_NOT_VALID)
             return
         }
 
         if (inputPhone.isEmpty()) {
-            binding.etEngeditaccountfrgPhone.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
+            return
+        }
+
+        if (!TextUtils.isDigitsOnly(inputPhone)) {
+            showToast(view, FIELD_DIGITS_ONLY)
             return
         }
 
         if (inputJobTitle.isEmpty()) {
-            binding.etEngeditaccountfrgJobtitle.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputJobType.isEmpty()) {
-            binding.etEngeditaccountfrgJobtype.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputLocation.isEmpty()) {
-            binding.etEngeditaccountfrgLocation.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputDesc.isEmpty()) {
-            binding.etEngeditaccountfrgDescription.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputIg.isEmpty()) {
-            binding.etEngeditaccountfrgInstagram.error = EngineerRegisterScreenFragment.FIELD_IS_NOT_VALID
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputGithub.isEmpty()) {
-            binding.etEngeditaccountfrgGithub.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputGitlab.isEmpty()) {
-            binding.etEngeditaccountfrgGitlab.error = EngineerRegisterScreenFragment.FIELD_REQUIRED
-            return
-        }
-
-        if (inputPassword != inputConfirmPassword) {
-            binding.etEngeditaccountfrgConfirmpass.error = EngineerRegisterScreenFragment.FIELD_MUST_MATCH
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (dataImage != "") {
 
-            updateEngineer(1, inputFullname, inputEmail, inputPhone, inputPassword, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
+            updateEngineer(1, inputFullname, inputEmail, inputPhone, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
 
             dialog.dialogCancel(context, "Success update account!") {
                 val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
@@ -246,7 +249,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
 
         } else {
 
-            updateEngineer(0, inputFullname, inputEmail, inputPhone, inputPassword, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
+            updateEngineer(0, inputFullname, inputEmail, inputPhone, inputJobTitle, inputJobType, inputLocation, inputDesc, inputIg, inputGithub, inputGitlab)
 
             dialog.dialogCancel(context, "Success update account!") {
                 val sendIntent = Intent(context, EngineerMainContentActivity::class.java)
@@ -259,5 +262,14 @@ class EngineerEditProfileAccountFragment : Fragment() {
     private fun setDropdownMenuAdapter(view: View) {
         val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, listDropdownJobtype)
         (binding.itEngeditaccountfrgJobtype.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

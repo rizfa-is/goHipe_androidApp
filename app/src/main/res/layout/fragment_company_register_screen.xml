@@ -41,7 +41,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_fullname"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_fullname"
+                android:hint="@string/hint_fullname"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_fullname">
 
@@ -62,7 +62,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_email"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_email"
+                android:hint="@string/hint_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_email">
 
@@ -83,7 +83,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_company"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_company"
+                android:hint="@string/hint_company"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_company">
 
@@ -104,7 +104,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_position"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_position"
+                android:hint="@string/hint_position"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_position">
 
@@ -125,7 +125,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_phone"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_phone_number"
+                android:hint="@string/hint_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_comregisterfrg_phone">
 
@@ -147,7 +147,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_password"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_password"
+                android:hint="@string/hint_password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:helperText="min. length 8 characters"
@@ -174,7 +174,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_comregisterfrg_confirm_password"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/confirm_password"
+                android:hint="@string/hint_password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:helperTextTextColor="#99FFFFFF"

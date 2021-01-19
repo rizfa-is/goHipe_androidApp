@@ -36,7 +36,7 @@ import java.util.*
 class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fragment() {
 
     companion object {
-        const val FIELD_REQUIRED = "Field tidak boleh kosong"
+        const val FIELD_REQUIRED = "Field must not empty"
         const val PROJECT_ADD_AUTH_KEY = "project_add_auth_key"
         const val REQUEST_CODE = 1000
     }
@@ -83,7 +83,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         }
 
         binding.btnCompaddprojectfrgAdd.setOnClickListener {
-            addProject()
+            addProject(view)
         }
     }
 
@@ -100,23 +100,23 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         }
     }
 
-    private fun addProject() {
+    private fun addProject(view: View) {
         val inputName = binding.etCompaddprojectfrgName.text.toString()
         val inputDesc = binding.etCompaddprojectfrgDesc.text.toString()
         val inputDeadline = binding.etCompaddprojectfrgDeadline.text.toString()
 
         if (inputName.isEmpty()) {
-            binding.etCompaddprojectfrgName.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputDesc.isEmpty()) {
-            binding.etCompaddprojectfrgDesc.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
         if (inputDeadline.isEmpty()) {
-            binding.etCompaddprojectfrgDeadline.error = FIELD_REQUIRED
+            showToast(view, FIELD_REQUIRED)
             return
         }
 
@@ -124,12 +124,12 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
             addProjectService(inputName, inputDesc, inputDeadline)
 
             dialog.dialogCancel(context, "Add project successful") {
-                val sendIntent = Intent(view?.context, CompanyMainContentActivity::class.java)
+                val sendIntent = Intent(view.context, CompanyMainContentActivity::class.java)
                 sendIntent.putExtra(PROJECT_ADD_AUTH_KEY, 1)
                 startActivity(sendIntent)
             }
         } else {
-            Toast.makeText(view?.context, "Please select project image!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Please select project image!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -195,5 +195,14 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
 
     private fun setToolbar(toolbar: MaterialToolbar) {
         toolbar.title = "Add project"
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

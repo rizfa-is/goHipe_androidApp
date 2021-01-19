@@ -41,7 +41,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_engregisterfrg_fullname"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_fullname"
+                android:hint="@string/hint_fullname"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_fullname">
 
@@ -62,7 +62,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_engregisterfrg_email"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_email"
+                android:hint="@string/hint_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_email">
 
@@ -82,7 +82,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_engregisterfrg_phone"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_phone_number"
+                android:hint="@string/hint_phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_engregisterfrg_phone">
 
@@ -103,7 +103,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_engregisterfrg_password"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/input_password"
+                android:hint="@string/hint_password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:helperText="min. length 8 characters"
@@ -129,7 +129,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/it_engregisterfrg_confirm_password"
                 style="@style/MaterialField_TextInputLayout"
-                android:hint="@string/confirm_password"
+                android:hint="@string/hint_password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:helperTextTextColor="#99FFFFFF"

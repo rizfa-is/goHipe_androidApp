@@ -40,6 +40,8 @@ import java.io.File
 class EngineerEditProfilePortfolioFragment : Fragment() {
 
     companion object {
+        const val FIELD_REQUIRED = "Field must not empty"
+
         const val REQUEST_CODE = 1000
         const val imageLink = "http://107.22.89.131:7000/image/"
 
@@ -266,44 +268,44 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
 
         Glide.with(view.context).load(dataImage).into(img)
         btnAdd.setOnClickListener {
+            val inputApp = appName.text.toString()
+            val inputDesc = desc.text.toString()
+            val inputLink = link.text.toString()
+            val inputRepo = repo.text.toString()
+            val inputComp = company.text.toString()
+            val inputRole = role.text.toString()
+
+            if (inputApp.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputDesc.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputLink.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputRepo.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputComp.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (inputRole.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
             if (type == 1) {
-                val inputApp = appName.text.toString()
-                val inputDesc = desc.text.toString()
-                val inputLink = link.text.toString()
-                val inputRepo = repo.text.toString()
-                val inputComp = company.text.toString()
-                val inputRole = role.text.toString()
-
-                if (inputApp.isEmpty()) {
-                    appName.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputDesc.isEmpty()) {
-                    desc.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputLink.isEmpty()) {
-                    link.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputRepo.isEmpty()) {
-                    repo.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputComp.isEmpty()) {
-                    company.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputRole.isEmpty()) {
-                    role.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
                 if (dataImage != "") {
 
                     updatePortfolio(1, id, inputApp, inputDesc, inputLink, inputRepo, inputComp, inputRole)
@@ -325,37 +327,6 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
                     }
                 }
             } else {
-                val inputApp = appName.text.toString()
-                val inputDesc = desc.text.toString()
-                val inputLink = link.text.toString()
-                val inputRepo = repo.text.toString()
-                val inputComp = company.text.toString()
-                val inputRole = role.text.toString()
-
-                if (inputApp.isEmpty()) {
-                    appName.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputDesc.isEmpty()) {
-                    desc.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputLink.isEmpty()) {
-                    link.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputRepo.isEmpty()) {
-                    repo.error = "Form must be filled"
-                    return@setOnClickListener
-                }
-
-                if (inputComp.isEmpty()) {
-                    company.error = "Form must be filled"
-                    return@setOnClickListener
-                }
 
                 if (dataImage != "") {
 
@@ -377,5 +348,14 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
     private fun setDropdownMenuAdapter(view: View, ti: TextInputLayout, list: MutableList<String>) {
         val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, list)
         (ti.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }

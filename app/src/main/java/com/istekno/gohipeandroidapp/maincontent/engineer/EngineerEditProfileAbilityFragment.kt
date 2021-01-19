@@ -25,6 +25,10 @@ import kotlinx.coroutines.*
 
 class EngineerEditProfileAbilityFragment : Fragment() {
 
+    companion object {
+        const val FIELD_REQUIRED = "Field must not empty"
+    }
+
     private lateinit var binding: FragmentEngineerEditProfileAbilityBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var service: GoHipeApiService
@@ -167,13 +171,14 @@ class EngineerEditProfileAbilityFragment : Fragment() {
 
         cDialog.show()
         btnAdd.setOnClickListener {
-            if (type == 1) {
-                val input = form.text.toString()
+            val input = form.text.toString()
 
-                if (input.isEmpty()) {
-                    form.error = "Form must be filled"
-                    return@setOnClickListener
-                }
+            if (input.isEmpty()) {
+                showToast(view, FIELD_REQUIRED)
+                return@setOnClickListener
+            }
+
+            if (type == 1) {
 
                 updateAbility(id, input)
                 Toast.makeText(view.context, "Success update ability", Toast.LENGTH_SHORT).show()
@@ -182,13 +187,8 @@ class EngineerEditProfileAbilityFragment : Fragment() {
                 binding.pgEditabengfrg.visibility = View.VISIBLE
                 binding.cgEnaccfrgAbility.removeAllViews()
                 getAllAbility(view)
-            } else {
-                val input = form.text.toString()
 
-                if (input.isEmpty()) {
-                    form.error = "Form must be filled"
-                    return@setOnClickListener
-                }
+            } else {
 
                 addAbility(input)
                 Toast.makeText(view.context, "Success add ability", Toast.LENGTH_SHORT).show()
@@ -199,5 +199,14 @@ class EngineerEditProfileAbilityFragment : Fragment() {
                 getAllAbility(view)
             }
         }
+    }
+
+    private fun showToast(view: View, msg: String) {
+        Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        coroutineScope.cancel()
+        super.onDestroy()
     }
 }
