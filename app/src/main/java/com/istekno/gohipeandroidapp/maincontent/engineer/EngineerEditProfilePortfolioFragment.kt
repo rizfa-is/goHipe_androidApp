@@ -1,19 +1,22 @@
 package com.istekno.gohipeandroidapp.maincontent.engineer
 
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.loader.content.CursorLoader
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
@@ -33,8 +36,8 @@ import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 
 class EngineerEditProfilePortfolioFragment : Fragment() {
@@ -42,7 +45,8 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
     companion object {
         const val FIELD_REQUIRED = "Field must not empty"
 
-        const val REQUEST_CODE = 1000
+        private const val IMAGE_PICK_CODE = 1000;
+        private const val PERMISSION_CODE = 1001;
         const val imageLink = "http://107.22.89.131:7000/image/"
 
         private val list = mutableListOf("Mobile App", "Web App")
@@ -54,7 +58,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var dialog: Dialog
     private lateinit var imageName: MultipartBody.Part
-    private var dataImage = ""
+    private var pathImage = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -213,13 +217,34 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
-            val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
+        if(resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            val customView = LayoutInflater.from(context).inflate(R.layout.fragment_engineer_addupdate_portfolio_dialog, null)
+            val imageViewDialog = customView.findViewById<ImageView>(R.id.img_addport)
+            imageViewDialog.setImageURI(data?.data)
+            pathImage = getPath(context!!, data?.data!!)
 
-            dataImage = dataResponse
-            imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
+            showToast(binding.root, pathImage)
+            val file = File(pathImage)
+            val reqFile: RequestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            imageName = MultipartBody.Part.createFormData("image", file.name, reqFile)
         }
+    }
+
+    private fun getPath(context: Context, contentUri: Uri): String {
+        var result = ""
+        val image = arrayOf(MediaStore.Images.Media.DATA)
+
+        val cursorLoader = CursorLoader(context, contentUri, image, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
+
+        if (cursor != null) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(columnIndex)
+            cursor.close()
+        }
+
+        return result
     }
 
     @SuppressLint("InflateParams", "SetTextI18n")
@@ -251,22 +276,27 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
             repo.setText(prRepo)
             company.setText(prComp)
             role.setText(prRole)
-            Glide.with(view.context).load(imageLink + prImage).into(img)
+
+            if (!prImage.isNullOrEmpty()) {
+                Glide.with(view.context).load(imageLink + prImage).into(img)
+            }
         }
 
         setDropdownMenuAdapter(view, roleTI, list)
         cDialog.show()
         btnAddImage.setOnClickListener {
-            if (EasyPermissions.hasPermissions(view.context, android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
-                startActivityForResult(intent, REQUEST_CODE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (activity?.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    val permission = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, PERMISSION_CODE)
+                } else {
+                    pickImageFromGallery()
+                }
             } else {
-                EasyPermissions.requestPermissions(this,"This application need your permission to access image gallery.",991,android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                pickImageFromGallery()
             }
         }
 
-        Glide.with(view.context).load(dataImage).into(img)
         btnAdd.setOnClickListener {
             val inputApp = appName.text.toString()
             val inputDesc = desc.text.toString()
@@ -306,7 +336,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
             }
 
             if (type == 1) {
-                if (dataImage != "") {
+                if (pathImage != "") {
 
                     updatePortfolio(1, id, inputApp, inputDesc, inputLink, inputRepo, inputComp, inputRole)
 
@@ -328,7 +358,7 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
                 }
             } else {
 
-                if (dataImage != "") {
+                if (pathImage != "") {
 
                     addPortfolio(inputApp, inputDesc, inputLink, inputRepo, inputComp, inputRole)
 
@@ -343,6 +373,12 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
     private fun setDropdownMenuAdapter(view: View, ti: TextInputLayout, list: MutableList<String>) {

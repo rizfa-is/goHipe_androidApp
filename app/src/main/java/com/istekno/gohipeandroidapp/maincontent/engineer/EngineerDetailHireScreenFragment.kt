@@ -67,7 +67,7 @@ class EngineerDetailHireScreenFragment(private val hireStatus: Int?) : Fragment(
     @SuppressLint("SetTextI18n")
     private fun viewListener(view: View) {
         val model = activity?.intent?.getParcelableExtra<HireModelResponse>(HIRE_DATA)
-        val price = NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(model?.hrPrice?.toDouble())
+        val price = NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(model?.hrPrice?.toDouble()).replace("Rp".toRegex(), "IDR ")
 
         binding.model = model
         binding.tvEngdetailhirefrgprice.text = "Budget: $price"

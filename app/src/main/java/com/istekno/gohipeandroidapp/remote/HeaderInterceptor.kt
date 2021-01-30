@@ -1,8 +1,6 @@
-package com.erdin.arkaandroidtwo.remote
+package com.istekno.gohipeandroidapp.remote
 
 import android.content.Context
-import android.util.Log
-import android.view.View
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
 import okhttp3.Interceptor
 import okhttp3.Response

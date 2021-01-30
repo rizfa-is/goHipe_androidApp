@@ -3,8 +3,13 @@ package com.istekno.gohipeandroidapp.maincontent.company
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +17,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
@@ -26,6 +32,7 @@ import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
@@ -38,7 +45,9 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
     companion object {
         const val FIELD_REQUIRED = "Field must not empty"
         const val PROJECT_ADD_AUTH_KEY = "project_add_auth_key"
-        const val REQUEST_CODE = 1000
+
+        private const val IMAGE_PICK_CODE = 1000;
+        private const val PERMISSION_CODE = 1001;
     }
 
     private lateinit var binding: FragmentCompanyAddProjectScreenBinding
@@ -47,7 +56,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var dialog: Dialog
     private lateinit var imageName: MultipartBody.Part
-    private var dataImage = ""
+    private var pathImage = ""
 
     private val myCalendar: Calendar = Calendar.getInstance()
 
@@ -72,13 +81,15 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
 
     private fun viewListener(view: View) {
         binding.editImageButton.setOnClickListener {
-
-            if (EasyPermissions.hasPermissions(view.context,android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
-                startActivityForResult(intent, REQUEST_CODE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (activity?.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    val permission = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, PERMISSION_CODE)
+                } else {
+                    pickImageFromGallery()
+                }
             } else {
-                EasyPermissions.requestPermissions(this,"This application need your permission to access image gallery.",991,android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                pickImageFromGallery()
             }
         }
 
@@ -87,17 +98,41 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
         }
     }
 
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
-            val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
+        if(resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            binding.imgAddproject.setImageURI(data?.data)
+            pathImage = getPath(context!!, data?.data!!)
 
-            dataImage = dataResponse
-            imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
-            Glide.with(this).load(dataResponse).into(binding.imgAddproject)
+            showToast(binding.root, pathImage)
+            val file = File(pathImage)
+            val reqFile: RequestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            imageName = MultipartBody.Part.createFormData("image", file.name, reqFile)
         }
+    }
+
+    private fun getPath(context: Context, contentUri: Uri): String {
+        var result = ""
+        val image = arrayOf(MediaStore.Images.Media.DATA)
+
+        val cursorLoader = CursorLoader(context, contentUri, image, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
+
+        if (cursor != null) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(columnIndex)
+            cursor.close()
+        }
+
+        return result
     }
 
     private fun addProject(view: View) {
@@ -120,7 +155,7 @@ class CompanyAddProjectScreenFragment(private val toolbar: MaterialToolbar): Fra
             return
         }
 
-        if (dataImage != "") {
+        if (pathImage != "") {
             addProjectService(inputName, inputDesc, inputDeadline)
 
             dialog.dialogCancel(context, "Add project successful") {

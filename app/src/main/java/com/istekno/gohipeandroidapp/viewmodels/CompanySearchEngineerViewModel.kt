@@ -7,7 +7,7 @@ import com.istekno.gohipeandroidapp.retrofit.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class CompanySearchEngineerViewModel() : ViewModel(), CoroutineScope {
+class CompanySearchEngineerViewModel : ViewModel(), CoroutineScope {
 
     private lateinit var service: GoHipeApiService
     private var listENG = MutableLiveData<List<EngineerModelResponse>>()

@@ -149,7 +149,6 @@
                 style="@style/MaterialField_TextInputLayout"
                 android:hint="@string/hint_password"
                 app:endIconMode="password_toggle"
-                app:errorEnabled="true"
                 app:helperText="min. length 8 characters"
                 app:helperTextEnabled="true"
                 app:helperTextTextColor="#99FFFFFF"

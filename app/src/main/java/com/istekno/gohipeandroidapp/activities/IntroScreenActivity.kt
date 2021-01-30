@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment

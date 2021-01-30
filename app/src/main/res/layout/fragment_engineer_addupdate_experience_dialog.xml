@@ -169,7 +169,7 @@
                 android:id="@+id/btn_addex"
                 style="@style/MaterialButton"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="150dp"
                 android:backgroundTint="@color/theme_orange"
                 android:text="Add"
                 app:layout_constraintBottom_toBottomOf="parent"

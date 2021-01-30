@@ -1,7 +1,6 @@
 package com.istekno.gohipeandroidapp.remote
 
 import android.content.Context
-import com.erdin.arkaandroidtwo.remote.HeaderInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,7 +18,6 @@ class ApiClient {
                 apply { level = HttpLoggingInterceptor.Level.BODY }
             }
         }
-
 
         fun getApiClient(context: Context): Retrofit? {
 

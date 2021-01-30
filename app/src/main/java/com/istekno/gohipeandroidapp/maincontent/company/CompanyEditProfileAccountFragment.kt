@@ -1,8 +1,13 @@
 package com.istekno.gohipeandroidapp.maincontent.company
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +15,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyEditProfileAccountBinding
 import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerEditProfileAccountFragment
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerRegisterScreenFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.CompanyModelResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
@@ -26,8 +31,8 @@ import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
 
 class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): Fragment() {
@@ -37,7 +42,8 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         const val FIELD_DIGITS_ONLY = "Number only"
         const val FIELD_IS_NOT_VALID = "Email format is not valid"
 
-        const val REQUEST_CODE = 1000
+        private const val IMAGE_PICK_CODE = 1000;
+        private const val PERMISSION_CODE = 1001;
         const val ACC_UPDATE_AUTH_KEY = "acc_update_auth_key"
         const val EDIT_PROFILE_AUTH_KEY2 = "edit_profile_auth_key2"
         const val EMPTY_DATA_AUTH_KEY = "empty_data_auth_key"
@@ -51,7 +57,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
     private lateinit var goHipePreferences: GoHipePreferences
     private lateinit var imageName: MultipartBody.Part
     private lateinit var company: CompanyModelResponse
-    private var dataImage = ""
+    private var pathImage = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -103,7 +109,10 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
         desc.setText(company.cpDesc)
         ig.setText(company.cpInsta)
         linkedin.setText(company.cpLinkedIn)
-        Glide.with(view.context).load(EngineerEditProfileAccountFragment.imageLink + company.cpAvatar).into(binding.shapeableImageView2)
+
+        if (!company.cpAvatar.isNullOrEmpty()) {
+            Glide.with(view.context).load(EngineerEditProfileAccountFragment.imageLink + company.cpAvatar).into(binding.shapeableImageView2)
+        }
     }
 
     private fun viewListener(view: View) {
@@ -111,28 +120,56 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
             update(view)
         }
         binding.editImageButton.setOnClickListener {
-            if (EasyPermissions.hasPermissions(view.context,android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
-                startActivityForResult(intent, REQUEST_CODE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (activity?.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    val permission = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permission, PERMISSION_CODE)
+                } else {
+                    pickImageFromGallery()
+                }
             } else {
-                EasyPermissions.requestPermissions(this,"This application need your permission to access image gallery.",991,android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                pickImageFromGallery()
             }
         }
+    }
+
+    private fun pickImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val dataResponse = data?.data?.path?.replace("/raw/".toRegex(), "")
-            val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), File(dataResponse!!))
+        if(resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            binding.shapeableImageView2.setImageURI(data?.data)
+            pathImage = getPath(context!!, data?.data!!)
 
-            dataImage = dataResponse
-            imageName = MultipartBody.Part.createFormData("image", File(dataResponse).name, requestBody)
-            Glide.with(this).load(dataResponse).into(binding.shapeableImageView2)
+            showToast(binding.root, pathImage)
+            val file = File(pathImage)
+            val reqFile: RequestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            imageName = MultipartBody.Part.createFormData("image", file.name, reqFile)
         }
     }
+
+    private fun getPath(context: Context, contentUri: Uri): String {
+        var result = ""
+        val image = arrayOf(MediaStore.Images.Media.DATA)
+
+        val cursorLoader = CursorLoader(context, contentUri, image, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
+
+        if (cursor != null) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(columnIndex)
+            cursor.close()
+        }
+
+        return result
+    }
+
 
     private fun updateCompany(type: Int, name: String, email: String, phone: String, company: String,
                               position: String, field: String, location: String, desc: String, ig: String, linkedin: String) {
@@ -235,7 +272,7 @@ class CompanyEditProfileAccountFragment(private val toolbar: MaterialToolbar): F
             return
         }
 
-        if (dataImage != "") {
+        if (pathImage != "") {
 
             updateCompany(1, inputFullname, inputEmail, inputPhone, inputCompany, inputPosition, inputField, inputLocation, inputDesc, inputIG, inputLinkedin)
 
