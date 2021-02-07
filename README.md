@@ -3,10 +3,10 @@
 > This is a ReadMe to help understand about this repository
 
 <div style="display:flex;">
-<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149877-b3a25e80-698d-11eb-8cc8-45af194a98b6.jpg" width="30%">
-<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149878-b4d38b80-698d-11eb-81d5-380e0388d769.jpg" width="30%">
-<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149885-b9983f80-698d-11eb-9d8d-a2b785d99807.jpg" width="30%">
-<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149875-b0a76e00-698d-11eb-8af4-044ee610df13.jpg" width="30%">
+<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149878-b4d38b80-698d-11eb-81d5-380e0388d769.jpg" width="25%">
+<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149877-b3a25e80-698d-11eb-8cc8-45af194a98b6.jpg" width="25%">
+<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149885-b9983f80-698d-11eb-9d8d-a2b785d99807.jpg" width="25%">
+<img alt="App image" src="https://user-images.githubusercontent.com/67631569/107149875-b0a76e00-698d-11eb-8af4-044ee610df13.jpg" width="25%">
 </div>
 
 ---
