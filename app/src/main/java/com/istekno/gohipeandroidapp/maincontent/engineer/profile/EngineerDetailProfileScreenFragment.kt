@@ -93,7 +93,6 @@ class EngineerDetailProfileScreenFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = false
             binding.svEngprofifrg.visibility = View.GONE
             binding.btnEngprofifrgHire.visibility = View.GONE
-            binding.imgEnprofifrgFavorite.visibility = View.GONE
 
             val result = withContext(Dispatchers.IO) {
                 try {
@@ -156,7 +155,6 @@ class EngineerDetailProfileScreenFragment : Fragment() {
             binding.pgEngprofifrg.visibility = View.GONE
             binding.svEngprofifrg.visibility = View.VISIBLE
             binding.btnEngprofifrgHire.visibility = View.VISIBLE
-            binding.imgEnprofifrgFavorite.visibility = View.VISIBLE
         }
     }
 
