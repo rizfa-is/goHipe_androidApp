@@ -10,8 +10,8 @@ import com.istekno.gohipeandroidapp.databinding.ActivityProfileScreenBinding
 import com.istekno.gohipeandroidapp.maincontent.company.CompanyDetailHireScreenFragment
 import com.istekno.gohipeandroidapp.maincontent.company.CompanyDetailProfileScreenFragment
 import com.istekno.gohipeandroidapp.maincontent.company.CompanyDetailProjectScreenFragment
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailHireScreenFragment
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailProfileScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.hire.EngineerDetailHireScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.profile.EngineerDetailProfileScreenFragment
 import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailProjectScreenFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 

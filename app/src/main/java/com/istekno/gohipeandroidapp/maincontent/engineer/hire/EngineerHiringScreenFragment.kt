@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.hire
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListHireViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerHiringScreenBinding
+import com.istekno.gohipeandroidapp.maincontent.engineer.hire.EngineerFinishedHireFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.hire.EngineerOnProgressHireFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.hire.EngineerOnWaitingHireFragment
 
 class EngineerHiringScreenFragment(private val toolbar: MaterialToolbar, private val co: CoordinatorLayout,
                                    private val rl: RelativeLayout, private val bottomNavigationView: BottomNavigationView, private val state: Boolean) : Fragment() {

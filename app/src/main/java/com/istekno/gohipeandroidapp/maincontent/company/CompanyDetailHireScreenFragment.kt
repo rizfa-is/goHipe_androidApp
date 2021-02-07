@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyDetailHireScreenBinding
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerDetailHireScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.hire.EngineerDetailHireScreenFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse

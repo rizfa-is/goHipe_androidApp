@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.account
 
 import android.content.Intent
 import android.os.Bundle

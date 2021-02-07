@@ -21,7 +21,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.CompanyMainContentActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentCompanyEditProfileAccountBinding
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerEditProfileAccountFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.editprofile.profile.EngineerEditProfileAccountFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.CompanyModelResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService

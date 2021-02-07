@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".maincontent.engineer.EngineerDetailProfileScreenFragment">
+    tools:context=".maincontent.engineer.profile.EngineerDetailProfileScreenFragment">
 
     <data>
         <variable
@@ -246,6 +246,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:elevation="2dp"
+            android:visibility="gone"
             android:src="@drawable/ic_favorite_unchecked"/>
 
     </RelativeLayout>

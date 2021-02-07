@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.editprofile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ class EngineerEditProfileFragment(private val toolbar: MaterialToolbar): Fragmen
     private lateinit var binding: FragmentEngineerEditProfileBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         setToolbar(toolbar)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_edit_profile, container, false)

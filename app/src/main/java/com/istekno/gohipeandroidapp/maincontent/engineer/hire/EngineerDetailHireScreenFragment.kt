@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.hire
 
 import android.annotation.SuppressLint
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.account
 
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +20,7 @@ import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.adapter.EngineerProfileViewPagerAdapter
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAccountScreenBinding
+import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerFavoriteScreenFragment
 import com.istekno.gohipeandroidapp.retrofit.Ability
 import com.istekno.gohipeandroidapp.retrofit.EngineerModelResponse
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences

@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityEngineerMainContentBinding
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerAccountScreenFragment
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerHiringScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.account.EngineerAccountScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.hire.EngineerHiringScreenFragment
 import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerHomeScreenFragment
 import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerSearchScreenFragment
 import com.istekno.gohipeandroidapp.models.EngineerPreferenceModel
@@ -45,6 +45,7 @@ class EngineerMainContentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_engineer_main_content)
         binding.bottomNavView.menu.findItem(R.id.mn_item_maincontent_project).isVisible = false
         setSupportActionBar(binding.topAppBarMaincontentActivity)

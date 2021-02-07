@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivityCompanyMainContentBinding
 import com.istekno.gohipeandroidapp.maincontent.company.*
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerAccountScreenFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.account.EngineerAccountScreenFragment
 import com.istekno.gohipeandroidapp.models.CompanyPreferenceModel
 import com.istekno.gohipeandroidapp.retrofit.CompanyModelResponse
 import com.istekno.gohipeandroidapp.utility.Dialog

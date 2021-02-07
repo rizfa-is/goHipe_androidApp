@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -121,7 +121,7 @@ class EngineerDetailProfileScreenFragment : Fragment() {
 
             if (result3 is GetAllHire) {
                 result3.database?.map {
-                    if (it.cpID == cpID && it.enID == data.enID) listPjIdHire.add(it.pjID)
+                    if (it.cpID == cpID && it.enID == data.enID && (it.hrStatus == "Approve" || it.hrStatus == "Reject")) listPjIdHire.add(it.pjID)
                 }
             }
 

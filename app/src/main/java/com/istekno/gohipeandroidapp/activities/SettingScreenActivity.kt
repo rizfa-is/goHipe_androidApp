@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.databinding.ActivitySettingScreenBinding
 import com.istekno.gohipeandroidapp.maincontent.company.*
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerAccountSettingFragment
-import com.istekno.gohipeandroidapp.maincontent.engineer.EngineerEditProfileFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.account.EngineerAccountSettingFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.editprofile.ability.EngineerAddAbilityFragment
+import com.istekno.gohipeandroidapp.maincontent.engineer.editprofile.EngineerEditProfileFragment
 import com.istekno.gohipeandroidapp.utility.Dialog
 
 class SettingScreenActivity : AppCompatActivity() {
@@ -47,10 +48,16 @@ class SettingScreenActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyAccountSettingFragment(binding.topAppBarSetact)).commit()
         }
 
-        if (authKeyEdit == 1) {
-            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyEditProfileAccountFragment(binding.topAppBarSetact)).commit()
-        } else if (authKeyEdit == 0) {
-            supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerEditProfileFragment(binding.topAppBarSetact)).commit()
+        when (authKeyEdit) {
+            1 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, CompanyEditProfileAccountFragment(binding.topAppBarSetact)).commit()
+            }
+            0 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerEditProfileFragment(binding.topAppBarSetact)).commit()
+            }
+            in 10..20 -> {
+                supportFragmentManager.beginTransaction().replace(R.id.frame_container_setact, EngineerAddAbilityFragment(binding.topAppBarSetact)).commit()
+            }
         }
 
         if (authKeyProject == 1) {

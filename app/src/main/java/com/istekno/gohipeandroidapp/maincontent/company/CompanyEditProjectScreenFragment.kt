@@ -167,7 +167,7 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
     private fun updateProject(type: Int, view: View, pjID: Long, pjName: String, pjDesc: String, pjDeadline: String) {
         coroutineScope.launch {
             val project = pjName.toRequestBody("text/plain".toMediaTypeOrNull())
-            val desc= pjDesc.toRequestBody("text/plain".toMediaTypeOrNull())
+            val desc = pjDesc.toRequestBody("text/plain".toMediaTypeOrNull())
             val deadline = pjDeadline.toRequestBody("text/plain".toMediaTypeOrNull())
 
             withContext(Dispatchers.IO) {
@@ -200,7 +200,10 @@ class CompanyEditProjectScreenFragment(private val toolbar: MaterialToolbar): Fr
         date.setText(pjDeadline)
         project.setText(data.pjName)
         desc.setText(data.pjDesc)
-        Glide.with(view.context).load(imageLink + data.pjImage).into(binding.imgEditproject)
+
+        if (!data.pjImage.isNullOrEmpty()) {
+            Glide.with(view.context).load(imageLink + data.pjImage).into(binding.imgEditproject)
+        }
 
         retrieveDate(view, binding.imgSelectdate, binding.etCompeditprojectfrgDeadline, year, month, day)
     }

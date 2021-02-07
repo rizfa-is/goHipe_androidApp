@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.editprofile.profile
 
 import android.app.Activity
 import android.content.Context
@@ -49,7 +49,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
 
         private const val IMAGE_PICK_CODE = 1000;
         private const val PERMISSION_CODE = 1001;
-        private val listDropdownJobtype = listOf("Freelance", "Fulltime")
+        private val listDropdownJobType = listOf("Freelance", "Fulltime")
     }
 
     private lateinit var binding: FragmentEngineerEditProfileAccountBinding
@@ -80,8 +80,12 @@ class EngineerEditProfileAccountFragment : Fragment() {
     }
 
     private fun setText(view: View) {
-        val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(EDIT_PROFILE_AUTH_KEY2)
-        val dataEmpty = activity?.intent?.getParcelableExtra<EngineerModelResponse>(EMPTY_DATA_AUTH_KEY)
+        val data = activity?.intent?.getParcelableExtra<EngineerModelResponse>(
+            EDIT_PROFILE_AUTH_KEY2
+        )
+        val dataEmpty = activity?.intent?.getParcelableExtra<EngineerModelResponse>(
+            EMPTY_DATA_AUTH_KEY
+        )
 
         if (dataEmpty != null) {
             engineer = dataEmpty
@@ -297,7 +301,7 @@ class EngineerEditProfileAccountFragment : Fragment() {
     }
 
     private fun setDropdownMenuAdapter(view: View) {
-        val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, listDropdownJobtype)
+        val adapter = ArrayAdapter(view.context, R.layout.item_list_dropdown_template, listDropdownJobType)
         (binding.itEngeditaccountfrgJobtype.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 

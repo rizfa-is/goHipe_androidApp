@@ -104,7 +104,6 @@ class LoginScreenFragment : Fragment() {
                     resultA = service.loginAccount(email, password)
                     saveData(resultA.database?.level!!, null, null, resultA.database?.token, false)
 
-                    Log.d("goHipe : ", resultA.toString())
                     val responseStatus = resultA.success
 
                     if (responseStatus && resultA.database?.level == "Company") {

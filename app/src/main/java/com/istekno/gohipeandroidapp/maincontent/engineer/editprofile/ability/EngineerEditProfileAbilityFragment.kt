@@ -1,8 +1,10 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.editprofile.ability
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,19 +16,26 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.TextInputEditText
 import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.activities.SettingScreenActivity
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerEditProfileAbilityBinding
+import com.istekno.gohipeandroidapp.maincontent.engineer.account.EngineerAccountScreenFragment
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.Ability
 import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
 import com.istekno.gohipeandroidapp.retrofit.GoHipeApiService
 import com.istekno.gohipeandroidapp.utility.Dialog
 import com.istekno.gohipeandroidapp.utility.GoHipePreferences
+import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.*
 
 class EngineerEditProfileAbilityFragment : Fragment() {
 
     companion object {
         const val FIELD_REQUIRED = "Field must not empty"
+        const val EDIT_AB_KEY = "edit_ability_key"
+
+        @Parcelize
+        data class EditAbilityModel(val id: Long, val name: String?): Parcelable
     }
 
     private lateinit var binding: FragmentEngineerEditProfileAbilityBinding
@@ -51,7 +60,9 @@ class EngineerEditProfileAbilityFragment : Fragment() {
 
         getAllAbility(view)
         binding.fabEditab.setOnClickListener {
-            setFormDialog(view, 0, 0, "")
+            val sendIntent = Intent(context, SettingScreenActivity::class.java)
+            sendIntent.putExtra(EngineerAccountScreenFragment.EDIT_PROFILE_AUTH_KEY, 10)
+            startActivity(sendIntent)
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
@@ -64,6 +75,7 @@ class EngineerEditProfileAbilityFragment : Fragment() {
             val id = goHipePreferences.getEngineerPreference().acID
 
             binding.cgEnaccfrgAbility.removeAllViews()
+
             binding.imageView.visibility = View.GONE
             binding.tvAbility.visibility = View.GONE
             binding.fabEditab.visibility = View.GONE
@@ -141,7 +153,10 @@ class EngineerEditProfileAbilityFragment : Fragment() {
             chip.text = listAbilities[i].abName
             chip.setTextColor(resources.getColor(R.color.white))
             chip.setOnClickListener {
-                setFormDialog(view, 1, listAbilities[i].abID, listAbilities[i].abName!!)
+                val sendIntent = Intent(context, SettingScreenActivity::class.java)
+                sendIntent.putExtra(EngineerAccountScreenFragment.EDIT_PROFILE_AUTH_KEY, 20)
+                sendIntent.putExtra(EDIT_AB_KEY, EditAbilityModel(listAbilities[i].abID, listAbilities[i].abName))
+                startActivity(sendIntent)
             }
             chip.setOnCloseIconClickListener {
                 dialog.dialog(view.context, "Are you sure delete ${listAbilities[i].abName}") {
@@ -203,6 +218,13 @@ class EngineerEditProfileAbilityFragment : Fragment() {
 
     private fun showToast(view: View, msg: String) {
         Toast.makeText(view.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    private fun fragmentProperties(mFragment: Fragment) {
+        fragmentManager?.beginTransaction()?.apply {
+            replace(R.id.frame_container_setact, mFragment)
+            commit()
+        }
     }
 
     override fun onDestroy() {

@@ -1,4 +1,4 @@
-package com.istekno.gohipeandroidapp.maincontent.engineer
+package com.istekno.gohipeandroidapp.maincontent.engineer.editprofile.portfolio
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.istekno.gohipeandroidapp.R
 import com.istekno.gohipeandroidapp.adapter.ListPortfolioRecycleViewAdapter
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerAddupdatePortfolioDialogBinding
 import com.istekno.gohipeandroidapp.databinding.FragmentEngineerEditProfilePortfolioBinding
 import com.istekno.gohipeandroidapp.remote.ApiClient
 import com.istekno.gohipeandroidapp.retrofit.EngineerGetByIDResponse
@@ -218,8 +219,10 @@ class EngineerEditProfilePortfolioFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            val customView = LayoutInflater.from(context).inflate(R.layout.fragment_engineer_addupdate_portfolio_dialog, null)
-            val imageViewDialog = customView.findViewById<ImageView>(R.id.img_addport)
+            val customView = DataBindingUtil.inflate<FragmentEngineerAddupdatePortfolioDialogBinding>(layoutInflater, R.layout.fragment_engineer_addupdate_portfolio_dialog,
+            null, false)
+
+            val imageViewDialog = customView.imgAddport
             imageViewDialog.setImageURI(data?.data)
             pathImage = getPath(context!!, data?.data!!)
 
