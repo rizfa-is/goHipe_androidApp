@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".maincontent.company.CompanyDetailProjectScreenFragment">
+    tools:context=".ui.company.project.CompanyDetailProjectScreenFragment">
 
     <data>
         <variable
             name="model"
-            type="com.istekno.gohipeandroidapp.retrofit.ProjectModelResponse" />
+            type="com.istekno.gohipeandroidapp.data.source.remote.retrofit.ProjectModelResponse" />
     </data>
 
     <RelativeLayout

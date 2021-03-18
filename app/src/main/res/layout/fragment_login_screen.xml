@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".maincontent.LoginScreenFragment">
+    tools:context=".ui.login.LoginScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -74,16 +74,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_loginfrg_forgot_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/forgot_password"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_password" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_loginfrg_login"
             style="@style/MaterialButton"
@@ -93,7 +83,7 @@
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_loginfrg_forgot_password" />
+            app:layout_constraintTop_toBottomOf="@+id/it_loginfrg_password" />
 
         <TextView
             android:id="@+id/tv_loginfrg_dont_have_account"

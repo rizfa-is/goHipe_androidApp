@@ -1,0 +1,45 @@
+package com.istekno.gohipeandroidapp.ui.engineer.project
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.istekno.gohipeandroidapp.R
+import com.istekno.gohipeandroidapp.databinding.FragmentEngineerDetailProjectScreenBinding
+import com.istekno.gohipeandroidapp.data.source.remote.retrofit.ProjectModelResponse
+
+class EngineerDetailProjectScreenFragment : Fragment() {
+
+    companion object {
+        const val PROJECT_DATA = "project_data"
+
+        const val imageLink = "http://107.22.89.131:7000/image/"
+    }
+
+    private lateinit var binding: FragmentEngineerDetailProjectScreenBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_engineer_detail_project_screen, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val data = activity?.intent?.getParcelableExtra<ProjectModelResponse>(PROJECT_DATA)
+
+        binding.model = data
+        binding.tvEngdetailprojectfrgDeadline.text = binding.model?.pjDeadline!!.split('T')[0]
+        Glide.with(view.context)
+            .load(imageLink + data?.pjImage)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                .error(R.drawable.ic_error))
+            .into(binding.imgEngdetailprojectfrgAvatar)
+    }
+}

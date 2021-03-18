@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.istekno.gohipeandroidapp.retrofit.ExperienceModel" />
+            type="com.istekno.gohipeandroidapp.data.source.remote.retrofit.ExperienceModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

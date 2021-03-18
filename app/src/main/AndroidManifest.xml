@@ -14,20 +14,20 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.GoHipeAndroidApp">
         <activity
-            android:name=".activities.SettingScreenActivity"
+            android:name=".ui.activity.SettingScreenActivity"
             android:theme="@style/Theme.GoHipeAndroidApp.NoActionBar" />
         <activity
-            android:name=".activities.CompanyMainContentActivity"
+            android:name=".ui.company.CompanyMainContentActivity"
             android:theme="@style/Theme.GoHipeAndroidApp.NoActionBar" />
         <activity
-            android:name=".activities.EngineerMainContentActivity"
+            android:name=".ui.engineer.EngineerMainContentActivity"
             android:theme="@style/Theme.GoHipeAndroidApp.NoActionBar" />
-        <activity android:name=".activities.MainScreenActivity" />
-        <activity android:name=".activities.ProfileScreenActivity" />
-        <activity android:name=".activities.LoginRegisterActivity" />
-        <activity android:name=".activities.IntroScreenActivity" />
+        <activity android:name=".ui.activity.MainScreenActivity" />
+        <activity android:name=".ui.activity.ProfileScreenActivity" />
+        <activity android:name=".ui.activity.LoginRegisterActivity" />
+        <activity android:name=".ui.activity.IntroScreenActivity" />
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name=".ui.activity.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
